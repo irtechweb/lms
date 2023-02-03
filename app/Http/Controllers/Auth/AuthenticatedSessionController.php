@@ -76,12 +76,13 @@ class AuthenticatedSessionController extends Controller {
         if ($user) {
 
             Auth::login($user);
-            return redirect()->route('home');
+             return redirect(RouteServiceProvider::HOME);
+            //return redirect()->route('home');
         } else {
             $user = User::create([
                         'first_name' => $data['first_name'],
                         'email' => $data['email'],
-                        $data['is_active'] => '1',
+                        'is_active' => $data['is_active'],
                         'email_verified_at' => date('Y-m-d H:i:s')
             ]);
 
@@ -90,8 +91,7 @@ class AuthenticatedSessionController extends Controller {
             //    dd($a,$user );
             // User::insert($data);
             Auth::login($user);
-            return redirect()->route('home');
-            return view('auth.studentregister', ['name' => $userSocial->getName(), 'email' => $userSocial->getEmail()]);
+            return redirect(RouteServiceProvider::HOME);
         }
     }
 

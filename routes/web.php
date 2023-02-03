@@ -22,14 +22,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-     Route::get('home', [\App\Http\Controllers\SiteController::class, 'index'])
+     Route::get('landing', [\App\Http\Controllers\SiteController::class, 'index'])
         ->name('index');
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
             ->middleware('password.confirm')
             ->name('profile');
 
     Route::get('course', [App\Http\Controllers\CourseController::class, 'couseView'])->name('course');
-    //Route::get('home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
     Route::get('course-lesson/{id}', [App\Http\Controllers\HomeController::class, 'courseLesson'])->name('course-lesson');
     Route::get('course-lesson-number/{id}/{lesson_id}', [App\Http\Controllers\HomeController::class, 'courseLesson'])->name('course-lesson-number');
     Route::get('save_lesson_notes', [App\Http\Controllers\HomeController::class, 'saveLessonNotes']);

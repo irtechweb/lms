@@ -57,7 +57,7 @@ class RegisteredUserController extends Controller {
             //dd($user);
             event(new Registered($user));
 
-            Auth::login($user);
+            //Auth::login($user);
             DB::commit();
             return redirect(RouteServiceProvider::HOME);
         }
