@@ -30,17 +30,19 @@ h1 {
     margin: 0;
 }
 .login{
-    border-radius: 6px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 500;
+    border-radius: 8px;
     background: #fff;
+    border: 1.5px solid #1C1C1C;
+    text-transform: capitalize;
+    padding: 18px 75px 18px 75px;
     box-shadow: 0px 4px 40px rgb(0 0 0 / 12%);
-    border: 1px solid #000;
-    font-size: 1.2rem;
-}
-.login{
-    padding: 16px 50px 16px 50px;
-    font-size: 16px;
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 150%;
+    text-align: center;
+    letter-spacing: 0.01em;
 }
 .login:hover{
     background:#000;
@@ -49,16 +51,20 @@ h1 {
     transition: 0.3s;
 }
 button.start-learning {
-    border-radius: 6px;
-    font-size: 16px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 500;
-    background: #000;
-    border:1px solid #000;
+    border-radius: 8px;
+    background: #1C1C1C;
+    border: 1.5px solid #1C1C1C;
     color: #FFFFC8;
     text-transform: capitalize;
-    padding: 16px 50px 16px 50px;
-    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.12);
+    padding: 18px 75px 18px 75px;
+    box-shadow: 0px 4px 40px rgb(0 0 0 / 12%);
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 150%;
+    text-align: center;
+    letter-spacing: 0.01em;
 
 }
 button.start-learning:hover {
@@ -82,6 +88,9 @@ footer {
 {
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 400;
+}
+.login-action-gap{
+    margin-right: 3rem!important;
 }
 .footer span {
     color: #FFFFC8;
