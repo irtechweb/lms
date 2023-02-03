@@ -48,18 +48,20 @@ class RegisteredUserController extends Controller {
                     'last_name' => $request->last_name,
                     'phone_number' => $request->phone_number,
                     'city' => $request->city,
-                    'email_verify_at' => date('Y-m-d H:i:s'),
+                    //'email_verify_at' => date('Y-m-d H:i:s'),
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
-                    'is_active' => '1'
+                    //'is_active' => '1'
         ]);
         if ($user) {
+            //dd($user);
             event(new Registered($user));
 
             Auth::login($user);
             DB::commit();
             return redirect(RouteServiceProvider::HOME);
         }
+        dd('returning');
         DB::rollback();
         return redirect()->back()->with('Error occurred! please try again');
     }
