@@ -90,7 +90,7 @@ footer {
     font-weight: 400;
 }
 .login-action-gap{
-    margin-right: 3rem!important;
+    margin-right: 2rem!important;
 }
 .footer span {
     color: #FFFFC8;
@@ -109,7 +109,7 @@ footer {
 .footer-link {
     /* display: flex;
     justify-content: flex-start; */
-    margin-top: 50px;
+    margin-top: 45px;
     display: block;
     text-align: center;
     
@@ -122,13 +122,16 @@ footer {
     line-height: 38px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
+    display: inline-block;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 .footer-links a {
     color: #FFFFC8;
     text-decoration: none;
     font-size: 16px;
     display: block;
-    line-height: 38px;
+    line-height: 36px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
 }
@@ -363,7 +366,7 @@ footer {
 .facts {
     display: flex;
     width: 100%;
-    max-width: 660px;
+    max-width: 750px;
     justify-content: space-around;
     margin-bottom: 60px;
 }
@@ -438,13 +441,14 @@ ul.checks li img {
 }
 .hero-heading h1 {
     font-family: 'Space Grotesk', sans-serif !important;
-    font-size: 70px;
+    font-size: 80px;
     line-height: 115px;
     font-weight: 700;
     max-width: 690px;
     text-align: center;
     display: block;
     margin: 0 auto;
+    color: #1C1C1C;
 }
 
 ul.features {
@@ -591,10 +595,10 @@ img.h-patteren {
         grid-gap:10px;
     }
     .membership1{
-        padding:40px !important;
+        padding:60px !important;
     }
     .membership2{
-        padding:40px !important;
+        padding:60px !important;
     }
     /* .h-patteren{
         width: 100%;
@@ -686,8 +690,9 @@ img.h-patteren {
         margin:50px 50px;
         
     }
-    /* body  {
-        width: 100%;
+    /*
+    .body  {
+        background-color: #FFFFC8 !important;
     }
   
     .start-membershipp{
@@ -812,7 +817,7 @@ img.h-patteren {
 }
 .heading {
     color: rgb(221, 216, 216);
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Inter', sans-serif !important;
     padding:0px 0px;
 }
@@ -869,7 +874,7 @@ button.start-membershiIp {
 }
 .heading2 {
     color: #1C1C1C;
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Inter', sans-serif;
 }
 .Sign {
@@ -896,7 +901,7 @@ button.start-membership {
 }
 .social-icon{
     display: flex;
-    gap:30px;
+    gap:52px;
     margin-top: 8px;
 }
 .form-control:focus{
@@ -906,12 +911,12 @@ button.start-membership {
 .membership1{
     background: #1C1C1C;
     border-radius: 12px;
-    padding: 46px;
+    padding: 60px;
 }
 .membership2{
     background: #FFFFC8;
     border-radius: 12px;
-    padding: 45px;
+    padding: 60px;
     border:1px solid #000000;
 }
 .membership2 .price{
@@ -923,7 +928,7 @@ button.start-membership {
     line-height: 40px;
     text-align: center;
     font-weight: 500;
-    margin-top:15%;
+    margin-top:10%;
     text-align: center;
 }
 .mem-btn{
@@ -934,7 +939,7 @@ button.start-membership {
     font-size: 22px;
     line-height: 27px;
     font-family: 'Space Grotesk', sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     background: #FFFFC8;
     border: 1px solid #ffffc8;
     color: #000;

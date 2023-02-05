@@ -1,7 +1,26 @@
-@extends('layouts.landing')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <title>Speak2Impact</title>
+        <!-- css link  -->
+        <link rel="stylesheet" href="{{url('css/landing.css')}}">
+        <link rel="stylesheet" href="{{url('css/owl.carousel.css')}}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!-- Add the slick-theme.css if you want default styling -->
+    </head>
+    <body style="background-color:rgb(255 255 249);">
     <div class="container" style="margin-top: 1.5rem!important; max-width: 1440px;">
-          <nav class="navbar">
+          <nav class="navbar" style="padding-left: 50px;
+    padding-right: 50px;">
             <div class="logo">
             <img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text">
             </div>
@@ -29,7 +48,7 @@
             <div class="container">
                 <div class="hero-top">
                     <div class="hero-heading">
-                        <img src="./images/heading-bg2.svg" alt="" style="--top-right:10px;--bottom-right:50px;background:radial-gradient(#ffffc88a,#fff); z-index:-1;" class="h-patteren">
+                        <img src="./images/heading-bg2.svg" alt="" style="--top-right:10px;--bottom-right:50px;    background: radial-gradient(#ffffc8,#fff);; z-index:-1;" class="h-patteren">
                         <h1>The Art of </br>Public Speaking </h1>    
                         <span>by<img src="./images/r1.png" alt=""><span class="wavy">Susie Ashfield</span></span>                
                     </div>
@@ -59,7 +78,7 @@
 
         <div class="happy-client">
             <div class="container">
-                <h2 class="mb-5">As featured in</h2>
+                <h2 class="mb-7">As featured in</h2>
                 <div class="owl-carousel owl-theme">
                     <div class="item"> <img src="{{url('images/')}}/image-1.png" alt=""></div>
                     <div class="item"><img src="{{url('images/')}}/image-2.png" alt=""></div>
@@ -149,10 +168,10 @@
         </div>
 
         <section class="membership ">
-        <h1 class="mt-5 mb-5" style="display: flex; justify-content: center; color: #1C1C1C; font-weight: 500; font-size: 35px;"> Membership Plans</h1>
+        <h1 class="mt-5 mb-5" style="display: flex; justify-content: center; color: #1C1C1C; font-weight: 500; font-size: 40px;"> Membership Plans</h1>
         <div class="container">
                     <div class="row">
-                        <div class="col-lg-5 offset-sm-1">
+                        <div class="col-lg-6" style="padding-right: 25px; padding-left: 25px;">
                             <div class="membership1">
                                 <div class="mem-btn">
                                 <button class="membership-btn">Annually membership</button>
@@ -168,7 +187,7 @@
                                 <button class="start-membership">Start membership</button>
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6" style="padding-right: 25px; padding-left: 25px;">
                             <div class="membership2">
                             <div class="mem-btn">
                             <button class="membership-btn" style="background-color: #1C1C1C; color: #fff;">Monthly membership</button>
@@ -190,7 +209,7 @@
 
            <div class="container pt-5">
                     <div class="row">
-                        <div class="col-md-10 offset-sm-1">
+                        <div class="col-lg-12">
                         <div class="align-items-center justify-content-center">
                         <div class="Sign " style="border: 1px solid;">
                                 <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign up for Free</h5>
@@ -202,9 +221,81 @@
                     </div>
                  </div>
 
-@endsection
 
+                            <footer>
+                                <div class="container" style="max-width: 1440px;">
+                                    <div class="footer">
+                                        <div class="row">
+                                            <div class="col-md-2 offset-md-1">
+                                               
+                                                <div class="logo">
+                                                     <img src="http://susieashfield.com/logo/Speak_2_Impact_Logo_Black_Bg_white.png" height="100px" class="css-class" alt="alt text">
+                                                </div>
+                                                
+                                                
+                                            </div>
 
+                                            <div class="col-md-6">
+                                                <h3 style="color:#FFFFC8; text-align: center;">©️ Speak2Impact Ltd 2023</h3>
+                                                <div class="footer-link">
+                                                    <a href="#" >Cookie Policy</a>
+                                                    <a href="#" >Privacy Policy</a>
+                                                    <a href="{{route('register')}}" >Terms of Service</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                    <div class="footer-links">
+                                                    <a href="#">Contact us</a>
+                                                    <a href="#">info@speak2impact.com</a>
+                                                    </div>
 
-                            
-                            
+                                                    <div class="social-icon">
+                                                    <a href="#"><img src="{{url('images/')}}/facebook.svg" alt=""></a>
+                                                    <a href="#"><img src="{{url('images/')}}/Vector.svg" alt=""></a>
+                                                    <a href="#"><img src="{{url('images/')}}/Vector.svg" alt=""></a>
+                                                    </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </footer>
+                            <script type="text/javascript" src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
+                            <script>
+$(document).ready(function () {
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 20,
+        nav: true,
+        autoplay: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 6
+            }
+        }
+    });
+
+    $('.counter').each(function () {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+
+});
+                            </script>
+
+                            </body>
+                            </html>

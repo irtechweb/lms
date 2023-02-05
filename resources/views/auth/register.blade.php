@@ -14,13 +14,13 @@
     <div class="container">
    <div class="row">
    <div class="h-100 d-flex align-items-center justify-content-center mt-5 mb-login">
-   <div class="login-area">
+   <div class="login-area" style="width: 612px;">
             <h1>Sign Up</h1>
  
             <span>Get started by filling up details below</span>
             <div class="login-option">
-                <button type="button"> <img src="{{url('images/')}}/google.svg" alt="" /><a href="{{url('login/google')}}" >  Log in with Google </a> </button>
-                <button><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button>
+                <button type="button"> <img src="{{url('images/')}}/google.svg" alt="" /><a href="{{url('login/google')}}" style="color: #3f3f3f;    text-decoration: none;">  Log in with Google </a> </button>
+                <button style="color: #3f3f3f;    text-decoration: none;"><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button>
                 {{-- <button><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button> --}}
             </div>
             <x-auth-validation-errors class="mb-4" :errors="$errors" />

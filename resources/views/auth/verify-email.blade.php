@@ -1,24 +1,15 @@
 @extends('layouts.web')
 @section('content')
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <div class="logo"><h1>{{ __('Speak2Impact Academy') }}</h1></div>
-            </a>
-        </x-slot>
-
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-        </div>
-
-        @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+<div class="container">
+            <nav class="navbar">
+            <div class="logo">  <img src="{{url('logo/logo.jpg')}}" height="70px" width="200px" class="css-class" alt="alt text"></div>
+            <div class="login-action">
+            <a href="{{route('register')}}"><button class="start-learning">Sign Up</button></a>
             </div>
-        @endif
 
-        <div class="mt-4 flex items-center justify-between">
+        
+
+        <!--<div class="mt-4 flex items-center justify-between">
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
 
@@ -27,7 +18,7 @@
                         {{ __('Resend Verification Email') }}
                     </x-button>
                 </div>
-            </form>
+            </form> -->
 
             <!-- <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -36,7 +27,22 @@
                     {{ __('Log Out') }}
                 </button>
             </form> -->
+        </nav>
+       <!-- </div>-->
+        <div class="container">
+        <div class="row">
+        <div class="col-lg-6 offset-md-3 text-center">
+        <div class="login-area">
+        <img class="mx-auto d-block" src="{{url('images/')}}/Mail-box.svg" alt="" style="margin-bottom: 50px;">
+
+
+        <h3 class="h3_heading mb-5">Verify your Email</h3>
+        <p class="mb-5">We’ve sent an email to <strong>James@gmail.com</strong> to verify your email<br/>
+address and activate your account. The link in the email will expire in 24 hours.</p>
+<p class="mb-5"><a href="" >Click here</a> if you did not receive an email or would like to change the email<br/>
+address you signed up with.</p>
         </div>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+        </div>
+        </div>
 @endsection

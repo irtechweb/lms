@@ -11,14 +11,14 @@
         <div class="container">
         <div class="row">
         <div class="h-100 d-flex align-items-center justify-content-center mt-5 mb-login">
-        <div class="login-area">
+        <div class="login-area" style="width: 460px;">
         <h1>Log In</h1>
 
 
         <span>Get started by filling up details below</span>
-        <div class="login-option">
-         <button type="button">   <img src="{{url('images/')}}/google.svg" alt="" /> <a href="{{url('login/google')}}" >  Log in with Google </a> </button>
-            <button><img src="{{url('images/')}}/fb.svg" alt=""> <a href="{{url('login/facebook')}}" > Log in with Facebook </a></button>
+        <div class="login-option" >
+         <button type="button">   <img src="{{url('images/')}}/google.svg" alt="" /> <a href="{{url('login/google')}}" style="color: #3f3f3f;    text-decoration: none;" >  Log in with Google </a> </button>
+            <button><img src="{{url('images/')}}/fb.svg" alt=""> <a href="{{url('login/facebook')}}" style="color: #3f3f3f;    text-decoration: none;"> Log in with Facebook </a></button>
             {{-- <button><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button> --}}
         </div>
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -36,7 +36,7 @@
              </div>
 
         <button type="submit" class="login-m">Log In</button>
-        <a class="mb-4" href="{{url('forgot-password')}}">Forgot Password?</a> 
+        <!-- <a class="mb-4" href="{{url('forgot-password')}}">Forgot Password?</a>  -->
         </form>
         </div>
         </div>
