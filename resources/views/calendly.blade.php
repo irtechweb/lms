@@ -7,7 +7,9 @@
 </div>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if($count>0)
-<div class="calendly-inline-widget" data-url="https://calendly.com/susie-speak2impact-/60min" style="min-width:320px;height:630px;"></div>
+<div class="calendly-inline-widget" data-url="https://calendly.com/susie-speak2impact-/60min" style="min-width:320px;height:630px;">
+    
+</div>
 @else
 <div class="hero">
     <div class="container">

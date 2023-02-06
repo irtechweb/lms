@@ -1,49 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <title>Speak2Impact</title>
-        <!-- css link  -->
-        <link rel="stylesheet" href="{{url('css/landing.css')}}">
-        <link rel="stylesheet" href="{{url('css/owl.carousel.css')}}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-        <!-- Add the slick-theme.css if you want default styling -->
-    </head>
-    <body style="background-color:rgb(255 255 249);">
-    <div class="container" style="margin-top: 1.5rem!important; max-width: 1440px;">
-          <nav class="navbar" style="padding-left: 50px;
-    padding-right: 50px;">
-            <div class="logo">
-            <img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text">
-            </div>
-            <div class="login-action">
-            @if (Auth::check())
-            <a href="{{ route('logout') }}"><button class="login login-action-gap" >Logout</button></a>
-            <a href="{{route('membershipPlans')}}"><button class="start-learning">Start Learning</button></a>
-            @else
-            <a href="{{url('login')}}"><button class="login login-action-gap">Login</button></a>
-            <a href="{{route('register')}}"><button class="start-learning">Sign up</button></a>
-            @endif
-             
-            </div>
-            </nav>
-            @if (Session::has('error'))
-            <div class="alert alert-error text-center">
-                <p>{{ Session::get('error') }}</p>
-            </div>
-
-            @endif
-        </header>
-    </div>
-
+@extends('layouts.landing')
+@section('content')
         <div class="hero">
             <div class="container">
                 <div class="hero-top">
@@ -165,137 +121,104 @@
                     <div class="item"><img src="{{url('images/')}}/c5.png" alt=""></div>
                 </div>
             </div>
-        </div>
-
+        </div>        
         <section class="membership ">
         <h1 class="mt-5 mb-5" style="display: flex; justify-content: center; color: #1C1C1C; font-weight: 500; font-size: 40px;"> Membership Plans</h1>
         <div class="container">
                     <div class="row">
+                        @if(isset($data) && !empty($data))
+                        <?php $i=1;
+                          $divclass = 'membership1';
+                          $saave = 'saave';
+                          $divheading = 'heading';
+                          $style = "";
+                          $checkimage = url('images/check.png');
+                          
+                        ?>
+                        @foreach($data as $key=>$record)
+                        <?php 
+
+                            if($i>1 && $i%2 == 0){
+                            $divclass = 'membership2';
+                            $saave = 'saave2';
+                            $divheading = 'heading2';
+                            $style = "background-color: #1C1C1C; color: #fff;";
+                            $checkimage = url('images/check_black.png');
+
+                          }
+                        ?>
                         <div class="col-lg-6" style="padding-right: 25px; padding-left: 25px;">
-                            <div class="membership1">
+                            <div class="{{$divclass}}">
                                 <div class="mem-btn">
-                                <button class="membership-btn">Annually membership</button>
+                                <button class="membership-btn" style="{{$style}}">{{ucfirst($record['plans'])}} membership</button>
                                 </div>
-                                <h3 class="price">£1200</h3>
-                                <p class="saave">(Save 30% on annually)</p>
-                                <p class="heading"><span><img src="{{url('images/check.png')}}"></span>  Access to all courses</p>
-                                <p class="heading"><span><img src="{{url('images/check.png')}}"></span>  40 mins of 1-to-1 with a coach per month</p>
-                                <p class="heading"><span><img src="{{url('images/check.png')}}"></span>  30% discount on further 1-to-1 coaching sessions</p>
-                                <p class="heading"><span><img src="{{url('images/check.png')}}"></span>  Coach feedback on 2 videos on Yoodli per month</p>
-                                <p class="heading"><span><img src="{{url('images/check.png')}}"></span>  Access to webinars and other pre-recorded content <span><img src="{{url('images/free-white.png')}}"></span></p>
-                                <p class="heading"><span><img src="{{url('images/check.png')}}"></span>  Access to Yoodli <span><img src="{{url('images/free-white.png')}}"></span></p>
-                                <button class="start-membership">Start membership</button>
+                                <h3 class="price">£{{$record['price']}} {{ucfirst($record['plans'])}}</h3>
+                                <p class="{{$saave}}">(Save {{$record['discount_percentage']}}% on {{$record['plans']}})</p>
+                                 @if($record['is_access_cource'] == 1)
+                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>Access to all courses</p>
+                                @endif
+                               <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>{{$record['duration']}} mins of 1-to-1 with a coach per month</p>
+                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>{{$record['discount_percentage']}}% discount on further 1-to-1 coaching sessions</p>
+                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>Coach feedback on {{$record['feedback_video_count']}} videos on Yoodli per month</p>
+                                @if($record['webinar_access'] == '1')
+                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>Access to webinars and other pre-recorded content</p>
+                                @endif
+                                
+                                @if($record['yoodli_access'] == '1')
+                                <p class="{{$divheading}} "><span><img src="{{url('images/check.png')}}"></span>Access to Yoodli</p>
+                                @endif
+                                @if(auth()->check())
+                                <?php 
+
+                                    $route = route('paymentDetails',['user_id'=>(Crypt::encrypt(auth()->user()->id)),'subscription_id'=>(Crypt::encrypt($record['id']))]);
+                                    $label = "Start membership";
+                                ?>
+                                @else
+                                       <?php
+                                        $route = route('home');
+                                        $label = "Sign Up";
+                                        ?>
+                                        
+
+                                 @endif 
+                                <button class="start-membership" route = "{{$route}}" style="{{$style}}">{{$label}} </button> 
                             </div>
                         </div>
-                        <div class="col-lg-6" style="padding-right: 25px; padding-left: 25px;">
-                            <div class="membership2">
-                            <div class="mem-btn">
-                            <button class="membership-btn" style="background-color: #1C1C1C; color: #fff;">Monthly membership</button>
-                            </div>
-                    <h3 class="price">£150.00</h3>
-                    <p class="saave2">(Save 10% on Monthly)</p>
-                    <p class="heading2"><span><img src="{{url('images/check_black.png')}}"></span>  Access to all courses</p>
-                    <p class="heading2"><span><img src="{{url('images/check_black.png')}}"></span>  40 mins of 1-to-1 with a coach per month</p>
-                    <p class="heading2"><span><img src="{{url('images/check_black.png')}}"></span>  30% discount on further 1-to-1 coaching sessions</p>
-                    <p class="heading2"><span><img src="{{url('images/check_black.png')}}"></span>  Coach feedback on 2 videos on Yoodli per month</p>
-                    <p class="heading2"><span><img src="{{url('images/check_black.png')}}"></span>  Access to webinars and other pre-recorded content <span><img src="{{url('images/free-white.png')}}"></span></p>
-                    <p class="heading2"><span><img src="{{url('images/check_black.png')}}"></span>  Access to Yoodli <span><img src="{{url('images/free-white.png')}}"></span></p>
-                    <button class="start-membership" style="background-color:  #1C1C1C; color: #fff;">Start membership</button>
-                            </div>
-                        </div>
+                        <?php $i++;  ?>
+                         @endforeach
+                         @endif
+
+                       
                     </div>
                  </div>                            
         </section>
-
+       
            <div class="container pt-5">
+             @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ) && Auth::user()->is_sign_up_free == 0)
                     <div class="row">
                         <div class="col-lg-12">
                         <div class="align-items-center justify-content-center">
                         <div class="Sign " style="border: 1px solid;">
                                 <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign up for Free</h5>
                                 <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
-                                <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;">Sign for Free</button>
+                                <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;"><a href="{{url('signupfree')}}">Sign for Free</a></button>
                             </div>
                         </div>
                         </div>
                     </div>
+            @endif
                  </div>
+<script type="text/javascript">
+    
+    $('button.start-membership').on('click',function(){
+
+        console.log($(this).attr('route'));
+        location.replace($(this).attr('route'));
+    })
+</script>
+        
+@endsection('content')
 
 
-                            <footer>
-                                <div class="container" style="max-width: 1440px;">
-                                    <div class="footer">
-                                        <div class="row">
-                                            <div class="col-md-2 offset-md-1">
-                                               
-                                                <div class="logo">
-                                                     <img src="http://susieashfield.com/logo/Speak_2_Impact_Logo_Black_Bg_white.png" height="100px" class="css-class" alt="alt text">
-                                                </div>
-                                                
-                                                
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <h3 style="color:#FFFFC8; text-align: center;">©️ Speak2Impact Ltd 2023</h3>
-                                                <div class="footer-link">
-                                                    <a href="#" >Cookie Policy</a>
-                                                    <a href="#" >Privacy Policy</a>
-                                                    <a href="{{route('register')}}" >Terms of Service</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                    <div class="footer-links">
-                                                    <a href="#">Contact us</a>
-                                                    <a href="#">info@speak2impact.com</a>
-                                                    </div>
-
-                                                    <div class="social-icon">
-                                                    <a href="#"><img src="{{url('images/')}}/facebook.svg" alt=""></a>
-                                                    <a href="#"><img src="{{url('images/')}}/Vector.svg" alt=""></a>
-                                                    <a href="#"><img src="{{url('images/')}}/Vector.svg" alt=""></a>
-                                                    </div>
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </footer>
-                            <script type="text/javascript" src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
-                            <script>
-$(document).ready(function () {
-    $('.owl-carousel').owlCarousel({
-        loop: true,
-        margin: 20,
-        nav: true,
-        autoplay: true,
-        responsive: {
-            0: {
-                items: 2
-            },
-            600: {
-                items: 3
-            },
-            1000: {
-                items: 6
-            }
-        }
-    });
-
-    $('.counter').each(function () {
-        $(this).prop('Counter', 0).animate({
-            Counter: $(this).text()
-        }, {
-            duration: 4000,
-            easing: 'swing',
-            step: function (now) {
-                $(this).text(Math.ceil(now));
-            }
-        });
-    });
-
-});
-                            </script>
-
-                            </body>
-                            </html>
+                            
+                           

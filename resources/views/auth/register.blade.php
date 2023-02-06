@@ -3,13 +3,13 @@
 
 
 
-    <div class="container  mt-4">
+    <!-- <div class="container  mt-4">
                 <nav class="navbar">
                     <div class="logo">  <img src="{{url('logo/Speak2Impact Academy.png')}}" height="70px" width="200px" class="css-class" alt="alt text"></div>
                     <div class="login-action">
                     <a href="{{route('login')}}"><button class="start-learning">Login</button></a>                </div>
                 </nav>
-    </div>
+    </div> -->
  
     <div class="container">
    <div class="row">

@@ -5,7 +5,7 @@
                                             <div class="col-md-2">
                                                
                                                 <div class="logo">
-                                                     <img src="{{url('logo/Speak_2_Impact_Logo_Black_Bg_white.png')}}" height="80px" class="css-class" alt="alt text">
+                                                     <img src="http://susieashfield.com/logo/Susie_Ashfield_Logo_Black_Bg.png" height="60px" class="css-class" alt="alt text">
                                                 </div>
                                                 
                                                 
@@ -35,16 +35,5 @@
                                         </div>
                                         
                                     </div>
-                                    
                                 </div>
                             </footer>
-
-<!-- <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'></script>
-<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script> -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'></script>
-<script>
-
-</script>
-</body>
-</html>

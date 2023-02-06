@@ -7,6 +7,7 @@
 
 <body class="">
 	<div class="loaderImage"></div>
+  @include('includes.landing.header')
   @yield('content')   
   @include('includes.landing.footer')
   @include('includes.landing.script')

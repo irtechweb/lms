@@ -135,6 +135,20 @@ Subscription Listing
                                                 </div>
                                               </div>
                                           </div>
+
+                                          <div class="form-group col-md-4">
+                                              <label class="form-control-label">Available For Free</label>
+                                              <div>
+                                                <div class="radio-custom radio-default radio-inline">
+                                                  <input type="radio" id="inputBasicActive" name="is_on_free" value="1" @if($course->is_on_free) checked @endif />
+                                                  <label for="inputBasicActive">Yes</label>
+                                                </div>
+                                                <div class="radio-custom radio-default radio-inline">
+                                                  <input type="radio" id="inputBasicInactive" name="is_on_free" value="0" @if(!$course->is_on_free) checked @endif/>
+                                                  <label for="inputBasicInactive">No</label>
+                                                </div>
+                                              </div>
+                                          </div>
                                   
                                   
                                   

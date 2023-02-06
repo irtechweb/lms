@@ -493,6 +493,7 @@ class CourseController extends Controller {
             'course_title' => 'required|string|max:50',
             'category_id' => 'required',
             'instruction_level_id' => 'required',
+            'is_on_free' => 'required|in:0,1',
         ];
 
         $validator = Validator::make($request->all(), $validation_rules);
@@ -518,7 +519,7 @@ class CourseController extends Controller {
             $finalSlug = ($results['0']->total > 0) ? "{$slug}-{$results['0']->total}" : $slug;
             $course->course_slug = $finalSlug;
         }
-
+        //dd($request->input('is_on_free'));
         $course->course_title = $request->input('course_title');
         $course->instructor_id = \Auth::user()->id;
         $course->category_id = $request->input('category_id');
@@ -531,6 +532,7 @@ class CourseController extends Controller {
         $course->strike_out_price = $request->input('strike_out_price');
 
         $course->is_active = $request->input('is_active');
+        $course->is_on_free = $request->input('is_on_free');
         $course->save();
 
         $course_id = $course->id;

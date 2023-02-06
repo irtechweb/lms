@@ -1,13 +1,6 @@
 @extends('layouts.web')
 @section('content')
-        <div class="container">
-            <nav class="navbar">
-            <div class="logo">  <img src="{{url('logo/Speak2Impact Academy.png')}}" height="70px" width="200px" class="css-class" alt="alt text"></div>
-            <div class="login-action">
-            <a href="{{route('register')}}"><button class="start-learning">Sign Up</button></a>
-            </div>
-        </nav>
-        </div>
+        
         <div class="container">
         <div class="row">
         <div class="h-100 d-flex align-items-center justify-content-center mt-5 mb-login">
@@ -36,7 +29,7 @@
              </div>
 
         <button type="submit" class="login-m">Log In</button>
-        <!-- <a class="mb-4" href="{{url('forgot-password')}}">Forgot Password?</a>  -->
+        <a class="mb-4" href="{{url('forgot-password')}}">Forgot Password?</a> 
         </form>
         </div>
         </div>

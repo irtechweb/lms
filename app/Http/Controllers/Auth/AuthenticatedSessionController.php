@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Socialite;
 use App\Models\{
     User,
-    Role
+    Role,
+    UserLoginLog
 };
 
 class AuthenticatedSessionController extends Controller {
@@ -34,7 +35,10 @@ class AuthenticatedSessionController extends Controller {
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        User::where('id',Auth::guard('web')->user()->id)->update(['last_login_at'=>date('Y-m-d H:i:s')]);
+        $user = User::where('id',Auth::guard('web')->user()->id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
+        //dd($user);
+        UserLoginLog::saveData($user);
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -45,7 +49,16 @@ class AuthenticatedSessionController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request) {
+        $user = User::where('id',Auth::guard('web')->user()->id);
+        $user_id = Auth::guard('web')->user()->id;
         Auth::guard('web')->logout();
+        if($user != NULL){
+            $user->update(['last_logout_at'=>date('Y-m-d H:i:s')]);
+            $user = User::where('id',$user_id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
+            UserLoginLog::saveData($user);
+
+        }
+       
 
         $request->session()->invalidate();
 
@@ -76,6 +89,10 @@ class AuthenticatedSessionController extends Controller {
         if ($user) {
 
             Auth::login($user);
+            //----------logging logins
+            $user = User::where('id',$user->id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
+            UserLoginLog::saveData($user);
+            //------------------------
              return redirect(RouteServiceProvider::HOME);
             //return redirect()->route('home');
         } else {
@@ -91,8 +108,22 @@ class AuthenticatedSessionController extends Controller {
             //    dd($a,$user );
             // User::insert($data);
             Auth::login($user);
+            //----------logging logins
+            $user = User::where('id',$user->id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
+            UserLoginLog::saveData($user);
+            //------------------------
             return redirect(RouteServiceProvider::HOME);
         }
+    }
+
+    public function signUpFree() {
+
+        
+        \DB::table('users')
+            ->where('id', Auth::user()->id)
+            ->update(['is_sign_up_free'=>1]);
+        return redirect('/');
+        
     }
 
 }

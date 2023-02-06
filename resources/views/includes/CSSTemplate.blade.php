@@ -7,7 +7,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>Speak2 Impact Academy</title>
+        <title>{{env('APP_NAME')}}</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -33,11 +33,20 @@
 siteUrl = '<?php echo URL::to('/'); ?>/';
     </script>
     <body>
+        <?php 
+        use App\Models\UserSubscribedPlan;
+        $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
+
+        
+        ?>
         <header class="main-site">
             <div class="container">
                 <div class="main-header">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <img src="{{url('logo/logo.jpg')}}" height="80px"  class="css-class" alt="alt text">
+                        <div class="logo">
+                            <a href="{{url('/')}}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text"></a>
+                         </div>
+                        
                         <!-- <a class="navbar-brand" href="#">Speak2Impact Academy</a> -->
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -45,10 +54,10 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" aria-current="page" href="{{url('home')}}">Home</a>
+                                    <a class="nav-link {{ Request::segment(1) === '/' ? 'active' : null }}" aria-current="page" href="{{url('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::segment(1) === 'practise' ? 'active' : null }}" href="#">Courses</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="#">Courses</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::segment(1) === 'calendly' ? 'active' : null }}" href="{{url('calendly')}}">Schedule meeting with Coach</a>
@@ -68,7 +77,28 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                             </button> -->
                             <img data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="dropdownMenuButton" src="{{url('images/user1.png')}}" alt="">
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a href="{{ route('logout') }}">logout</a>
+                                
+                                <div>
+                                    <?php if($subs != NULL){ ?>
+                                        <span>{{$subs->plans}}</span><br><span>Expiring on {{$subs->subscription_end_date}} </span>;
+                                    <?php }  else
+                                        {
+                                            if (Auth::user()->is_sign_up_free == 1){ ?>
+                                                 Free Subscription
+                                        <?php } else{ ?>
+
+                                            Not Subsribed yet
+
+                                        <?php }    
+
+                                        } ?>
+                                       
+                                    
+
+                                </div>
+                                <div>
+                                    <a href="{{ route('logout') }}">logout</a>
+                                </div>
 
                             </div>
                         </div>
