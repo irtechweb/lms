@@ -179,8 +179,8 @@
                                 ?>
                                 @else
                                        <?php
-                                        $route = route('home');
-                                        $label = "Sign Up";
+                                        $route = route('register');
+                                        $label = "Start membership";
                                         ?>
                                         
 
@@ -198,7 +198,7 @@
         </section>
        
            <div class="container pt-5">
-             @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ) && Auth::user()->is_sign_up_free == 0 && Auth::user()->getUserSubscription(Auth::user()->id) == null))
+             <!-- @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ) && Auth::user()->is_sign_up_free == 0 && Auth::user()->getUserSubscription(Auth::user()->id) == null)) -->
                     <div class="row">
                         <div class="col-lg-12">
                         <div class="align-items-center justify-content-center">
@@ -210,7 +210,7 @@
                         </div>
                         </div>
                     </div>
-            @endif
+            <!-- @endif -->
                  </div>
 <script type="text/javascript">
     
