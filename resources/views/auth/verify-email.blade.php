@@ -1,6 +1,6 @@
-@extends('layouts.web')
+@extends('layouts.landing')
 @section('content')
-<div class="container">
+<!-- <div class="container"> -->
 
         <div class="mt-4 flex items-center justify-between">
             <!--<form method="POST" action="{{ route('verification.send') }}">
@@ -21,7 +21,7 @@
                 </button>
             </form> -->
         <!-- </nav> -->
-        </div>
+        <!-- </div> -->
         <div class="container">
         <div class="row">
         <div class="col-lg-6 offset-md-3 text-center">

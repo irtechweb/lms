@@ -1,5 +1,5 @@
 <?php //dd(Request::segment(1)) ;?>
-<div class="container" style="margin-top: 1.5rem!important; max-width: 1440px;">
+<div class="container" style=" max-width: 1440px;">
           <nav class="navbar" style="padding-left: 50px;
     padding-right: 50px;">
             <div class="logo">

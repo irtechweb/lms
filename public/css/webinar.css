@@ -65,7 +65,7 @@ header.main-site {
 
 
 
-footer {
+/*footer {
     background: #1c1c1c;
     padding: 40px 0;
 }
@@ -81,9 +81,9 @@ footer {
 .footer-top {
     display: flex;
     align-items: center;
-}
+}*/
 
-.footer-link {
+/*.footer-link {
     display: flex;
     margin-left: 10px;
 }
@@ -96,7 +96,7 @@ footer {
     line-height: 26px;
     font-weight: 500;
     font-family: 'Space Grotesk', sans-serif;
-}
+}*/
 
 
 /* ================   Webinar CSS   ============ */

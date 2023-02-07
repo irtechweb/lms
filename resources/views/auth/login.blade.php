@@ -29,7 +29,8 @@
              </div>
 
         <button type="submit" class="login-m">Log In</button>
-        <a class="mb-4" href="{{url('forgot-password')}}">Forgot Password?</a> 
+        <a class="mb-4" href="{{url('forgot-password')}}" style="float: right;
+    margin-top: 4px;">Forgot Password?</a> 
         </form>
         </div>
         </div>

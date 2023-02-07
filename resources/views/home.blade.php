@@ -41,7 +41,7 @@
 <!-- ===============   Chapter Start   ============== -->
 <?php if(count($courses) > 0){?>
 <div class="chapter-detail" >
-    <div class="container">
+    <!-- <div class="container">
         <div class="chapter-detail-content"style="background-color: #1C1C1C; color: white;">
             <div class="chapter-header">
                 <h6>Continue learning</h6> 
@@ -81,9 +81,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
-</div>
+<!-- </div> -->
 <!-- ===============   Chapter End   ============== -->
 <div class="upcoming-webinar">
     <div class="container">

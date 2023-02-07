@@ -1,4 +1,4 @@
-<div class="container" style="margin-top: 1.5rem!important; max-width: 1440px;">
+<div class="container" style=" max-width: 1440px;">
           <header>
           <nav class="navbar" style="padding-left: 50px;
     padding-right: 50px;">
@@ -11,7 +11,9 @@
             <a href="{{route('membershipPlans')}}"><button class="start-learning">Start Learning</button></a>
             @else
             <a href="{{url('login')}}"><button class="login login-action-gap">Login</button></a>
+            @if(Request::segment(1) != "verify-email" )
             <a href="{{route('register')}}"><button class="start-learning">Sign up</button></a>
+            @endif
             @endif
              
             </div>

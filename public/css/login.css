@@ -81,7 +81,7 @@ footer {
     margin-left: 10px;
 } */
 
-.footer-link a {
+/*.footer-link a {
     color: var(--primary-color);
     text-decoration: none;
     margin-left: 90px;
@@ -89,7 +89,7 @@ footer {
     line-height: 26px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
-}
+}*/
 
 /* =============   Login CSS   =========== */
 

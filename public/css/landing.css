@@ -812,14 +812,15 @@ img.h-patteren {
     color: #FFFFC8;
     text-align: center;
     font-weight: 500;
-    margin-bottom: 15%;
+    margin-bottom: 13%;
     font-family: 'Inter', sans-serif !important;
 }
 .heading {
     color: rgb(221, 216, 216);
     font-size: 14px;
     font-family: 'Inter', sans-serif !important;
-    padding:0px 0px;
+    margin-bottom: 1px
+
 }
 button.start-membershiIp {
     font-size: 18px;
@@ -866,16 +867,22 @@ button.start-membershiIp {
 }
 .saave2 {
     color: #1C1C1C ;
-    text-align: center;
+    /*text-align: center;
     margin-bottom: 15%;
     font-weight: 500;
     margin-bottom: 15%;
+    font-family: 'Inter', sans-serif !important;*/
+    text-align: center;
+    font-weight: 500;
+    /*margin-bottom: 13%;*/
+    margin-bottom: 23px
     font-family: 'Inter', sans-serif !important;
 }
 .heading2 {
     color: #1C1C1C;
     font-size: 14px;
     font-family: 'Inter', sans-serif;
+    margin-bottom: 1px
 }
 .Sign {
     border-radius: 12px;
@@ -960,4 +967,13 @@ button.start-membership {
     text-align: -webkit-left !important;
     margin-left: -22px !important;
 }
+}
+
+p.heading span img{
+
+    padding: 10px
+}
+p.heading2 span img{
+
+    padding: 10px
 }

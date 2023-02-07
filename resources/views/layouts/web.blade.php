@@ -9,7 +9,7 @@
 	<div class="loaderImage"></div>
   @include('includes.web.header')
   @yield('content')   
-  @include('includes.web.footer')
+  @include('includes.landing.footer')
   @include('includes.web.script')
  
   

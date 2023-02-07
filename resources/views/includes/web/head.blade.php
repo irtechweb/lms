@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{url('css/')}}/signup.css">
 
     <link rel="stylesheet" href="{{url('css/')}}/login.css">
+    <link rel="stylesheet" href="{{url('css/')}}/landing.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <style type="text/css">
                 .loaderImage {

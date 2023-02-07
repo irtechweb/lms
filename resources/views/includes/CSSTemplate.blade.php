@@ -17,6 +17,9 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- css link  -->
+        <link rel="stylesheet" href="{{url('css/landing.css')}}">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
         <link rel="stylesheet" href="{{asset('/css/course.css')}}">
         <link rel="stylesheet" href="{{asset('/css/membership2.css')}}">
         <link rel="stylesheet" href="{{asset('/css/webinar.css')}}">

@@ -76,7 +76,7 @@ header.main-site {
     object-fit: cover;
 }
 
-footer {
+/*footer {
     background: #1c1c1c;
     padding: 40px 0;
 }
@@ -87,9 +87,9 @@ footer {
     line-height: 36px;
     font-size: 24px;
     margin: 0;
-}
+}*/
 
-.footer-top {
+/*.footer-top {
     display: flex;
     align-items: center;
     font-family: 'Space Grotesk', sans-serif !important;
@@ -98,9 +98,9 @@ footer {
 .footer-link {
     display: flex;
     margin-left: 10px;
-}
+}*/
 
-.footer-link a {
+/*.footer-link a {
     color: #FFFFC8;
     text-decoration: none;
     margin-left: 90px;
@@ -108,12 +108,12 @@ footer {
     line-height: 26px;
     font-weight: 500;
     font-family: 'Space Grotesk', sans-serif;
-}
-
+}*/
+/*
 .social-icon {
     display: flex;
     gap: 30px;
-}
+}*/
 
 /* ================   Webinar CSS   ============ */
 
@@ -569,7 +569,7 @@ header.main-site {
 
 
 
-footer {
+/*footer {
     background: #1c1c1c;
     padding: 40px 0;
 }
@@ -586,8 +586,8 @@ footer {
     display: flex;
     align-items: center;
 }
-
-.footer-link {
+*/
+/*.footer-link {
     display: flex;
     margin-left: 10px;
 }
@@ -600,7 +600,7 @@ footer {
     line-height: 26px;
     font-weight: 500;
     font-family: 'Space Grotesk', sans-serif;
-}
+}*/
 
 
 /* ================   Webinar CSS   ============ */
@@ -828,14 +828,14 @@ footer {
        font-size: 15px;
 
      } */
-     .footer-link {
+    /* .footer-link {
         display: grid;
         grid-gap: 10px;
     }
-        .footer-link a{
-            /* font-size: 12px; */
-            margin-left: 3%;
-        }
+    .footer-link a{
+        
+        margin-left: 3%;
+    }*/
 }
 @media only screen and (min-width:768px) and (max-width:991px){
     .container{
@@ -932,7 +932,7 @@ footer {
        font-size: 15px;
 
      }
-     .footer-link{
+    /* .footer-link{
         float: left;
       margin-left: -10%;
       justify-content: space-between;
@@ -940,9 +940,9 @@ footer {
   .footer-link a{
     font-size: 12px;
     margin-left: 3%;
-  }
+  }*/
 }
-.footer-link a {
+/*.footer-link a {
     color: #FFFFC8;
     text-decoration: none;
     font-size: 16px;
@@ -971,7 +971,7 @@ footer {
     margin-top: 50px;
     display: block;
     text-align: center;
-}
+}*/
 .nav-tabs .nav-item {
     width: 50%;
 }

@@ -37,7 +37,7 @@ button.start-learning {
     text-transform: capitalize;
     margin-left: 26px;
 }
-
+/*
 footer {
     background: #1c1c1c;
     padding: 40px 0;
@@ -55,9 +55,9 @@ footer {
     display: flex;
     align-items: center;
     font-family: 'Space Grotesk', sans-serif !important;   
-}
+}*/
 
-.footer-link {
+/*.footer-link {
     display: flex;
     margin-left: 10px;
 }
@@ -70,11 +70,11 @@ footer {
     line-height: 26px;
     font-weight: 500;
     font-family: 'Space Grotesk', sans-serif;
-}
-.social-icon {
+}*/
+/*.social-icon {
     display: flex;
     gap: 30px;
-}
+}*/
 
 /* =============   Membership CSS   =========== */
 
@@ -689,10 +689,10 @@ select.list-dt:focus {
         display: grid;
         grid-template-columns: 1fr;
     }
-    .footer-link{
+    /*.footer-link{
         display: grid;
         grid-gap:10px;
-    }
+    }*/
     .membership-plan{
         margin-top:30px;
     }

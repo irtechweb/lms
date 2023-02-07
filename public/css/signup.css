@@ -39,7 +39,7 @@ button.start-learning {
     margin-left: 26px;
 }
 
-footer {
+/*footer {
     background: #1c1c1c;
     padding: 40px 0;
 }
@@ -55,14 +55,14 @@ footer {
 .footer-top {
     display: flex;
     align-items: center;
-}
+}*/
 
 /* .footer-link {
     display: flex;
     margin-left: 10px;
 } */
 
-.footer-link a {
+/*.footer-link a {
     color: #FFFFC8;
     text-decoration: none;
     margin-left: 90px;
@@ -70,7 +70,7 @@ footer {
     line-height: 26px;
     font-weight: 500;
     font-family: 'Space Grotesk', sans-serif;
-}
+}*/
 
 /* =============   Sign up CSS   =========== */
 

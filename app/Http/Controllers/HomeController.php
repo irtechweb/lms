@@ -111,7 +111,7 @@ class HomeController extends Controller {
             $data['access'] = 'false';
         }
 
-        //    dd($data);
+        //dd($data);
         return view('lesson', $data);
     }
 

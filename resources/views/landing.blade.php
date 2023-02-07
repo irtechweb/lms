@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>        
-        <section class="membership ">
+        <section class="membership">
         <h1 class="mt-5 mb-5" style="display: flex; justify-content: center; color: #1C1C1C; font-weight: 500; font-size: 40px;"> Membership Plans</h1>
         <div class="container">
                     <div class="row">
@@ -153,19 +153,23 @@
                                 <button class="membership-btn" style="{{$style}}">{{ucfirst($record['plans'])}} membership</button>
                                 </div>
                                 <h3 class="price">£{{$record['price']}} {{ucfirst($record['plans'])}}</h3>
-                                <p class="{{$saave}}">(Save {{$record['discount_percentage']}}% on {{$record['plans']}})</p>
+                                
+                                <p class="{{$saave}}">
+                                        @if($record['plans'] == "yearly")
+                                (Save {{$record['discount_percentage']}}% on {{$record['plans']}})@endif</p>
+                                
                                  @if($record['is_access_cource'] == 1)
-                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>Access to all courses</p>
+                                <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to all courses</p>
                                 @endif
-                               <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>{{$record['duration']}} mins of 1-to-1 with a coach per month</p>
-                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>{{$record['discount_percentage']}}% discount on further 1-to-1 coaching sessions</p>
-                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>Coach feedback on {{$record['feedback_video_count']}} videos on Yoodli per month</p>
+                               <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>{{$record['duration']}} mins of 1-to-1 with a coach per month</p>
+                                <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>{{$record['discount_percentage']}}% discount on further 1-to-1 coaching sessions</p>
+                                <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Coach feedback on {{$record['feedback_video_count']}} videos on Yoodli per month</p>
                                 @if($record['webinar_access'] == '1')
-                                <p class="{{$divheading}} "><span><img src="{{$checkimage}}"></span>Access to webinars and other pre-recorded content</p>
+                                <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to webinars and other pre-recorded content</p>
                                 @endif
                                 
                                 @if($record['yoodli_access'] == '1')
-                                <p class="{{$divheading}} "><span><img src="{{url('images/check.png')}}"></span>Access to Yoodli</p>
+                                <p class="{{$divheading}}"><span><img src="{{url('images/check.png')}}"></span>Access to Yoodli</p>
                                 @endif
                                 @if(auth()->check())
                                 <?php 
@@ -194,7 +198,7 @@
         </section>
        
            <div class="container pt-5">
-             @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ) && Auth::user()->is_sign_up_free == 0)
+             @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ) && Auth::user()->is_sign_up_free == 0 && Auth::user()->getUserSubscription(Auth::user()->id) == null))
                     <div class="row">
                         <div class="col-lg-12">
                         <div class="align-items-center justify-content-center">

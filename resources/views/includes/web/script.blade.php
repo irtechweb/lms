@@ -1,7 +1,7 @@
-<!-- <script>
+<script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '3200592253586677',
+      appId      : '598391572121134',
       cookie     : true,
       xfbml      : true,
       version    : '{api-version}'
@@ -18,7 +18,7 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script> -->
+</script>
 
 <script type="text/javascript">
   

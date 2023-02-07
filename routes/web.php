@@ -26,7 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-     Route::get('landing', [\App\Http\Controllers\SiteController::class, 'index'])
+     Route::get('landing', [\App\Http\Controllers\SiteController::class, 'home'])
         ->name('index');
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
            // ->middleware('password.confirm')
