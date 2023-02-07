@@ -26,7 +26,7 @@
                                                     </div>
 
                                                     <div class="social-icon">
-                                                    <a href="https://www.instagram.com/speak2impact/"><img src="{{url('images/')}}/Instagram.svg" alt=""></a>
+                                                    <a href="https://www.instagram.com/speak2impact/"><img src="{{url('images/')}}/instagram.svg" alt=""></a>
                                                     <a href="https://www.tiktok.com/@smashfield89"><img src="{{url('images/')}}/Vector.svg" alt=""></a>
                                                     <a href="https://www.linkedin.com/in/susannahashfield/"><img src="{{url('images/')}}/facebook.svg" alt=""></a>
                                                     </div>
