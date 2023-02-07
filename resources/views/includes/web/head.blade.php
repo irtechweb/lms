@@ -7,3 +7,21 @@
     <link rel="stylesheet" href="{{url('css/')}}/signup.css">
 
     <link rel="stylesheet" href="{{url('css/')}}/login.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <style type="text/css">
+                .loaderImage {
+                       display: none;
+                       position: fixed;
+                       top: 0px;
+                       right: 0px;
+                       width: 100%;
+                       height: 100%;
+                       background-color: #000;
+                       background-image: url('images/loading.gif');
+                       background-repeat: no-repeat;
+                       background-position: center;
+                       z-index: 10000000;
+                       opacity: 0.4;
+                       filter: alpha(opacity=40); /* For IE8 and earlier */
+                   }
+        </style>

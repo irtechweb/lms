@@ -6,7 +6,7 @@
             <img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text">
             </div>
             <div class="login-action">
-            @if (Auth::check())
+            @if (Auth::check() && Auth::user()->email_verified_at)
             <a href="{{ route('logout') }}"><button class="login login-action-gap" >Logout</button></a>
             <a href="{{route('membershipPlans')}}"><button class="start-learning">Start Learning</button></a>
             @else

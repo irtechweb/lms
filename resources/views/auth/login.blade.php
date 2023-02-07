@@ -12,7 +12,7 @@
         <div class="login-option" >
          <button type="button">   <img src="{{url('images/')}}/google.svg" alt="" /> <a href="{{url('login/google')}}" style="color: #3f3f3f;    text-decoration: none;" >  Log in with Google </a> </button>
             <button><img src="{{url('images/')}}/fb.svg" alt=""> <a href="{{url('login/facebook')}}" style="color: #3f3f3f;    text-decoration: none;"> Log in with Facebook </a></button>
-            {{-- <button><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button> --}}
+            
         </div>
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

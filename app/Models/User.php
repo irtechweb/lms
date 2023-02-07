@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserSubscribedPlan;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -56,5 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Hash::needsRehash($value) ? \Hash::make($value) : $value;
+    }
+    public function getUserSubscription($user_id)
+    {
+        
+        return UserSubscribedPlan::where('user_id',$user_id)->whereRaw('subscription_end_date >= now()')->orderby('subscription_end_date','desc')->first();
     }
 }

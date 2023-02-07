@@ -20,6 +20,9 @@ Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
 require __DIR__ . '/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
+     Route::get('vprofile', function () {
+        return view('profile');
+    })->name('vprofile');
     Route::get('dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

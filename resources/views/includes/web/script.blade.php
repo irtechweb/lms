@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '3200592253586677',
@@ -18,4 +18,13 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+</script> -->
+
+<script type="text/javascript">
+  
+  $( "form" ).on( "submit", function( event ) {
+    
+    $('div.loaderImage').show();
+    });
+  
 </script>

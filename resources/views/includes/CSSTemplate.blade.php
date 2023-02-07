@@ -27,6 +27,25 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <style type="text/css">
+                .loaderImage {
+                       display: none;
+                       position: fixed;
+                       top: 0px;
+                       right: 0px;
+                       width: 100%;
+                       height: 100%;
+                       background-color: #000;
+                       background-image: url('images/loading.gif');
+                       background-repeat: no-repeat;
+                       background-position: center;
+                       z-index: 10000000;
+                       opacity: 0.4;
+                       filter: alpha(opacity=40); /* For IE8 and earlier */
+                   }
+        </style>
+
 
     </head>
     <script>
@@ -57,7 +76,14 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                     <a class="nav-link {{ Request::segment(1) === '/' ? 'active' : null }}" aria-current="page" href="{{url('/')}}">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="#">Courses</a>
+                                    
+                                     @if (Auth::check() && (isset(Auth::user()->email_verified_at)) && Auth::user()->getUserSubscription(Auth::user()->id) == null)
+                                     <?php ?>
+                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{url('home')}}"><i class="fa fa-lock" aria-hidden="true" color="black">X  </i>Courses</a>
+                                    
+                                    @else
+                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{url('home')}}">Courses</a>
+                                    @endif
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::segment(1) === 'calendly' ? 'active' : null }}" href="{{url('calendly')}}">Schedule meeting with Coach</a>
@@ -77,7 +103,9 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                             </button> -->
                             <img data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="dropdownMenuButton" src="{{url('images/user1.png')}}" alt="">
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                
+                                <div>
+                                    <a href="{{ route('vprofile') }}">View Profile</a>
+                                </div>
                                 <div>
                                     <?php if($subs != NULL){ ?>
                                         <span>{{$subs->plans}}</span><br><span>Expiring on {{$subs->subscription_end_date}} </span>;

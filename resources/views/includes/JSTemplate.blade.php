@@ -46,5 +46,13 @@
 <script>
 
 </script>
+<script type="text/javascript">
+  
+  $( "form" ).on( "submit", function( event ) {
+    
+    $('div.loaderImage').show();
+    });
+  
+</script>
 </body>
 </html>

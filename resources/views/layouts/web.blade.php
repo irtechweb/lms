@@ -11,7 +11,9 @@
   @yield('content')   
   @include('includes.web.footer')
   @include('includes.web.script')
+ 
   
 </body>
+
 
 </html>
