@@ -10,7 +10,7 @@ class UserLoginLog extends Model {
     use HasFactory;
 
     protected $table = 'user_login_logs';
-    protected $guarded = ['id'];
+    protected $guarded = ['id',];
 
     /**
      * The attributes that are mass assignable.
