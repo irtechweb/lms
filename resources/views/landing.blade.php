@@ -169,7 +169,7 @@
                                 @endif
                                 
                                 @if($record['yoodli_access'] == '1')
-                                <p class="{{$divheading}}"><span><img src="{{url('images/check.png')}}"></span>Access to Yoodli</p>
+                                <p class="{{$divheading}}"><span><img src="{{{$checkimage}}"></span>Access to Yoodli</p>
                                 @endif
                                 @if(auth()->check())
                                 <?php 
