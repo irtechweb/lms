@@ -5,7 +5,7 @@
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
                        
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="rounded-circle mx-auto d-block" alt="avatar">
+                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle mx-auto d-block" alt="avatar">
                     <br/>
                     <div class="profile-work text-center">
                         <h5 class="cfhp">
@@ -17,7 +17,7 @@
                                     <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; Karachi</p>
                         </div> 
                     </div>
-                    <div class="col-md-6 offset-md-2">
+                    <div class="col-md-7 offset-md-2">
                         <div class="profile-head">
                                    
                             <ul class="nav nav-tabs text-center" id="myTab" role="tablist">
@@ -46,7 +46,7 @@
                                                     <p class="cf">+92 310 206 9028</p>
                                                 </div>
                                             </div>
-                                            <div class="row mt-3">
+                                            <div class="row">
                                                 <div class="col-md-6">
                                                 <h6 class="cfh">Password</h6>
                                                     <p class="cf">*********</p>
@@ -84,8 +84,7 @@
                         <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
                     </div> -->
                 </div>
-            </form> 
-            <div style="height: 200px;" ></div>         
+            </form>           
         </div>
 @endsection('content')
 

@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="{{ url('theme/app-assets/images/ico/apple-icon-120.png') }}">
 {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/theme/app-assets/images/ico/boatek.png') }}"> --}}
 <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {{--jquery for globally access ajax calls--}}
 <!-- BEGIN: Custom Js-->

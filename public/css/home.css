@@ -987,7 +987,7 @@ ul#myTab {
     font-size: 12px;
     color: #686868;
     font-family: 'inter';
-    line-height: 12px;
+    line-height: 18px;
 }
 .cfh{
     font-family: 'Inter';
@@ -1004,4 +1004,27 @@ ul#myTab {
     font-size: 24px;
     line-height: 29px;
     color: #1C1C1C;
+}
+.cfhpd{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #686868;
+}
+.btn-custom{
+    background-color: black;
+    color: white;
+}
+button.btn.btn-custom:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e600 #dee2e600 #fff !important;
+    border-bottom: 1px solid black !important;
 }

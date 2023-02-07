@@ -29,8 +29,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
      Route::get('landing', [\App\Http\Controllers\SiteController::class, 'index'])
         ->name('index');
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
-            ->middleware('password.confirm')
+           // ->middleware('password.confirm')
             ->name('profile');
+
+    Route::get('editprofile', function () {
+        return view('editprofile');
+    })->name('editprofile');
 
     Route::get('course', [App\Http\Controllers\CourseController::class, 'couseView'])->name('course');
     Route::get('home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
