@@ -10,7 +10,7 @@ class SiteController extends Controller
     public function index()
     {
     	$data = \App\Models\Subscription::getSubscriptions();    	
-        if(Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->is_sign_up_free) ))
+        if(Auth::check() && (isset(Auth::user()->email_verified_at)  ))
                 return redirect('home');
 
         return view('landing', compact('data'));
