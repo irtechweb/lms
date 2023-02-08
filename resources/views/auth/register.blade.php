@@ -24,7 +24,7 @@
                 {{-- <button><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button> --}}
             </div>
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" action="{{ route('register') }}?free=<?=$_GET['free']?>">
+            <form method="POST" action="{{ route('register') }}?free=<?= isset($_GET['free'])?1:0 ?>">
             @csrf
              <div class="row">
                 <div class="col-lg-6">
