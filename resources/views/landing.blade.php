@@ -198,19 +198,20 @@
         </section>
        
            <div class="container pt-5">
-             <!-- @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ) && Auth::user()->is_sign_up_free == 0 && Auth::user()->getUserSubscription(Auth::user()->id) == null)) -->
-                    <div class="row">
+                   <div class="row">
                         <div class="col-lg-12">
                         <div class="align-items-center justify-content-center">
                         <div class="Sign " style="border: 1px solid;">
                                 <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign up for Free</h5>
                                 <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
-                                <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;"><a href="{{url('signupfree')}}">Sign for Free</a></button>
+                                <button class="start-membershiIp" style="
+                                background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none;
+    color: #FFF" href="{{url('register')}}?free=1">Sign for Free</a></button>
                             </div>
                         </div>
                         </div>
                     </div>
-            <!-- @endif -->
+            
                  </div>
 <script type="text/javascript">
     

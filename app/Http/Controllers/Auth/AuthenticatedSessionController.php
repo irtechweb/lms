@@ -122,7 +122,7 @@ class AuthenticatedSessionController extends Controller {
         \DB::table('users')
             ->where('id', Auth::user()->id)
             ->update(['is_sign_up_free'=>1]);
-        return redirect('/');
+        return redirect('/home');
         
     }
 

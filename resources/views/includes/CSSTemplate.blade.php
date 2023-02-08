@@ -82,7 +82,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                     
                                      @if (Auth::check() && (isset(Auth::user()->email_verified_at)) && Auth::user()->getUserSubscription(Auth::user()->id) == null)
                                      <?php ?>
-                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{url('home')}}"><i class="fa fa-lock" aria-hidden="true" color="black">X  </i>Courses</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{url('home')}}"><i class="fa fa-lock" aria-hidden="true" color="black"></i>Courses</a>
                                     
                                     @else
                                     <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{url('home')}}">Courses</a>
@@ -107,7 +107,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                             <img data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="dropdownMenuButton" src="{{url('images/user1.png')}}" alt="">
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div>
-                                    <a href="{{ route('vprofile') }}">View Profile</a>
+                                    <a href="{{ route('profile') }}">View Profile</a>
                                 </div>
                                 <div>
                                     <?php if($subs != NULL){ ?>

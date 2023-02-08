@@ -81,7 +81,7 @@
                   </div>
                 </div>
               </div>
-              {{$sectioncount++}}
+              <?php $sectioncount++; ?>
             @endforeach   
             </div>
           </div>
@@ -161,7 +161,11 @@
             <h3><span id="plan-price" > @if(isset($subscriptionPlanMonthly->price)) ${{$subscriptionPlanMonthly->price}}.00 @else $0.00 @endif </span></h3>
             <h6>Annual membership<span>$<?php  echo isset($subscriptionPlanAnually->price) ? number_format($subscriptionPlanAnually->price/12,2):'0' ?>/month</span></h6>
 
-            <a href="{{route('membershipPlans')}}"> <button class="start-membership">Start membership</button></a>
+           <!--  <a href="{{route('membershipPlans')}}"> <button class="start-membership">Start membership</button></a> -->
+
+
+             <a href="{{route('paymentDetails',['user_id'=>(Crypt::encrypt(auth()->user()->id)),'subscription_id'=>(Crypt::encrypt($subscriptionPlanMonthly->id))])}}"> <button class="start-membership">Start membership</button></a>
+
             @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ) && Auth::user()->is_sign_up_free == 0)
             <a href="{{url('signupfree')}}">Sign up for free</a>
             @endif

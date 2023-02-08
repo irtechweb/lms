@@ -34,6 +34,7 @@ class RegisteredUserController extends Controller {
      */
     public function store(Request $request) {
         DB::beginTransaction();
+
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -41,8 +42,9 @@ class RegisteredUserController extends Controller {
             'phone_number' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            //'free' =>['sometimes', 'integer', 'in:0,1']
         ]);
-        // dd($request->all());
+       // dd($request->input('free'));
         $user = User::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
@@ -51,6 +53,7 @@ class RegisteredUserController extends Controller {
                     //'email_verify_at' => date('Y-m-d H:i:s'),
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
+                    'is_sign_up_free' => (isset($_GET['free']))? 1:0
                     //'is_active' => '1'
         ]);
         if ($user) {
