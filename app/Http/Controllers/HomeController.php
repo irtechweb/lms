@@ -111,7 +111,9 @@ class HomeController extends Controller {
             $data['access'] = 'false';
         }
 
-        //dd($data);
+        $data['subscriptionPlanMonthly'] = Subscription::where('plans', 'monthly')->first();
+        $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
+        
         return view('lesson', $data);
     }
 

@@ -160,7 +160,7 @@
             </div>
             <h3><span id="plan-price" > @if(isset($subscriptionPlanMonthly->price)) ${{$subscriptionPlanMonthly->price}}.00 @else $0.00 @endif </span></h3>
             <h6>Annual membership<span>$<?php  echo isset($subscriptionPlanAnually->price) ? number_format($subscriptionPlanAnually->price/12,2):'0' ?>/month</span></h6>
-            <?php $plan = isset($subscriptionPlanMonthly)?$subscriptionPlanMonthly:$subscriptionPlanAnually ?>
+            <?php $plan = isset($subscriptionPlanMonthly)?$subscriptionPlanMonthly:$subscriptionPlanAnually; ?>
            <!--  <a href="{{route('membershipPlans')}}"> <button class="start-membership">Start membership</button></a> -->
 
 
