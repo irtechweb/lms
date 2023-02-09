@@ -1,7 +1,14 @@
 @extends('layouts.main')
 @section('content')
+
+<?php 
+        use App\Models\UserSubscribedPlan;
+        $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
+        //dd($subs);
+        //dd(Auth::user()->first_name);
+        ?>
 <div class="container emp-profile ff">
-            <form method="post">
+            <form method="get" action="{{url('editprofile')}}">
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
                        
@@ -9,12 +16,16 @@
                     <br/>
                     <div class="profile-work text-center">
                         <h5 class="cfhp">
-                                        Bilal Bashir
+                                        {{Auth::user()->first_name}} {{Auth::user()->last_name}}
                                     </h5>
                                     <h6 class="cfhpd">
-                                        UI UX Designer
+                                        @if ($subs != null){
+                                         {{strtoupper($subs->plans)}}
+
+                                        }
+                                        @endif
                                     </h6>
-                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; Karachi</p>
+                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; {{ucfirst(Auth::user()->city)}}</p>
                         </div> 
                     </div>
                     <div class="col-md-6 offset-md-2">
@@ -35,21 +46,20 @@
                                             <div class="row mt-5">
                                                 <div class="col-md-4">
                                                     <h6 class="cfh">Name</h6>
-                                                    <p class="cf">Bilal Bashir</p>
+                                                    <p class="cf"> {{Auth::user()->first_name}}  {{Auth::user()->last_name}} </p>
                                                 </div>
                                                 <div class="col-md-4">
                                                 <h6 class="cfh">Phone Number</h6>
-                                                    <p class="cf">+92 310 206 9028</p>
+                                                    <p class="cf">{{Auth::user()->phone_number}}</p>
                                                 </div>
-                                                <div class="col-md-4">
-                                                <h6 class="cfh">Phone Number</h6>
-                                                    <p class="cf">+92 310 206 9028</p>
+                                               <div class="col-md-4">
+                                                <h6 class="cfh">City</h6>
+                                                    <p class="cf">{{Auth::user()->city}}</p>
                                                 </div>
-                                            </div>
                                             <div class="row mt-3">
                                                 <div class="col-md-6">
-                                                <h6 class="cfh">Password</h6>
-                                                    <p class="cf">*********</p>
+                                                <h6 class="cfh">Email</h6>
+                                                    <p class="cf">{{Auth::user()->email}}</p>
                                                 </div>
                                                 <div class="col-md-6">
                                                     
@@ -57,7 +67,7 @@
                                             </div>
                                             <div class="row mt-3">
                                             <div class="col-md-2">
-                                            <button class="btn btn-custom"><i class="fa fa-pencil"></i>&nbsp; Edit Contact Info</button>
+                                            <a href=""><button class="btn btn-custom"><i class="fa fa-pencil"></i>&nbsp; Edit Contact Info</button></a>
                                             </div>
                                             </div>
                                             
@@ -66,13 +76,13 @@
                                 <div class="row mt-5">
                                                 <div class="col-md-10">
                                                     <h6 class="cfh">About</h6>
-                                                    <p class="cf">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                                    <p class="cf">{{Auth::user()->about}}</p>
                                                 </div>
                                                 
                                             </div>
                                             <div class="row mt-3">
                                             <div class="col-md-2">
-                                            <button class="btn btn-custom"><i class="fa fa-pencil"></i>&nbsp; Edit Contact Info</button>
+                                            <button class="btn btn-custom"><i class="fa fa-pencil"></i>&nbsp; Edit About Info</button>
                                             </div>
                                             </div>
                                 </div>

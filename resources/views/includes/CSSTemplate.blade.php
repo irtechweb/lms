@@ -58,6 +58,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
         <?php 
         use App\Models\UserSubscribedPlan;
         $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
+        //dd($subs);
         ?>
         <header class="main-site">
             <div class="container">
@@ -109,7 +110,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                 <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 18rem;" data-bs-popper="static">
                     <a class="dropdown-item" href="{{ route('profile') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile </a>
                     <div class="dropdown-divider"></div> 
-                    <?php if($subs != NULL){ ?>
+                    <?php if($subs != null){ ?>
                         <a class="dropdown-item" href="#">
                             <div class="d-flex align-items-center">
                               <!-- <div class="flex-shrink-0">
@@ -123,14 +124,13 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                               </div>
                             </div>
                           </a> 
-                    <?php } elseif (Auth::user()->is_sign_up_free == 1){ ?>
+                    <?php } elseif (Auth::user()->is_sign_up_free == 1 && $subs != null){ ?>
                             <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
                         <?php } else{ ?>
-                            Not Subsribed yet
+                            <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">N/A</span></h6>
+                            
                         <?php }   ?>
-                    {{-- <a class="dropdown-item" href="#"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;  Not Subsribed yet</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-file-o" aria-hidden="true"></i>&nbsp; Settings</a> --}}
-                     <div class="dropdown-divider"></div> 
+                    <div class="dropdown-divider"></div> 
 
                
 

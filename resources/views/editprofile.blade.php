@@ -1,7 +1,23 @@
 @extends('layouts.main')
 @section('content')
+<?php 
+        use App\Models\UserSubscribedPlan;
+        $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
+        
+        ?>
 <div class="container emp-profile ff">
-            <form method="post">
+            <!-- <form method="post"> -->
+            @if (\Session::has('success'))
+                <div class="alert alert-success">
+                    <ul>
+                        <li>{!! \Session::get('success') !!}</li>
+                    </ul>
+                </div>
+            @endif
+
+            @if($errors->any())
+                {!! implode('', $errors->all('<div>:message</div>')) !!}
+            @endif
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
                        
@@ -9,12 +25,16 @@
                     <br/>
                     <div class="profile-work text-center">
                         <h5 class="cfhp">
-                                        Bilal Bashir
+                                        {{Auth::user()->first_name}} {{Auth::user()->last_name}}
                                     </h5>
                                     <h6 class="cfhpd">
-                                        UI UX Designer
+                                        @if ($subs != null){
+                                         {{strtoupper($subs->plans)}}
+
+                                        }
+                                        @endif
                                     </h6>
-                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; Karachi</p>
+                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; {{ucfirst(Auth::user()->city)}}</p>
                         </div> 
                     </div>
                     <div class="col-md-6 offset-md-2">
@@ -32,18 +52,23 @@
                         <div class="col-md-12">
                             <div class="tab-content profile-tab" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <form action="{{url('editprofile')}}" method="post" >
+                                    @csrf
+                                            <input type="hidden"  value=" {{Auth::user()->id}}" name="id">
                                             <div class="row mt-5">
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
                                                         <label for="exampleInputEmail1" class="form-label">First Name</label>
-                                                            <input type="text" class="form-control f-img" name="first_name" required="required" placeholder="Enter last name">
+                                                            <input type="text" class="form-control f-img" name="first_name" required="required"  value=" {{Auth::user()->first_name}}" 
+
+                                                            placeholder="Enter first name">
                                                         <img src="{{url('images/')}}/person.svg" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-5 offset-lg-2">
                                                     <div class="signup-field">
                                                         <label for="exampleInputEmail1" class="form-label">Last Name</label>
-                                                        <input type="text" class="form-control f-img" name="last_name" required="required" placeholder="Enter last name">
+                                                        <input type="text" class="form-control f-img" name="last_name" required="required" placeholder="Enter last name" value=" {{Auth::user()->last_name}}">
                                                         <img src="{{url('images/')}}/person.svg" alt="">
                                                     </div>
                                                 </div>
@@ -52,14 +77,16 @@
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
                                                         <label for="exampleInputEmail1" class="form-label">Phone Number</label>
-                                                        <input type="text" class="form-control f-img" name="phone_number" required="required" placeholder="Enter phone number">
+                                                        <input type="text" class="form-control f-img" name="phone_number" required="required" placeholder="Enter phone number" value="{{Auth::user()->phone_number}}">
                                                         <img src="{{url('images/')}}/call.svg" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-5 offset-lg-2">
                                                     <div class="signup-field">
                                                         <label for="exampleInputEmail1" class="form-label">Email id</label>
-                                                        <input type="email" class="form-control" name="email" required="required" placeholder="Enter email id">
+                                                        <input type="email" readonly class="form-control" name="email" required="required" placeholder="Enter email id"
+                                                        value="{{Auth::user()->email}}"
+                                                        >
                                                         <img src="{{url('images/')}}//mail.svg" alt="">
                                                     </div>
                                                 </div>
@@ -68,14 +95,14 @@
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
                                                     <label for="exampleInputEmail1" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" required="required" placeholder="Enter password">
+                <input type="password" class="form-control" name="password" required="required" placeholder="Enter password" minlength="8" minlength="25">
                 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-5 offset-lg-2">
                                                     <div class="signup-field">
                                                     <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" name="password_confirmation" required="required" placeholder="Confirm Password">
+                    <input type="password" class="form-control" name="password_confirmation" required="required" placeholder="Confirm Password" minlength="8" minlength="25">
                    
                                                     </div>
                                                 </div>
@@ -84,7 +111,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
                                                     <label for="exampleInputEmail1" class="form-label">City</label>
-                        <input type="text" class="form-control f-img" name="city" placeholder="City">
+                        <input type="text" class="form-control f-img" name="city" placeholder="City" value={{Auth::user()->city}}>
                         <img src="{{url('images/')}}/location_on.svg" alt="">
                                                     </div>
                                                 </div>
@@ -94,13 +121,17 @@
                                             <button class="btn btn-custom"> Save Details</button>
                                             </div>
                                             </div>
+                                </form>
                                             
                                 </div>
                                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <form action="{{url('editprofile')}}" method="post">
+                                    @csrf
+                                <input type="hidden" name="id"  value=" {{Auth::user()->id}}">
                                 <div class="row mt-5">
                                 <div class="form-group">
                                         <label for="exampleFormControlTextarea1">About</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="about" rows="3" maxlength="255">{{Auth::user()->about}}</textarea>
                                     </div>
                                                 
                                             </div>
@@ -109,6 +140,7 @@
                                             <button class="btn btn-custom">Save Details</button>
                                             </div>
                                             </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +150,7 @@
                         <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
                     </div> -->
                 </div>
-            </form> 
+            <!-- </form>  -->
             <div style="height: 200px;" ></div>         
         </div>
 @endsection('content')

@@ -69,4 +69,51 @@ class RegisteredUserController extends Controller {
         return redirect()->back()->with('Error occurred! please try again');
     }
 
+    public function update(Request $request) {
+        DB::beginTransaction();
+
+        $request->validate([
+
+            'id' => ['required', 'exists:users,id'],
+            'first_name' => ['sometimes', 'string', 'max:255'],
+            'last_name' => ['sometimes', 'string', 'max:255'],
+            'city' => ['sometimes', 'string', 'max:255'],
+            'phone_number' => ['sometimes', 'string', 'max:255'],
+            'about' => ['sometimes', 'string', 'max:255'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
+            
+        ]);
+        //dd($request->all());
+        if (isset($request->about)){
+           
+            $user = User::where('id',$request->id)->update([
+                    
+                    'about' => ($request->about)
+                    
+        ]);
+
+        }
+        else{
+            $user = User::where('id',$request->id)->update([
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'phone_number' => $request->phone_number,
+                    'city' => $request->city,
+                    'password' => Hash::make($request->password)
+                    
+        ]);
+
+        }
+        
+        if ($user) {            
+            DB::commit();
+            return back()->with('success', 'Data saved successfully!');
+        }
+        
+        DB::rollback();
+        return redirect()->back()->with('Error occurred! please try again');
+    }
+
+
 }

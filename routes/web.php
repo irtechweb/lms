@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
   |--------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('editprofile', function () {
         return view('editprofile');
     })->name('editprofile');
+    Route::post('editprofile', [App\Http\Controllers\Auth\RegisteredUserController::class, 'update']);
+
 
     Route::get('course', [App\Http\Controllers\CourseController::class, 'couseView'])->name('course');
     Route::get('home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
