@@ -1028,3 +1028,28 @@ button.btn.btn-custom:hover {
     border-color: #dee2e600 #dee2e600 #fff !important;
     border-bottom: 1px solid black !important;
 }
+.signup-field input {
+    background: #F6F6F6;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Inter', sans-serif;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 22px;
+}
+.signup-field img {
+    position: absolute;
+    left: 7.07%;
+    right: 87.76%;
+    top: 52.79%;
+    bottom: 34.79%;
+}
+label.form-label {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+}

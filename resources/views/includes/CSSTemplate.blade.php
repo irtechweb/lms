@@ -58,8 +58,6 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
         <?php 
         use App\Models\UserSubscribedPlan;
         $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
-
-        
         ?>
         <header class="main-site">
             <div class="container">
@@ -100,39 +98,45 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                             </ul>
                         </div>
 
+                        
                         <div class="dropdown">
-                            <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Dropdown button
-                            </button> -->
-                            <img data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" id="dropdownMenuButton" src="{{url('images/user1.png')}}" alt="">
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <div>
-                                    <a href="{{ route('profile') }}">View Profile</a>
+                <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                    <div class="avatar avatar-sm avatar-circle">
+                    <img class="avatar-img" src="{{url('images/user1.png')}}" alt="Image Description">
+                    <span class="avatar-status avatar-sm-status avatar-status-success"></span>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 18rem;" data-bs-popper="static">
+                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile </a>
+                    <div class="dropdown-divider"></div> 
+                    <?php if($subs != NULL){ ?>
+                        <a class="dropdown-item" href="#">
+                            <div class="d-flex align-items-center">
+                              <!-- <div class="flex-shrink-0">
+                                <div class="avatar avatar-sm avatar-dark avatar-circle">
+                                  <span class="avatar-initials">HS</span>
                                 </div>
-                                <div>
-                                    <?php if($subs != NULL){ ?>
-                                        <span>{{$subs->plans}}</span><br><span>Expiring on {{$subs->subscription_end_date}} </span>;
-                                    <?php }  else
-                                        {
-                                            if (Auth::user()->is_sign_up_free == 1){ ?>
-                                                 Free Subscription
-                                        <?php } else{ ?>
-
-                                            Not Subsribed yet
-
-                                        <?php }    
-
-                                        } ?>
-                                       
-                                    
-
-                                </div>
-                                <div>
-                                    <a href="{{ route('logout') }}">logout</a>
-                                </div>
-
+                              </div> -->
+                              <div class="flex-grow-1 ms-2">
+                                <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
+                                <span class="card-text">Expires on: {{$subs->subscription_end_date}}</span>
+                              </div>
                             </div>
-                        </div>
+                          </a> 
+                    <?php } elseif (Auth::user()->is_sign_up_free == 1){ ?>
+                            <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
+                        <?php } else{ ?>
+                            Not Subsribed yet
+                        <?php }   ?>
+                    {{-- <a class="dropdown-item" href="#"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;  Not Subsribed yet</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-file-o" aria-hidden="true"></i>&nbsp; Settings</a> --}}
+                     <div class="dropdown-divider"></div> 
+
+               
+
+                    <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Sign out</a>
+                </div>
+    </div>
 
 
 
