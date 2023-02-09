@@ -19,10 +19,8 @@
                                         {{Auth::user()->first_name}} {{Auth::user()->last_name}}
                                     </h5>
                                     <h6 class="cfhpd">
-                                        @if ($subs != null){
+                                        @if ($subs != null)
                                          {{strtoupper($subs->plans)}}
-
-                                        }
                                         @endif
                                     </h6>
                                     <p><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; {{ucfirst(Auth::user()->city)}}</p>
