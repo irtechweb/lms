@@ -89,6 +89,7 @@ class HomeController extends Controller {
         //dd($data['lecturesquiz'][$last]);
         //dd($lesson);
         //dd('lesson',$data['lecturesmedia']);
+        $data['first_video'] = DB::table('course_videos')->where('id', $id)->get()->toArray()[0];
         $data['notes'] = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
 
         if (isset($data['lecturesquiz'][$last]) && !empty($data['lecturesquiz'])) {
