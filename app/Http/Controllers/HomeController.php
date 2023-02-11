@@ -46,12 +46,14 @@ class HomeController extends Controller {
             //             ->paginate($paginate_count);
         }
 //        $courses = $courses->toArray();
+        //dd($courses);
         return view('home', compact('courses'));
     }
 
     public function courseLesson($id, $lesson_id='') {
         //$course = Course::find($id);
-        $course = Course::join('admins','instructor_id','admins.id')->select('courses.*','admins.name')->first();
+
+        $course = Course::join('admins','instructor_id','admins.id')->where('courses.id',$id)->select('courses.*','admins.name')->first();
         //dd($course->course_videos);
 
         //$user_id = Auth::user()->id;
@@ -76,6 +78,11 @@ class HomeController extends Controller {
         $data['userdocuments'] = $coursecurriculum['userdocuments'];
         $data['userresources'] = $coursecurriculum['userresources'];
         $data['lecturesnotes'] = $coursecurriculum['lecturesnotes'];
+        $data['completed_lesson_count'] = count($coursecurriculum['lecturesnotescompleted']);
+       
+        $data['totalquiz'] = $coursecurriculum['totallectures'];
+        
+        //dd($data['lecturesquiz']);
 
 
         $segments = request()->segments();
@@ -85,16 +92,26 @@ class HomeController extends Controller {
         if ($lesson_id == null) {
             $lesson = Course::get_lesson_id($last);
             $lesson_id = $lesson->lecture_quiz_id;
+            $data['slectedsessionid'] = $lesson->section_id;
         }
+        else{
+            $lesson = Course::get_lesson_section_id($lesson_id);
+            $data['slectedsessionid'] = $lesson->section_id;
+
+        }
+
         //dd($data['lecturesquiz'][$last]);
         //dd($lesson);
         //dd('lesson',$data['lecturesmedia']);
+        //$data['slectedsessionid'] = 0;
         $data['first_video'] = DB::table('course_videos')->where('id', $id)->get()->toArray()[0];
         $data['notes'] = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
-
+       // dd($data['lecturesquiz']);
         if (isset($data['lecturesquiz'][$last]) && !empty($data['lecturesquiz'])) {
+            //dd("aaa".$lesson_id);
             $intro = DB::table('course_videos')->where('id', $data['lecturesquiz'][$last][0]->media)->get()->toArray();
             $data['quiz_description'] = $data['lecturesquiz'][$last][0]->description;
+            $data['slectedsessionid'] = $data['lecturesquiz'][$last][0]->section_id;
             $data['first_video'] = isset($intro[0]) ? $intro[0] : array();
             $data['subscriptionPlanMonthly'] = Subscription::where('plans', 'monthly')->first();
             $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
@@ -128,10 +145,10 @@ class HomeController extends Controller {
             $data['access'] = 'false';
         }
         $data['selectedlesson'] = $lesson_id;
-        //$data['selectedsesscion'] = $lesson_id;
+        //$data['slectedsessionid'] = 9;
         $data['subscriptionPlanMonthly'] = Subscription::where('plans', 'monthly')->first();
         $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
-        //dd($data['slectedsessionid'], $lesson_id);
+        //dd($data, $lesson_id);
         return view('lesson', $data);
     }
 

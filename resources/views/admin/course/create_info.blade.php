@@ -136,7 +136,7 @@ Subscription Listing
                                               </div>
                                           </div>
 
-                                          <div class="form-group col-md-4">
+                                          <!-- <div class="form-group col-md-4">
                                               <label class="form-control-label">Available For Free</label>
                                               <div>
                                                 <div class="radio-custom radio-default radio-inline">
@@ -148,7 +148,7 @@ Subscription Listing
                                                   <label for="inputBasicInactive">No</label>
                                                 </div>
                                               </div>
-                                          </div>
+                                          </div> -->
                                   
                                   
                                   
@@ -156,7 +156,7 @@ Subscription Listing
                                   
                                           <div class="form-group col-md-12">
                                               <label class="form-control-label">Overview</label>
-                                              <textarea name="overview">
+                                              <textarea name="overview" class="curricullamEditor">
                                                   {{ $course->overview }}
                                               </textarea>
                                           </div>
@@ -204,19 +204,34 @@ Subscription Listing
 
 
 
-@endsection
-
-@section('javascript')
+<script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/tinymce/jscripts/tiny_mce/tiny_mce.js') }}"></script>
 <script type="text/javascript">
 
     $(document).ready(function()
     { 
-        tinymce.init({ 
-            selector:'textarea',
-            menubar:false,
-            statusbar: false,
-            content_style: "#tinymce p{color:#76838f;}"
-        });
+        // tinymce.init({ 
+        //     selector:'textarea',
+        //     menubar:false,
+        //     statusbar: false,
+        //     content_style: "#tinymce p{color:#76838f;}"
+        // });
+        tinymce.init({  
+        mode : "specific_textareas",
+        selector : "textarea",
+        theme : "advanced",
+        theme_advanced_buttons1 : "bold,italic,underline",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        width : "100%",
+        plugins : "paste",
+        paste_text_sticky : true,
+        setup : function(ed) {
+          ed.onInit.add(function(ed) {
+            ed.pasteAsPlainText = true;
+          });
+        }
+      });
 
         $(".tagsinput").tagsinput();
 

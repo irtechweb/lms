@@ -166,7 +166,7 @@ class Course extends Model
 			
 		}
 		
-		
+		$lectcount = 0;
 		foreach($sections as $section){
 			$sectionid = $section->section_id;
 			$lecturesquiz[$sectionid] = \DB::table('curriculum_lectures_quiz')->where('section_id', '=', $sectionid)->orderBy('sort_order', 'asc')->get();
@@ -197,6 +197,7 @@ class Course extends Model
 				}
 
 				$lecturesnotes[$sectionid][$lecture_quiz_id] = \DB::table('user_notes')->where('lesson_id',$lecture_quiz_id)->where('user_id',\Auth::user()->id)->first();
+				$lecturesnotescompleted[$sectionid][$lecture_quiz_id] = \DB::table('user_notes')->where('lesson_id',$lecture_quiz_id)->where('user_id',\Auth::user()->id)->where('completed',1)->first();
 				
 				if(!is_null($lecture->resources)){
 					$resources = json_decode($lecture->resources,true);
@@ -212,6 +213,7 @@ class Course extends Model
 				$userpresentation = \DB::table('course_files')->where('uploader_id', '=', $user_id)->whereIn('file_extension', ['pdf'])->whereIn('file_tag', ['curriculum_presentation'])->get();
 				$userdocuments = \DB::table('course_files')->where('uploader_id', '=', $user_id)->whereIn('file_extension', ['pdf'])->whereIn('file_tag', ['curriculum'])->get();
 				$userresources = \DB::table('course_files')->where('uploader_id', '=', $user_id)->whereIn('file_extension', ['pdf', 'doc', 'docx'])->whereIn('file_tag', ['curriculum_resource'])->get();
+				$lectcount++;
 				
 			}
 		}
@@ -227,6 +229,8 @@ class Course extends Model
 		$result['userdocuments'] = $userdocuments;
 		$result['userresources'] = $userresources;
 		$result['lecturesnotes'] = $lecturesnotes;
+		$result['lecturesnotescompleted'] = $lecturesnotescompleted;
+		$result['totallectures'] = $lectcount;
 
 		return $result;
 		
@@ -550,14 +554,22 @@ class Course extends Model
       return \DB::table('curriculum_lectures_quiz')
       ->join('curriculum_sections', 'curriculum_sections.section_id', '=', 'curriculum_lectures_quiz.section_id')
       ->join('courses', 'courses.id', '=', 'curriculum_sections.course_id')
-      ->select('curriculum_lectures_quiz.lecture_quiz_id')
+      ->select('curriculum_lectures_quiz.lecture_quiz_id','curriculum_lectures_quiz.section_id')
       ->where('courses.id','=', $course_id)
+      ->first();
+    }
+    public static function get_lesson_section_id($lesson_id)
+    {
+      return \DB::table('curriculum_lectures_quiz')
+      ->join('curriculum_sections', 'curriculum_sections.section_id', '=', 'curriculum_lectures_quiz.section_id')
+      ->select('curriculum_lectures_quiz.lecture_quiz_id','curriculum_lectures_quiz.section_id')
+      ->where('curriculum_lectures_quiz.lecture_quiz_id','=', $lesson_id)
       ->first();
     }
     public static function get_course_video($course_id)
     {
       return \DB::table('course_videos')    
-      ->where('course_id','=', $course_id)
-      ->get()->keyBy('id');
+      ->where('course_id', $course_id)
+      ->get()->keyBy('id')->toArray();
     }
 }

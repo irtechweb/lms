@@ -1,7 +1,9 @@
 @extends('layouts.main')
 @section('content')
 
-<?php //dd($course['course_title']);?>
+<?php //dd($completed_lesson_count,$totalquiz);
+$completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
+?>
   <!-- ===============   Practice Start   ============== -->
   <div class="daily-goals">
     <div class="container-main">
@@ -12,10 +14,10 @@
         <div class="daily-progress">
           <h3>Daily Goals<span><img src="{{url('images/edit.svg')}}" alt="">Edit Goals</span></h3>
           <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+            <div class="progress-bar" role="progressbar" style="width: {{$completion_per}}%" aria-valuenow="{{$completion_per}}" aria-valuemin="0"
               aria-valuemax="100"></div>
           </div>
-          <small>04/10 xp</small>
+          <small>{{$completed_lesson_count}} / {{$totalquiz}} </small>
         </div>
       </div>
     </div>
@@ -53,13 +55,13 @@
             <div class="accordion" id="accordionExample">
            
             @foreach($sections as $section) 
-            <?php //dd($section);
+            <?php //dd($slectedsessionid);
                   $acc = "secacc".$section->section_id;
                   
                   $show = ($section->section_id == $slectedsessionid)?"show":"";
                   
              ?> 
-            <div class="accordion-item">
+            <div class="accordion-item" sect="{{$section->section_id}}" Selectedsession="{{$slectedsessionid}}">
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{$acc}}"
                     aria-expanded="true" aria-controls="collapseOne">
@@ -72,9 +74,12 @@
 
                    @foreach($lecturesquiz[$section->section_id] as $lecturequiz)
                     <?php 
-                   
-                    $video = $course_video[$lecturequiz->media];
                     $videopath = "";
+                    if($lecturequiz->media == NULL)
+                      $video=null;
+                    else
+                      $video = $course_video[$lecturequiz->media];
+                   
                     if($video != null)
                     $videopath = url('course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type);
                     //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
@@ -139,6 +144,8 @@
         <span id="save_notes"> </span>
           <form class="text_area">
             <input id="iscomplete" name="iscomplete" value=0 type='hidden'>
+            <input id="course_id" name="course_id" value="{{$course->id}}" type='hidden'>
+            <input id="lesson_id" name="lesson_id" value="{{$selectedlesson}}" type='hidden'>
             <textarea style="overflow: auto;
     resize: vertical;
     border: none;
@@ -247,8 +254,8 @@ function saveData(){
   var url = $(location).attr('href');
   var segments = url.split( '/' );
   console.log(segments);
-  var lesson_id = segments[7];
-  var course_id = segments[6];
+  var lesson_id = $('#lesson_id').val();
+  var course_id = $('#course_id').val();
   $.ajax({
     url:'<?= url('save_lesson_notes'); ?>'+'?lesson_id='+lesson_id+'&notes='+ $('.text_area_value').val()+'&course_id='+course_id+'&is_completed='+ $('#iscomplete').val(),
     method:'GET',
