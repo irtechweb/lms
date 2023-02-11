@@ -46,6 +46,7 @@ class HomeController extends Controller {
             //             ->paginate($paginate_count);
         }
 //        $courses = $courses->toArray();
+        //dd($courses);
         return view('home', compact('courses'));
     }
 
@@ -76,6 +77,8 @@ class HomeController extends Controller {
         $data['userdocuments'] = $coursecurriculum['userdocuments'];
         $data['userresources'] = $coursecurriculum['userresources'];
         $data['lecturesnotes'] = $coursecurriculum['lecturesnotes'];
+
+        //dd($data['lecturesquiz']);
 
 
         $segments = request()->segments();
