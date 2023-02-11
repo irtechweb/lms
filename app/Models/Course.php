@@ -147,6 +147,7 @@ class Course extends Model
 		$userresources = array();
 		$sections = \DB::table('curriculum_sections')->where('course_id', '=', $id)->get();
 		
+		
 		if($sections->isEmpty()){	// IF EMPTY, CREATE DEFAULT SECTION AND LECTURE
 			$data['course_id'] = $id;
 			$data['title'] = 'Start Here';
@@ -194,6 +195,8 @@ class Course extends Model
 				} else {
 					$lecturesquizquestions[$sectionid][$lecture_quiz_id] = \DB::table('curriculum_quiz_questions')->where('quiz_id', '=', $lecture_quiz_id)->orderBy('sort_order', 'asc')->get();
 				}
+
+				$lecturesnotes[$sectionid][$lecture_quiz_id] = \DB::table('user_notes')->where('lesson_id',$lecture_quiz_id)->where('user_id',\Auth::user()->id)->first();
 				
 				if(!is_null($lecture->resources)){
 					$resources = json_decode($lecture->resources,true);
@@ -223,7 +226,8 @@ class Course extends Model
 		$result['userpresentation'] = $userpresentation;
 		$result['userdocuments'] = $userdocuments;
 		$result['userresources'] = $userresources;
-		
+		$result['lecturesnotes'] = $lecturesnotes;
+
 		return $result;
 		
     }
@@ -549,5 +553,11 @@ class Course extends Model
       ->select('curriculum_lectures_quiz.lecture_quiz_id')
       ->where('courses.id','=', $course_id)
       ->first();
+    }
+    public static function get_course_video($course_id)
+    {
+      return \DB::table('course_videos')    
+      ->where('course_id','=', $course_id)
+      ->get()->keyBy('id');
     }
 }

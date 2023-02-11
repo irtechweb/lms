@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('content')
+
+<?php //dd($course['course_title']);?>
   <!-- ===============   Practice Start   ============== -->
   <div class="daily-goals">
     <div class="container-main">
@@ -20,57 +22,77 @@
   </div>
   <!-- ===============   Practice End   ============== -->
   <!-- ===============   Chapter Start   ============== -->
+   @php $sectioncount = '1'; $lecturecount = '1'; $quizcount = '1'; @endphp
   <div class="chapter-detail">
     <div class="container-main">
       <div class="chapter-detail-content">
         <div class="chapter-header">
-          <h6>Chapter I</h6>
-          <h1>Introduction to the public speaking</h1>
-          <h6>Susie Ashfield, Instructor</h6>
+          <h6>Chapter {{$sectioncount}}: {{ $sections[$sectioncount-1]->title}}</h6>
+          <h1>{{$course['course_title']}}</h1>
+          <h6>{{$course['name']}}, Instructor</h6>
         </div>
         <div class="chapter-playlist">
           <div class="chapter-video">
           <?php 
-                // dd($courses[0]->course_videos[0]->video_type);
-                if(isset($first_video->video_title))
+                //dd($course['course_video']);
+                //$first_video = ($course->getvideoinfo($course['course_video'])[0]);
+                if(isset($first_video))
                 {
                     $file_name = 'course/'.$course->id.'/'.$first_video->video_title.'.'.$first_video->video_type;
-                
-               
-                
-  // dd($file_name,$courses[0]);
                 ?>
           <video id="videoId" width="100%" height="100%" controls="" preload="auto"><source src="{{url($file_name)}}" type="video/mp4"></video>
-                    <?php 
-                
+          <?php                 
                 }else{
-                    ?>
-     <video width="100%" height="100%" controls="" preload="auto"><source src="http://127.0.0.1:8000/course/1/raw_1673556794_bandicam-2022-10-29-17-37-27-682-16735567941201.mp4" type="video/mp4"></video>
-                <?php }
+              //dd('coming in else');
+              $file_name = 'course/'.$course->id.'/'.$first_video->video_title.'.'.$first_video->video_type;
+
+            }
                  ?>
           </div>
           <div class="chapter-list" Style="min-height: 422px;">
             <div class="accordion" id="accordionExample">
-            @php $sectioncount = '1'; $lecturecount = '1'; $quizcount = '1'; @endphp
-            @foreach($sections as $section)  
+           
+            @foreach($sections as $section) 
+            <?php //dd($section);
+                  $acc = "secacc".$section->section_id;
+                  
+                  $show = ($section->section_id == $slectedsessionid)?"show":"";
+                  
+             ?> 
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{$acc}}"
                     aria-expanded="true" aria-controls="collapseOne">
                     Chapter {{$sectioncount}}: {{ $section->title}}
                   </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                <div id="{{$acc}}" class="accordion-collapse collapse {{$show}}" aria-labelledby="headingOne"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body">
+
                    @foreach($lecturesquiz[$section->section_id] as $lecturequiz)
-                    <div  class="play-list video-done {{ Request::segment(3) == '' ? 'active-video'.$lecturequiz->lecture_quiz_id : null }}">
-                     @if($lecturequiz->lecture_quiz_id  == Request::segment(3) )
-                     
-                     <img onclick="play()" class="play" src="{{url('images/Play button.svg')}}" alt="">
-                     @else
-                     <img src="{{url('images/Play button.svg')}}" alt="">
-                     @endif
+                    <?php 
+                   
+                    $video = $course_video[$lecturequiz->media];
+                    $videopath = "";
+                    if($video != null)
+                    $videopath = url('course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type);
+                    //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
+                    if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 ))
+                      $cl =  "done-video";
+                    else if($lecturequiz->lecture_quiz_id == $selectedlesson)
+                      $cl =  "selected-video";
+                    else
+                      $cl = "active-video"; ?>
+
+
+                    
+                    <div  class="play-list {{$cl}}">
+                     <!-- @if($video != null)  -->                    
+                     <img onclick="play(this)" class="play" attr="{{$videopath}}" alt="" src="{{url('images/Play button.svg')}}" >
+                    <!--  @else -->
+                     <!-- <img src="{{url('images/Play button.svg')}}" alt="">
+                     @endif -->
                   
                      <a href="{{route('course-lesson-number',[$course->id,$lecturequiz->lecture_quiz_id])}}"> <span>{!! $lecturequiz->title !!}<small style= "float:right"> 2:01 mins</small></span> </a>
                     </div>
@@ -116,16 +138,17 @@
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <span id="save_notes"> </span>
           <form class="text_area">
-            
-            <textarea style="    overflow: auto;
+            <input id="iscomplete" name="iscomplete" value=0 type='hidden'>
+            <textarea style="overflow: auto;
     resize: vertical;
     border: none;
     width: 100%;
-    background-color: #eeeeee;" class="text_area_value" rows="5" cols="33" style="padding: 1; margin: 1; width: 53%; " placeholder="Write something"> 
+    background-color: #eeeeee;" class="text_area_value" rows="5" cols="33" placeholder="Write something" <?= (isset($notes->completed) && $notes->completed == 1 )?"readonly":"";?>> 
            @if(isset($notes->notes))
-           {{$notes->notes}}
+           <?= trim($notes->notes) ?>
            @endif
             </textarea>
+            <button id="complete" <?= (isset($notes->completed) && $notes->completed == 1 )?"disabled":"";?> class="btn btn-custom pull-right" style="margin-top: 2px"><i class="fa fa-check"></i>&nbsp; Completed</button>
           </form>
         </div>
       </div>
@@ -202,7 +225,7 @@ var access = "<?php echo isset($access)?$access:'false'; ?>";
   }
 
 
-  $(document).ready(function(){
+$(document).ready(function(){
     var timer;
     var timeout = 2000; // Timout duration
     $('.text_area_value').keyup(function(){
@@ -214,17 +237,20 @@ var access = "<?php echo isset($access)?$access:'false'; ?>";
  
     });
  
-    // $('#submit').click(function(){
-        // saveData();
-    // });
+    $('button#complete').click(function(){
+        event.preventDefault();
+        $('#iscomplete').val(1);
+        saveData();
+    });
 });
 function saveData(){
   var url = $(location).attr('href');
   var segments = url.split( '/' );
-  var lesson_id = segments[5];
-  var course_id = segments[4];
+  console.log(segments);
+  var lesson_id = segments[7];
+  var course_id = segments[6];
   $.ajax({
-    url:'<?= url('save_lesson_notes'); ?>'+'?lesson_id='+lesson_id+'&notes='+ $('.text_area_value').val()+'&course_id='+course_id,
+    url:'<?= url('save_lesson_notes'); ?>'+'?lesson_id='+lesson_id+'&notes='+ $('.text_area_value').val()+'&course_id='+course_id+'&is_completed='+ $('#iscomplete').val(),
     method:'GET',
     success: function(result)
     {
@@ -242,31 +268,33 @@ function saveData(){
     </script>
 
 <script>
- function play()
+ function play(obj)
 {
 
+      console.log($(obj));
       var pause = '<?php echo url('images/pause.svg'); ?>';
       // alert(pause);
-      $('.play').attr("src", pause);
+      $(obj).attr("src", pause);
    
-      $('.play').addClass('pause');
-      $('.play').attr('onClick','pause()');
-      $('.play').removeClass('play');
+      $(obj).addClass('pause');
+      $(obj).attr('onClick','pause(this)');
+      $(obj).removeClass('play');
+      $("#videoId").attr('src',$(obj).attr("attr"));
       
       $("#videoId").trigger('play');
 
       // $('#play').attr("src", pause);
 };
-function pause()
+function pause(obj)
 {
-  
+      console.log(obj);
       var play = '<?php echo url('images/Play button.svg'); ?>';
       // alert(pause);
-      $('.pause').attr("src", play);
+      $(obj).attr("src", play);
    
-      $('.pause').addClass('play');
-      $('.pause').attr('onClick','play()')
-      $('.pause').removeClass('pause');
+      $(obj).addClass('play');
+      $(obj).attr('onClick','play(this)')
+      $(obj).removeClass('pause');
       $("#videoId").trigger('pause');
       ;
 
