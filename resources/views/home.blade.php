@@ -107,7 +107,7 @@
                             <video width="100%" height="100%" controls preload="auto"><source src="{{ url($file_name)}}" type="video/mp4"></video>
                         </div>
                         <div class="webinar-button">
-                            <button><a href="{{route('course-lesson',[$courses[0]->id])}}" >Start learning</a></button>
+                            <button><a href="{{route('course-lesson',[$course->id])}}" >Start learning</a></button>
                         </div>
                     </div>
 
