@@ -1,5 +1,6 @@
-@extends('layouts.web')
+@extends('layouts.landing')
 @section('content')
+
 <x-guest-layout>
 <x-guest-layout>
     <x-auth-card>
