@@ -72,9 +72,12 @@
 
                    @foreach($lecturesquiz[$section->section_id] as $lecturequiz)
                     <?php 
-                   
-                    $video = $course_video[$lecturequiz->media];
                     $videopath = "";
+                    if($lecturequiz->media == NULL)
+                      $video=null;
+                    else
+                      $video = $course_video[$lecturequiz->media];
+                   
                     if($video != null)
                     $videopath = url('course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type);
                     //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);

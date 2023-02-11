@@ -557,7 +557,7 @@ class Course extends Model
     public static function get_course_video($course_id)
     {
       return \DB::table('course_videos')    
-      ->where('course_id','=', $course_id)
-      ->get()->keyBy('id');
+      ->where('course_id', $course_id)
+      ->get()->keyBy('id')->toArray();
     }
 }
