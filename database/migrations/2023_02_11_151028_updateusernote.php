@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::table('user_notes',function($table){
             $table->integer('completed')->default(0)->comment('0 for not for not completed  1 for lesson complete');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            // $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            // $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
