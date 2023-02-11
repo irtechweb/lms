@@ -1,5 +1,5 @@
-@extends('layouts.landing')
-@section('content')
+<!-- @extends('layouts.landing')
+@section('content') -->
 
 <x-guest-layout>
 <x-guest-layout>
@@ -50,4 +50,4 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
-@endsection
+<!-- @endsection -->
