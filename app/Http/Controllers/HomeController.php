@@ -49,7 +49,7 @@ class HomeController extends Controller {
         return view('home', compact('courses'));
     }
 
-    public function courseLesson($id, $lesson_id) {
+    public function courseLesson($id, $lesson_id='') {
         //$course = Course::find($id);
         $course = Course::join('admins','instructor_id','admins.id')->select('courses.*','admins.name')->first();
         //dd($course->course_videos);
