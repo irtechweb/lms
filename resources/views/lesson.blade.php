@@ -144,6 +144,8 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
         <span id="save_notes"> </span>
           <form class="text_area">
             <input id="iscomplete" name="iscomplete" value=0 type='hidden'>
+            <input id="course_id" name="course_id" value="{{$course->id}}" type='hidden'>
+            <input id="lesson_id" name="lesson_id" value="{{$selectedlesson}}" type='hidden'>
             <textarea style="overflow: auto;
     resize: vertical;
     border: none;
@@ -252,8 +254,8 @@ function saveData(){
   var url = $(location).attr('href');
   var segments = url.split( '/' );
   console.log(segments);
-  var lesson_id = segments[7];
-  var course_id = segments[6];
+  var lesson_id = $('#lesson_id').val();
+  var course_id = $('#course_id').val();
   $.ajax({
     url:'<?= url('save_lesson_notes'); ?>'+'?lesson_id='+lesson_id+'&notes='+ $('.text_area_value').val()+'&course_id='+course_id+'&is_completed='+ $('#iscomplete').val(),
     method:'GET',
