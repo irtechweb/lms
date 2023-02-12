@@ -4,7 +4,6 @@ Subscription Listing
 @endsection
 @section('body')
 
-
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
@@ -266,4 +265,3 @@ Subscription Listing
         });
     });
 </script>
-@endsection

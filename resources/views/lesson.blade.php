@@ -306,4 +306,4 @@ function pause(obj)
       // $('#play').attr("src", pause);
 };
     </script>
-@endsection('body')
+@endsection('content')
