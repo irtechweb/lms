@@ -4,11 +4,177 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Stripe;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\ExecutePayment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\Transaction;
+use Session;
 
 class BookingController extends Controller {
-
+    private $_api_context;
     public function bookSlot() {
-        return view('book-slot');
+        $data['coach_price'] = \App\Models\CoachPrice::first()->price;
+        
+        $data['user_id'] = Auth::user()->id;
+
+        return view('book-slot', compact('data'));
+    }
+    
+    public function bookPaymentSlot(Request $request) {
+        
+        if (isset($request->user_id) ) {
+            // check if customer already subscribed to any subscription
+            $data['request_data'] = $request->toArray();
+            $data['request_data']['user_id'] = Crypt::decrypt($request->user_id);
+            $data['coach_price'] = \App\Models\CoachPrice::first()->price;;
+            $currentDate = date('Y-m-d H:i:s');
+            
+            $paymentMthod = self::createPaymentMethod($data);
+            \Log::info('payment method');
+            \Log::info($paymentMthod);
+            if ($paymentMthod['success'] == false) {
+                return redirect()->back()->with('Error occurred while adding payment method! please try again');
+            }
+            $data['payment_method_data'] = $paymentMthod['method_data'];
+            $createIntnet = self::createPaymentIntentMethod($data);
+            if ($createIntnet['success'] != true) {
+                return redirect()->route('membershipPlans')->with('Error occurred while creating payment plan');
+            }
+            $data['intent_data'] = $createIntnet['data'];
+            $capturePayment = self::capturePaymentIntentMethod($data);
+            //dd($capturePayment);
+            if ($capturePayment['success'] != true) {
+                return redirect()->route('membershipPlans')->with('Error occurred while capturing payment');
+            }
+            $data['gateway_response'] = $capturePayment['capture_data'];
+            $preparedata= self::prepareData($data);
+            
+            $savepurchase = \App\Models\BoughtCoaching::create(['user_id'=>$data['request_data']['user_id'],'price'=>$data['coach_price'],'payment_status'=>$capturePayment['success']]);
+            if (!$savepurchase) {
+                return redirect()->back()->with('Error occurred! please try again');
+            }
+            $paymentData = self::preparePaymentData($data);
+
+            //dd('$payment saving data',$paymentData);
+
+            $savePayment = \App\Models\CoachPayment::saveData($paymentData);
+           
+            $availableslot = \App\Models\AvailableBookingCount::where('user_id',$data['request_data']['user_id'])->first();
+            if($availableslot != NULL){
+                $book_count = $availableslot->booking_count++;
+            }
+            else
+                $book_count = 1;
+
+            //add booking count
+            $saveCount = \App\Models\AvailableBookingCount::createOrUpdate(['user_id' => $data['request_data']['user_id'], 'booking_count' => $book_count]);
+            if (!$savePayment) {
+                return redirect()->back()->with('Error occurred! please try again');
+            }
+            Session::flash('success', 'Payment successful!');
+            return redirect()->route('calendly')->with('Payment Done Successfully!, Please Proceed further with booking');
+        } else {
+            return redirect()->back()->with('Error occurred! please try again');
+        }
+    }
+    public static function prepareData($subscriptionData) {
+        $data = [];
+        return $data;
+    }
+    public static function createPaymentMethod($data = []) {
+
+        $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
+
+        $method = $stripe->paymentMethods->create([
+            'type' => 'card',
+            'card' => [
+                'number' => $data['request_data']['card_number'],
+                'exp_month' => $data['request_data']['expiry_month'],
+                'exp_year' => $data['request_data']['expiry_year'],
+                'cvc' => $data['request_data']['cvc'],
+            ],
+        ]);
+        if ($method) {
+            return ['success' => true, 'method_data' => $method];
+        } else {
+            return ['success' => false];
+        }
+    }
+
+    public static function preparePaymentData($data) {
+        $paymentData['price'] = $data['coach_price'];
+        $paymentData['user_id'] = $data['request_data']['user_id'];
+        $paymentData['exp_month'] = $data['request_data']['expiry_month'];
+        $paymentData['exp_year'] = $data['request_data']['expiry_year'];
+        $paymentData['card_name'] = $data['request_data']['card_name'];
+        $paymentData['card_number'] = substr($data['request_data']['card_number'], 12, 16);
+        $paymentData['card_type'] = !empty($data['payment_method_data']->card->brand) ? $data['payment_method_data']->card->brand : null;
+        $paymentData['receipt_url'] = !isset($data['intent_data']->receipt_url) ? $data['intent_data']->receipt_url : null;
+        $paymentData['payment_method_id'] = $data['payment_method_data']->id;
+        $paymentData['intent_id'] = $data['intent_data']->id;
+        $paymentData['gateway_response'] = !empty($data['gateway_response']) ? serialize($data['gateway_response']) : null;
+
+        return $paymentData;
+    }
+        public static function createPaymentIntentMethod($data = []) {
+        $key = Stripe\Stripe::setApiKey(config('paths.secret_key'));
+        $discount = 0;
+        $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
+        $intent = Stripe\PaymentIntent::create([
+                    "amount" => $data['coach_price'] * 100,
+                    "currency" => "usd",
+                    'payment_method' => $data['payment_method_data']->id,
+                    'payment_method_types' => ['card'],
+//                    "source" => $request->stripeToken,
+//                    "description" => "Test payment from itsolutionstuff.com."
+        ]);
+        if ($intent) {
+            return ['success' => true, 'data' => $intent];
+        } else {
+            return ['success' => false];
+        }
+
+//        Session::flash('success', 'Payment successful!');
+//        return redirect()->route('membershipPlans')->with('Subscribed Successfully!');
+    }
+
+    public static function capturePaymentIntentMethod($data = []) {
+
+//        $key = Stripe\Stripe::setApiKey(config('paths.secret_key'));
+        $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
+        $capture = $stripe->paymentIntents->confirm(
+                $data['intent_data']->id,
+                [
+                    'payment_method_types' => ['card'],
+                ]
+        );
+//        Stripe\PaymentIntent::capture(
+//                $data['data']->id,
+//                [
+//                    "amount" => 100 * 100,
+//                    "currency" => "usd",
+//                    'payment_method_types' => ['card'],
+//                    "source" => $request->stripeToken,
+//                    "description" => "Test payment from itsolutionstuff.com."
+//        ]);
+        if ($capture) {
+            return ['success' => true, 'capture_data' => $capture];
+        } else {
+            return ['success' => false];
+        }
+
+//        Session::flash('success', 'Payment successful!');
+//        return redirect()->route('membershipPlans')->with('Subscribed Successfully!');
     }
 
     public function createBooking(Request $request) {

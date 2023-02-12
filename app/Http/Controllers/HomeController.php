@@ -153,7 +153,9 @@ class HomeController extends Controller {
     }
 
     public function calendly() {
+
         $id = Auth::user()->id;
+        //dd($id);
         $availableCount = \App\Models\AvailableBookingCount::where('user_id', $id)->first();
         $count = !empty($availableCount) ? $availableCount->booking_count : 0;
         return view('calendly', compact('count'));

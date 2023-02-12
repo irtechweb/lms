@@ -65,3 +65,4 @@ Route::get('/deleteWebinar/{id}', [\App\Http\Controllers\Admin\WebinarController
 Route::post('/createBooking', [\App\Http\Controllers\BookingController::class, 'createBooking'])->name('createBooking');
 
 Route::get('book-slot', [App\Http\Controllers\BookingController::class, 'bookSlot'])->name('bookSlot');
+Route::post('book-slot', [App\Http\Controllers\BookingController::class, 'bookPaymentSlot'])->name('paybookSlot');
