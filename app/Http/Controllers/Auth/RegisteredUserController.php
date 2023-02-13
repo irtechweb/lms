@@ -97,8 +97,8 @@ class RegisteredUserController extends Controller {
                 'phone_number' => $request->phone_number,
                 'city' => $request->city,                
             );
-
-            if($request->has('password')){
+      
+            if($request->has('password') && $request->password!='' && $request->password!=null){
                 $updateArray['password'] = Hash::make($request->password);
             }
 
