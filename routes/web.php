@@ -63,6 +63,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('paypal', [App\Http\Controllers\SubscriptionController::class, 'postPaymentWithpaypal'])->name('postPaymentWithpaypal');
     Route::get('paypal', [App\Http\Controllers\SubscriptionController::class, 'getPaymentStatus'])->name('status');
     Route::get('book-slot', [App\Http\Controllers\BookingController::class, 'bookSlot'])->name('bookSlot');
+    Route::post('bookwithpaypal', [App\Http\Controllers\BookingController::class, 'postPaymentWithpaypal'])->name('bookwithpaypal');
+    Route::get('bookwithpaypal', [App\Http\Controllers\BookingController::class, 'getPaymentStatus'])->name('bookstatus');
 });
 Route::get('webinars', [App\Http\Controllers\WebinarController::class, 'getWebinars'])->name('getWebinars');
 
@@ -71,3 +73,5 @@ Route::post('/createBooking', [\App\Http\Controllers\BookingController::class, '
 
 Route::get('book-slot', [App\Http\Controllers\BookingController::class, 'bookSlot'])->name('bookSlot');
 Route::post('book-slot', [App\Http\Controllers\BookingController::class, 'bookPaymentSlot'])->name('paybookSlot');
+
+

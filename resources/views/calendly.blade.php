@@ -1,9 +1,32 @@
 @extends('layouts.main')
 @section('content')
+
+
 <!-- Calendly inline widget begin -->
-<div class="col-md-4">
+<!-- <div class="col-md-4">
     <a href="#" type="button">Available Booking Count : {{$count}}</a>
 
+</div> -->
+
+<div class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 hero-heading">
+                <span class="header1">Schedule 1:1 meeting with coach</br></span>  
+
+                <span class="header2">You can Schedule 20 mins 1:1 meeting with a coach as per your plan selected
+                with the given calendy below</br></span> 
+                
+            </div>
+
+            <div class="col-md-6 hero-heading">
+                <span class="header2">Booking credits for this month: {{$count}}</br></span>  
+
+                
+                
+            </div>
+        </div>
+    </div>
 </div>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if($count>0)
@@ -11,9 +34,10 @@
     
 </div>
 @else
-<div class="hero">
+<!-- <div class="hero">
     <div class="container">
         <div class="hero-top">
+            
             <div class="col-md-12 hero-heading">
                 <h1>Buy More Bookings</br></h1>  
                 <button class="btn btn-bg-gradient-x-blue-cyan" type="button">
@@ -22,6 +46,27 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<!-- <div class="modal show" tabindex="-1" role="dialog" id="exampleModal" > -->
+<div class="modal-dialog modal-sm show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+    <form action="{{route('bookSlot')}}" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="membership-plan-pop">
+                    <div class="toggle-membership">
+                       Add More Booking credits?
+                    </div>
+                    
+                    <h6><span>£<?= $sessionprice->price ?>/booking</span></h6>
+                    <button class="start-membership">Book Now</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </div>
 @endif
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -29,6 +74,16 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
 
 <script>
+
+    $('#exampleModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    // var available_count = <?php echo $count ?>;
+    // alert(available_count);
+     if(available_count == 0){
+        
+        $('#exampleModal').modal();
+        //$('#exampleModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    }
+
 
 function isCalendlyEvent(e) {
     return e.origin === "https://calendly.com" && e.data.event && e.data.event.indexOf("calendly.") === 0;
