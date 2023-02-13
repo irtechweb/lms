@@ -16,19 +16,21 @@
         </div>
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('Signin') }}">
+        <form id="loginForm" method="POST" action="{{ route('Signin') }}">
             @csrf
         <div class="login-field">
-        <label for="exampleInputEmail1" class="form-label">Email id</label>
-        <input type="email" name="email" class="form-control" placeholder="Enter email id">
-        <img src="{{url('images/')}}//mail.svg" alt="">
+            <label for="exampleInputEmail1" class="form-label">Email id</label>
+            <input type="email" name="email" class="form-control" placeholder="Enter email id">
+            <img src="{{url('images/')}}//mail.svg" alt="">
+            <div class="alert alert-danger mt-1 mb-1 emailError" style="display: none;">Please enter email</div>
          </div>
-         <div class="login-field">
+        <div class="login-field">
             <label for="exampleInputEmail1" class="form-label">Password</label>
             <input type="password" name="password" class="form-control" placeholder="Enter password">
-             </div>
+            <div class="alert alert-danger mt-1 mb-1 passwordError" style="display: none;">Please enter password</div>
+        </div>
 
-        <button type="submit" class="login-m">Log In</button>
+        <button type="submit" class="login-m loginBtn">Log In</button>
         <a class="mb-4" href="{{url('forgot-password')}}" style="float: right;
     margin-top: 4px;">Forgot Password?</a> 
         </form>

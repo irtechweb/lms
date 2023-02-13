@@ -20,14 +20,16 @@
                 {{-- <button><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button> --}}
             </div>
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
-            <form method="POST" action="{{ route('register') }}?free=<?= isset($_GET['free'])?1:0 ?>">
+            <form id="registerForm" method="POST" action="{{ route('register') }}?free=<?= isset($_GET['free'])?1:0 ?>">
             @csrf
              <div class="row">
                 <div class="col-lg-6">
                 <div class="signup-field">
                 <label for="exampleInputEmail1" class="form-label">First Name</label>
-                <input type="text" class="form-control f-img" name="first_name" required="required" placeholder="Enter last name">
+                <input type="text" class="form-control f-img" name="first_name" required="required" placeholder="Enter first name">
                 <img src="{{url('images/')}}/person.svg" alt="">
+                <div class="alert alert-danger mt-1 mb-1 firstNameError" style="display: none;">Please enter first name</div>
+
                  </div>
                 </div>
                 <div class="col-lg-6">
@@ -35,6 +37,7 @@
                 <label for="exampleInputEmail1" class="form-label">Last Name</label>
                 <input type="text" class="form-control f-img" name="last_name" required="required" placeholder="Enter last name">
                 <img src="{{url('images/')}}/person.svg" alt="">
+                <div class="alert alert-danger mt-1 mb-1 lastNameError" style="display: none;">Please enter last name</div>
                  </div>
             </div>        
             </div>
@@ -45,6 +48,8 @@
                     <label for="exampleInputEmail1" class="form-label">Phone Number</label>
                     <input type="text" class="form-control f-img" name="phone_number" required="required" placeholder="Enter phone number">
                     <img src="{{url('images/')}}/call.svg" alt="">
+                    <div class="alert alert-danger mt-1 mb-1 phoneNumberError" style="display: none;">Please enter phone number</div>
+
                      </div>
             </div>
             <div class="col-lg-6">
@@ -52,6 +57,8 @@
                     <label for="exampleInputEmail1" class="form-label">Email id</label>
                     <input type="email" class="form-control" name="email" required="required" placeholder="Enter email id">
                     <img src="{{url('images/')}}//mail.svg" alt="">
+                    <div class="alert alert-danger mt-1 mb-1 emailError" style="display: none;">Please enter email</div>
+
                      </div>
             </div>
         </div>
@@ -61,13 +68,17 @@
             <div class="signup-field">
                 <label for="exampleInputEmail1" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password" required="required" placeholder="Enter password">
-                 </div>
+                <div class="alert alert-danger mt-1 mb-1 passwordError" style="display: none;">Please enter password</div>
+
+            </div>
             </div>
                  <div class="col-lg-6">
                  <div class="signup-field">
                     <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" name="password_confirmation" required="required" placeholder="Confirm Password">
-                     </div>
+                    <div class="alert alert-danger mt-1 mb-1 cpasswordError" style="display: none;">Please enter confirmdf password</div>
+
+                </div>
                  </div>
                
             <div class="col-lg-6">
@@ -75,10 +86,12 @@
                         <label for="exampleInputEmail1" class="form-label">City</label>
                         <input type="text" class="form-control f-img" name="city" placeholder="City">
                         <img src="{{url('images/')}}/location_on.svg" alt="">
+                        <div class="alert alert-danger mt-1 mb-1 cityError" style="display: none;">Please enter city</div>
+
                          </div>
             </div>
         </div>
-            <button type="submit" class="login-m">Sign up</button>
+            <button type="submit" class="login-m registerBtn">Sign up</button>
           </form>
     </div>
 </div>
