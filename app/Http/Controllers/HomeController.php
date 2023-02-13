@@ -51,19 +51,10 @@ class HomeController extends Controller {
     }
 
     public function courseLesson($id, $lesson_id='') {
-        //$course = Course::find($id);
 
         $course = Course::join('admins','instructor_id','admins.id')->where('courses.id',$id)->select('courses.*','admins.name')->first();
-        //dd($course->course_videos);
-
-        //$user_id = Auth::user()->id;
         $user_id = 1;
         $coursecurriculum = Course::getcurriculuminfo($id, $user_id);
-        // echo "<pre>";
-        // print_r($coursecurriculum);
-        // exit;
-        // $data['chapters'] = Course::where('id',$id)->with('lectures_media')->get();
-        // dd( $data['chapters']);
         $data['course'] = $course;
         $data['course_video'] = Course::get_course_video($id);//->course_videos();
         //dd($data['course_video']);
@@ -81,9 +72,6 @@ class HomeController extends Controller {
         $data['completed_lesson_count'] = count($coursecurriculum['lecturesnotescompleted']);
        
         $data['totalquiz'] = $coursecurriculum['totallectures'];
-        
-        //dd($data['lecturesquiz']);
-
 
         $segments = request()->segments();
         //$last = request()->segment(2);
@@ -99,16 +87,10 @@ class HomeController extends Controller {
             $data['slectedsessionid'] = $lesson->section_id;
 
         }
-
-        //dd($data['lecturesquiz'][$last]);
-        //dd($lesson);
-        //dd('lesson',$data['lecturesmedia']);
-        //$data['slectedsessionid'] = 0;
         $data['first_video'] = DB::table('course_videos')->where('id', $id)->get()->toArray()[0];
         $data['notes'] = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
-       // dd($data['lecturesquiz']);
+      
         if (isset($data['lecturesquiz'][$last]) && !empty($data['lecturesquiz'])) {
-            //dd("aaa".$lesson_id);
             $intro = DB::table('course_videos')->where('id', $data['lecturesquiz'][$last][0]->media)->get()->toArray();
             $data['quiz_description'] = $data['lecturesquiz'][$last][0]->description;
             $data['slectedsessionid'] = $data['lecturesquiz'][$last][0]->section_id;
@@ -117,18 +99,15 @@ class HomeController extends Controller {
             $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
             $data['subscriptionPlans'] = array();
             $data['access'] = 'true';
-            //dd($data['lecturesquiz']);
             
             if (!empty($lesson_id)) {
                 $lection_quiz = DB::table('curriculum_lectures_quiz')->where('lecture_quiz_id', $lesson_id)->first();
                 $data['quiz_description'] = $lection_quiz->description;
-                //dd($lection_quiz);
                 $intro = DB::table('course_videos')->where('id', $lection_quiz->media)->get()->toArray();
                 $data['first_video'] = isset($intro[0]) ? $intro[0] : array();
                 $userSubscriptionPlan = UserSubscribedPlan::where('user_id', auth()->user()->id)->first();
                 $data['slectedsessionid'] = $lection_quiz->section_id;
 
-                // dd($userSubscriptionPlan,auth()->user());
                 $data['subscriptionPlanMonthly'] = Subscription::where('plans', 'monthly')->first();
                 $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
                 if (isset($userSubscriptionPlan->id)) {
@@ -141,15 +120,14 @@ class HomeController extends Controller {
         $userSubscriptionPlan = UserSubscribedPlan::where('user_id', auth()->user()->id)->first();
         if (isset($userSubscriptionPlan->id)) {
             $data['access'] = 'true';
+            $data['selectedlesson'] = $lesson_id;
+            $data['subscriptionPlanMonthly'] = Subscription::where('plans', 'monthly')->first();
+            $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
+            return view('lesson', $data);
         } else {
-            $data['access'] = 'false';
+            $data['hide_free_signup'] = 'true';
+            return redirect()->route('membershipPlans')->with($data);
         }
-        $data['selectedlesson'] = $lesson_id;
-        //$data['slectedsessionid'] = 9;
-        $data['subscriptionPlanMonthly'] = Subscription::where('plans', 'monthly')->first();
-        $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
-        //dd($data, $lesson_id);
-        return view('lesson', $data);
     }
 
     public function calendly() {

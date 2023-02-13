@@ -34,7 +34,6 @@ class RegisteredUserController extends Controller {
      */
     public function store(Request $request) {
         DB::beginTransaction();
-
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -44,7 +43,7 @@ class RegisteredUserController extends Controller {
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             //'free' =>['sometimes', 'integer', 'in:0,1']
         ]);
-       // dd($request->input('free'));
+
         $user = User::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
@@ -57,14 +56,10 @@ class RegisteredUserController extends Controller {
                     //'is_active' => '1'
         ]);
         if ($user) {
-            //dd($user);
-            event(new Registered($user));
-
-            Auth::login($user);
             DB::commit();
-            return redirect(RouteServiceProvider::HOME);
+            Auth::login($user);
+            return redirect('membership-plans');
         }
-        dd('returning');
         DB::rollback();
         return redirect()->back()->with('Error occurred! please try again');
     }
@@ -114,6 +109,16 @@ class RegisteredUserController extends Controller {
         DB::rollback();
         return redirect()->back()->with('Error occurred! please try again');
     }
-
+    public function freeMemberShipPlan(Request $request){
+        $user = \Auth::user();
+        if($user->is_verified == 1){
+            return redirect('home');
+        }
+        if($request->get('free_membership') == 1 && $user->is_verified == 0){
+           
+            event(new Registered($user));
+            return redirect('verify-email');
+        }
+    }
 
 }

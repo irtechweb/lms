@@ -54,17 +54,20 @@
                                 <div class="devider-line"></div>
                                 <div class="row" style="margin-bottom: 5%;">
                                     <div class="membership-field m-half"> <span for="exampleInputEmail1" style="font-weight: bold; color: black; font-size: 18px;" class="form-label">Total</span> </div>
-                                    <div class="membership-field m-half"> <span for="exampleInputEmail1" style="float: right; font-weight: bold; color: #1C1C1C; font-size: 18px;" class="form-label">£@if(isset($subscription['price'])) 
+                                    <div class="membership-field m-half"> 
+                                        <span for="exampleInputEmail1" style="float: right; font-weight: bold; color: #1C1C1C; font-size: 18px;" class="form-label">£@if(isset($subscription['price'])) 
                                                       @php 
-                                                      $discount = $subscription['price']/100*$subscription['discount_percentage'];
+                                                      //$discount = $subscription['price']/100*$subscription['discount_percentage'];
                                                       @endphp
-                                                      {{$subscription['price']-$discount}}
+                                                      {{-- {{$subscription['price']-$discount}} --}}
+                                                      {{$subscription['price']}}
                                                         @endif 
                                                         per 
                                                     @if(isset($subscription['plans'])) 
                                                     {{$subscription['plans']}} 
                                                     @endif
-                                                    </span> </div>
+                                        </span> 
+                                    </div>
                                 </div>
                                 <button type="submit" class="m-payment" style="background-color: #1C1C1C; color: #fff;"> Start membership</button>
                             </form>

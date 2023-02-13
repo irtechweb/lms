@@ -43,7 +43,8 @@ Route::get('/login/{social}/callback', [AuthenticatedSessionController::class, '
                 ->name('password.update');
 });
 
-//Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -62,4 +63,5 @@ Route::get('/login/{social}/callback', [AuthenticatedSessionController::class, '
 
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-//});
+});
+

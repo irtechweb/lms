@@ -13,21 +13,10 @@
                         <li>✦ Free webinars</li>
                         <li>✦ Schedule meeting with a Coach</li>
                     </ul>
-                 
-                @if (Auth::check() && (isset(Auth::user()->email_verified_at) && !empty(Auth::user()->email_verified_at) ))
-                <a href="{{route('membershipPlans')}}"><button>
-                start learning
-                <img src="./images/ar.svg" alt=""></button> </a>
-
                
-                @else
-                <button data-toggle="modal" data-target="#exampleModal">        
-                start learning 
-                <img src="./images/ar.svg" alt=""></button>
-                @endif
-                    
-                    
-                    
+                    <a href="{{route('register')}}">
+                        <button>start learning <img src="./images/ar.svg" alt=""></button> 
+                    </a>
                 </div>
             </div>
         </div>
@@ -206,7 +195,7 @@
                                 <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
                                 <button class="start-membershiIp" style="
                                 background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none;
-    color: #FFF" href="{{url('register')}}?free=1">Sign for Free</a></button>
+    color: #FFF" href="{{url('register')}}">Sign for Free</a></button>
                             </div>
                         </div>
                         </div>

@@ -33,8 +33,9 @@ class SubscriptionController extends Controller {
         $this->_api_context->setConfig($paypal_configuration['settings']);
     }
 
-    public function membershipPlans() {
-        $data = \App\Models\Subscription::getSubscriptions();
+    public function membershipPlans(Request $request) {
+        $data['plans'] = \App\Models\Subscription::getSubscriptions();
+        $data['hide_free_signup'] = session()->get('hide_free_signup');
         $userSubscriptionPlan = UserSubscribedPlan::where('user_id', auth()->user()->id)->where('is_active', 1)->first();
         if (isset($userSubscriptionPlan->id)) {
             return redirect()->route('home');
@@ -42,9 +43,13 @@ class SubscriptionController extends Controller {
         return view('membership-plan', compact('data'));
     }
 
-    public function paymentDetails($user_id, $subscription_id) {
-        $data['user_id'] = Crypt::decrypt($user_id);
-        $data['subscription_id'] = Crypt::decrypt($subscription_id);
+    public function paymentDetails(Request $request) {
+        $user_id = \Auth::user()->id;
+        $subscription_id = $request->get('selected-plan');
+       
+        $data['user_id'] = $user_id;
+        $data['subscription_id'] =$subscription_id;
+
         $subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
         $data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
         $subscription = $subscription;

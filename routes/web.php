@@ -20,7 +20,11 @@ Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
 
 require __DIR__ . '/auth.php';
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::post('free-plan', [App\Http\Controllers\Auth\RegisteredUserController::class, 'freeMemberShipPlan'])->name('free-plan');
+});
+
+Route::middleware(['auth'])->group(function () {
      Route::get('vprofile', function () {
         return view('profile');
     })->name('vprofile');
@@ -45,14 +49,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('course-lesson-number/{id}/{lesson_id}', [App\Http\Controllers\HomeController::class, 'courseLesson'])->name('course-lesson-number');
     Route::get('save_lesson_notes', [App\Http\Controllers\HomeController::class, 'saveLessonNotes']);
     Route::get('signupfree', [AuthenticatedSessionController::class, 'signUpFree']);
-    
+    // {user_id}/{subscription_id}
 
    
     Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
     Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
 
     Route::get('membership-plans', [App\Http\Controllers\SubscriptionController::class, 'membershipPlans'])->name('membershipPlans');
-    Route::get('payment-details/{user_id}/{subscription_id}', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');
+    Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');
+  //  Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');
     Route::post('payment', [App\Http\Controllers\SubscriptionController::class, 'savePaymentDetails'])->name('savePaymentDetail');
 //    Route::get('paywithpaypal', [App\Http\Controllers\SubscriptionController::class, 'paywithpaypal'])->name('paywithpaypal');
     Route::post('paypal', [App\Http\Controllers\SubscriptionController::class, 'postPaymentWithpaypal'])->name('postPaymentWithpaypal');

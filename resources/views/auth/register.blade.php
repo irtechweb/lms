@@ -1,8 +1,5 @@
 @extends('layouts.web')
 @section('content')
-
-
-
     <!-- <div class="container  mt-4">
                 <nav class="navbar">
                     <div class="logo">  <img src="{{url('logo/Speak2Impact Academy.png')}}" height="70px" width="200px" class="css-class" alt="alt text"></div>
@@ -10,14 +7,13 @@
                     <a href="{{route('login')}}"><button class="start-learning">Login</button></a>                </div>
                 </nav>
     </div> -->
- 
     <div class="container">
    <div class="row">
    <div class="h-100 d-flex align-items-center justify-content-center mt-5 mb-login">
    <div class="login-area" style="width: 612px;">
             <h1>Sign Up</h1>
  
-            <span>Get started by filling up details below</span>
+            <span>Get started by filling up details below11</span>
             <div class="login-option">
                 <button type="button"> <img src="{{url('images/')}}/google.svg" alt="" /><a href="{{url('login/google')}}" style="color: #3f3f3f;    text-decoration: none;">  Log in with Google </a> </button>
                 <button style="color: #3f3f3f;    text-decoration: none;"><img src="{{url('images/')}}/fb.svg" alt=""> Log in with Facebook</button>
