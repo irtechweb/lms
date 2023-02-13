@@ -76,7 +76,7 @@ class RegisteredUserController extends Controller {
             'phone_number' => ['sometimes', 'string', 'max:255'],
             'about' => ['sometimes', 'string', 'max:255'],
             //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
+            //'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
             
         ]);
         //dd($request->all());
@@ -90,14 +90,20 @@ class RegisteredUserController extends Controller {
 
         }
         else{
-            $user = User::where('id',$request->id)->update([
-                    'first_name' => $request->first_name,
-                    'last_name' => $request->last_name,
-                    'phone_number' => $request->phone_number,
-                    'city' => $request->city,
-                    'password' => Hash::make($request->password)
-                    
-        ]);
+            
+            $updateArray = array(
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'phone_number' => $request->phone_number,
+                'city' => $request->city,                
+            );
+
+            if($request->has('password')){
+                $updateArray['password'] = Hash::make($request->password);
+            }
+
+
+            $user = User::where('id',$request->id)->update($updateArray);
 
         }
         
