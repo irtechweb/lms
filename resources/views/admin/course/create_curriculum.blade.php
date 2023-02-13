@@ -2148,7 +2148,7 @@ $(document).ready(function(){
 filesuploadajax();
 
 function filesuploadajax(){
-
+  console.log('trying to upload video');
   $('.videofiles').fileupload({
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(mp4|avi|mov|flv)$/i,
