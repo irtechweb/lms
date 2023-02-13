@@ -8,7 +8,8 @@ use App\Models\{
     Category,
     InstructionLevel,
     UserSubscribedPlan,
-    Subscription
+    Subscription,
+    CoachPrice
 };
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -135,8 +136,10 @@ class HomeController extends Controller {
         $id = Auth::user()->id;
         //dd($id);
         $availableCount = \App\Models\AvailableBookingCount::where('user_id', $id)->first();
+        $sessionprice = \App\Models\CoachPrice::first();
+        
         $count = !empty($availableCount) ? $availableCount->booking_count : 0;
-        return view('calendly', compact('count'));
+        return view('calendly', compact('count','sessionprice'));
     }
 
     public function saveLessonNotes() {
