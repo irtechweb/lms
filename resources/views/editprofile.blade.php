@@ -52,7 +52,7 @@
                         <div class="col-md-12">
                             <div class="tab-content profile-tab" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <form action="{{url('editprofile')}}" method="post" >
+                                <form id="editProfileForm" action="{{url('editprofile')}}" method="post" >
                                     @csrf
                                             <input type="hidden"  value=" {{Auth::user()->id}}" name="id">
                                             <div class="row mt-5">
@@ -63,6 +63,8 @@
 
                                                             placeholder="Enter first name">
                                                         <img src="{{url('images/')}}/person.svg" alt="">
+                                                        <div class="alert alert-danger mt-1 mb-1 firstNameError" style="display: none;">Please enter first name</div>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-5 offset-lg-2">
@@ -70,6 +72,8 @@
                                                         <label for="exampleInputEmail1" class="form-label">Last Name</label>
                                                         <input type="text" class="form-control f-img" name="last_name" required="required" placeholder="Enter last name" value=" {{Auth::user()->last_name}}">
                                                         <img src="{{url('images/')}}/person.svg" alt="">
+                                                        <div class="alert alert-danger mt-1 mb-1 lastNameError" style="display: none;">Please enter last name</div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -79,6 +83,8 @@
                                                         <label for="exampleInputEmail1" class="form-label">Phone Number</label>
                                                         <input type="text" class="form-control f-img" name="phone_number" required="required" placeholder="Enter phone number" value="{{Auth::user()->phone_number}}">
                                                         <img src="{{url('images/')}}/call.svg" alt="">
+                                                        <div class="alert alert-danger mt-1 mb-1 phoneNumberError" style="display: none;">Please enter phone number</div>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-5 offset-lg-2">
@@ -88,37 +94,42 @@
                                                         value="{{Auth::user()->email}}"
                                                         >
                                                         <img src="{{url('images/')}}//mail.svg" alt="">
+                                                        <div class="alert alert-danger mt-1 mb-1 emailError" style="display: none;">Please enter email</div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
-                                                    <label for="exampleInputEmail1" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" required="required" placeholder="Enter password" minlength="8" minlength="25">
-                
+                                                        <label for="exampleInputEmail1" class="form-label">Password</label>
+                                                        <input type="password" class="form-control" name="password" required="required" placeholder="Enter password" minlength="8" minlength="25">
+                                                        <div class="alert alert-danger mt-1 mb-1 passwordError" style="display: none;">Please enter password</div>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-5 offset-lg-2">
                                                     <div class="signup-field">
                                                     <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" name="password_confirmation" required="required" placeholder="Confirm Password" minlength="8" minlength="25">
-                   
+                                                    <input type="password" class="form-control" name="password_confirmation" required="required" placeholder="Confirm Password" minlength="8" minlength="25">
+                                                    <div class="alert alert-danger mt-1 mb-1 cpasswordError" style="display: none;">Please enter confirm password</div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
-                                                    <label for="exampleInputEmail1" class="form-label">City</label>
-                        <input type="text" class="form-control f-img" name="city" placeholder="City" value={{Auth::user()->city}}>
-                        <img src="{{url('images/')}}/location_on.svg" alt="">
-                                                    </div>
+                                                        <label for="exampleInputEmail1" class="form-label">City</label>
+                                                        <input type="text" class="form-control f-img" name="city" placeholder="City" value={{Auth::user()->city}}>
+                                                        <img src="{{url('images/')}}/location_on.svg" alt="">
+                                                        <div class="alert alert-danger mt-1 mb-1 cityError" style="display: none;">Please enter city</div>
+                                                </div>
                                                 </div>
                                             </div>
                                             <div class="row mt-3">
                                             <div class="col-md-2">
-                                            <button class="btn btn-custom"> Save Details</button>
+                                            <button class="btn btn-custom saveDetailsBtn"> Save Details</button>
                                             </div>
                                             </div>
                                 </form>
@@ -129,7 +140,7 @@
                                     @csrf
                                 <input type="hidden" name="id"  value=" {{Auth::user()->id}}">
                                 <div class="row mt-5">
-                                <div class="form-group">
+                                    <div class="form-group">
                                         <label for="exampleFormControlTextarea1">About</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1" name="about" rows="3" maxlength="255">{{Auth::user()->about}}</textarea>
                                     </div>
