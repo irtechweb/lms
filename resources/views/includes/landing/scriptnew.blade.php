@@ -142,7 +142,9 @@
       $(".emailError").hide();
       $(".passwordError").hide();
       $(".cpasswordError").hide();
+      $(".mpasswordError").hide();
       $(".cityError").hide();
+     
       
       var errors = 0;
       
@@ -150,8 +152,8 @@
       var last_name =  $("input[name='last_name']");
       var phone_number =  $("input[name='phone_number']");
       var email =  $("input[name='email']");
-      //var password =  $("input[name='password']");
-      //var password_confirmation =  $("input[name='password_confirmation']");
+      var password =  $("input[name='password']");
+      var password_confirmation =  $("input[name='password_confirmation']");
       var city =  $("input[name='city']");
       
   
@@ -205,6 +207,79 @@
     //       password_confirmation.css('border-style', 'solid');
     //       password_confirmation.css('border-width', '1px');
     //   }
+
+     
+
+      if(password.val() != '') {
+
+        if(password_confirmation.val() == '') {
+
+          errors+=1;
+          $(".mpasswordError").show();
+
+
+          password.css('border-color', 'red');
+          password.css('border-style', 'solid');
+          password.css('border-width', '1px');
+
+          password_confirmation.css('border-color', 'red');
+          password_confirmation.css('border-style', 'solid');
+          password_confirmation.css('border-width', '1px');
+
+        }
+        else if(password.val() != password_confirmation.val() ){
+
+          errors+=1;
+          $(".mpasswordError").show();
+
+
+          password.css('border-color', 'red');
+          password.css('border-style', 'solid');
+          password.css('border-width', '1px');
+
+          password_confirmation.css('border-color', 'red');
+          password_confirmation.css('border-style', 'solid');
+          password_confirmation.css('border-width', '1px');
+
+        }
+
+      }
+
+      if(password_confirmation.val() != '') {
+
+        if(password.val() == '') {
+
+          errors+=1;
+          $(".mpasswordError").show();
+
+
+          password.css('border-color', 'red');
+          password.css('border-style', 'solid');
+          password.css('border-width', '1px');
+
+          password_confirmation.css('border-color', 'red');
+          password_confirmation.css('border-style', 'solid');
+          password_confirmation.css('border-width', '1px');
+
+        }
+        else if(password.val() != password_confirmation.val() ){
+
+          errors+=1;
+          $(".mpasswordError").show();
+
+
+          password.css('border-color', 'red');
+          password.css('border-style', 'solid');
+          password.css('border-width', '1px');
+
+          password_confirmation.css('border-color', 'red');
+          password_confirmation.css('border-style', 'solid');
+          password_confirmation.css('border-width', '1px');
+
+        }
+
+      }
+
 
       if(city.val() == '') {
           errors+=1;

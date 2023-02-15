@@ -70,15 +70,19 @@ class RegisteredUserController extends Controller {
         $request->validate([
 
             'id' => ['required', 'exists:users,id'],
-            'first_name' => ['sometimes', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['sometimes', 'string', 'max:255'],
             'city' => ['sometimes', 'string', 'max:255'],
             'phone_number' => ['sometimes', 'string', 'max:255'],
             'about' => ['sometimes', 'string', 'max:255'],
             //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             //'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
+            'password' => ['nullable', 'confirmed', Rules\Password::defaults(),'max:25']
+       
             
         ]);
+
+       
         //dd($request->all());
         if (isset($request->about)){
            
@@ -99,7 +103,11 @@ class RegisteredUserController extends Controller {
             );
       
             if($request->has('password') && $request->password!='' && $request->password!=null){
-                $updateArray['password'] = Hash::make($request->password);
+
+                if($request->has('password_confirmation') && $request->password_confirmation!='' 
+                    && $request->password_confirmation!=null &&  $request->password==$request->password_confirmation){
+                    $updateArray['password'] = Hash::make($request->password);
+                }
             }
 
 
