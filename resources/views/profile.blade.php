@@ -12,7 +12,7 @@
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
                        
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="rounded-circle mx-auto d-block" alt="avatar">
+                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="150px" class="rounded-circle mx-auto d-block" alt="avatar">
                     <br/>
                     <div class="profile-work text-center">
                         <h5 class="cfhp">

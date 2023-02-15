@@ -14,9 +14,9 @@
                         <li>✦ Schedule meeting with a Coach</li>
                     </ul>
                
-                    <a href="{{route('register')}}">
+                    <a href="{{route('register')}}"> 
                         <button>start learning <img src="./images/ar.svg" alt=""></button> 
-                    </a>
+                     </a>
                 </div>
             </div>
         </div>

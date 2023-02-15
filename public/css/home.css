@@ -1067,3 +1067,7 @@ label.form-label {
     letter-spacing: 0em;
     text-align: left;
 }
+.card {
+    
+    border: 1px solid rgb(0 0 0 / 0%)!important;
+}
