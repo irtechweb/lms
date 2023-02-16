@@ -71,7 +71,7 @@ $(document).ready(function () {
 </script>
     <body>
         <!-- MultiStep Form -->
-        <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+        <div class="col-lg-12 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="">
                 @if (Session::has('success'))
                 <div class="alert alert-success text-center">
@@ -115,7 +115,7 @@ $(document).ready(function () {
             
                                       }
                                     ?>
-                                    <div class="col-lg-6" style="padding-right: 25px; padding-left: 25px;">
+                                    <div class="col-lg-6" >
                                         <div class="{{$divclass}}">
                                             <div class="mem-btn">
                                             <button class="membership-btn" style="{{$style}}">{{ucfirst($record['plans'])}} membership</button>

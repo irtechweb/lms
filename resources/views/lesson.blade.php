@@ -91,7 +91,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                       $cl = "active-video"; ?>
 
 
-                    
+                    <a href="{{route('course-lesson-number',[$course->id,$lecturequiz->lecture_quiz_id])}}">
                     <div  class="play-list {{$cl}}">
                      <!-- @if($video != null)  -->                    
                      <img onclick="play(this)" class="play" attr="{{$videopath}}" alt="" src="{{url('images/Play button.svg')}}" >
@@ -99,8 +99,9 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                      <!-- <img src="{{url('images/Play button.svg')}}" alt="">
                      @endif -->
                   
-                     <a href="{{route('course-lesson-number',[$course->id,$lecturequiz->lecture_quiz_id])}}"> <span>{!! $lecturequiz->title !!}<small style= "float:right"> 2:01 mins</small></span> </a>
+                      <span>{!! $lecturequiz->title !!}<small style= "float:right"> 2:01 mins</small></span> 
                     </div>
+                    </a>
                     @php
                     @endphp
                     @endforeach   
@@ -123,23 +124,27 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
     <div class="container-main">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+          <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
             type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
             role="tab" aria-controls="nav-profile" aria-selected="false">Notes</button>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-         @php 
-        if(isset($quiz_description))
-        {
-         echo $quiz_description;
-        }else{
-        echo "No description";
-        }
-         @endphp
-        </div>
+          <div class="row">
+            <div class="col-md-10">
+              <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              @php 
+              if(isset($quiz_description))
+              {
+              echo $quiz_description;
+              }else{
+              echo "No description";
+              }
+              @endphp
+              </div>
+              </div>
+          </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <span id="save_notes"> </span>
           <form class="text_area">
