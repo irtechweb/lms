@@ -11,10 +11,8 @@
             <form method="get" action="{{url('editprofile')}}">
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
-                       
                         <!-- <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="150px" class="rounded-circle mx-auto d-block" alt="avatar"> -->
-                        
-                        <img id="preview" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="output_image rounded-circle mx-auto d-block" alt="avatar">
+                        <img id="preview" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="150px" class="output_image rounded-circle mx-auto d-block" alt="avatar">
                         <br/> <br/>
                         <div class="custom-file">
                             <input name="logo" type="file" class="custom-file-input logo" form="mail-img-form" accept="image/*">
