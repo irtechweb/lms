@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
    
     Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
     Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
+    
 
     Route::get('membership-plans', [App\Http\Controllers\SubscriptionController::class, 'membershipPlans'])->name('membershipPlans');
     Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');

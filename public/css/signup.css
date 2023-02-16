@@ -13,7 +13,7 @@ h1,h2,h3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 123px;
+    /* height: 123px; */
 }
 h1 {
     font-weight: 500;
@@ -23,8 +23,8 @@ h1 {
 }
 
 header button {
-    height: 60px;
-    width: 180px;
+    /* height: 60px;
+    width: 180px; */
     border-radius: 6px;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 500;
@@ -39,7 +39,7 @@ button.start-learning {
     margin-left: 26px;
 }
 
-/*footer {
+footer {
     background: #1c1c1c;
     padding: 40px 0;
 }
@@ -55,14 +55,14 @@ button.start-learning {
 .footer-top {
     display: flex;
     align-items: center;
-}*/
+}
 
 /* .footer-link {
     display: flex;
     margin-left: 10px;
 } */
 
-/*.footer-link a {
+/* .footer-link a {
     color: #FFFFC8;
     text-decoration: none;
     margin-left: 90px;
@@ -70,7 +70,7 @@ button.start-learning {
     line-height: 26px;
     font-weight: 500;
     font-family: 'Space Grotesk', sans-serif;
-}*/
+} */
 
 /* =============   Sign up CSS   =========== */
 

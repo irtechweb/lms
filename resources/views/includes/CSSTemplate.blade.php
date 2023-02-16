@@ -48,6 +48,9 @@
                        opacity: 0.4;
                        filter: alpha(opacity=40); /* For IE8 and earlier */
                    }
+                   li.nav-item {
+                    margin-left: 20px;
+                    }
         </style>
 
     </head>
@@ -60,12 +63,63 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
         $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
         //dd($subs);
         ?>
-        <header class="main-site">
+        <header>
             <div class="container">
-                <div class="main-header">
+                <div class="main-header mt-4 mb-4">
+                    <div class="pull-right">
+                    <div class="dropdown">
+                            <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                                <div class="avatar avatar-sm avatar-circle mt-1">
+                                <img class="avatar-img" src="{{url('images/user1.png')}}" alt="Image Description">
+                                <span class="avatar-status avatar-sm-status avatar-status-success"></span>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 18rem;" data-bs-popper="static">
+                                <a class="dropdown-item" href="{{ route('profile') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile </a>
+                                <div class="dropdown-divider"></div> 
+                                <?php if($subs != null){ ?>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex align-items-center">
+                                        <!-- <div class="flex-shrink-0">
+                                            <div class="avatar avatar-sm avatar-dark avatar-circle">
+                                            <span class="avatar-initials">HS</span>
+                                            </div>
+                                        </div> -->
+                                        <div class="flex-grow-1 ms-2">
+                                            <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
+                                            <span class="card-text">Expires on: {{$subs->subscription_end_date}}</span>
+                                        </div>
+                                        </div>
+                                    </a> 
+                                <?php } elseif (Auth::user()->is_sign_up_free == 1 && $subs != null){ ?>
+                                    <a class="dropdown-item" href="#">
+                                    <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1 ms-2">
+                                        <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
+                                        </div>
+                                        </div>
+                                        </a>
+                                    <?php } else{ ?>
+                                        <a class="dropdown-item" href="#">
+                                        <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1 ms-2">
+                                        <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">N/A</span></h6>
+                                        </div>
+                                        </div>
+                                        </a> 
+                                        
+                                    <?php }   ?>
+                                <div class="dropdown-divider"></div> 
+
+                        
+
+                                <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Sign out</a>
+                            </div>
+                        </div>
+                    </div>
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text"></a>
+                            <a href="{{url('/')}}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="img-responsive" alt="alt text"></a>
                          </div>
                         
                         <!-- <a class="navbar-brand" href="#">Speak2Impact Academy</a> -->
@@ -100,43 +154,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                         </div>
 
                         
-                        <div class="dropdown">
-                <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
-                    <div class="avatar avatar-sm avatar-circle">
-                    <img class="avatar-img" src="{{url('images/user1.png')}}" alt="Image Description">
-                    <span class="avatar-status avatar-sm-status avatar-status-success"></span>
-                    </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 18rem;" data-bs-popper="static">
-                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile </a>
-                    <div class="dropdown-divider"></div> 
-                    <?php if($subs != null){ ?>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex align-items-center">
-                              <!-- <div class="flex-shrink-0">
-                                <div class="avatar avatar-sm avatar-dark avatar-circle">
-                                  <span class="avatar-initials">HS</span>
-                                </div>
-                              </div> -->
-                              <div class="flex-grow-1 ms-2">
-                                <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
-                                <span class="card-text">Expires on: {{$subs->subscription_end_date}}</span>
-                              </div>
-                            </div>
-                          </a> 
-                    <?php } elseif (Auth::user()->is_sign_up_free == 1 && $subs != null){ ?>
-                            <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
-                        <?php } else{ ?>
-                            <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">N/A</span></h6>
-                            
-                        <?php }   ?>
-                    <div class="dropdown-divider"></div> 
-
-               
-
-                    <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Sign out</a>
-                </div>
-    </div>
+                        <!-- dropdown -->
 
 
 
@@ -146,5 +164,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                     </nav>
                 </div>
             </div>
+
         </header>
         <!-- END HEAD -->
+      

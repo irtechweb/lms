@@ -8,26 +8,36 @@
 
 </div> -->
 
-<div class="hero">
+<!-- <div class="hero"> -->
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 hero-heading">
-                <span class="header1">Schedule 1:1 meeting with coach</br></span>  
+        <div class="row mt-5 mb-5">
+            <div class="col-md-6">
+                <h2>Schedule 1:1 meeting with coach</h2>
+                <h6 style="font-family: Inter;
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0em;
+text-align: left;
+">You can Schedule 20 mins 1:1 meeting with a coach as per <u>your plan</u> selected
+                with the given calendy below</h6>
+                <!-- <span class="header1">Schedule 1:1 meeting with coach</br></span>   -->
 
-                <span class="header2">You can Schedule 20 mins 1:1 meeting with a coach as per your plan selected
-                with the given calendy below</br></span> 
+                <!-- <span class="header2">You can Schedule 20 mins 1:1 meeting with a coach as per your plan selected
+                with the given calendy below</br></span>  -->
                 
             </div>
 
-            <div class="col-md-6 hero-heading">
-                <span class="header2">Booking credits for this month: {{$count}}</br></span>  
+            <div class="col-md-6">
+                <h4 class="float-right">Booking credits for this month: {{$count}}</h4>
+                <!-- <span class="header2"></br></span>   -->
 
                 
                 
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if($count>0)
 <div class="calendly-inline-widget" data-url="https://calendly.com/susie-speak2impact-/60min" style="min-width:320px;height:630px;">
@@ -49,15 +59,23 @@
 </div> -->
 
 <!-- <div class="modal show" tabindex="-1" role="dialog" id="exampleModal" > -->
-<div class="modal-dialog modal-sm show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+<div class="modal-dialog show mb-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
     <form action="{{route('bookSlot')}}" >
-    <div class="modal-dialog">
+    <!-- <div class="modal-dialog"> -->
         <div class="modal-content">
             <div class="modal-body">
                 <div class="membership-plan-pop">
-                    <div class="toggle-membership">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <p class="text-center" style="color :white; line-height :48px; font-family: Space Grotesk;
+font-size: 32px;
+font-weight: 500;
+line-height: 48px;
+letter-spacing: 0em;
+text-align: center;
+">Add More booking </br>credits</p>
+                    <!-- <div class="toggle-membership">
                        Add More Booking credits?
-                    </div>
+                    </div> -->
                     
                     <h6><span>£<?= $sessionprice->price ?>/booking</span></h6>
                     <button class="start-membership">Book Now</button>
@@ -65,7 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </form>
 </div>
 @endif
@@ -75,14 +93,14 @@
 
 <script>
 
-    $('#exampleModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    //$('#exampleModal').modal({backdrop: 'static', keyboard: false}, 'show');
     // var available_count = <?php echo $count ?>;
     // alert(available_count);
-     if(available_count == 0){
+     //if(available_count == 0){
         
-        $('#exampleModal').modal();
+       // $('#exampleModal').modal();
         //$('#exampleModal').modal({backdrop: 'static', keyboard: false}, 'show');
-    }
+    //}
 
 
 function isCalendlyEvent(e) {

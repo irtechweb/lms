@@ -342,7 +342,7 @@ button.accordion-button {padding: 20px;background: none;border: 1px solid #E0E0E
     background: #1C1C1C;
     border-radius: 12px;
     padding: 60px;
-    max-width: 460px;
+    /* max-width: 460px; */
     width: 100%;
 }
 
@@ -435,7 +435,7 @@ button.start-membership {
     text-align: center;
 }
 
-.modal-body {
+/* .modal-body {
     padding: 0;
     max-width: 460px;
 }
@@ -445,4 +445,10 @@ button.start-membership {
     border-radius: 16px;
     overflow: hidden;
     background: none!important;
+} */
+
+.modal-content {
+   
+    border: 1px solid rgb(0 0 0 / 0%) !important;
+
 }
