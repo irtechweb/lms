@@ -29,4 +29,24 @@ class SiteController extends Controller
     {
         return view('profile');
     }
+
+    public function profileImage(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            ],
+            [
+                'image.mimes' => 'The image must be file of type jpeg,png,jpg,gif,svg',
+                'image.max'   => 'The image size can not be greater than 500kb',
+                'image.dimensions' => 'The image dimensions consists on 1000*1000'
+            ]
+        );
+        $image = $request->file('image');
+        $name = time() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('/profile_images');
+        $image->move($destinationPath, $name);
+        echo json_encode(['success' => true, 'payload' => url('profile_images/' . $name)]);
+    }
 }

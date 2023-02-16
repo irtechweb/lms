@@ -12,8 +12,20 @@
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
                        
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="rounded-circle mx-auto d-block" alt="avatar">
-                    <br/>
+                        <!-- <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="rounded-circle mx-auto d-block" alt="avatar"> -->
+                        
+                        <img id="preview" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="output_image rounded-circle mx-auto d-block" alt="avatar">
+                        <br/> <br/>
+                        <div class="custom-file">
+                            <input name="logo" type="file" class="custom-file-input logo" form="mail-img-form" accept="image/*">
+                            <label id="fileLabel" class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <button id="upload-pimage" class="btn m-b-xs w-auto btn-success upload-thumbnail-img" type="button"><i class="icon-upload"></i> Upload</button>
+                        <button id="remove-pimage" class="btn m-b-xs w-auto btn-danger" type="button" ng-click="clearThumbnailPicture(hotel)"><i class="icon-cancel-circle2"></i> Remove</button>
+                        
+                      
+                    
+                    <br/><br/> <br/>
                     <div class="profile-work text-center">
                         <h5 class="cfhp">
                                         {{Auth::user()->first_name}} {{Auth::user()->last_name}}

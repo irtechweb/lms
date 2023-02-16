@@ -300,6 +300,65 @@
     
     });
 
+    $('#upload-pimage').click(function(e) {
+            e.preventDefault();
+            
+            elem = $(this);
+            //logoctrl = elem.closest('.custom-file').find('.logo');
+            logoctrl = $('.custom-file-input');
+            
+            //console.log('Element');
+            //console.log(logoctrl[0].files[0];);
+            //console.log(logoctrl.val());
+            //return;
+
+            if (logoctrl.val()) {
+                let formData = new FormData();
+                let file = logoctrl[0].files[0];
+                
+                formData.append('image', file);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // tell jQuery not to process the data
+                    contentType: false, // tell jQuery not to set contentType
+
+                    url: 'profileImage',
+                    success: function(response) {
+                        var response = JSON.parse(response);
+                        if (response.success) {
+
+                           console.log(response);
+                            return;
+                            alert('File uploaded successfully');
+                            var controllername = document.getElementById('main-content').getAttribute("ng-controller")
+                            var scope = angular.element(document.querySelector('[ng-controller="' + controllername + '"]')).scope();
+                          
+                            scope.$apply(function() {
+                                switch (controllername) {
+                                    case "hotelCtrl":
+                                    scope.hotel.Thumbnail = response.payload;
+                                    break;
+                                }
+                            })
+
+                        }
+                    },
+                    error: function(response) {
+                      alert(response.responseJSON.errors.image[0]);
+                   
+                    }
+                })
+
+            } else {
+                alert('Please select a file to upload');
+              
+            }
+
+        });
     
     
 </script>

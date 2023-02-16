@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
            // ->middleware('password.confirm')
             ->name('profile');
+    
+    Route::post('profileImage', [\App\Http\Controllers\SiteController::class, 'profileImage']);
 
     Route::get('editprofile', function () {
         return view('editprofile');
