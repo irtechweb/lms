@@ -15,6 +15,7 @@
 {{--jquery for globally access ajax calls--}}
 <!-- BEGIN: Custom Js-->
 <script src="{{url('theme/app-assets/vendors/js/tables/jquery-1.12.3.js')}}" type="text/javascript"></script>
+
 <!-- END: Custom JS-->
 <script>
     $(function ()

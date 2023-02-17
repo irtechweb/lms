@@ -19,4 +19,12 @@ class HomeController extends Controller
     {
         return view('admin.profile');
     }
+    public function showSiteContent(Request $request){
+
+        return view('admin.sitecontent');
+    }
+    public function setting(Request $request){
+
+        return view('admin.setting');
+    }
 }

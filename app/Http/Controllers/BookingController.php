@@ -42,7 +42,7 @@ class BookingController extends Controller {
     public function bookPaymentSlot(Request $request) {
         
         try{
-
+        //dd($request->quantity);
 
         if (isset($request->user_id) && isset($request->quantity) && $request->quantity > 0) {
             // check if customer already subscribed to any subscription
@@ -65,7 +65,7 @@ class BookingController extends Controller {
             }
             $data['intent_data'] = $createIntnet['data'];
             $capturePayment = self::capturePaymentIntentMethod($data);
-            //dd($capturePayment);
+            dd($capturePayment);
             if ($capturePayment['success'] != true) {
                 return redirect()->route('membershipPlans')->with('Error occurred while capturing payment');
             }
@@ -78,8 +78,7 @@ class BookingController extends Controller {
             }
             $paymentData = self::preparePaymentData($data);
 
-            //dd('$payment saving data',$paymentData);
-
+            
             $savePayment = \App\Models\CoachPayment::saveData($paymentData);
            
             $availableslot = \App\Models\AvailableBookingCount::where('user_id',$data['request_data']['user_id'])->first();
@@ -88,7 +87,7 @@ class BookingController extends Controller {
             }
             else
                 $book_count = $data['quantity'];
-
+            
             //add booking count
             $saveCount = \App\Models\AvailableBookingCount::createOrUpdate(['user_id' => $data['request_data']['user_id'], 'booking_count' => $book_count]);
             if (!$savePayment) {
@@ -274,7 +273,7 @@ class BookingController extends Controller {
         return $booking;
     }
     public function postPaymentWithpaypal(Request $request) {
-        die('N/A');
+       
         DB::BeginTransaction();
         $data['request_data'] = $request->toArray();
 

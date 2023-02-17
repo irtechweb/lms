@@ -6,8 +6,21 @@
 <div class="upcoming-webinar">
     <div class="container-main">
         <h2>Upcoming webinars</h2>
+       
         <div class="webinar-cards">
             @foreach($data['upcoming'] as $key=>$record)
+            <?php 
+                //dd($record); 
+                $action = url('book-webinar');
+                $style = "";
+                if(in_array($record['id'],$data['userbooked'])){
+                  $action = "javascript:;";
+                  $style = "background-color:green;color:white";
+            } ?>
+            <form action="{{$action}}" method="post">
+                @csrf
+            <input type="hidden" name="web_id" value="{{$record['id']}}">
+
             <div class="webinar-card">
                 <div class="date">{{$record['date']}}</div>
                 <div class="webinar-heading">{{$record['title']}}</div>
@@ -24,12 +37,16 @@
                     @endif
                 </div>
                 <div class="webinar-button">
-                    <button>Book a slot</button>
+                    
+                    <button style= <?= $style ?> >Book a slot</button>
+                    
                 </div>
             </div>
+        </form>
             @endforeach
 
         </div>
+    </form>
     </div>
 </div>
 <!-- ===============   Webinar End   ============== -->

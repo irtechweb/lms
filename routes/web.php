@@ -65,13 +65,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book-slot', [App\Http\Controllers\BookingController::class, 'bookSlot'])->name('bookSlot');
     Route::post('bookwithpaypal', [App\Http\Controllers\BookingController::class, 'postPaymentWithpaypal'])->name('bookwithpaypal');
     Route::get('bookwithpaypal', [App\Http\Controllers\BookingController::class, 'getPaymentStatus'])->name('bookstatus');
-});
-Route::get('webinars', [App\Http\Controllers\WebinarController::class, 'getWebinars'])->name('getWebinars');
+    Route::get('webinars', [App\Http\Controllers\WebinarController::class, 'getWebinars'])->name('getWebinars');
+Route::post('book-webinar', [App\Http\Controllers\WebinarController::class, 'bookWebinar'])->name('bookWebinar');
+
 
 Route::get('/deleteWebinar/{id}', [\App\Http\Controllers\Admin\WebinarController::class, 'deleteWebinar'])->name('deleteWebinar');
 Route::post('/createBooking', [\App\Http\Controllers\BookingController::class, 'createBooking'])->name('createBooking');
 
 Route::get('book-slot', [App\Http\Controllers\BookingController::class, 'bookSlot'])->name('bookSlot');
 Route::post('book-slot', [App\Http\Controllers\BookingController::class, 'bookPaymentSlot'])->name('paybookSlot');
+
+Route::get('practise', [App\Http\Controllers\HomeController::class, 'practise'])->name('practise');
+
+});
 
 

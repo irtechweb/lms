@@ -161,6 +161,15 @@ Route::prefix('admin')->group(static function () {
         Route::post('/save-webinar/', [\App\Http\Controllers\Admin\WebinarController::class, 'saveWebinar'])->name('saveWebinar');
         Route::get('/edit-webinar/{id}', [\App\Http\Controllers\Admin\WebinarController::class, 'editWebinar'])->name('webinar.edit');
         Route::post('/update-webinar/', [\App\Http\Controllers\Admin\WebinarController::class, 'updateWebinar'])->name('updateWebinar');
+        Route::get('/manage/content', [\App\Http\Controllers\Admin\HomeController::class, 'showSiteContent'])->name('showSiteContent');
+        Route::post('/content/add', [\App\Http\Controllers\Admin\ContentController::class, 'add'])->name('add');
+        Route::get('/getContent', [\App\Http\Controllers\Admin\ContentController::class, 'all'])->name('all');
+
+        Route::get('/setting', [\App\Http\Controllers\Admin\HomeController::class, 'setting'])->name('setting');
+       
+        
+        
+
     });
 });
 
