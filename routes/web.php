@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
            // ->middleware('password.confirm')
             ->name('profile');
+    
+    Route::post('profileImage', [\App\Http\Controllers\SiteController::class, 'profileImage']);
 
     Route::get('editprofile', function () {
         return view('editprofile');
@@ -54,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
    
     Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
     Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
+    
 
     Route::get('membership-plans', [App\Http\Controllers\SubscriptionController::class, 'membershipPlans'])->name('membershipPlans');
     Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');

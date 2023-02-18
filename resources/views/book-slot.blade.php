@@ -31,7 +31,7 @@
      background-color: #000000 !important;
      border-color: #000000 !important;
    }
-   .hide{
+.hide{
     display:none;
    }
  </style>
@@ -75,15 +75,16 @@
      </div>
    </div> 
  </div>
-  
+  <form  action="{{ route('paybookSlot') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ config('paths.publish_key') }}" id="msform1" enctype="multipart/form-data">
  <div class="row align-items-center justify-content-center">
 
-            
+             @csrf
+                <input type="hidden" name='user_id' value="{{Crypt::encrypt($data['user_id'])}}"><input type="hidden" id='price' name='price' value="{{$data['coach_price']}}">
    <div class="col-lg-6  mt-5 mb-login">
      <h1 class="text-center">Slots Booking</h1>
      <x-auth-validation-errors class="mb-4" :errors="$errors" />
      <div class="row">
-        <div class="col-lg-8 mb-4">
+       <div class="col-lg-8 mb-4">
          <p style="font-family: 'Inter';font-style: normal;font-weight: 400;font-size: 16px;line-height: 150%;">Select number of slots</p>
        </div>
        <div class="col-lg-4">
@@ -96,9 +97,19 @@
          </div>
        </div>
      </div>
-     <form  action="{{ route('paybookSlot') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ config('paths.publish_key') }}" id="msform1" enctype="multipart/form-data">
-       @csrf
-                <input type="hidden" name='user_id' value="{{Crypt::encrypt($data['user_id'])}}"><input type="hidden" id='price' name='price' value="{{$data['coach_price']}}">
+     <!-- <div class="row">
+       <div class="col-lg-8">
+         <p style="font-family: 'Inter';font-style: normal;font-weight: 400;font-size: 16px;line-height: 13px;color: #1C1C1C;">Use the primary card or add another card</p>
+         <div class="form-check">
+           <input class="form-check-input" style="margin-left: -19px;" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+           <label class="form-check-label" style="    margin-left: 8px;" for="flexRadioDefault1"> xxxx xxxx xxx24 </label>
+         </div>
+       </div>
+       <div class="col-lg-4">
+         <button id="btn_add_card" style="background: #FFFFFF;border: 1px solid #1C1C1C;box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);border-radius: 6px;display: block;width: 100%;border-radius: 6px;color: #1C1C1C;font-size: 14px;font-family: 'Inter', sans-serif;padding: 11px 4px;" type="submit" class="login-m registerBtn">
+           <i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add another card </button>
+       </div>
+     </div> -->
      <div class="row" style="padding-bottom: 8px;margin-top: 20px;margin-bottom: 32px;border-bottom: 1px solid;margin-right: 3px;margin-left: 0px;">
        <div class="col-12"></div>
      </div>
@@ -155,25 +166,25 @@
          <h5>Total</h5>
        </div>
        <div class="col-lg-8 text-right">
-         <h5>£<span id="total">{{$data['coach_price']}}</span></h5>
+         <h5>Â£<span id="total">{{$data['coach_price']}}</span></h5>
          <p style="font-family: 'Inter';
-                  font-style: normal;
-                  font-weight: 400;
-                  font-size: 14px;
-                  line-height: 150%;
-                  /* identical to box height, or 21px */
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 150%;
+/* identical to box height, or 21px */
 
-                  text-align: right;
+text-align: right;
 
-                  color: #686868;">You have opted for <span id='quantity'>1</span> additional slots (£<span id='cost'>{{$data['coach_price']}}</span> per slot)</p>
+color: #686868;">You have opted for <span id='quantity'>1</span> additional slots (Â£<span id='cost'>{{$data['coach_price']}}</span> per slot)</p>
        </div>
      </div>
-      <div class="row error hide">
+
+  <div class="row error hide">
        <div class="alert alert-error text-center alert-danger">
          <p></p>
        </div>
       </div>
-
      <button type="submit" class="login-m registerBtn">Book Slots</button>
      </form>
      </br>
@@ -229,7 +240,6 @@
           --------------------------------------------*/
          function stripeResponseHandler(status, response) {
            if (response.error) {
-            console.log('errrrrrrrrrrrrrrrrrrrr');
              $('.error').removeClass('hide').find('.alert').text(response.error.message);
            } else {
              /* token contains id, last4, and card type */
@@ -250,6 +260,7 @@
      $("#form-section").toggle();
    });
    $('form').on('submit',function(){
+        console.log('loading loader');
         $('div.loaderImage').show();
    })
    function increaseValue() {
@@ -307,6 +318,4 @@
    $('.input-group').on('click', '.button-minus', function(e) {
      decrementValue(e);
    });
- </script>
-
-  @endsection('content')
+ </script> @endsection('content')
