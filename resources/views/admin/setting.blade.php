@@ -4,65 +4,60 @@
 @endsection
 
 @section('body')
-<?php //dd($data);?>
+<?php ?>
 
 <div class="app-content content">
   <div class="content-wrapper">
     <div class="content-body">
-      <form action="javascript:;" id="promo_form" method="post" enctype="multipart/form-data">
-        <div class="row">
-        <div class="col-md-12">
-          <span style="font-size: 10px;"> Supported File Formats: mp4 <br>Duration: 5-10 Mins <br> Max File Size: 300MB </span>
-          <hr class="my-4">
-          <div class="progress" id="progress_div" style="display:none;">
-            <div class="progress-bar progress-bar-success" id="bar" role="progressbar" style="width:0%">
-              <span id="percent">0%</span>
-            </div>
-          </div>
-          <div id='output_image'></div>
-          <div class="row">
-            <div class="row">
-              <div class="col-md-6">
-                <label class="cabinet center-block">
-                  <figure class="course-image-container">
-                    <div class="video-preview"> @if(isset($video)) @php $file_name = 'course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type; @endphp {{-- {{dd(url('public/'.$file_name)) }} --}} {{-- {{dd( storage_path())}} --}} @if(!empty($file_name)) <video width="100%" height="100%" controls preload="auto">
-                        <source src="{{ url($file_name)}}" type="video/mp4">
-                      </video> @else <blockquote class="blockquote custom-blockquote blockquote-success mt-4">
-                        <p class="mb-0">Promo video not yet uploaded</p>
-                      </blockquote> @endif @else <blockquote class="blockquote custom-blockquote blockquote-success">
-                        <p class="mb-0">Promo video not yet uploaded</p>
-                      </blockquote> @endif </div>
-                  </figure>
-                </label>
-              </div>
-              <div class="col-md-6">
-                <div class="input-group input-group-file" data-plugin="inputGroupFile">
-                  <input type="text" class="form-control" readonly="">
-                  <span class="input-group-btn">
-                    <span class="btn btn-success btn-file">
-                      <i class="icon wb-upload" aria-hidden="true"></i>
-                      <input type="file" class="file center-block" name="course_video" id="course_video" />
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <input type="submit" class="btn btn-primary" value="Upload" onclick='upload_video();' />
-              </div>
-            </div>
-          </div>
-          
-      </div>
+    @if (Session::has('success_message'))
+    <div class="alert alert-success alert-dismissible mb-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Well done!</strong>
+        {{ Session::get('success_message') }}
     </div>
-    </form>
-    <hr>
-    <form action="javascript:;" id="content_form" method="post" enctype="multipart/form-data">
+@endif
+@if (Session::has('error_message'))
+    <div class="alert alert-danger alert-dismissible mb-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Error!</strong> {{ Session::get('error_message') }}
+
+    </div>
+@endif
+@if ($errors->any())
+    <div class="alert alert-success alert-dismissible mb-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </div>
+@endif
+     
+    <form action="{{url('/admin/setting')}}" id="content_form" method="post" enctype="multipart/form-data">
+      @csrf
+
+    <div class="row">
+        <div class="form-group col-md-12">            
+              <label class="form-control-label">Promo Video <span class="required">*</span></label>
+              <input type="text" class="form-control" name="promo_video_link" 
+                   value="<?=isset($setting->promo_video_link)?$setting->promo_video_link : ''?>" maxlength="255" required />
+            <label class="error" for="promo_video_link"></label>
+                  
+          
+        </div>
+
+    </div>
     <div class="row">
         <div class="form-group col-md-12">            
               <label class="form-control-label">Free Signup Content <span class="required">*</span></label>
-              <input type="text" class="form-control" name="signup_title" 
-                  placeholder="Course Title" value="" />
-            <label class="error" for="course_title"></label>
+              <input type="text" class="form-control" name="free_sign_up" 
+                   value="<?=isset($setting->free_sign_up)?$setting->free_sign_up : ''?>" maxlength="255" required />
+            <label class="error" for="free_sign_up"></label>
                   
           
         </div>
@@ -71,9 +66,9 @@
     <div class="row">
         <div class="form-group col-md-12">            
               <label class="form-control-label">Contact Email <span class="required">*</span></label>
-              <input type="text" class="form-control" name="signup_title" 
-                  placeholder="Course Title" value="" />
-            <label class="error" for="course_title"></label>
+              <input type="email" class="form-control" name="contact_email" 
+                   value="<?=isset($setting->contact_email)?$setting->contact_email : ''?>" maxlength="255" required/>
+            <label class="error" for="contact_email"></label>
                   
           
         </div>
@@ -83,9 +78,9 @@
     <div class="row">
         <div class="form-group col-md-12">            
               <label class="form-control-label">Instragram <span class="required">*</span></label>
-              <input type="text" class="form-control" name="signup_title" 
-                  placeholder="Course Title" value="" />
-            <label class="error" for="course_title"></label>
+              <input type="text" class="form-control" name="instagram" 
+                   value="<?=isset($setting->instagram)?$setting->instagram : ''?>" maxlength="255" required />
+            <label class="error" for="instagram"></label>
                   
           
         </div>
@@ -95,9 +90,9 @@
     <div class="row">
         <div class="form-group col-md-12">            
               <label class="form-control-label">Facebook <span class="required">*</span></label>
-              <input type="text" class="form-control" name="signup_title" 
-                  placeholder="Course Title" value="" />
-            <label class="error" for="course_title"></label>
+              <input type="url" class="form-control" name="facebook" 
+                   value="<?=isset($setting->facebook)?$setting->facebook : ''?>" required/>
+            <label class="error" for="facebook"></label>
                   
           
         </div>
@@ -107,9 +102,9 @@
     <div class="row">
         <div class="form-group col-md-12">            
               <label class="form-control-label">Tik Tok <span class="required">*</span></label>
-              <input type="text" class="form-control" name="signup_title" 
-                  placeholder="Course Title" value="" />
-            <label class="error" for="course_title"></label>
+              <input type="url" class="form-control" name="tiktok" 
+                   value="<?=isset($setting->tiktok)?$setting->tiktok : ''?>" required/>
+            <label class="error" for="tiktok"></label>
                   
           
         </div>
@@ -119,29 +114,19 @@
     <div class="row">
         <div class="form-group col-md-12">            
               <label class="form-control-label">LinkedIn <span class="required">*</span></label>
-              <input type="text" class="form-control" name="signup_title" 
-                  placeholder="Course Title" value="" />
-            <label class="error" for="course_title"></label>
+              <input type="url" class="form-control" name="linkedin" 
+                   value="<?=isset($setting->linkedin)?$setting->linkedin : ''?>" />
+            <label class="error" for="linkedin"></label>
                   
           
         </div>
 
     </div>
 
-    <div class="row">
-        <div class="form-group col-md-12">            
-              <label class="form-control-label">Free Signup Content <span class="required">*</span></label>
-              <input type="text" class="form-control" name="signup_title" 
-                  placeholder="Course Title" value="" />
-            <label class="error" for="course_title"></label>
-                  
-          
-        </div>
-
-    </div>
+    
     <div class="row">
         <div class="form-group col-md-12"> 
-            <button class="btn btn-primary pull-right">Save</button>
+            <button type="submit" class="btn btn-primary pull-right">Save</button>
     </div>
 
     </div>
@@ -152,36 +137,7 @@
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/tinymce/jscripts/tiny_mce/tiny_mce.js') }}"></script>
-<script type="text/javascript">
 
-    $(document).ready(function()
-    { 
-        // tinymce.init({ 
-        //     selector:'textarea',
-        //     menubar:false,
-        //     statusbar: false,
-        //     content_style: "#tinymce p{color:#76838f;}"
-        // });
-        tinymce.init({  
-        mode : "specific_textareas",
-        selector : "textarea",
-        theme : "advanced",
-        theme_advanced_buttons1 : "bold,italic,underline",
-        theme_advanced_toolbar_location : "top",
-        theme_advanced_toolbar_align : "left",
-        theme_advanced_statusbar_location : "bottom",
-        width : "100%",
-        plugins : "paste",
-        paste_text_sticky : true,
-        setup : function(ed) {
-          ed.onInit.add(function(ed) {
-            ed.pasteAsPlainText = true;
-          });
-        }
-      });
-    });
-</script>
 <script type="text/javascript">
     
 

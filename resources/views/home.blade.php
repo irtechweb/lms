@@ -1,5 +1,11 @@
 @extends('layouts.main')
 @section('content')
+
+<?php
+
+$setting = \App\Models\Setting::first();
+ ?>
+ 
 <div class="col-12">
     @if (Session::has('error'))
     <div class="alert alert-error text-center">

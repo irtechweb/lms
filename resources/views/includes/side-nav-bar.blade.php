@@ -157,7 +157,7 @@
                 <a href="#">
                     <i class="ft-users"></i>
                     <span class="menu-title" data-i18n="">
-                        Studends
+                        Students
                     </span>
                 </a>
                 <ul class="menu-content">
@@ -248,13 +248,13 @@
                     </span>
                 </a>
                 <ul class="menu-content">
-                    {{-- <li class="navigation-divider"></li>
+                     <li class="navigation-divider"></li>
                     <li>
-                        <a class="menu-item" href="{{ route('admin.messageCodes') }}">Message Codes</a>
+                        <a class="menu-item" href="{{ route('showSiteContent') }}">Text Content</a>
                     </li>
                     <li>
-                        <a class="menu-item" href="{{ route('admin.settings.index') }}">System Settings</a>
-                    </li> --}}
+                        <a class="menu-item" href="{{ route('setting') }}">System Settings</a>
+                    </li> 
 
                 </ul>
             </li>

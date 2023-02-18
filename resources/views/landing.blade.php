@@ -1,5 +1,10 @@
 @extends('layouts.landing')
 @section('content')
+<?php
+
+$setting = \App\Models\Setting::first();
+
+ ?>
         <div class="hero">
             <div class="container">
                 <div class="hero-top">
@@ -44,9 +49,10 @@
 
         <div class="fun-facts">
             <div class="container">
-                <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png">
-                    <source src="movie.mp4" type="video/mp4">
-                    <source src="movie.ogg" type="video/ogg">
+               <!--  <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png"> -->
+                <video width="800" height="500" controls >
+                    <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>" type="video/mp4">
+                    <!-- <source src="movie.ogg" type="video/ogg"> -->
                     Your browser does not support the video tag.
                 </video> 
                 <div class="fun-stats">
@@ -192,7 +198,7 @@
                         <div class="align-items-center justify-content-center">
                         <div class="Sign " style="border: 1px solid;">
                                 <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign up for Free</h5>
-                                <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
+                                <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;"><?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to webinars and other pre-recorded content'?> <span><img src="{{url('images/')}}/free-white.png"></p>
                                 <button class="start-membershiIp" style="
                                 background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none;
     color: #FFF" href="{{url('register')}}">Sign for Free</a></button>

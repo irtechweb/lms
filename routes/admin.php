@@ -166,6 +166,7 @@ Route::prefix('admin')->group(static function () {
         Route::get('/getContent', [\App\Http\Controllers\Admin\ContentController::class, 'all'])->name('all');
 
         Route::get('/setting', [\App\Http\Controllers\Admin\HomeController::class, 'setting'])->name('setting');
+        Route::post('/setting', [\App\Http\Controllers\Admin\HomeController::class, 'saveSetting'])->name('savesetting');
        
         
         

@@ -11,6 +11,7 @@ use App\Models\{
     Subscription,
     CoachPrice
 };
+use App\Models\TextContent;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -167,6 +168,18 @@ class HomeController extends Controller {
 
         echo json_encode(['success' => true]);
         exit;
+    }
+    public function termofservice(Request $request){
+        $content = TextContent::where('type','TC')->first();
+        return view('content',compact('content'));
+    }
+    public function cookiepolicy(Request $request){
+        $content = TextContent::where('type','CP')->first();
+        return view('content',compact('content'));
+    }
+    public function privacypolicy(Request $request){
+        $content = TextContent::where('type','PP')->first();
+        return view('content',compact('content'));
     }
 
 }

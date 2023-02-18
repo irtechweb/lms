@@ -79,6 +79,9 @@ Route::get('book-slot', [App\Http\Controllers\BookingController::class, 'bookSlo
 Route::post('book-slot', [App\Http\Controllers\BookingController::class, 'bookPaymentSlot'])->name('paybookSlot');
 
 Route::get('practise', [App\Http\Controllers\HomeController::class, 'practise'])->name('practise');
+Route::get('cookiepolicy', [App\Http\Controllers\HomeController::class, 'cookiepolicy'])->name('cookiepolicy');
+Route::get('privacypolicy', [App\Http\Controllers\HomeController::class, 'privacypolicy'])->name('privacypolicy');
+Route::get('termofservice', [App\Http\Controllers\HomeController::class, 'termofservice'])->name('termofservice');
 
 });
 
