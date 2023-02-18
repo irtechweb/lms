@@ -17,12 +17,14 @@ class AvailableBookingCount extends Model {
     ];
 
     public static function createOrUpdate($data = []) {
+
         $check = AvailableBookingCount::where('user_id', $data['user_id'])->first();
         if ($check) {
-            $save = AvailableBookingCount::where('user_id', $data['user_id'])->increment('booking_count', 2);
+            $save = AvailableBookingCount::where('user_id', $data['user_id'])->increment('booking_count', $data['booking_count']);
         } else {
             $save = AvailableBookingCount::create($data);
         }
+       
         return ($save) ? true : false;
     }
 

@@ -274,7 +274,7 @@ class BookingController extends Controller {
         return $booking;
     }
     public function postPaymentWithpaypal(Request $request) {
-        die('N/A');
+        //die('N/A');
         DB::BeginTransaction();
         $data['request_data'] = $request->toArray();
 
