@@ -89,7 +89,7 @@ Add Webinar
                                                         <label for="date">Select Date of Webinar</label>
                                                         <input step="any"
                                                                name="date"
-                                                               type="date" class="form-control" required>
+                                                               type="datetime-local" class="form-control" required>
                                                     </div>
                                                 </div>
 

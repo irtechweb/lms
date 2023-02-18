@@ -142,6 +142,11 @@ class HomeController extends Controller {
         return view('calendly', compact('count','sessionprice'));
     }
 
+    public function practise() {
+
+         return view('yoodli');
+    }
+
     public function saveLessonNotes() {
         $notes = $_GET['notes'];
         $lesson_id = $_GET['lesson_id'];

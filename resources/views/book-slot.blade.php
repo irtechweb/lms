@@ -166,7 +166,7 @@
          <h5>Total</h5>
        </div>
        <div class="col-lg-8 text-right">
-         <h5>£<span id="total">{{$data['coach_price']}}</span></h5>
+         <h5>Â£<span id="total">{{$data['coach_price']}}</span></h5>
          <p style="font-family: 'Inter';
 font-style: normal;
 font-weight: 400;
@@ -176,11 +176,11 @@ line-height: 150%;
 
 text-align: right;
 
-color: #686868;">You have opted for <span id='quantity'>1</span> additional slots (£<span id='cost'>{{$data['coach_price']}}</span> per slot)</p>
+color: #686868;">You have opted for <span id='quantity'>1</span> additional slots (Â£<span id='cost'>{{$data['coach_price']}}</span> per slot)</p>
        </div>
      </div>
 
-	<div class="row error hide">
+  <div class="row error hide">
        <div class="alert alert-error text-center alert-danger">
          <p></p>
        </div>
