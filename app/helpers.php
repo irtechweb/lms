@@ -1,6 +1,7 @@
 <?php
 
 use PhpOption\Option;
+use App\Models\Setting;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Optional;
@@ -1262,4 +1263,8 @@ if (! function_exists('with')) {
     {
         return is_null($callback) ? $value : $callback($value);
     }
+}
+
+function getSetting($key) {
+    return Setting::where('key', $key)->value('value');
 }
