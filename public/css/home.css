@@ -393,10 +393,10 @@ button.accordion-button {
 
 .membership-plan-pop {
     background: #1C1C1C;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     padding: 60px;
-    max-width: 460px;
-    width: 100%;
+    /* max-width: 460px; */
+    /* width: 100%; */
 }
 
 .toggle-membership h3 {
@@ -480,17 +480,17 @@ button.start-membership {
     text-align: center;
 }
 
-.modal-body {
+/* .modal-body {
     padding: 0;
     max-width: 460px;
 }
 
 .modal-dialog {
-    max-width: 460px;
+     max-width: 460px;
     border-radius: 16px;
     overflow: hidden;
     background: none !important;
-}
+} */
 
 /* my changes */
 .item {
@@ -755,9 +755,9 @@ header.main-site {
         height: 0%;
     }
 
-    .navbar-toggler {
+    /* .navbar-toggler {
         padding-bottom: 32%;
-    }
+    } */
 
     .dropdown-toggle {
         height: 10% !important;

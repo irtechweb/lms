@@ -4,8 +4,9 @@
 
 <!-- ===============   Webinar Start   ============== -->
 <div class="upcoming-webinar">
-    <div class="container-main">
-        <h2>Upcoming webinars</h2>
+    <div class="container">
+        <div class="webinar-inner">
+            <h2 class="head-heding">Upcoming webinars</h2>
         <div class="webinar-cards">
             @foreach($data['upcoming'] as $key=>$record)
             <div class="webinar-card">
@@ -34,9 +35,10 @@
 </div>
 <!-- ===============   Webinar End   ============== -->
 <!-- ===============   Webinar Start   ============== -->
-<div class="current-webinar">
-    <div class="container-main">
-        <h2>Previous Webinars</h2>
+<div class="upcoming-webinar">
+    <div class="container">
+        <div class="webinar-inner">
+            <h2 class="head-heding">Previous Webinars</h2>
         <div class="webinar-cards">
             @foreach($data['recorded'] as $key=>$record)
             <div class="webinar-card">
