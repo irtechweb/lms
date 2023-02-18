@@ -9,5 +9,5 @@ class TextContent extends Model
 {
     //use SoftDeletes;  
     protected $guarded =[]; 
-    protected $table = "textcontent";
+    protected $table = "TextContent";
 }
