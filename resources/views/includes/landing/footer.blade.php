@@ -5,7 +5,7 @@
                                             <div class="col-md-2">
                                                
                                                 <div class="logo">
-                                                     <img src="{{url('logo/Speak_2_Impact_Logo_Black_Bg_white.png')}}" height="80px" class="css-class" alt="alt text">
+                                                     <a href="{{url('/home')}}"><img src="{{url('logo/Speak_2_Impact_Logo_Black_Bg_white.png')}}" height="80px" class="css-class cursor-pointer" alt="alt text"></a>
                                                 </div>
                                                 
                                                 
