@@ -131,6 +131,25 @@ class HomeController extends Controller {
             return redirect()->route('membershipPlans')->with($data);
         }
     }
+    
+    public function courseLessonDetail($id, $lesson_id='') {
+
+        
+        $course = Course::join('admins','instructor_id','admins.id')->where('courses.id',$id)->select('courses.*','admins.name')->first();
+        $notes = DB::table('user_notes')->where('lesson_id', $lesson_id)->where('user_id',Auth::user()->id)->first();
+        $data['desc'] = "";
+        $data['notes'] = "";
+        if($course != NULL){
+            $data['desc'] = trim($course->overview);
+        }
+        if($notes != NULL){
+            $data['notes'] = trim($notes->notes);
+        }
+        return response()->json($data);
+        
+       
+        
+    }
 
     public function calendly() {
 
@@ -151,7 +170,7 @@ class HomeController extends Controller {
     public function saveLessonNotes() {
         $notes = $_GET['notes'];
         $lesson_id = $_GET['lesson_id'];
-        $completed = isset($_GET['is_completed'])?$_GET['is_completed']:0;
+        // $completed = isset($_GET['is_completed'])?$_GET['is_completed']:0;
 
         //dd($_GET);
         if ($lesson_id == 'undefined') {
@@ -160,10 +179,9 @@ class HomeController extends Controller {
         }
         $lesson = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
         if (isset($lesson->id)) {
-            DB::table('user_notes')->where('lesson_id', $lesson_id)->update(['notes' => $notes,
-                'completed' =>  $completed]);
+            DB::table('user_notes')->where('lesson_id', $lesson_id)->update(['notes' => $notes]);
         } else {
-            DB::table('user_notes')->Insert(['user_id' => auth()->user()->id, 'notes' => $notes, 'lesson_id' => $lesson_id,'completed' =>  $completed]);
+            DB::table('user_notes')->Insert(['user_id' => auth()->user()->id, 'notes' => $notes, 'lesson_id' => $lesson_id]);
         }
 
         echo json_encode(['success' => true]);

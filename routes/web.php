@@ -80,6 +80,8 @@ Route::post('book-slot', [App\Http\Controllers\BookingController::class, 'bookPa
 
 Route::get('practise', [App\Http\Controllers\HomeController::class, 'practise'])->name('practise');
 
+Route::get('course-lesson-detail/{id}/{lesson_id}', [App\Http\Controllers\HomeController::class, 'courseLessonDetail'])->name('course-lesson-detail');
+
 
 });
 
