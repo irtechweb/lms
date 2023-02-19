@@ -31,6 +31,7 @@
 <?php 
         use App\Models\UserSubscribedPlan;
         $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
+        $profilePic = Auth::user()->profile_pic;
         //dd($subs);
         //dd(Auth::user()->first_name);
         ?>
@@ -41,17 +42,21 @@
                        <div class="image_container" style="width: 150px;height: 150px;margin: auto;">
                             <div class="image_outer" style="width: 100% !important; height: 100% !important;    max-width: 150px !important;
                                 max-height: 150px !important;  margin: auto; background-color: #6eafd4; border-radius: 100%; position: relative;
-                                background-image:url('./images/avatar_2x.png');background-position: center;
+                                background-image: url({{ asset('profile_images/'.$profilePic) }});
+                                background-position: center;
                                 
                                 ">
+                                <!--
                                  <div class="image_inner" style="background-color: #ffffff; width: 30px;
                                     height: 30px;border-radius: 100%; position: absolute; bottom: 0; right:19px;border:1px solid">
-                                    
+                                     
                                     <input class="inputfile" type="file" name="pic" accept="image/*">
+                                   
                                     <label>
-                                    <i class="fa fa-pencil"></i>
+                                        <i class="fa fa-pencil"></i>
                                     </label>
-                                 </div>   
+                                    
+                                 </div>   --> 
                             </div>
                        </div>
                     <!-- <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="150px" class="rounded-circle mx-auto d-block" alt="avatar">

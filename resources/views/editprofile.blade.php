@@ -1,9 +1,37 @@
 @extends('layouts.main')
 @section('content')
+<style>
+    .img-responsive{
+        max-width:100%;
+        height:auto;
+    }
+    .inputfile {
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: 1;
+        width: 50px;
+        height: 50px;
+    }
+    .inputfile + label {
+        font-size: 1.25rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+        overflow: hidden;
+        width: 30px;
+        height: 30px;
+        pointer-events: none;
+        cursor: pointer;
+        line-height: 30px;
+        text-align: center;
+    }
+    
+</style>
 <?php 
         use App\Models\UserSubscribedPlan;
         $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
-        
+        $profilePic = Auth::user()->profile_pic;
         ?>
 <div class="container emp-profile ff">
             <!-- <form method="post"> -->
@@ -20,8 +48,26 @@
             @endif
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
+                        <form id="editProfileForm" action="{{url('editprofile')}}" method="post" enctype="multipart/form-data">
+                        
+                        <div class="image_container" style="width: 150px;height: 150px;margin: auto;">
+                            <div class="image_outer" style="width: 100% !important; height: 100% !important;    max-width: 150px !important;
+                                max-height: 150px !important;  margin: auto; background-color: #6eafd4; border-radius: 100%; position: relative;
+                                background-image: url({{ asset('profile_images/'.$profilePic) }});
+                                background-position: center;
+                                ">
+                                 <div class="image_inner" style="background-color: #ffffff; width: 30px;
+                                    height: 30px;border-radius: 100%; position: absolute; bottom: 0; right:19px;border:1px solid">
+                                    
+                                    <input class="inputfile" type="file" name="pic" accept="image/*" onchange="changeImage(this);" />
+                                    <label>
+                                    <i class="fa fa-pencil"></i>
+                                    </label>
+                                 </div>   
+                            </div>
+                       </div>
                        
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="rounded-circle mx-auto d-block" alt="avatar">
+                        <!-- <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="200px" class="rounded-circle mx-auto d-block" alt="avatar"> -->
                     <br/>
                     <div class="profile-work text-center">
                         <h5 class="cfhp">
@@ -52,7 +98,7 @@
                         <div class="col-md-12">
                             <div class="tab-content profile-tab" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <form id="editProfileForm" action="{{url('editprofile')}}" method="post" >
+                               
                                     @csrf
                                             <input type="hidden"  value=" {{Auth::user()->id}}" name="id">
                                             <div class="row mt-5">
