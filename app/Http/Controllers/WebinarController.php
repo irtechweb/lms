@@ -41,7 +41,8 @@ class WebinarController extends Controller {
   
         Notification::send(Auth::user(), new EmailNotification($project));
         
-        return redirect('webinars')->with('success', 'You have successfully booked the webinar!');
+        return redirect('webinars')->with('success', 'You have successfully booked the webinar! 
+            A notification has been sent to your registered email address.');
         //return view('webinars', compact('data'));
     }
     
