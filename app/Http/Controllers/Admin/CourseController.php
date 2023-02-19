@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use DB;
+use URL;
+use Crypt;
+use Image;
+use Session;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\CourseFiles;
 use App\Models\CourseRating;
+use App\Models\CourseVideos;
+// use SiteHelpers;
+use Illuminate\Http\Request;
+use App\Library\VideoHelpers;
+use App\Http\Traits\SiteHelpers;
 use App\Models\InstructionLevel;
-use Illuminate\Support\Facades\Validator;
-use DB;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
-use Image;
-// use SiteHelpers;
-use Crypt;
-use App\Library\VideoHelpers;
-use URL;
-use App\Models\CourseVideos;
-use App\Models\CourseFiles;
-use Session;
-use App\Http\Controllers\Controller;
-use App\Http\Traits\SiteHelpers;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller {
 
@@ -707,6 +708,7 @@ class CourseController extends Controller {
     }
 
     public function postLectureDescSave(Request $request) {
+        dd($request->input('lid'));
         $data['description'] = $request->input('lecturedescription');
         $now_date = date("Y-m-d H:i:s");
         $data['updatedOn'] = $now_date;
@@ -1163,6 +1165,48 @@ class CourseController extends Controller {
         $vidoes = $this->model->getVideobyid($video_id);
         echo $vidoes->video_title;
         exit();
+    }
+
+    public function saveCourseLessonVimeoUrl(Request $request, $id) {
+
+        $validator = Validator::make($request->all(), [
+            'link' => 'required|url',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        try {
+            DB::beginTransaction();
+            $courseVideo = CourseVideos::create([
+                'video_title' => $request->link,
+                'video_name' => 'Video Link',
+                'video_type' => '.mp4',
+                'duration' => '5:00',
+                'image_name' => 'no_image.png',
+                'video_tag' => 'curriculum',
+                'uploader_id' => \Auth::user()->id,
+                'course_id' => $request->course_id,
+                'processed' => '1',
+            ]);
+            $course = Course::find($request->course_id);
+            $course->course_video = $courseVideo->id;
+            $course->save();
+            DB::table('curriculum_lectures_quiz')->where('lecture_quiz_id', $id)->update(['media' => $courseVideo->id]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Video link saved successfully.'
+            ], JsonResponse::HTTP_OK);
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => $error->getMessage()
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /* Curriculum end */
