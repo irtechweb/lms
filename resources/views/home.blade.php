@@ -105,7 +105,7 @@ $setting = \App\Models\Setting::first();
                     // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
                 }
                 ?>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="webinar-card">
                         <div class="webinar-heading">{{$course->course_title}}</div>
                         <div class="webinar-description">Susie Ashfield, Instructor</div>
