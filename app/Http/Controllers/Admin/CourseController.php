@@ -1268,7 +1268,9 @@ class CourseController extends Controller {
             $course = Course::find($request->course_id);
             $course->course_video = $courseVideo->id;
             $course->save();
-            DB::table('curriculum_lectures_quiz')->where('lecture_quiz_id', $id)->update(['media' => $courseVideo->id]);
+            if($id != 0) {
+                DB::table('curriculum_lectures_quiz')->where('lecture_quiz_id', $id)->update(['media' => $courseVideo->id]);
+            }
             DB::commit();
             return response()->json([
                 'status' => true,

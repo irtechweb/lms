@@ -379,4 +379,16 @@
   }
 
 
+
+</script>
+<script type="text/javascript">
+  
+  $("form" ).on( "submit", function( event ) {    
+    $('div.loaderImage').show();
+    });
+ $('button').on('click',function(){
+        $('div.loaderImage').show();
+
+    })
+  
 </script>
