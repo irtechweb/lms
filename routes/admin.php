@@ -85,10 +85,11 @@ Route::prefix('admin')->group(static function () {
         // Route::post('instructor-course-video-save', 'Admin\CourseController@instructorCourseVideoSave')->name('instructor.course.video.save');
         Route::post('iinstructor-course-video-save', [\App\Http\Controllers\Admin\CourseController::class, 'instructorCourseVideoSave'])->name('instructor.course.video.save');
 
-        Route::post('iinstructor-course-video-save', [\App\Http\Controllers\Admin\CourseController::class, 'instructorCourseVideoSave'])->name('instructor.course.video.save');
-
         // Route::get('instructor-course-curriculum/{course_id}', 'Admin\CourseController@instructorCourseCurriculum')->name('instructor.course.curriculum.edit');
         Route::get('instructor-course-curriculum/{course_id}', [\App\Http\Controllers\Admin\CourseController::class, 'instructorCourseCurriculum'])->name('instructor.course.curriculum.edit');
+
+        
+        Route::post('save-course-lesson-vimeo-url/{id}', [\App\Http\Controllers\Admin\CourseController::class, 'saveCourseLessonVimeoUrl'])->name('save.course.lesson.vimeo.url');
 
         Route::post('instructor-course-curriculum-save', 'Admin\CourseController@instructorCourseCurriculumSave')->name('instructor.course.curriculum.save');
 

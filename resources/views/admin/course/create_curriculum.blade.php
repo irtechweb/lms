@@ -108,6 +108,11 @@ $course_id = $course->id;
                          
                                            @if(isset($lecturesquiz[$section->section_id]))
                                            @foreach($lecturesquiz[$section->section_id] as $lecturequiz)
+                                           {{-- {{ dd($lecturesmedia) }} --}}
+                                           @php
+                                               $video_title = isset($lecturesmedia[$section->section_id][$lecturequiz->lecture_quiz_id][0]) ? $lecturesmedia[$section->section_id][$lecturequiz->lecture_quiz_id][0]->video_title : '';
+                                              //  dd($video_title);
+                                           @endphp
                                            @if($lecturequiz->type == 0)
                                            <li class="lq_sort su_lgray_curr childli lecture-{!! $lecturequiz->lecture_quiz_id !!} lecture parent-s-{!! $section->section_id !!}">
                                              <div class="row-fluid sorthandle">
@@ -144,7 +149,7 @@ $course_id = $course->id;
                                                <div class="lecturecontent">
                                                  <div class="lecture-media">
                                                    <div class="clearfix">
-                                                     <div class="divli lmedia-video" data-lid="{!! $lecturequiz->lecture_quiz_id !!}"  alt="video"><div class="lecturemedia"><span>Upload Lesson Video</span></div><label>Upload Lesson Video</label><div class="innershadow"></div></div>
+                                                     <div class="divli lmedia-video" data-lid="{!! $lecturequiz->lecture_quiz_id !!}"  alt="video"><div class="lecturemedia"><span>Add Lesson Video</span></div><label>Add Lesson Video</label><div class="innershadow"></div></div>
                                                      {{-- <div class="divli lmedia-audio" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" alt="audio"><div class="lecturemedia"><span>{!! Lang::get('curriculum.Audio')!!}</span></div><label>{!! Lang::get('curriculum.Audio')!!}</label><div class="innershadow"></div></div> --}}
                                                      {{-- <div class="divli lmedia-file" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" alt="file"><div class="lecturemedia"><span>{!! Lang::get('curriculum.Document')!!}</span></div><label>{!! Lang::get('curriculum.Document')!!}</label><div class="innershadow"></div></div> --}}
                                                      {{-- <div class="divli lmedia-text" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" alt="text"><div class="lecturemedia"><span>{!! Lang::get('curriculum.Text')!!}</span></div><label>{!! Lang::get('curriculum.Text')!!}</label><div class="innershadow"></div></div> --}}
@@ -165,12 +170,15 @@ $course_id = $course->id;
                                                        <div class="cccontainer" id="cccontainer{!! $lecturequiz->lecture_quiz_id !!}">
                          
                                                          <div class="cctabs" id="cctabs{!! $lecturequiz->lecture_quiz_id !!}">
-                                                           <div class="cctab-link current" data-cc="1" data-tab="{!! $lecturequiz->lecture_quiz_id !!}" id="upfiletab{!! $lecturequiz->lecture_quiz_id !!}">Upload File</div>
-                                                           {{-- <div class="cctab-link" data-cc="2" data-tab="{!! $lecturequiz->lecture_quiz_id !!}" id="fromlibrarytab{!! $lecturequiz->lecture_quiz_id !!}">{!! Lang::get('curriculum.Library')!!}</div> --}}
+                                                           {{-- <div class="cctab-link current" data-cc="1" data-tab="{!! $lecturequiz->lecture_quiz_id !!}" id="upfiletab{!! $lecturequiz->lecture_quiz_id !!}">Upload File</div>
+                                                           <div class="cctab-link" data-cc="2" data-tab="{!! $lecturequiz->lecture_quiz_id !!}" id="fromlibrarytab{!! $lecturequiz->lecture_quiz_id !!}">{!! Lang::get('curriculum.Library')!!}</div> --}}
                                                            <div class="cctab-link" data-cc="3" data-tab="{!! $lecturequiz->lecture_quiz_id !!}" id="externalrestab{!! $lecturequiz->lecture_quiz_id !!}" style="display:none;">{!! Lang::get('curriculum.resource')!!}</div>
                                                          </div>
-                         
-                                                         <div id="upfile{!! $lecturequiz->lecture_quiz_id !!}" class="cctab-content current">
+                                                         <div class="mt-2 d-flex">
+                                                           <input type="url" class="form-control mr-2" name="course_lesson_vimeo_url" id="course_lesson_vimeo_url" placeholder="Enter Video Link" data-url="{!! route('save.course.lesson.vimeo.url', $lecturequiz->lecture_quiz_id) !!}" value="{{ $video_title }}"/>
+                                                           <button type="button" class="btn btn-primary btn md save-course-lesson-vimeo-url">Save</button>
+                                                         </div>
+                                                         {{-- <div id="upfile{!! $lecturequiz->lecture_quiz_id !!}" class="cctab-content current">
                                                            <div class="row-fluid @if(!empty($lecturequiz->media) || !empty($lecturequiz->contenttext)) hideit @endif" id="wholevideos{!! $lecturequiz->lecture_quiz_id !!}">
                                                              <div class="col col-lg-8" id="allbar{!! $lecturequiz->lecture_quiz_id !!}" style="display:none;">
                                                                <input type="hidden" id="probar_status_{!! $lecturequiz->lecture_quiz_id !!}" value="0" />
@@ -209,7 +217,7 @@ $course_id = $course->id;
                                                              <div class="clear"></div>
                                                              <!-- <div class="col col-lg-12 buttongreen30"> <input type="button" class="change_media_btn" value="Change Media" onclick="deletemedia(692)"></div> -->
                                                            </div>
-                                                         </div>
+                                                         </div> --}}
                                                          <div id="fromlibrary{!! $lecturequiz->lecture_quiz_id !!}" class="cctab-content">
                                                          
                                                            <div class="cvideofiles" id="cvideofiles{!! $lecturequiz->lecture_quiz_id !!}">
@@ -2658,7 +2666,22 @@ $('body').on('click','.cclickable',function(){
           }
       });
   }
-});
-</script>
 
+});
+
+  $('body').on('click','.save-course-lesson-vimeo-url',function(){
+    var elem = $(this).siblings('#course_lesson_vimeo_url').first();
+    var input_link = elem.val();
+    var url = elem.attr('data-url');
+     $.ajax({
+        url: url,
+        data:{link:input_link, course_id:$('[name="course_id"]').val()},
+        method:'POST',
+        success: function(result)
+        {
+          alert('updated')
+        }
+      });
+  });
+</script>
 @endsection
