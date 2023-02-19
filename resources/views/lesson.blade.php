@@ -5,6 +5,33 @@
 $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
 //dd("here");
 ?>
+<style type="text/css">
+  div.done {
+    background-color:green;
+    
+  }
+  div.done i {
+    background-color:black;
+    
+  }
+  .done i{
+    color:green;
+    
+  }
+  div.in-progress{
+    background-color:orange;
+
+  }
+  .in-progress i{
+    color:lightgreen;
+    
+  }
+  .completed i{
+    color:black;
+    /*background-color: yellow;*/
+  }
+
+</style>
   <!-- ===============   Practice Start   ============== -->
   <div class="daily-goals">
     <div class="container-main">
@@ -50,7 +77,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                 }
                 ?>
               <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;">
-                <iframe id="videoId" src="{{url($file_name)}}"" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
+                <iframe id="videoId" src="{{url($file_name)}}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
                 style="position:absolute;top:0;left:0;width:100%;height:100%;">
                 </iframe>
               </div>
@@ -91,26 +118,26 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                     //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
                     if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 ))
                       $cl =  "done-video";
-                    else if($lecturequiz->lecture_quiz_id == $selectedlesson)
+                    else if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 0 ))
                       $cl =  "selected-video";
                     else
                       $cl = "active-video"; ?>
 
 
-                    <a href="javascript:none;">
+                    <!-- <a href="javascript:none;"> -->
 
                     <!-- <a href="{{route('course-lesson-number',[$course->id,$lecturequiz->lecture_quiz_id])}}"> -->
 
                     <div  class="play-list {{$cl}}">
                      <!-- @if($video != null)  -->                    
-                     <img onclick="play(this,<?= $course->id?>,<?= $lecturequiz->lecture_quiz_id ?>)" class="play" attr="{{$videopath}}" alt="" src="{{url('images/Play button.svg')}}" >
+                     <img onclick="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" class="play" attr="{{$videopath}}" alt="" src="{{url('images/Play button.svg')}}" >
                     <!--  @else -->
                      <!-- <img src="{{url('images/Play button.svg')}}" alt="">
                      @endif -->
                   
                      <span>{!! $lecturequiz->title !!}<!-- <small style= "float:right"> 2:01 mins</small> --></span> 
                       <span class="pull-right completed" id="mark_completed" course_id="{{$course->id}}"
-                        quiz_id="{{$lecturequiz->lecture_quiz_id}}"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        lesson_id="{{$lecturequiz->lecture_quiz_id}}"><i class="fa fa-check" aria-hidden="true"></i></span>
                       <!-- <img onclick="play(this)" class="play"  alt="" src="{{url('images/Play button.svg')}}" >  -->
                     </div>
                     <!-- </a> -->
@@ -146,6 +173,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
           <div class="row">
             <div class="col-md-10">
               <div class="tab-pane fade active show" id="nav-home overview" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div id ="lessondesc"><p>
               @php 
               if(isset($quiz_description))
               {
@@ -154,15 +182,16 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
               echo "No description";
               }
               @endphp
+              </p></div>
               </div>
               </div>
           </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <span id="save_notes"> </span>
           <form class="text_area">
-             <input id="course_id" name="course_id" value="{{$course->id}}" type='hidden'>
-            <input id="lesson_id" name="lesson_id" value="{{$selectedlesson}}" type='hidden'>
-            <textarea style="overflow: auto;
+             <input id="course_id" name="course_id" value="" type='hidden'>
+            <input id="lesson_id" name="lesson_id" value="" type='hidden'>
+            <textarea id="notes" style="overflow: auto;
     resize: vertical;
     border: none;
     width: 100%;
@@ -256,37 +285,43 @@ $(document).ready(function(){
         if(timer) {
             clearTimeout(timer);
         }
-        timer = setTimeout(saveData, timeout); 
+        timer = setTimeout(saveNotes, timeout); 
  
     });
  
     $('button#complete').click(function(){
         event.preventDefault();
-        $('#iscomplete').val(1);
-        saveData();
+        saveData('','',1);
     });
     $('span.completed').click(function(){
         event.preventDefault();
-        alert($(this).attr('course_id'));
+        // alert($(this).attr('course_id'));
+        // alert($(this).attr('lesson_id'));
+        $('#lesson_id').val($(this).attr('lesson_id'));
+        $('#course_id').val($(this).attr('course_id'));
         $(this).addClass('in-progress')
-        saveData($(this).attr('course_id'),$(this).attr('quiz_id'),$(this))
+
+        saveData($(this).attr('course_id'),$(this).attr('lesson_id'),1)
         // $('#iscomplete').val(1);
         // saveData();
     });
 });
-function saveData(course_id,lesson_id){
+function saveData(course_id,lesson_id,completed=0){
   var url = $(location).attr('href');
   var segments = url.split( '/' );
   console.log(segments);
   var lesson_id = $('#lesson_id').val();
   var course_id = $('#course_id').val();
   $.ajax({
-    url:'<?= url('save_lesson_notes'); ?>'+'?lesson_id='+lesson_id+'&notes='+ $('.text_area_value').val()+'&course_id='+course_id+'&is_completed='+ $('#iscomplete').val(),
+    url:'<?= url('save_lesson_notes'); ?>'+'?lesson_id='+lesson_id+'&notes='+ $('.text_area_value').val()+'&course_id='+course_id+'&is_completed='+ completed,
     method:'GET',
     success: function(result)
     {
       
       obj = $('span.in-progress');
+     
+      obj.parent().removeClass('in-progress');
+      obj.parent().addClass('done');
       obj.addClass('done');
       obj.removeClass('completed');
       obj.removeClass('in-progress');
@@ -295,10 +330,30 @@ function saveData(course_id,lesson_id){
   })
 
 }
-function getLessonDetail(course_id,lesson_id){
+
+function saveNotes(){
   var url = $(location).attr('href');
-  $('form#textarea input#course_id').val(course_id);
-  $('form#textarea input#lesson_id').val(lesson_id);
+  var segments = url.split( '/' );
+  console.log(segments);
+  var lesson_id = $('#lesson_id').val();
+  var course_id = $('#course_id').val();
+  $.ajax({
+    url:'<?= url('save_lesson_notes'); ?>'+'?lesson_id='+lesson_id+'&notes='+ $('.text_area_value').val()+'&course_id='+course_id,
+    method:'GET',
+    success: function(result)
+    { 
+      $('#save_notes').html("<span style='color:gray'> Saved </span>")
+    }
+
+  })
+
+}
+function getLessonDetail(course_id,lesson_id){
+  //alert(course_id,lesson_id);
+  var url = $(location).attr('href');
+  $('input#course_id').val(course_id);
+  $('input#lesson_id').val(lesson_id);
+  $('#save_notes').html('');
   
   $.ajax({
     url:'<?= url('course-lesson-detail'); ?>'+'/'+course_id+'/'+lesson_id,
@@ -311,8 +366,14 @@ function getLessonDetail(course_id,lesson_id){
       obj.addClass('done');
       obj.removeClass('completed');
       obj.removeClass('in-progress');
-      $('div#overview').html(result.desc);
-      $('span#save_notes textarea').val(result.notes);
+      console.log( $('#lessondesc'));
+      $('#lessondesc p').html(result.desc);
+      if(result.completed == 0)
+        $('textarea#notes').removeAttr('readonly');
+      else
+        $('textarea#notes').attr('readonly');
+
+      $('textarea#notes').val(result.notes);
     }
 
   })
@@ -323,16 +384,24 @@ function getLessonDetail(course_id,lesson_id){
     </script>
 
 <script>
- function play(obj,course_id,lesson_id)
+ function play(obj)
 {
       var pause = '<?php echo url('images/pause.svg'); ?>';
       // alert(pause);
+      var course_id =  $(obj).attr("course_id");
+      var lesson_id =  $(obj).attr("lesson_id");
+
       $(obj).attr("src", pause);
+      $('.pause').removeClass('pause').addClass('play').attr('onClick','play(this)').attr("src", '<?php echo url('images/Play button.svg'); ?>');;
    
       $(obj).addClass('pause');
+      $(obj).parent().addClass('in-progress');
       $(obj).attr('onClick','pause(this)');
       $(obj).removeClass('play');
+
       $("#videoId").attr('src',$(obj).attr("attr"));
+      $('#lessondesc p').html();
+      $('span#save_notes textarea').val();
       getLessonDetail(course_id,lesson_id);
       
       $("#videoId").trigger('play');

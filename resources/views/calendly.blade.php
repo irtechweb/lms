@@ -137,6 +137,9 @@ function scheduleEventFunction(event_url, invitee_url) {
         success: function (data) {
             if (data.success) {
                 Swal.fire('Booking Created Successfully');
+                setTimeout(function(){
+                   window.location.reload();
+                }, 5000);
             } else {
                 Swal.fire('Error occurred while saving booking data');
             }

@@ -59,7 +59,6 @@ class HomeController extends Controller {
         $coursecurriculum = Course::getcurriculuminfo($id, $user_id);
         $data['course'] = $course;
         $data['course_video'] = Course::get_course_video($id);//->course_videos();
-        //dd($data['course_video']);
         $data['sections'] = $coursecurriculum['sections'];
         $data['lecturesquiz'] = $coursecurriculum['lecturesquiz'];        
         $data['lecturesquizquestions'] = $coursecurriculum['lecturesquizquestions'];
@@ -71,8 +70,9 @@ class HomeController extends Controller {
         $data['userdocuments'] = $coursecurriculum['userdocuments'];
         $data['userresources'] = $coursecurriculum['userresources'];
         $data['lecturesnotes'] = $coursecurriculum['lecturesnotes'];
-        $data['completed_lesson_count'] = count($coursecurriculum['lecturesnotescompleted']);
-       
+        //dd($coursecurriculum['lecturesnotescompleted']);
+        $data['completed_lesson_count'] = Course::join('curriculum_sections','curriculum_sections.course_id','courses.id')->join('curriculum_lectures_quiz','curriculum_lectures_quiz.section_id','curriculum_sections.section_id')->join('user_notes','curriculum_lectures_quiz.lecture_quiz_id','user_notes.lesson_id')->where('courses.id',$id)->where('user_notes.user_id',\Auth::user()->id)->where('completed',1)->count();
+        
         $data['totalquiz'] = $coursecurriculum['totallectures'];
 
         $segments = request()->segments();
@@ -89,7 +89,7 @@ class HomeController extends Controller {
             $data['slectedsessionid'] = $lesson->section_id;
 
         }
-        $data['first_video'] = DB::table('course_videos')->where('course_id', $id)->get()->toArray()[0];
+        $data['first_video'] = DB::table('course_videos')->where('id', $id)->get()->toArray()[0];
         $data['notes'] = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
       
         if (isset($data['lecturesquiz'][$last]) && !empty($data['lecturesquiz'])) {
@@ -127,7 +127,13 @@ class HomeController extends Controller {
             $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
             return view('lesson', $data);
         } else {
-            $data['hide_free_signup'] = 'true';
+           
+                
+            $access['user_id'] = Auth::user()->id;
+            $access['course_id'] = $id;
+            $access['created_at'] = date('Y-m-d H:i:s');
+            $access['updated_at'] = date('Y-m-d H:i:s');
+            \DB::table( 'free_user_course_access')->insertGetId($access);
             return redirect()->route('membershipPlans')->with($data);
         }
     }
@@ -136,14 +142,27 @@ class HomeController extends Controller {
 
         
         $course = Course::join('admins','instructor_id','admins.id')->where('courses.id',$id)->select('courses.*','admins.name')->first();
+        $lesson = DB::table('curriculum_lectures_quiz')->where('lecture_quiz_id', $lesson_id)->first();
         $notes = DB::table('user_notes')->where('lesson_id', $lesson_id)->where('user_id',Auth::user()->id)->first();
+        if($notes == NULL){ # to maintain when the lesson put in progress
+            $note['created_at'] = date("Y-m-d H:i:s");
+            $note['last_played'] = date("Y-m-d H:i:s");     
+            $note['user_id'] = Auth::user()->id;
+            $note['lesson_id'] = $lesson_id;
+            \DB::table( 'user_notes')->insertGetId($note);
+        }else{
+            DB::table('user_notes')->where('lesson_id', $lesson_id)->where('user_id',Auth::user()->id)->update(['last_played'=>date("Y-m-d H:i:s")]);
+
+        }
         $data['desc'] = "";
         $data['notes'] = "";
+        $data['completed'] = 0;
         if($course != NULL){
-            $data['desc'] = trim($course->overview);
+            $data['desc'] = trim($lesson->description);
         }
         if($notes != NULL){
             $data['notes'] = trim($notes->notes);
+            $data['completed'] = $notes->completed;
         }
         return response()->json($data);
         
@@ -168,9 +187,10 @@ class HomeController extends Controller {
     }
 
     public function saveLessonNotes() {
-        $notes = $_GET['notes'];
+        $notes = trim($_GET['notes']);
         $lesson_id = $_GET['lesson_id'];
-        // $completed = isset($_GET['is_completed'])?$_GET['is_completed']:0;
+        $completed = isset($_GET['is_completed'])?$_GET['is_completed']:0;
+        $completed_at = (isset($_GET['is_completed']) && $_GET['is_completed'] ==1)?date('Y-m-d H:i:s'):null;
 
         //dd($_GET);
         if ($lesson_id == 'undefined') {
@@ -179,9 +199,10 @@ class HomeController extends Controller {
         }
         $lesson = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
         if (isset($lesson->id)) {
-            DB::table('user_notes')->where('lesson_id', $lesson_id)->update(['notes' => $notes]);
+            DB::table('user_notes')->where('lesson_id', $lesson_id)->update(['notes' => $notes,'completed'=>$completed,'completed_at'=>$completed_at]);
         } else {
-            DB::table('user_notes')->Insert(['user_id' => auth()->user()->id, 'notes' => $notes, 'lesson_id' => $lesson_id]);
+
+            DB::table('user_notes')->Insert(['user_id' => auth()->user()->id, 'notes' => $notes, 'lesson_id' => $lesson_id,'completed'=>$completed]);
         }
 
         echo json_encode(['success' => true]);

@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller {
         User::where('id',Auth::guard('web')->user()->id)->update(['last_login_at'=>date('Y-m-d H:i:s')]);
         $user = User::where('id',Auth::guard('web')->user()->id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
         //dd($user);
-        UserLoginLog::saveData($user);
+        UserLoginLog::saveData($user,'login');
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -55,7 +55,8 @@ class AuthenticatedSessionController extends Controller {
         if($user != NULL){
             $user->update(['last_logout_at'=>date('Y-m-d H:i:s')]);
             $user = User::where('id',$user_id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
-            UserLoginLog::saveData($user);
+            $log = UserLoginLog::where('user_id',$user_id)->orderby('id','desc')->first();
+            $log->update(['logout_at'=>date('Y-m-d H:i:s')]);
 
         }
        
@@ -91,7 +92,7 @@ class AuthenticatedSessionController extends Controller {
             Auth::login($user);
             //----------logging logins
             $user = User::where('id',$user->id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
-            UserLoginLog::saveData($user);
+            UserLoginLog::saveData($user,'login');
             //------------------------
              return redirect(RouteServiceProvider::HOME);
             //return redirect()->route('home');
@@ -110,7 +111,7 @@ class AuthenticatedSessionController extends Controller {
             Auth::login($user);
             //----------logging logins
             $user = User::where('id',$user->id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
-            UserLoginLog::saveData($user);
+            UserLoginLog::saveData($user,'login');
             //------------------------
             return redirect(RouteServiceProvider::HOME);
         }

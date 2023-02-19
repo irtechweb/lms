@@ -50,6 +50,27 @@
 
                 </ul>
             </li>  
+            <li class=" nav-item">
+                <a href="{{ route('subscriptions.orders') }}"><i class="la la-plus"></i>
+                    <span class="menu-title" data-i18n="">
+                        Subs Orders
+                    </span>
+                </a>
+            </li> 
+            <li class=" nav-item">
+                <a href="{{ route('coach.orders') }}"><i class="la la-plus"></i>
+                    <span class="menu-title" data-i18n="">
+                        Coaching Orders
+                    </span>
+                </a>
+            </li> 
+            <li class=" nav-item">
+                <a href="{{ route('access.course') }}"><i class="la la-plus"></i>
+                    <span class="menu-title" data-i18n="">
+                       Access Course
+                    </span>
+                </a>
+            </li> 
  <li class=" nav-item">
                 <a href="#"><i class="la la-mobile"></i>
                     <span class="menu-title" data-i18n="">
