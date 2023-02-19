@@ -59,7 +59,6 @@ class HomeController extends Controller {
         $coursecurriculum = Course::getcurriculuminfo($id, $user_id);
         $data['course'] = $course;
         $data['course_video'] = Course::get_course_video($id);//->course_videos();
-        //dd($data['course_video']);
         $data['sections'] = $coursecurriculum['sections'];
         $data['lecturesquiz'] = $coursecurriculum['lecturesquiz'];        
         $data['lecturesquizquestions'] = $coursecurriculum['lecturesquizquestions'];
@@ -89,7 +88,7 @@ class HomeController extends Controller {
             $data['slectedsessionid'] = $lesson->section_id;
 
         }
-        $data['first_video'] = DB::table('course_videos')->where('course_id', $id)->get()->toArray()[0];
+        $data['first_video'] = DB::table('course_videos')->where('id', $id)->get()->toArray()[0];
         $data['notes'] = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
       
         if (isset($data['lecturesquiz'][$last]) && !empty($data['lecturesquiz'])) {

@@ -157,7 +157,8 @@ $course_id = $course->id;
                                                     <div class="col col-lg-9">
                                                       {{-- <input type="url" id="course_lesson_vimeo_url" name="course_lesson_vimeo_url" value="" placeholder="Section Title" class="form-element su_course_add_section_textbox chcountfield" maxlength="80">
                                                       <span id="section_title_counter" class="ch-count">80</span> --}}
-                                                      <input type="url" class="form-control mr-2" name="course_lesson_vimeo_url-{!! $lecturequiz->lecture_quiz_id !!}" id="course_lesson_vimeo_url-{!! $lecturequiz->lecture_quiz_id !!}" placeholder="Enter Video Link"  />
+                                                      <input type="url" value="<?= isset($course_video[$lecturequiz->media]) ? $course_video[$lecturequiz->media]->video_title:'' ?>" class="form-control mr-2" name="course_lesson_vimeo_url-{!! $lecturequiz->lecture_quiz_id !!}" id="course_lesson_vimeo_url-{!! $lecturequiz->lecture_quiz_id !!}" placeholder="Enter Video Link"  />
+                                                      {{-- <input type="url" class="form-control mr-2" name="course_lesson_vimeo_url-{!! $lecturequiz->lecture_quiz_id !!}" id="course_lesson_vimeo_url-{!! $lecturequiz->lecture_quiz_id !!}" placeholder="Enter Video Link"  /> --}}
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1029,22 +1030,24 @@ $(document).ready(function(){
             alert('Please enter valid video url');
             return false;
         }
-      $(this).attr('name','lecture_unpublish_content');
-      $(this).val('Unpublish');
-      $(this).removeClass('publishcontent');
-      $(this).addClass('unpublishcontent');
-      $(this).removeClass('btn-warning');
-      $(this).addClass('btn-danger');
+      //$(this).attr('name','lecture_unpublish_content');
+     // $(this).val('Unpublish');
+     $(this).val('please wait..');
+      //$(this).removeClass('publishcontent');
+      //$(this).addClass('unpublishcontent');
+      //$(this).removeClass('btn-warning');
+      //$(this).addClass('btn-danger');
       $.ajax ({
         type: "POST",
         url: courselecturevideourl,
-        data: "course_lesson_vimeo_url="+$('[name="course_lesson_vimeo_url"]').val()+"&courseid="+$('[name="course_id"]').val()+"&publish=1&lid="+lid+"&_token="+_token,
+        data: "course_lesson_vimeo_url="+videourl+"&courseid="+$('[name="course_id"]').val()+"&publish=1&lid="+lid+"&_token="+_token,
 
         success: function (msg)
         {
           //alert("succse");
           $('.lecture-'+lid).find('.su_course_lecture_label').removeClass('su_orange_curr_block');
           $('.lecture-'+lid).find('.su_course_lecture_label').addClass('su_green_curr_block');
+          $(this).val('Save');
           location.reload(true);
         }
       });

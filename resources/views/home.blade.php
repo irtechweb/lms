@@ -99,10 +99,11 @@ $setting = \App\Models\Setting::first();
                 <?php $i =1;?>
                 @foreach ($courses as $course)
                 <?php
-                $file_name = '';
+                $file_name = 'https://player.vimeo.com/video/800186201?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0';
                 // dd($course->course_videos[0]->video_type);
                 if (isset($course->course_videos[0]) && !empty($course->course_videos)) {
-                    $file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
+                    //$file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
+                    $file_name = $course->course_videos[0]->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                     // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
                 }
                 ?>
@@ -115,7 +116,12 @@ $setting = \App\Models\Setting::first();
                         <div class="webinar-heading">{{$course->course_title}}</div>
                         <div class="webinar-description">Susie Ashfield, Instructor</div>
                         <div class="webinar-image">
-                            <video width="100%" height="100%" controls preload="auto"><source src="{{ url($file_name)}}" type="video/mp4"></video>
+                            <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;">
+                                <iframe id="videoId" src="{{url($file_name)}}"" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
+                                style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                </iframe>
+                            </div>
+                            {{-- <video width="100%" height="100%" controls preload="auto"><source src="{{ url($file_name)}}" type="video/mp4"></video> --}}
                         </div>
                         <div class="webinar-button">
                             <button><a href="{{route('course-lesson',[$course->id])}}" >Start learning</a></button>
