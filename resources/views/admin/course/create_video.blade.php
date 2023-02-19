@@ -5,6 +5,10 @@ Subscription Listing
 @section('body')
 <link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min599c.css?v4.0.2') }}">
 
+@php
+    $rec = App\Models\CourseVideos::find($course->course_video);
+    $promoVideo = isset($rec) ? $rec->value('video_title') : '';
+@endphp
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
@@ -106,18 +110,12 @@ Subscription Listing
                                           <div class="row">
                                               <div class="col-md-6">
                                                   <div class="input-group input-group-file" data-plugin="inputGroupFile">
-                                                      <input type="text" class="form-control" readonly="">
-                                                      <span class="input-group-btn">
-                                                        <span class="btn btn-success btn-file">
-                                                          <i class="icon wb-upload" aria-hidden="true"></i>
-                                                          <input type="file" class="file center-block" name="course_video" id="course_video" />
-                                                        </span>
-                                                      </span>
+                                                      <input type="url" class="form-control" name="promo_video_link" id="promo_video_link" placeholder="Enter Video Link" data-url="{!! route('save.course.lesson.vimeo.url', 0) !!}" value="{{ $promoVideo }}">
                                                   </div>
                                               </div>
                               
                                               <div class="col-md-6">
-                                                  <input type="submit" class="btn btn-primary" value="Upload" onclick='upload_video();'/>
+                                                  <input type="submit" class="btn btn-primary upload-promo-video" value="Save">
                                               </div>
                                           </div>
                               
@@ -216,43 +214,43 @@ type="text/javascript"></script>
 
 
 <script type="text/javascript">
-  function upload_video() 
-  {
-    var bar = $('#bar');
-    var percent = $('#percent');
-    $('#courseForm').ajaxForm({
-      beforeSubmit: function() {
-        document.getElementById("progress_div").style.display="block";
-        var percentVal = '0%';
-        bar.width(percentVal)
-        percent.html(percentVal);
-      },
+  // function upload_video() 
+  // {
+  //   var bar = $('#bar');
+  //   var percent = $('#percent');
+  //   $('#courseForm').ajaxForm({
+  //     beforeSubmit: function() {
+  //       document.getElementById("progress_div").style.display="block";
+  //       var percentVal = '0%';
+  //       bar.width(percentVal)
+  //       percent.html(percentVal);
+  //     },
   
-      uploadProgress: function(event, position, total, percentComplete) {
-        var percentVal = percentComplete + '%';
-        bar.width(percentVal)
-        percent.html(percentVal);
-      },
+  //     uploadProgress: function(event, position, total, percentComplete) {
+  //       var percentVal = percentComplete + '%';
+  //       bar.width(percentVal)
+  //       percent.html(percentVal);
+  //     },
       
-      success: function() {
+  //     success: function() {
   
-        var percentVal = '100%';
-        bar.width(percentVal);
-        percent.html(percentVal);
+  //       var percentVal = '100%';
+  //       bar.width(percentVal);
+  //       percent.html(percentVal);
   
-      },
+  //     },
   
-      complete: function(xhr) {
-        if(xhr.responseText)
-        {
-          $('#progress_div').hide();
-          var data = JSON.parse(xhr.responseText);
-          var output_video = '<video width="100%" height="100%" controls preload="auto"><source src="'+data.file_link+'" type="video/mp4"></video>';
-          $('.video-preview').html(output_video);
-        }
-      }
-    }); 
-  }
+  //     complete: function(xhr) {
+  //       if(xhr.responseText)
+  //       {
+  //         $('#progress_div').hide();
+  //         var data = JSON.parse(xhr.responseText);
+  //         var output_video = '<video width="100%" height="100%" controls preload="auto"><source src="'+data.file_link+'" type="video/mp4"></video>';
+  //         $('.video-preview').html(output_video);
+  //       }
+  //     }
+  //   }); 
+  // }
   
   
   function readFile(input, id) {    
@@ -283,14 +281,26 @@ type="text/javascript"></script>
           readFile(this, $(this).attr('id')); 
       });
   });
+
+    $('body').on('click','.upload-promo-video',function(e){
+      e.preventDefault();
+      var elem = $('#promo_video_link');
+      var input_link = elem.val();
+      var url = elem.attr('data-url');
+      $.ajax({
+          url: url,
+          data:{link:input_link, course_id:$('[name="course_id"]').val()},
+          method:'POST',
+          success: function(result)
+          {
+            alert('updated')
+          },
+          error: function (response) {
+            alert('error')
+          }
+        });
+    });
   </script>
-
-
-
-
-
-
-
 @endsection
 
 

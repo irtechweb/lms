@@ -2680,6 +2680,9 @@ $('body').on('click','.cclickable',function(){
         success: function(result)
         {
           alert('updated')
+        },
+        error: function (response) {
+          alert('error')
         }
       });
   });
