@@ -2,11 +2,12 @@
           <header>
           <nav class="navbar" style="padding-left: 50px;padding-right: 50px;">
             <div class="logo">
-           <img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text">
+           <a href="{{ url('/home') }}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class cursor-pointer" alt="alt text"></a>
             </div>
             <div class="login-action">
                 @if (Auth::check())
                   <a href="{{ route('logout') }}"><button class="login login-action-gap" >Logout</button></a>
+                <a href="{{url('/home')}}"><button class="start-learning">Back</button></a>
                 @else
                   @if (Auth::check() && Auth::user()->email_verified_at)
                     <a href="{{ route('logout') }}"><button class="login login-action-gap" >Logout</button></a>

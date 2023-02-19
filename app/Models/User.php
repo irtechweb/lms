@@ -64,4 +64,34 @@ class User extends Authenticatable implements MustVerifyEmail
         
         return UserSubscribedPlan::where('user_id',$user_id)->whereRaw('subscription_end_date >= now()')->orderby('subscription_end_date','desc')->first();
     }
+
+    public function getStatusLabelAttribute()
+    {
+        return $this->status == 1 ? 'Active' : 'Inactive';
+    }
+
+    public function availableBookingCounts()
+    {
+        return $this->hasOne(AvailableBookingCount::class);
+    }
+
+    public function coachPayments()
+    {
+        return $this->hasMany(CoachPayment::class);
+    }
+
+    public function eventBookings()
+    {
+        return $this->hasMany(EventBooking::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function userSubscribedPlans()
+    {
+        return $this->hasOne(UserSubscribedPlan::class);
+    }
 }

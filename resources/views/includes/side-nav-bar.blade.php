@@ -1,3 +1,8 @@
+<style>
+    .main-menu.menu-fixed {
+        z-index:unset;
+    }
+</style>
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true"
      data-img="{{url('/')}}/theme/app-assets/images/backgrounds/02.jpg">
     <div class="navbar-header">
@@ -255,6 +260,13 @@
                     <li>
                         <a class="menu-item" href="{{ route('setting') }}">System Settings</a>
                     </li> 
+                    <li class="navigation-divider"></li>
+                    {{-- <li>
+                        <a class="menu-item" href="{{ route('admin.messageCodes') }}">Message Codes</a>
+                    </li> --}}
+                    <li>
+                        <a class="menu-item" href="{{ route('settings.index') }}">System Settings</a>
+                    </li>
 
                 </ul>
             </li>

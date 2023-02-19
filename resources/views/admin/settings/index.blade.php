@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-    {{' Students' }}
+    {{' Settings' }}
 @endsection
 
 @section('local-style')
@@ -18,7 +18,7 @@
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
                     <h3 class="content-header-title">
-                        {{ ' Students' }}
+                        {{ ' Settings' }}
                     </h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
@@ -28,7 +28,7 @@
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    {{  ' Students' }}
+                                    {{  ' Settings' }}
                                 </li>
                             </ol>
                         </div>
@@ -48,7 +48,6 @@
                                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                            {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -69,10 +68,63 @@
             </div>
         </div>
     </div>
-
+    @include('admin.modals.settings_modal')
     <!-- END: Content-->
 @endsection
 
 @section('local-script')
     {{ $dataTable->scripts() }}
+
+    <script>
+        $(document).on('click', '.edit-settings', function (e) { 
+            e.preventDefault();
+            let settingId = $(this).closest('tr').attr('id');
+            let url = "{{ route('settings.edit', ':settingId') }}";
+            url = url.replace(':settingId', settingId);
+            console.log(url);
+            $.getJSON(url, function(setting) {
+                if(setting.status == true) {
+                    let updateUrl = "{{ route('settings.update', ':settingId') }}";
+                    updateUrl = updateUrl.replace(':settingId', settingId);
+                    $('#settingsModal #modalTitle').html("Edit "+ setting.data.title);
+                    $('#settingsModal #settingsModalForm').attr('action', updateUrl);
+                    $('#settingsModal #title').val(setting.data.title);
+                    $('#settingsModal').modal('show');
+                } else {
+                    window.toast.fire({
+                        icon: 'error',
+                        title: error.response.data.message
+                    });
+                }
+            });
+        });
+
+        $(document).on('submit', '.save-settings', function (e) { 
+            e.preventDefault();
+            var action = $(this).attr('action');
+            var data = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: action,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#settingsModal').modal('hide');
+                    $('#settings_table').DataTable().ajax.reload();
+                    window.toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+                },
+                error: function(error) {
+                    window.toast.fire({
+                        icon: 'error',
+                        title: error.responseJSON.message
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

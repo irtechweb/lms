@@ -18,4 +18,13 @@ class Setting extends Model
     ];
 
     
+
+    // use HasFactory;
+
+    // protected $fillable1 = [
+    //     'title',
+    //     'key',
+    //     'value',
+    //     'status',
+    // ];
 }
