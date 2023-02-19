@@ -7,7 +7,7 @@ Subscription Listing
 
 @php
     $rec = App\Models\CourseVideos::find($course->course_video);
-    $promoVideo = isset($rec) ? $rec->value('video_title') : '';
+    $promoVideo = isset($rec) ? $rec->video_title : '';
 @endphp
 <div class="app-content content">
     <div class="content-wrapper">
