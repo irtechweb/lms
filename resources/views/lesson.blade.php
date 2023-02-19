@@ -50,7 +50,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                 }
                 ?>
               <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;">
-                <iframe id="videoId" src="{{url($file_name)}}"" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
+                <iframe id="videoId" src="{{url($file_name)}}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
                 style="position:absolute;top:0;left:0;width:100%;height:100%;">
                 </iframe>
               </div>
