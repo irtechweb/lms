@@ -2,7 +2,7 @@
 
 $setting = \App\Models\Setting::first();
  ?>
-<footer style="margin-bottom: 0px">
+<footer style="margin-top: 15px;width: 100%;position: absolute;margin-bottom: 0px;">
                                 <div class="container">
                                     <div class="footer">
                                         <div class="row">

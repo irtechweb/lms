@@ -122,6 +122,7 @@ Route::prefix('admin')->group(static function () {
 
         // Route::post('courses/lecturevideo/save/{lid}', 'Admin\CourseController@postLectureVideoSave');
         Route::post('courses/lecturevideo/save/{lid}', [\App\Http\Controllers\Admin\CourseController::class, 'postLectureVideoSave']);
+        Route::post('courses/lecturevideourl/save', [\App\Http\Controllers\Admin\CourseController::class, 'postLectureVideoUrlSave']);
 
         Route::post('courses/lectureaudio/save/{lid}', 'Admin\CourseController@postLectureAudioSave');
         Route::post('courses/lecturepre/save/{lid}', 'Admin\CourseController@postLecturePresentationSave');

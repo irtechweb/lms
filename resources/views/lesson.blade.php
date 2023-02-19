@@ -3,6 +3,7 @@
 
 <?php //dd($completed_lesson_count,$totalquiz);
 $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
+//dd("here");
 ?>
   <!-- ===============   Practice Start   ============== -->
   <div class="daily-goals">
@@ -24,14 +25,15 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
   </div>
   <!-- ===============   Practice End   ============== -->
   <!-- ===============   Chapter Start   ============== -->
-   @php $sectioncount = '1'; $lecturecount = '1'; $quizcount = '1'; @endphp
+  @php $sectioncount = '1'; $lecturecount = '1'; $quizcount = '1'; @endphp
+  
   <div class="chapter-detail">
     <div class="container-main">
       <div class="chapter-detail-content">
         <div class="chapter-header">
           <h6>Chapter {{$sectioncount}}: {{ $sections[$sectioncount-1]->title}}</h6>
           <h1>{{$course['course_title']}}</h1>
-          <h6>{{$course['name']}}, Instructor</h6>
+          {{-- <h6>{{$course['name']}}, Instructor</h6> --}}
         </div>
         <div class="chapter-playlist">
           <div class="chapter-video">
@@ -40,16 +42,18 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                 //$first_video = ($course->getvideoinfo($course['course_video'])[0]);
                 if(isset($first_video))
                 {
-                    $file_name = 'course/'.$course->id.'/'.$first_video->video_title.'.'.$first_video->video_type;
+                    $file_name = $first_video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                 ?>
-          <video id="videoId" width="100%" height="100%" controls="" preload="auto"><source src="{{url($file_name)}}" type="video/mp4"></video>
-          <?php                 
+            <?php                 
                 }else{
-              //dd('coming in else');
-              $file_name = 'course/'.$course->id.'/'.$first_video->video_title.'.'.$first_video->video_type;
-
-            }
-                 ?>
+                $file_name = $first_video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
+                }
+                ?>
+              <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;">
+                <iframe id="videoId" src="{{url($file_name)}}"" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
+                style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                </iframe>
+              </div>
           </div>
           <div class="chapter-list" Style="min-height: 422px;">
             <div class="accordion" id="accordionExample">
@@ -81,7 +85,9 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                       $video = $course_video[$lecturequiz->media];
                    
                     if($video != null)
-                    $videopath = url('course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type);
+                    //$videopath = url('course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type);
+                    //$videopath ='https://player.vimeo.com/video/800179717';
+                    $videopath =$video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                     //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
                     if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 ))
                       $cl =  "done-video";
@@ -91,7 +97,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                       $cl = "active-video"; ?>
 
 
-                    <a href="{{route('course-lesson-number',[$course->id,$lecturequiz->lecture_quiz_id])}}">
+                    <a href="javascript:none;">
                     <div  class="play-list {{$cl}}">
                      <!-- @if($video != null)  -->                    
                      <img onclick="play(this)" class="play" attr="{{$videopath}}" alt="" src="{{url('images/Play button.svg')}}" >
@@ -282,7 +288,6 @@ function saveData(){
 <script>
  function play(obj)
 {
-
       console.log($(obj));
       var pause = '<?php echo url('images/pause.svg'); ?>';
       // alert(pause);

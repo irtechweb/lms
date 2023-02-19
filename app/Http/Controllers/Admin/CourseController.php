@@ -394,7 +394,7 @@ class CourseController extends Controller {
         $this->data['userpresentation'] = $coursecurriculum['userpresentation'];
         $this->data['userdocuments'] = $coursecurriculum['userdocuments'];
         $this->data['userresources'] = $coursecurriculum['userresources'];
-
+        //echo "<pre>";print_r($this->data);exit();
         return view('admin.course.create_curriculum', $this->data);
     }
 
@@ -708,7 +708,7 @@ class CourseController extends Controller {
     }
 
     public function postLectureDescSave(Request $request) {
-        dd($request->input('lid'));
+        //dd($request->input('lid'));
         $data['description'] = $request->input('lecturedescription');
         $now_date = date("Y-m-d H:i:s");
         $data['updatedOn'] = $now_date;
@@ -785,6 +785,80 @@ class CourseController extends Controller {
                 'status' => true,
                 'duration' => $duration,
                 'file_title' => $file_title,
+                'file_link' => Storage::url($video_path),
+            );
+        } else {
+            $return_data = array(
+                'status' => false,
+            );
+        }
+        echo json_encode($return_data);
+        exit;
+    }
+    public function postLectureVideoUrlSave(Request $request) {
+        $course_id = $request->input('courseid');
+        $videourl = $request->input('course_lesson_vimeo_url');
+        $file = array('video' => $videourl);
+        $rules = array('video' => 'required|url');
+        $validator = Validator::make($file, $rules);
+        $lid =$request->input('lid');
+        // $file_tmp_name = $video->getPathName();
+        // $file_name = explode('.', $video->getClientOriginalName());
+        // $file_name = $file_name[0] . '_' . time() . rand(4, 9999);
+        // $file_type = $video->getClientMimeType();
+        // $extension = $video->getClientOriginalExtension();
+        // $file_title = $video->getClientOriginalName();
+        // $file_name = str_slug($file_name, "-");
+        // // ffmpeg.exe file path
+        // $file_name = str_slug($file_name, "-");
+        // if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        //     $ffmpeg_path = base_path() . '\resources\assets\ffmpeg\ffmpeg_win\ffmpeg';
+        // } else {
+        //     $ffmpeg_path = base_path() . '/resources/assets/ffmpeg/ffmpeg_lin/ffmpeg.exe';
+        // }
+
+        // $ffmpeg = new VideoHelpers($ffmpeg_path, $file_tmp_name, $file_name);
+        // $ffmpeg->convertImages();
+        // //$ffmpeg->convertVideos($file_type);
+        // $duration = $ffmpeg->getDuration();
+        // $duration = explode('.', $duration);
+        // $duration = $duration[0];
+        $created_at = time();
+        $path = 'course/' . $course_id;
+        $video_name = $videourl;
+        $video_path = $videourl;
+
+        //$image = $request->file('lecturevideo');
+        //$teaser_image = time() . '.' . $image->getClientOriginalExtension();
+        //$destinationPath = public_path($path);
+        //$a = $image->move($destinationPath, $video_name);
+
+        // $request->file('lecturevideo')->storeAs($path, $video_name);
+
+        $courseVideos = new CourseVideos;
+        $courseVideos->video_title =$video_name;
+        $courseVideos->video_name = $video_name;
+       // $courseVideos->video_type = $extension;
+        //$courseVideos->duration = $duration;
+        //$courseVideos->image_name = $file_name . '.jpg';
+        $courseVideos->video_tag = 'curriculum';
+        $courseVideos->uploader_id = \Auth::user()->id;
+        $courseVideos->course_id = $course_id;
+        $courseVideos->processed = '1';
+        $courseVideos->created_at = $created_at;
+        $courseVideos->updated_at = $created_at;
+        if ($courseVideos->save()) {
+            if (!empty($lid)) {
+                //$this->model->checkDeletePreviousFiles($lid);
+                $data['media'] = $courseVideos->id;
+                $data['media_type'] = '0';
+                $data['publish'] = '1';
+                $newID = $this->model->insertLectureQuizRow($data, $lid);
+            }
+            $return_data = array(
+                'status' => true,
+                // 'duration' => $duration,
+                // 'file_title' => $file_title,
                 'file_link' => Storage::url($video_path),
             );
         } else {
