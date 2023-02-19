@@ -26,7 +26,9 @@
         line-height: 30px;
         text-align: center;
     }
-    
+    li.nav-item {
+    margin-left: 0;
+}
 </style>
 <?php 
         use App\Models\UserSubscribedPlan;
