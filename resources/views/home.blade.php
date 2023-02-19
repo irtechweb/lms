@@ -96,6 +96,7 @@ $setting = \App\Models\Setting::first();
         <div class="webinar-inner">
             <h2 class="head-heding">Newly launched courses</h2>
             <div class="row">
+                <?php $i =1;?>
                 @foreach ($courses as $course)
                 <?php
                 $file_name = '';
@@ -105,7 +106,11 @@ $setting = \App\Models\Setting::first();
                     // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
                 }
                 ?>
-                <div class="col-lg-3">
+                <?php if($i > 3 && $i % 3 != 0){?>
+                    </div>
+                    <div class="row" style="padding-top:20px;">
+                <?php } ?>        
+                <div class="col-lg-4">
                     <div class="webinar-card">
                         <div class="webinar-heading">{{$course->course_title}}</div>
                         <div class="webinar-description">Susie Ashfield, Instructor</div>
@@ -116,8 +121,8 @@ $setting = \App\Models\Setting::first();
                             <button><a href="{{route('course-lesson',[$course->id])}}" >Start learning</a></button>
                         </div>
                     </div>
-
                 </div>
+                <?php $i++; ?>
                 @endforeach
             </div>
         </div>
