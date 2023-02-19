@@ -52,6 +52,18 @@ type="text/javascript"></script>
 
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
+<script>
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+</script>
+<script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+<script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
+
 <!-- BEGIN: Custom Js-->
 <script src="{{ url('theme/assets/js/scripts.js') }}" type="text/javascript"></script>
+
 <!-- BEGIN: Page JS-->

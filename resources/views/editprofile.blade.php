@@ -26,7 +26,9 @@
         line-height: 30px;
         text-align: center;
     }
-    
+    li.nav-item {
+    margin-left: 0;
+}
 </style>
 <?php 
         use App\Models\UserSubscribedPlan;
@@ -35,17 +37,17 @@
         ?>
 <div class="container emp-profile ff">
             <!-- <form method="post"> -->
-            @if (\Session::has('success'))
+            {{-- @if (\Session::has('success'))
                 <div class="alert alert-success">
                     <ul>
                         <li>{!! \Session::get('success') !!}</li>
                     </ul>
                 </div>
-            @endif
+            @endif --}}
 
-            @if($errors->any())
+            {{-- @if($errors->any())
                 {!! implode('', $errors->all('<div>:message</div>')) !!}
-            @endif
+            @endif --}}
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
                         <form id="editProfileForm" action="{{url('editprofile')}}" method="post" enctype="multipart/form-data">

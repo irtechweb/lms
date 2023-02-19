@@ -2,14 +2,14 @@
 
 $setting = \App\Models\Setting::first();
  ?>
-<footer style="margin-bottom: 0px">
+<footer style="margin-top: 15px;width: 100%;position: absolute;margin-bottom: 0px;">
                                 <div class="container">
                                     <div class="footer">
                                         <div class="row">
                                             <div class="col-md-2">
                                                
                                                 <div class="logo">
-                                                     <img src="{{url('logo/Speak_2_Impact_Logo_Black_Bg_white.png')}}" height="80px" class="css-class" alt="alt text">
+                                                     <a href="{{url('/home')}}"><img src="{{url('logo/Speak_2_Impact_Logo_Black_Bg_white.png')}}" height="80px" class="css-class cursor-pointer" alt="alt text"></a>
                                                 </div>
                                                 
                                                 
@@ -30,9 +30,9 @@ $setting = \App\Models\Setting::first();
                                                     </div>
 
                                                     <div class="social-icon">
-                                                    <a href="<?=isset($setting->instagram)?$setting->instagram:'https://www.instagram.com/speak2impact/' ?>"><img src="{{url('images/')}}/instagram.svg" alt=""></a>
-                                                    <a href="<?=isset($setting->instagram)?$setting->tiktok:'https://www.tiktok.com/@smashfield89' ?>"><img src="{{url('images/')}}/Vector.svg" alt=""></a>
-                                                    <a href="<?=isset($setting->instagram)?$setting->facebook:'https://www.linkedin.com/in/susannahashfield/' ?>"><img src="{{url('images/')}}/facebook.svg" alt=""></a>
+                                                    <a href="<?=isset($setting->instagram)?$setting->instagram:'https://www.instagram.com/speak2impact/' ?>"><img src="{{url('images/')}}/instagram.svg" width="28px" height="28px" alt=""></a>
+                                                    <a href="<?=isset($setting->tiktok)?$setting->tiktok:'https://www.tiktok.com/@smashfield89' ?>"><img src="{{url('images/')}}/Vector.svg" width="28px" height="28px" alt=""></a>
+                                                    <a href="<?=isset($setting->facebook)?$setting->facebook:'https://www.linkedin.com/in/susannahashfield/' ?>"><img src="{{url('images/')}}/linkedin.svg" width="30px" height="30px" alt=""></a>
                                                     </div>
                                             </div>
                                             

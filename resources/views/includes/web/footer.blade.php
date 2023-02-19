@@ -13,7 +13,7 @@
          <div class="social-icon mt-3">
              <a href="#"><img src="{{url('images/')}}/Instagram.svg" alt=""></a>
              <a href="#"><img src="{{url('images/')}}/facebook.svg" alt=""></a>
-             <a href="#"><img src="{{url('images/')}}/Vector.svg" alt=""></a>
+             <a href="#"><img src="{{url('images/')}}/linkedin.svg" alt=""></a>
          </div>
          </div>
         </div>
