@@ -31,6 +31,7 @@
 <?php 
         use App\Models\UserSubscribedPlan;
         $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
+        $profilePic = Auth::user()->profile_pic;
         //dd($subs);
         //dd(Auth::user()->first_name);
         ?>

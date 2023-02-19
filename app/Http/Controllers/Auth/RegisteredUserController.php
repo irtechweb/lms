@@ -65,8 +65,8 @@ class RegisteredUserController extends Controller {
     }
 
     public function update(Request $request) {
-        DB::beginTransaction();
 
+        DB::beginTransaction();
         $request->validate([
 
             'id' => ['required', 'exists:users,id'],
@@ -75,22 +75,20 @@ class RegisteredUserController extends Controller {
             'city' => ['sometimes', 'string', 'max:255'],
             'phone_number' => ['sometimes', 'string', 'max:255'],
             'about' => ['sometimes', 'string', 'max:255'],
+            'pic' => 'required|mimes:jpeg,png,jpg,gif,svg',
             //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             //'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
             'password' => ['nullable', 'confirmed', Rules\Password::defaults(),'max:25']
        
-            
         ]);
 
-       
-        //dd($request->all());
+    
         if (isset($request->about)){
            
             $user = User::where('id',$request->id)->update([
-                    
                     'about' => ($request->about)
                     
-        ]);
+            ]);
 
         }
         else{
@@ -111,6 +109,16 @@ class RegisteredUserController extends Controller {
             }
 
 
+            if ($request->hasFile('pic')) {
+                $image = $request->file('pic');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/profile_images');
+                $image->move($destinationPath, $name);
+                $updateArray['profile_pic'] = $name;
+
+            }
+
+        
             $user = User::where('id',$request->id)->update($updateArray);
 
         }

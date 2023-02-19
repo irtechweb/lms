@@ -1,7 +1,5 @@
 <script>
 
-
-
     $( ".contactTab" ).on("click", function( event ) {
         event.preventDefault();
 
@@ -361,4 +359,24 @@
         });
     
     
+</script>
+
+
+<script type="text/javascript">
+
+  function changeImage(input) {
+
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        //$('.image_outer').attr('src', e.target.result).width(150).height(200);
+        $(".image_outer").css("background-image", "url(" + e.target.result  +")").width(150).height(200);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+
 </script>
