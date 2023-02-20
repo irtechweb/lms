@@ -19,7 +19,7 @@ $setting = \App\Models\Setting::first();
                         <li>✦ Schedule meeting with a Coach</li>
                     </ul>
                
-                    <a href="{{route('register')}}"> 
+                    <a style="text-decoration: none;"href="{{route('register')}}"> 
                         <button>start learning <img src="./images/ar.svg" alt=""></button> 
                      </a>
                 </div>

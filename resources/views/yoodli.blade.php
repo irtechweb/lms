@@ -11,9 +11,14 @@
 </div>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
-<div class="calendly-inline-widget" data-url="https://app.yoodli.ai/login" style="min-width:320px;height:630px; overflow: auto" align="center">
-    <iframe src="https://app.yoodli.ai/login" style="height:90%;width:100%"></iframe>
-    
-</div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+        <div class="calendly-inline-widget" data-url="https://app.yoodli.ai/login" style="min-width:320px;height:630px; overflow: auto" align="center">
+            <iframe src="https://app.yoodli.ai/login" style="height:90%;width:100%"></iframe>
+            
+        </div>
+        </div>
+    </div>
+       
 </div>
 @endsection('content')

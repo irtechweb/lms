@@ -29,4 +29,8 @@
                        opacity: 0.4;
                        filter: alpha(opacity=40); /* For IE8 and earlier */
                    }
+                   .footer-link a:hover {
+    color: #FFFFC8 !important;
+    text-decoration: none !important;
+}
         </style>
