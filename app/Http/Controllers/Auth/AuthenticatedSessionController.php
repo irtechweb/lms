@@ -55,8 +55,10 @@ class AuthenticatedSessionController extends Controller {
         if($user != NULL){
             $user->update(['last_logout_at'=>date('Y-m-d H:i:s')]);
             $user = User::where('id',$user_id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
+
             $log = UserLoginLog::where('user_id',$user_id)->orderby('id','desc')->first();
-            $log->update(['logout_at'=>date('Y-m-d H:i:s')]);
+            if($log != NULL)
+                $log->update(['logout_at'=>date('Y-m-d H:i:s')]);
 
         }
        

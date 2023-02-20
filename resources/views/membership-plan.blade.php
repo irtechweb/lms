@@ -73,11 +73,11 @@ $(document).ready(function () {
         <!-- MultiStep Form -->
         <div class="col-lg-12 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="">
-                @if (Session::has('success'))
+                <!-- @if (Session::has('success'))
                 <div class="alert alert-success text-center">
                     <p>{{ Session::get('success') }}</p>
                 </div>
-                @endif
+                @endif -->
                 <div class="col-md-12 mx-0">
                         <!-- progressbar -->
                         @if(isset($data) && !empty($data))

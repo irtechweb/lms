@@ -6,7 +6,7 @@
 $setting = \App\Models\Setting::first();
  ?>
  
-<div class="col-12">
+<!-- <div class="col-12">
     @if (Session::has('error'))
     <div class="alert alert-error text-center">
         <p>{{ Session::get('error') }}</p>
@@ -17,7 +17,7 @@ $setting = \App\Models\Setting::first();
     </div>
 
     @endif
-</div>
+</div> -->
 <div class="container">
     <div class="name-home">
         <h1>Hi {{auth()->user()->first_name}},</h1>

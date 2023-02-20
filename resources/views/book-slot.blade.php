@@ -66,13 +66,13 @@
  <!-- </div> -->
  <div class="container">
    <div class="row">
-     <div class="col-md-12"> @if (Session::has('error')) <div class="alert alert-error text-center">
+     <!-- <div class="col-md-12"> @if (Session::has('error')) <div class="alert alert-error text-center">
          <p>{{ Session::get('error') }}</p>
        </div> @elseif(Session::has('success')) <div class="alert alert-success text-center">
          <p>{{ Session::get('success') }}</p>
        </div>
        @endif
-     </div>
+     </div> -->
    </div> 
  </div>
   <form  action="{{ route('paybookSlot') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ config('paths.publish_key') }}" id="msform1" enctype="multipart/form-data">
