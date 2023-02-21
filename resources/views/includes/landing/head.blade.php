@@ -14,19 +14,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <style type="text/css">
-        .loaderImage {
-                display: none;
-                position: fixed;
-                top: 0px;
-                right: 0px;
-                width: 100%;
-                height: 100%;
-                background-color: #000;
-                background-image: url('images/loading.gif');
-                background-repeat: no-repeat;
-                background-position: center;
-                z-index: 10000000;
-                opacity: 0.4;
-                filter: alpha(opacity=40); /* For IE8 and earlier */
-        }
+.loaderImage {
+        display: none;
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        background-image: url('images/loading.gif');
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 10000000;
+        opacity: 0.4;
+        filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+.footer-link a:hover {
+        color: #FFFFC8 !important;
+        text-decoration: none !important;
+}
 </style>
