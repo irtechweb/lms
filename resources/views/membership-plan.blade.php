@@ -127,17 +127,17 @@ $(document).ready(function () {
                                             (Save {{$record['discount_percentage']}}% on {{$record['plans']}})@endif</p>
                                             
                                              @if($record['is_access_cource'] == 1)
-                                            <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to all courses</p>
+                                            <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>Access to all courses</p>
                                             @endif
-                                           <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>{{$record['duration']}} mins of 1-to-1 with a coach per month</p>
-                                            <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>{{$record['discount_percentage']}}% discount on further 1-to-1 coaching sessions</p>
-                                            <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Coach feedback on {{$record['feedback_video_count']}} videos on Yoodli per month</p>
+                                           <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>{{$record['duration']}} mins of 1-to-1 with a coach per month</p>
+                                            <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>{{$record['discount_percentage']}}% discount on further 1-to-1 coaching sessions</p>
+                                            <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>Coach feedback on {{$record['feedback_video_count']}} videos on Yoodli per month</p>
                                             @if($record['webinar_access'] == '1')
-                                            <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to webinars and other pre-recorded content</p>
+                                            <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>Access to webinars and other pre-recorded content</p>
                                             @endif
                                             
                                             @if($record['yoodli_access'] == '1')
-                                            <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to Yoodli</p>
+                                            <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>Access to Yoodli</p>
                                             @endif
                                             @if(auth()->check())
                                             <?php 
@@ -174,7 +174,7 @@ $(document).ready(function () {
                                 <div class="align-items-center justify-content-center">
                                     <div class="Sign " style="border: 1px solid;">
                                         <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign up for Free</h5>
-                                        <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
+                                        <p class="heading2 text-start"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
                                         <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;">Sign for Free</button>
                                         <input type="hidden" name="free_membership" id="free_membership" value="1">
                                     </div>

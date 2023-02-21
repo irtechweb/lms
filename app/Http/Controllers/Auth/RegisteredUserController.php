@@ -68,14 +68,13 @@ class RegisteredUserController extends Controller {
 
         DB::beginTransaction();
         $request->validate([
-
             'id' => ['required', 'exists:users,id'],
-            'first_name' => ['required', 'string', 'max:255'],
+            'first_name' => 'required_without:about|string|max:255',
             'last_name' => ['sometimes', 'string', 'max:255'],
             'city' => ['sometimes', 'string', 'max:255'],
             'phone_number' => ['sometimes', 'string', 'max:255'],
             'about' => ['sometimes', 'string', 'max:255'],
-            'pic' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'pic' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
             //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             //'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
             'password' => ['nullable', 'confirmed', Rules\Password::defaults(),'max:25']

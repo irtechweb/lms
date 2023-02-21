@@ -44,7 +44,7 @@
             <div class="row mt-5 mh-100">
                     <div class="col-md-2">
                        <div class="image_container" style="width: 150px;height: 150px;margin: auto; position: relative;">
-                            <img class="profile-pic" src="{{ asset('images/no_avatar.png') }}" alt="profile-pic" style="width: 100% !important; height: 100% !important; border-radius: 100%;">
+                            <img class="profile-pic" src="{{ isset($profilePic) ? asset('profile_images/1676941797.jpg') : asset('images/no_avatar.png') }}" alt="profile-pic" style="width: 100% !important; height: 100% !important; border-radius: 100%;">
                             {{-- <div class="image_inner" style="background-color: #ffffff; width: 30px; height: 30px;border-radius: 100%; position: absolute; bottom: 0; right:19px;border:1px solid">
                                 <input class="inputfile" type="file" name="pic" accept="image/*">
                                 <label><i class="fa fa-pencil"></i></label>
@@ -155,18 +155,5 @@
             </form> 
             <div style="height: 200px;" ></div>         
         </div>
-
-        <script>
-            $(document).on("change", ".inputfile", function() {
-                ! function(e) {
-                    if (e.files && e.files[0]) {
-                        var t = new FileReader;
-                        t.onload = function(e) {
-                            $(".profile-pic").attr("src", e.target.result)
-                        }, t.readAsDataURL(e.files[0])
-                    }
-                }(this)
-            });
-        </script>
 @endsection('content')
 
