@@ -857,7 +857,7 @@ class CourseController extends Controller {
                 'status' => true,
                 // 'duration' => $duration,
                 // 'file_title' => $file_title,
-                'file_link' => Storage::url($video_path),
+                //'file_link' => Storage::url($video_path),
             );
         } else {
             $return_data = array(
