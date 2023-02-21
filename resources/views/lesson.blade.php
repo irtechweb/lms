@@ -176,47 +176,33 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
   </div>
   </div>
 
-  <!-- ===============   Chapter End   ============== -->
-  <div class="chapter-tabs">
+<div class="chapter-tabs">
     <div class="container-main">
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
             type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
             role="tab" aria-controls="nav-profile" aria-selected="false">Notes</button>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
-          <div class="row">
-            <div class="col-md-10">
-              <div class="tab-pane fade active show" id="nav-home overview" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div id ="lessondesc"><p>
-              @php 
-              if(isset($quiz_description))
-              {
-              echo $quiz_description;
-              }else{
-              echo "No description";
-              }
-              @endphp
-              </p></div>
-              </div>
-              </div>
-          </div>
+        <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+        <div id ="lessondesc"><p>
+        
+       </p></div>
+        </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <span id="save_notes"> </span>
+          <span id="save_notes"> </span>
           <form class="text_area">
              <input id="course_id" name="course_id" value="" type='hidden'>
             <input id="lesson_id" name="lesson_id" value="" type='hidden'>
-            <textarea id="notes" style="overflow: auto;
-    resize: vertical;
-    border: none;
-    width: 100%;
-    background-color: #eeeeee;" class="text_area_value" rows="5" cols="33" placeholder="Write something" <?= (isset($notes->completed) && $notes->completed == 1 )?"readonly":"";?>> 
-           @if(isset($notes->notes))
-           <?= trim($notes->notes) ?>
-           @endif
+            <textarea id="notes" style="overflow: auto;    resize: vertical;
+                  border: none;
+                  width: 100%;
+                  background-color: #eeeeee;" class="text_area_value" rows="5" cols="33" placeholder="Write something" >
             </textarea>
            
           </form>
@@ -224,6 +210,9 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
       </div>
     </div>
   </div>
+
+  <!-- ===============   Chapter End   ============== -->
+  
 
   <!-- ================   Modal   =============== -->
   <!-- <div class="action" ">
@@ -299,11 +288,17 @@ $(document).ready(function(){
     var timer;
     var timeout = 2000; // Timout duration
     $('.text_area_value').keyup(function(){
+      var lesson_id = $('#lesson_id').val();
+      
+      if(lesson_id != ""){
       $('#save_notes').html("<span style='color:gray'> Saving... </span>")
         if(timer) {
             clearTimeout(timer);
         }
         timer = setTimeout(saveNotes, timeout); 
+      }else{
+        alert('Select any lesson first');
+      }
  
     });
  
