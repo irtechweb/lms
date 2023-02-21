@@ -72,7 +72,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                     <div class="dropdown">
                             <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
                                 <div class="avatar avatar-sm avatar-circle mt-1">
-                                    <img class="avatar-img" src="{{ isset(Auth::user()->profile_pic) ? asset('profile_images/1676941797.jpg') : asset('images/no_avatar.png') }}" alt="User Avatar" width="42" height="42">
+                                    <img class="avatar-img" src="{{ isset(Auth::user()->profile_pic) ? asset('profile_images/'.Auth::user()->profile_pic) : asset('images/no_avatar.png') }}" alt="User Avatar" width="42" height="42" style="border-radius: 100%;">
                                     <span class="avatar-status avatar-sm-status avatar-status-success"></span>
                                 </div>
                             </a>

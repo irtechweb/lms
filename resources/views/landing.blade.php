@@ -3,13 +3,20 @@
 
 <style>
     .fun-facts iframe {
-        max-width: 800px;
+        width: 350px;
+        height: 350px;
         margin: 0 auto;
         display: block;
         margin-top: 50px;
         border-radius: 12px;
         cursor: pointer;
         background-color: #333333;
+    }
+    @media(min-width:768px) {
+        .fun-facts iframe {
+        width: 800px;
+        height: 500px;
+        }
     }
 </style>
 @php
@@ -60,7 +67,7 @@
 <div class="fun-facts">
     <div class="container">
         <!--  <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png"> -->
-        <iframe src="{{ isset($setting->promo_video_link) ? $setting->promo_video_link : 'https://player.vimeo.com/video/798543316?h=c8240b76d7' }}" width="800" height="500" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe src="{{ isset($setting->promo_video_link) ? $setting->promo_video_link : 'https://player.vimeo.com/video/798543316?h=c8240b76d7' }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
         {{-- <video width="800" height="500" controls>
             <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>" type="video/mp4"> --}}
             <!-- <source src="movie.ogg" type="video/ogg"> -->
