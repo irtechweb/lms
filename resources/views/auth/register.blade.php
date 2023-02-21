@@ -1,6 +1,10 @@
 @extends('layouts.web')
 @section('content')
 <style>
+    a:hover {
+        color: #0a58ca;
+        text-decoration: underline;
+    }
     .login a {
         color: #3f3f3f;
         text-decoration: none;

@@ -225,9 +225,10 @@ header.main-site {
 }
 
 .chapter-video {
-    width: 52%;
+    width: 67%;
     border-radius: 12px;
     overflow: hidden;
+    margin-top: 20px;
 }
 
 .chapter-playlist {
@@ -292,7 +293,7 @@ button.accordion-button {
     color: #1C1C1C;
     font-size: 18px;
     line-height: 27px;
-    font-weight: 500;
+    font-weight: 600;
     font-family: 'Inter', sans-serif;
 }
 
@@ -314,14 +315,14 @@ button.accordion-button {
 }
 .selected-video {
     border: 1px solid #f2f2f2;
-    background:yellow;
+    /* background:yellow; */
     padding: 20px;
     border-radius: 12px;
     margin-top: 16px;
 }
 .done-video {
     border: 1px solid #f2f2f2;
-    background:green;
+    /* background:green; */
     padding: 20px;
     border-radius: 12px;
     margin-top: 16px;
@@ -1070,4 +1071,19 @@ label.form-label {
 .card {
     
     border: 1px solid rgb(0 0 0 / 0%)!important;
+}
+.footer-link a:hover {
+    color: #FFFFC8 !important;
+    text-decoration: none !important;
+}
+.footer-links a:hover {
+    color: #FFFFC8 !important;
+    text-decoration: none !important;
+}
+
+
+@media only screen and (min-width: 280px) and (max-width: 768px){
+    .res-logo {
+        width: 160px;
+    }
 }

@@ -19,7 +19,7 @@ font-weight: 500;
 line-height: 24px;
 letter-spacing: 0em;
 text-align: left;
-">You can Schedule 20 mins 1:1 meeting with a coach as per <u>your plan</u> selected
+">You can Schedule 60 mins 1:1 meeting with a coach as per <u>your plan</u> selected
                 with the given calendy below</h6>
                 <!-- <span class="header1">Schedule 1:1 meeting with coach</br></span>   -->
 

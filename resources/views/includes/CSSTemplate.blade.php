@@ -72,8 +72,8 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                     <div class="dropdown">
                             <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
                                 <div class="avatar avatar-sm avatar-circle mt-1">
-                                <img class="avatar-img" src="{{url('images/user1.png')}}" alt="Image Description">
-                                <span class="avatar-status avatar-sm-status avatar-status-success"></span>
+                                    <img class="avatar-img" src="{{ isset(Auth::user()->profile_pic) ? asset('profile_images/'.Auth::user()->profile_pic) : asset('images/no_avatar.png') }}" alt="User Avatar" width="42" height="42" style="border-radius: 100%;">
+                                    <span class="avatar-status avatar-sm-status avatar-status-success"></span>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 18rem;" data-bs-popper="static">
@@ -121,7 +121,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="img-responsive" alt="alt text"></a>
+                            <a href="{{url('/')}}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="img-responsive res-logo" alt="alt text"></a>
                          </div>
                         
                         <!-- <a class="navbar-brand" href="#">Speak2Impact Academy</a> -->

@@ -16,10 +16,12 @@
                 $action = url('book-webinar');
                 $style = "";
                 $btn_label = "Book a slot";
+                $btnDisabled = '';
                 if(in_array($record['id'],$data['userbooked'])){
                   $action = "javascript:;";
                   $style = "background-color:green;color:white";
                   $btn_label = "Booked";
+                    $btnDisabled = 'disabled';
             } ?>
             <form action="{{$action}}" method="post">
                 @csrf
@@ -42,7 +44,7 @@
                 </div>
                 <div class="webinar-button">
                     
-                    <button id="postwebinar" style= <?= $style ?> >{{$btn_label}}</button>
+                    <button {{ $btnDisabled }} id="postwebinar" style= <?= $style ?> >{{$btn_label}}</button>
                     
                 </div>
             </div>
