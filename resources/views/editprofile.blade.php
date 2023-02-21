@@ -53,7 +53,7 @@
                         <form id="editProfileForm" action="{{url('editprofile')}}" method="post" enctype="multipart/form-data">
                         
                         <div class="image_container" style="width: 150px;height: 150px;margin: auto; position: relative;">
-                            <img class="profile-pic" src="{{ isset($profilePic) ? asset('profile_images/1676941797.jpg') : asset('images/no_avatar.png') }}" alt="profile-pic" style="width: 100% !important; height: 100% !important; border-radius: 100%;">
+                            <img class="profile-pic" src="{{ isset($profilePic) ? asset('profile_images/'.$profilePic) : asset('images/no_avatar.png') }}" alt="profile-pic" style="width: 100% !important; height: 100% !important; border-radius: 100%;">
                             <div class="image_inner" style="background-color: #ffffff; width: 30px; height: 30px;border-radius: 100%; position: absolute; bottom: 0; right:19px;border:1px solid">
                                 <input class="inputfile" type="file" name="pic" accept="image/*">
                                 <label><i class="fa fa-pencil"></i></label>
