@@ -107,7 +107,7 @@ $setting = \App\Models\Setting::first();
                     // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
                 }
                 ?>
-                <?php if($i > 3 && $i % 3 != 0){?>
+                <?php if($i > 3 && $i % 3 == 1){?>
                     </div>
                     <div class="row" style="padding-top:20px;">
                 <?php } ?>        

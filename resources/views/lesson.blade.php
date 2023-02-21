@@ -7,18 +7,18 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
 ?>
 <style type="text/css">
   div.done {
-    background-color:green;
+    /*background-color:green;*/
     
   }
   div.done i {
-    background-color:black;
+    /*background-color:black;*/
     
   }
   .done i{
-    color:green;
+    /*color:green;*/
     
   }
-  div.in-progress{
+  div.in-progress:not(.accordion-body){
     background-color:orange;
 
   }
@@ -133,8 +133,11 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                     //$videopath ='https://player.vimeo.com/video/800179717';
                     $videopath =$video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                     //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
-                    if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 ))
+                    $imgsrc = url('images/Play button.svg');
+                    if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 )){
+                      $imgsrc = url('images/greentick.png');
                       $cl =  "done-video";
+                    }
                     else if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 0 ))
                       $cl =  "selected-video";
                     else
@@ -147,7 +150,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
 
                     <div  class="play-list {{$cl}}">
                      <!-- @if($video != null)  -->                    
-                     <img onclick="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" class="play" attr="{{$videopath}}" alt="" src="{{url('images/Play button.svg')}}" >
+                     <img onclick="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" class="play" attr="{{$videopath}}" alt="" src="{{$imgsrc}}" >
                      <!-- <img class="check-color" onclick="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" class="play" attr="{{$videopath}}" alt="" src="{{url('images/check-white.svg')}}" > -->
                      <!--  @else -->
                      <!-- <img src="{{url('images/Play button.svg')}}" alt="">
@@ -261,7 +264,17 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
   </div>
   </div>
 <?php //dd($access); ?>
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script>
+  var player = new Vimeo.Player(document.querySelector('iframe'));
+
+// playButton.addEventListener('click', function() {
+//   player.play().then(function() {
+//     console.log('Video played');
+//   }).catch(function(error) {
+//     console.log('Error playing the video');
+//   });
+// });
    $("#flexSwitchCheckDefault").click(function(){
     $("#display").toggle();
     if($(this).text() == "Show"){
@@ -332,12 +345,22 @@ function saveData(course_id,lesson_id,completed=0){
     {
       
       obj = $('span.in-progress');
-     
+      
       obj.parent().removeClass('in-progress');
+      
       obj.parent().addClass('done');
+      
       obj.addClass('done');
+      
       obj.removeClass('completed');
       obj.removeClass('in-progress');
+      obj.parent().find('img').removeAttr('src');
+      obj.parent().find('img').attr('src','<?php echo url('images/greentick.png'); ?>');
+      obj.parent().addClass('play');
+      obj.parent().attr('onClick','play(this)')
+      obj.parent().removeClass('pause');
+      
+      
     }
 
   })
@@ -416,8 +439,8 @@ function getLessonDetail(course_id,lesson_id){
       $('#lessondesc p').html();
       $('span#save_notes textarea').val();
       getLessonDetail(course_id,lesson_id);
-      
-      $("#videoId").trigger('play');
+      player.play();
+      //$("#videoId").trigger('play');
 
 
       // $('#play').attr("src", pause);
@@ -432,8 +455,9 @@ function pause(obj)
       $(obj).addClass('play');
       $(obj).attr('onClick','play(this)')
       $(obj).removeClass('pause');
-      $("#videoId").trigger('pause');
-      ;
+      player.pause();
+      //$("#videoId").trigger('pause');
+      //;
 
       // $('#play').attr("src", pause);
 };
