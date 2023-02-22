@@ -35,11 +35,11 @@ class RegisteredUserController extends Controller {
     public function store(Request $request) {
         DB::beginTransaction();
         $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'regex:/^[\pL\s\-]+$/u', 'max:255'],
+            'last_name' => ['required', 'regex:/^[\pL\s\-]+$/u', 'max:255'],
+            'city' => ['required', "regex:/^[\pL\s\-\']+$/u", 'max:255'],
+            'phone_number' => ['required', 'regex:/^[0-9+\-\s()]*$/', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             //'free' =>['sometimes', 'integer', 'in:0,1']
         ]);
@@ -69,14 +69,12 @@ class RegisteredUserController extends Controller {
         DB::beginTransaction();
         $request->validate([
             'id' => ['required', 'exists:users,id'],
-            'first_name' => 'required_without:about|string|max:255',
-            'last_name' => ['sometimes', 'string', 'max:255'],
-            'city' => ['sometimes', 'string', 'max:255'],
-            'phone_number' => ['sometimes', 'string', 'max:255'],
+            'first_name' => 'required_without:about|regex:/^[\pL\s\-]+$/u|max:255',
+            'last_name' => ['sometimes', 'regex:/^[\pL\s\-]+$/u', 'max:255'],
+            'city' => ['sometimes', "regex:/^[\pL\s\-\']+$/u", 'max:255'],
+            'phone_number' => ['sometimes', 'regex:/^[0-9+\-\s()]*$/', 'max:255'],
             'about' => ['sometimes', 'string', 'max:255'],
             'pic' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
-            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            //'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
             'password' => ['nullable', 'confirmed', Rules\Password::defaults(),'max:25']
        
         ]);
