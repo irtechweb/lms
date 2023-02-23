@@ -180,6 +180,7 @@
                                 <form action="{{url('editprofile')}}" method="post">
                                     @csrf
                                 <input type="hidden" name="id"  value=" {{Auth::user()->id}}">
+                                <input type="hidden" name="about_section"  value="about section">
                                 <div class="row mt-5">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">About</label>

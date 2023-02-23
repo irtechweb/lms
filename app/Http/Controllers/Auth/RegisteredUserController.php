@@ -35,11 +35,11 @@ class RegisteredUserController extends Controller {
     public function store(Request $request) {
         DB::beginTransaction();
         $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'regex:/^[\pL\s\-]+$/u', 'max:255'],
+            'last_name' => ['required', 'regex:/^[\pL\s\-]+$/u', 'max:255'],
+            'city' => ['required', "regex:/^[\pL\s\-\']+$/u", 'max:255'],
+            'phone_number' => ['required', 'regex:/^[0-9+\-\s()]*$/', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             //'free' =>['sometimes', 'integer', 'in:0,1']
         ]);
@@ -65,20 +65,21 @@ class RegisteredUserController extends Controller {
     }
 
     public function update(Request $request) {
-
+        // $request->session()->forget('error');
         DB::beginTransaction();
         $request->validate([
             'id' => ['required', 'exists:users,id'],
-            'first_name' => 'required_without:about|string|max:255',
-            'last_name' => ['sometimes', 'string', 'max:255'],
-            'city' => ['sometimes', 'string', 'max:255'],
-            'phone_number' => ['sometimes', 'string', 'max:255'],
-            'about' => ['sometimes', 'string', 'max:255'],
-            'pic' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
-            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            //'password' => ['sometimes', 'confirmed', Rules\Password::defaults(),'max:25']
+            'first_name' => 'required_without_all:about,about_section|regex:/^[\pL\s\-]+$/u|max:255',
+            'last_name' => ['nullable', 'regex:/^[\pL\s\-]+$/u', 'max:255'],
+            'city' => ['nullable', "regex:/^[\pL\s\-\']+$/u", 'max:255'],
+            'phone_number' => ['nullable', 'regex:/^[0-9+\-\s()]*$/', 'max:255'],
+            'about' => 'required_without_all:first_name,last_name,city,phone_number',
+            'pic' => 'nullable|mimes:jpeg,png,jpg,svg',
             'password' => ['nullable', 'confirmed', Rules\Password::defaults(),'max:25']
-       
+        
+        ],[
+            'first_name.required_without_all' => 'first name is required.',
+            'about.required_without_all' => 'about field is required.',
         ]);
 
     

@@ -35,9 +35,10 @@ class HomeController extends Controller {
                     ->where('courses.course_title', 'LIKE', '%' . $search . '%')
                     ->orWhere('courses.course_slug', 'LIKE', '%' . $search . '%')
                     ->orWhere('categories.name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('is_active', 1)
                     ->paginate($paginate_count);
         } else {
-            $courses = Course::with(['course_videos', 'categories'])->get();
+            $courses = Course::with(['course_videos', 'categories'])->where('is_active', 1)->get();
             // dd($courses);
             // $courses = DB::table('courses')
             //             ->select('courses.*','courses.id as course_id','course_videos.*')

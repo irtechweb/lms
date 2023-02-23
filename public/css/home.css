@@ -1072,14 +1072,14 @@ label.form-label {
     
     border: 1px solid rgb(0 0 0 / 0%)!important;
 }
-.footer-link a:hover {
+/* .footer-link a:hover {
     color: #FFFFC8 !important;
     text-decoration: none !important;
 }
 .footer-links a:hover {
     color: #FFFFC8 !important;
     text-decoration: none !important;
-}
+} */
 
 
 @media only screen and (min-width: 280px) and (max-width: 768px){

@@ -33,4 +33,8 @@
         color: #FFFFC8 !important;
         text-decoration: none !important;
 } */
+.contact-us-txt:hover {
+        color: #faf8bf !important;
+        text-decoration: none !important;
+    }
 </style>

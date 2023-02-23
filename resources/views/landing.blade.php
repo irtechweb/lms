@@ -12,22 +12,25 @@
         cursor: pointer;
         background-color: #333333;
     }
+
     @media(min-width:768px) {
         .fun-facts iframe {
-        width: 800px;
-        height: 500px;
+            width: 800px;
+            height: 500px;
         }
     }
 </style>
 @php
-    $setting = \App\Models\Setting::first();
+$setting = \App\Models\Setting::first();
 @endphp
 
 <div class="hero">
     <div class="container">
         <div class="hero-top">
             <div class="hero-heading">
-                <img src="./images/heading-bg2.svg" style="--top-right:10px;--bottom-right:50px; background: radial-gradient(#ffffc8,#fff); z-index:-1;" class="h-patteren">
+                <img src="./images/heading-bg2.svg"
+                    style="--top-right:10px;--bottom-right:50px; background: radial-gradient(#ffffc8,#fff); z-index:-1;"
+                    class="h-patteren">
                 <h1>The Art of <br>Public Speaking </h1>
                 <span>by<img src="./images/r1.png"><span class="wavy">Susie Ashfield</span></span>
             </div>
@@ -67,9 +70,10 @@
 <div class="fun-facts">
     <div class="container">
         <!--  <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png"> -->
-        <iframe src="{{ isset($setting->promo_video_link) ? $setting->promo_video_link : 'https://player.vimeo.com/video/798543316?h=c8240b76d7' }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <iframe src="{{ isset($setting->promo_video_link) ? $setting->promo_video_link : 'https://www.youtube.com/embed/sIBcQil9ARA' }}" title="Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         {{-- <video width="800" height="500" controls>
-            <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>" type="video/mp4"> --}}
+            <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>"
+                type="video/mp4"> --}}
             <!-- <source src="movie.ogg" type="video/ogg"> -->
             {{-- Your browser does not support the video tag.
         </video> --}}
@@ -234,7 +238,7 @@
                     </p>
                     <button class="start-membershiIp" style="
                                 background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none;
-    color: #FFF" href="{{url('register')}}">Sign for Free</a></button>
+    color: #FFF" href="{{url('register')}}">Sign up for Free</a></button>
                 </div>
             </div>
         </div>
