@@ -152,7 +152,7 @@ class HomeController extends Controller {
             $note['lesson_id'] = $lesson_id;
             \DB::table( 'user_notes')->insertGetId($note);
         }else{
-            DB::table('user_notes')->where('lesson_id', $lesson_id)->where('user_id',Auth::user()->id)->update(['last_played'=>date("Y-m-d H:i:s")]);
+            DB::table('user_notes')->where('lesson_id', $lesson_id)->where('user_id',Auth::user()->id)->update(['last_played'=>date("Y-m-d H:i:s"),'completed'=>0]);
 
         }
         $data['desc'] = "";
