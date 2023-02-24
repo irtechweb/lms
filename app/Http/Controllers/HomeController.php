@@ -176,7 +176,8 @@ class HomeController extends Controller {
         $id = Auth::user()->id;
         //dd($id);
         $availableCount = \App\Models\AvailableBookingCount::where('user_id', $id)->first();
-        $sessionprice = \App\Models\CoachPrice::first();
+        //$sessionprice = \App\Models\CoachPrice::first();
+        $sessionprice = "20";
         
         $count = !empty($availableCount) ? $availableCount->booking_count : 0;
         return view('calendly', compact('count','sessionprice'));

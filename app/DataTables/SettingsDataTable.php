@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Setting;
+use App\Models\GeneralSetting;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -37,7 +37,7 @@ class SettingsDataTable extends DataTable
      * @param \App\Models\Setting $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Setting $model): QueryBuilder
+    public function query(GeneralSetting $model): QueryBuilder
     {
         return $model->newQuery();
     }

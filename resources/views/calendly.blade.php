@@ -77,7 +77,7 @@ text-align: center;
                        Add More Booking credits?
                     </div> -->
                     
-                    <h6><span>£<?= $sessionprice->price ?>/booking</span></h6>
+                    <h6><span>£<?=20?>/booking</span></h6>
                     <button class="start-membership">Book Now</button>
                     
                 </div>

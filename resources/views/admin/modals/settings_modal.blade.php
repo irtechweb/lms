@@ -21,9 +21,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="landing_page_video">Select Video</label>
-                                <input name="landing_page_video" type="file" class="form-control" accept="video/*">
-                                <small style="color: red;">Selcet video to update / Leave to keep unchanged</small>
+                                <label for="value">Select Value</label>
+                                <input name="value" id="value" type="text" class="form-control" required>
                             </div>
                         </div>
                     </div>

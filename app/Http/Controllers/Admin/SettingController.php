@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Setting;
+use App\Models\GeneralSetting;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -20,7 +20,7 @@ class SettingController extends Controller
     public function edit($id)
     {
         try {
-            $setting = Setting::findOrFail($id);
+            $setting = GeneralSetting::findOrFail($id);
             return response()->json([
                 'status' => true,
                 'data' => $setting
@@ -45,7 +45,7 @@ class SettingController extends Controller
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
         try {
-            $setting = Setting::findOrFail($id);
+            $setting = GeneralSetting::findOrFail($id);
             $setting->update([
                 'title' => $request->title,
             ]);

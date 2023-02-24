@@ -81,7 +81,7 @@
             let settingId = $(this).closest('tr').attr('id');
             let url = "{{ route('settings.edit', ':settingId') }}";
             url = url.replace(':settingId', settingId);
-            console.log(url);
+            //console.log(url);
             $.getJSON(url, function(setting) {
                 if(setting.status == true) {
                     let updateUrl = "{{ route('settings.update', ':settingId') }}";
@@ -89,6 +89,7 @@
                     $('#settingsModal #modalTitle').html("Edit "+ setting.data.title);
                     $('#settingsModal #settingsModalForm').attr('action', updateUrl);
                     $('#settingsModal #title').val(setting.data.title);
+                    $('#settingsModal #value').val(setting.data.value);
                     $('#settingsModal').modal('show');
                 } else {
                     window.toast.fire({

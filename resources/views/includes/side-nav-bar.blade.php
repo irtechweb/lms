@@ -51,27 +51,49 @@
                 </ul>
             </li>  
             <li class=" nav-item">
-                <a href="{{ route('subscriptions.orders') }}"><i class="la la-plus"></i>
+                <a href="#"><i class="la la-mobile"></i>
                     <span class="menu-title" data-i18n="">
-                        Subs Orders
+                        Orders
                     </span>
                 </a>
-            </li> 
+             <ul class="menu-content">
+                    <li class="navigation-divider"></li>
+                    <li>
+                        <a href="{{route('subscriptions.orders')}}">
+                            <span class="menu-title" data-i18n="">
+                               Subscriptions
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{route('coach.orders')}}">
+                            <span class="menu-title" data-i18n="">
+                                Booking Credits
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
             <li class=" nav-item">
-                <a href="{{ route('coach.orders') }}"><i class="la la-plus"></i>
+                <a href="#"><i class="la la-mobile"></i>
                     <span class="menu-title" data-i18n="">
-                        Coaching Orders
+                        Reports
                     </span>
                 </a>
-            </li> 
+                <ul class="menu-content">
+                    <li class="navigation-divider"></li>
+                    <li>
+                        <a href="{{route('access.course')}}">
+                            <span class="menu-title" data-i18n="">
+                                Free Users Tracking
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+           
             <li class=" nav-item">
-                <a href="{{ route('access.course') }}"><i class="la la-plus"></i>
-                    <span class="menu-title" data-i18n="">
-                       Access Course
-                    </span>
-                </a>
-            </li> 
- <li class=" nav-item">
                 <a href="#"><i class="la la-mobile"></i>
                     <span class="menu-title" data-i18n="">
                         Webinars
@@ -276,17 +298,17 @@
                 <ul class="menu-content">
                      <li class="navigation-divider"></li>
                     <li>
-                        <a class="menu-item" href="{{ route('showSiteContent') }}">Text Content</a>
+                        <a class="menu-item" href="{{ route('showSiteContent') }}">CMS Pages</a>
                     </li>
-                    <li>
-                        <a class="menu-item" href="{{ route('setting') }}">System Settings</a>
-                    </li> 
+                    {{-- <li>
+                        <a class="menu-item" href="{{ route('setting') }}">Social Link Settings</a>
+                    </li>  --}}
                     <li class="navigation-divider"></li>
                     {{-- <li>
                         <a class="menu-item" href="{{ route('admin.messageCodes') }}">Message Codes</a>
                     </li> --}}
                     <li>
-                        <a class="menu-item" href="{{ route('settings.index') }}">System Settings</a>
+                        <a class="menu-item" href="{{ route('settings.index') }}">General Settings</a>
                     </li>
 
                 </ul>
