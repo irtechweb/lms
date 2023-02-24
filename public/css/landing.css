@@ -112,12 +112,11 @@ footer {
     margin-top: 45px;
     display: block;
     text-align: center;
-    
 }
 
 .footer-link a {
     color: #FFFFC8;
-    text-decoration: none;
+    text-decoration: none!important;
     font-size: 16px;
     line-height: 38px;
     font-weight: 500;
@@ -134,6 +133,7 @@ footer {
     line-height: 36px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
+    
 }
 
 .membership-plan h2 {
