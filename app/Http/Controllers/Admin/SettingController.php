@@ -48,13 +48,8 @@ class SettingController extends Controller
             $setting = GeneralSetting::findOrFail($id);
             $setting->update([
                 'title' => $request->title,
+                'value' => $request->value,
             ]);
-            if($request->has('landing_page_video')) {
-                $path = 'media.mp4';
-                $setting->update([
-                    'landing_page_video' => $path,
-                ]);
-            }
             return response()->json([
                 'status' => true,
                 'message' => 'Settings Updated Successfully'

@@ -8,7 +8,9 @@
 <body class="">
 	<div class="loaderImage"></div>
   @include('includes.landing.header')
-  @yield('content')   
+  <div style="min-height: 100vh;">
+    @yield('content')
+  </div>
  
   @include('includes.landing.footer')
   @include('includes.landing.script')

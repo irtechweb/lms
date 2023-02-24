@@ -10,7 +10,7 @@
         text-decoration: none !important;
     }
 </style>
-<footer style="margin-top: 15px;width: 100%;position: absolute;bottom: 0;">
+<footer style="margin-top: 15px;width: 100%;position: absolute; margin-bottom: 0;">
     <div class="container">
         <div class="footer">
             <div class="row">
