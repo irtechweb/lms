@@ -21,7 +21,8 @@
     }
 </style>
 @php
-$setting = \App\Models\Setting::first();
+$promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video')->pluck('value')->first();
+
 @endphp
 
 <div class="hero">
@@ -70,7 +71,7 @@ $setting = \App\Models\Setting::first();
 <div class="fun-facts">
     <div class="container">
         <!--  <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png"> -->
-        <iframe src="{{ isset($setting->promo_video_link) ? $setting->promo_video_link : 'https://www.youtube.com/embed/sIBcQil9ARA' }}" title="Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe src="{{ isset($promo_video_link) ? $promo_video_link : 'https://www.youtube.com/embed/sIBcQil9ARA' }}" title="Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         {{-- <video width="800" height="500" controls>
             <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>"
                 type="video/mp4"> --}}
