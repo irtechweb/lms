@@ -72,13 +72,13 @@ font-weight: 500;
 line-height: 48px;
 letter-spacing: 0em;
 text-align: center;
-">Add More booking </br>credits</p>
+">Add more booking </br>credits</p>
                     <!-- <div class="toggle-membership">
                        Add More Booking credits?
                     </div> -->
                     
-                    <h6><span>£<?=20?>/booking</span></h6>
-                    <button class="start-membership">Book Now</button>
+                    <h6><span>£<?= $price ?> for each 60 min minutes</span></h6>
+                    <button class="start-membership">Buy more booking slots</button>
                     
                 </div>
             </div>

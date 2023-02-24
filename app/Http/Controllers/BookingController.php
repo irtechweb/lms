@@ -32,7 +32,7 @@ class BookingController extends Controller {
         $this->_api_context->setConfig($paypal_configuration['settings']);
     }
     public function bookSlot() {
-        $data['coach_price'] = \App\Models\CoachPrice::first()->price;
+        $data['coach_price'] = \App\Models\GeneralSetting::where('key','booking_credits_price')->pluck('value')->first();
         
         $data['user_id'] = Auth::user()->id;
 
@@ -48,7 +48,7 @@ class BookingController extends Controller {
             // check if customer already subscribed to any subscription
             $data['request_data'] = $request->toArray();
             $data['request_data']['user_id'] = Crypt::decrypt($request->user_id);
-            $data['coach_price'] = \App\Models\CoachPrice::first()->price;;
+            $data['coach_price'] =  \App\Models\GeneralSetting::where('key','booking_credits_price')->pluck('value')->first();
             $data['quantity'] = $request->quantity;
             $currentDate = date('Y-m-d H:i:s');
             
@@ -279,7 +279,7 @@ class BookingController extends Controller {
         $data['request_data'] = $request->toArray();
 
         $data['request_data']['user_id'] = Crypt::decrypt($request->user_id);
-        $data['coach_price'] = \App\Models\CoachPrice::first()->price;;
+        $data['coach_price'] = \App\Models\GeneralSetting::where('key','booking_credits_price')->pluck('value')->first();
             $data['quantity'] = $request->quantity;
             $currentDate = date('Y-m-d H:i:s');
         
@@ -399,7 +399,7 @@ class BookingController extends Controller {
 
         if (empty($request->input('PayerID')) || empty($request->input('token'))) {
             \Session::put('error', 'Payment failed!!!');
-            return Redirect::route('membershipPlans');
+            return \Redirect::route('bookSlot');
         }
         $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
