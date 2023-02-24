@@ -133,6 +133,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                     //$videopath ='https://player.vimeo.com/video/800179717';
                     $videopath =$video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                     //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
+                    $videopath = "https://player.vimeo.com/video/68481134";
                     $imgsrc = url('images/Play button.svg');
                     if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 )){
                       $imgsrc = url('images/greentick.png');
@@ -205,8 +206,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
             <textarea id="notes" style="overflow: auto;    resize: vertical;
                   border: none;
                   width: 100%;
-                  background-color: #eeeeee;" class="text_area_value" rows="5" cols="33" placeholder="Write something" >
-            </textarea>
+                  background-color: #eeeeee;" class="text_area_value" rows="5" cols="33" placeholder="Write something" ></textarea>
            
           </form>
         </div>
@@ -438,8 +438,13 @@ function getLessonDetail(course_id,lesson_id){
       $("#videoId").attr('src',$(obj).attr("attr"));
       $('#lessondesc p').html();
       $('span#save_notes textarea').val();
+      console.log(player);
+      player.play();
       getLessonDetail(course_id,lesson_id);
       player.play();
+      // player.on('ended', function() {
+      //   console.log('The video has ended.');
+      // });
       //$("#videoId").trigger('play');
 
 
