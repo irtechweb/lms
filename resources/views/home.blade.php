@@ -124,7 +124,9 @@ $setting = \App\Models\Setting::first();
                             {{-- <video width="100%" height="100%" controls preload="auto"><source src="{{ url($file_name)}}" type="video/mp4"></video> --}}
                         </div>
                         <div class="webinar-button">
-                            <button><a href="{{route('course-lesson',[$course->id])}}" >Start learning</a></button>
+                            <a href="{{route('course-lesson',[$course->id])}}" style="text-decoration: none;">
+                                <button>Start learning</button>
+                            </a>
                         </div>
                     </div>
                 </div>

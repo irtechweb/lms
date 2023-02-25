@@ -6,12 +6,13 @@
         color: #0a58ca;
         text-decoration: underline;
     }
-    .login a {
+    .login {
         color: #3f3f3f;
         text-decoration: none;
     }
-    .login:hover a {
+    .login:hover {
         color: white;
+        text-decoration: none;
     }
 </style>
 
@@ -22,14 +23,8 @@
                 <h1>Log In</h1>
                 <span>Get started by filling up details below</span>
                 <div class="login-option">
-                    <button type="button" class="login">
-                        <img src="{{url('images/')}}/google.svg">
-                        <a href="{{url('login/google')}}" class=""> Log in with Google </a>
-                    </button>
-                    <button type="button" class="login">
-                        <img src="{{url('images/')}}/fb.svg">
-                        <a href="{{url('login/facebook')}}" class=""> Log in with Facebook </a>
-                    </button>
+                    <a href="{{url('login/google')}}" class="login mb-3" style="line-height: 27px; padding: 13px 0;"><img src="{{url('images/')}}/google.svg"> Log in with Google </a>
+                    <a href="{{url('login/facebook')}}" class="login mb-2" style="line-height: 27px; padding: 13px 0;"><img src="{{url('images/')}}/fb.svg"> Log in with Facebook </a>
                 </div>
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
