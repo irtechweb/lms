@@ -159,6 +159,19 @@ Add Subscription Plan
                                         </fieldset>
 
                                         <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="price">Enter no. of free booking credits</label>
+                                                        <input step="1" min="0" value="2"
+                                                               name="booking_credit"
+                                                               type="number" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
                                             <br>
                                             <div class="row">
                                                 <div class="col-lg-6 offset-6 text-right">

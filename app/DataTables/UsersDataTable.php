@@ -24,7 +24,7 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($user) {
-                return '<a type="button" href="javascript:" class="btn btn-outline-primary btn-sm mr-2">
+                return '<a type="button" href="'. route('students.edit', $user->id) .'" class="btn btn-outline-primary btn-sm mr-2">
                     <i class="ft-edit"></i> Edit
                 </a>
                 <a type="button" href="javascript:void(0)" data-table="users_table" data-method="get" data-url="' . route('students.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete">

@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-Edit Subscription Plan
+Edit Student
 @endsection
 
 @section('local-style')
@@ -19,7 +19,7 @@ Edit Subscription Plan
         <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
                 <h3 class="content-header-title">
-                    Edit Subscription Plan
+                    Edit Student
                 </h3>
             </div>
             <div class="content-header-right col-md-8 col-12">
@@ -29,7 +29,7 @@ Edit Subscription Plan
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Edit Subscription Plan
+                                Edit Student
                             </li>
                         </ol>
                     </div>
@@ -45,7 +45,7 @@ Edit Subscription Plan
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    <a href="{{ route('subscription.list') }}" type="button"
+                                    <a href="{{ route('students.index') }}" type="button"
                                        class="btn btn-secondary btn-sm"><i class="ft-arrow-left"></i>
                                         Back
                                     </a>
@@ -67,26 +67,24 @@ Edit Subscription Plan
                                     @include('includes.error')
 
                                     <form method="post" enctype="multipart/form-data"
-                                          action="{{route('updateSubscription')}}">
+                                          action="{{route('students.update', $data['id'])}}">
                                         @csrf
+                                        @method('put')
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="Status">Plan</label>
-                                                        <select name="plans" id="plans" value="{{$data['plans']}}" class="form-control">
-                                                            <option  value="weekly" <?= ($data['plans'] == 'weekly') ? 'selected' : ''; ?>>Weekly</option>
-                                                            <option  value="monthly" <?= ($data['plans'] == 'monthly') ? 'selected' : ''; ?>>Monthly</option>
-                                                            <option  value="yearly" <?= ($data['plans'] == 'yearly') ? 'selected' : ''; ?>>Yearly</option>
-                                                        </select>
+                                                        <label for="first_name">First Name</label>
+                                                        <input name="first_name"
+                                                               type="text" class="form-control" value="{{$data['first_name']}}" required>
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="percentage">Discount Percentage</label>
-                                                        <input step="any"
-                                                               name="discount_percentage"
-                                                               type="number" class="form-control" value="{{$data['discount_percentage']}}" required>
+                                                        <label for="last_name">Last Name</label>
+                                                        <input name="last_name"
+                                                               type="text" class="form-control" value="{{$data['last_name']}}" required>
                                                         <input step="any" name="id" type="hidden" value="{{$data['id']}}">
 
                                                     </div>
@@ -98,20 +96,16 @@ Edit Subscription Plan
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="access">Does this plan has Access to All Courses?</label>
-                                                        <select name="is_access_cource" id="is_access_cource" class="select2 form-control" value="{{$data['is_access_cource']}}" class="form-control">
-                                                            <option  value="1" <?= ($data['is_access_cource'] == '1') ? 'selected' : ''; ?>>Yes</option>
-                                                            <option  value="0" <?= ($data['is_access_cource'] == '0') ? 'selected' : ''; ?>>No</option>
-                                                        </select>
-
+                                                        <label for="email">Email</label>
+                                                        <input name="email"
+                                                               type="email" value="{{$data['email']}}" class="form-control" required readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="duration">Duration</label>
-                                                        <input step="any"
-                                                               name="duration"
-                                                               type="number" value="{{$data['duration']}}" class="form-control" required>
+                                                        <label for="phone_number">Phone</label>
+                                                        <input name="phone_number"
+                                                               type="phone" value="{{$data['phone_number']}}" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,55 +115,19 @@ Edit Subscription Plan
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="feedback_video_count">Feedback Video Count</label>
-                                                        <input step="any"
-                                                               name="feedback_video_count"
-                                                               type="number" class="form-control" value="{{$data['feedback_video_count']}}" required>
+                                                        <label for="city">City</label>
+                                                        <input value="{{$data['city']}}"
+                                                               name="city"
+                                                               type="text" class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="access">Does this plan has Access to Webinars?</label>
-                                                        <select name="webinar_access" id="webinar_access" class="select2 form-control" value="{{$data['webinar_access']}}" class="form-control">
-                                                            <option  value="1" <?= ($data['webinar_access'] == '1') ? 'selected' : ''; ?>>Yes</option>
-                                                            <option  value="0" <?= ($data['webinar_access'] == '0') ? 'selected' : ''; ?>>No</option>
+                                                        <label for="status">Status</label>
+                                                        <select name="status" id="status" value="{{$data['status']}}" class="form-control">
+                                                            <option value="1" <?=($data['status']=='1' ) ? 'selected' : '' ; ?>>Active</option>
+                                                            <option value="0" <?=($data['status']=='0' ) ? 'selected' : '' ; ?>>In-Active</option>
                                                         </select>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="access">Does this plan has Access to Yoodli?</label>
-                                                        <select name="yoodli_access" id="yoodli_access" class="select2 form-control" value="{{$data['yoodli_access']}}" class="form-control">
-                                                            <option  value="1" <?= ($data['yoodli_access'] == '1') ? 'selected' : ''; ?>>Yes</option>
-                                                            <option  value="0" <?= ($data['yoodli_access'] == '0') ? 'selected' : ''; ?>>No</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="price">Please enter price</label>
-                                                        <input step="any"
-                                                               name="price"
-                                                               type="number" class="form-control" value ="{{$data['price']}}" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="price">Enter no. of free booking credits</label>
-                                                        <input step="1" min="0" value="{{$data['booking_credit']}}"
-                                                               name="booking_credit"
-                                                               type="number" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>

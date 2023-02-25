@@ -94,4 +94,20 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(UserSubscribedPlan::class);
     }
+
+    public static function getstudent($id) {
+        $results = User::where('id', $id)
+                ->first();
+        return !empty($results) ? $results->toArray() : [];
+    }
+
+    public static function updateData($data) {
+        $update = User::where('id', $data['id'])
+                ->update(['first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'phone_number' => $data['phone_number'],
+            'city' => $data['city'],
+            'status' => $data['status']]);
+        return ($update) ? true : false;
+    }
 }
