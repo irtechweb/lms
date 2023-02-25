@@ -63,7 +63,7 @@ Subscription Listing
                                                         style="width: 5px !important; vertical-align: middle">#</th>
                                                     <th class="p-1 text-center" style="vertical-align: middle">Subscription Plan</th>
                                                     <th class="p-1 text-center" style="vertical-align: middle">Duration</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle">Price</th>
+                                                    <th class="p-1 text-center" style="vertical-align: middle">Price ($)</th>
                                                     <th class="p-1 text-center" style="vertical-align: middle"> Actions</th>
                                                 </tr>
                                             </thead>
@@ -83,12 +83,12 @@ Subscription Listing
                                                     <td class="p-1 text-center" style="vertical-align: middle">
                                                         {{ $record['price'] }}
                                                     </td>
-                                                    <td>
-                                                        <a href="{{route('subscription.edit',['id'=>$record['id']])}}" type="button" class="btn btn-bg-gradient-x-purple-red" style="float: right" title="Edit Subscription">
-                                                            <i class="fa fa-pencil"></i> Edit
+                                                    <td class="text-center">
+                                                        <a type="button" href="{{route('subscription.edit',['id'=>$record['id']])}}" class="btn btn-outline-primary btn-sm mr-2">
+                                                            <i class="ft-edit"></i> Edit
                                                         </a>
-                                                        <a href="#" type="button" class="btn btn-bg-gradient-x-purple-blue" style="float: right" title="Delete Subscription">
-                                                            <i class="fa fa-remove"></i> Delete
+                                                        <a type="button" href="javascript:void(0)" class="btn btn-outline-danger btn-sm">
+                                                            <i class="ft-trash"></i> Delete
                                                         </a>
                                                     </td>
 

@@ -61,46 +61,46 @@ Webinar Listing
                                         <table class="table table-striped table-bordered base-style">
                                             <thead>
                                                 <tr>
-                                                    <th class="p-1 text-center"
+                                                    <th class="p-1"
                                                         style="width: 5px !important; vertical-align: middle">#</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle">Webinar URL</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle">Type</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle">Date</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle"> Instructor Name</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle"> Image</th>
+                                                    <th class="p-1" style="vertical-align: middle; max-width: 25%;">Webinar URL</th>
+                                                    <th class="p-1" style="vertical-align: middle">Type</th>
+                                                    <th class="p-1" style="vertical-align: middle">Date</th>
+                                                    <th class="p-1" style="vertical-align: middle"> Instructor Name</th>
+                                                    <th class="p-1" style="vertical-align: middle"> Image</th>
                                                     <th class="p-1 text-center" style="vertical-align: middle"> Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($data as $key => $record)
                                                 <tr>
-                                                    <td class="p-1 text-center"
+                                                    <td class="p-1"
                                                         style="width: 5px !important; vertical-align: middle">
                                                         {{ ++$key }}
                                                     </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
-                                                        {{ $record['video_url'] }}
+                                                    <td class="p-1" style="vertical-align: middle">
+                                                        {{ strlen($record['video_url']) > 30 ? substr($record['video_url'],0,30)."..." : $record['video_url'] }}
                                                     </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
+                                                    <td class="p-1" style="vertical-align: middle">
                                                         {{ ucfirst($record['type']) }}
                                                     </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
+                                                    <td class="p-1" style="vertical-align: middle">
                                                         {{ $record['date'] }}
                                                     </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
+                                                    <td class="p-1" style="vertical-align: middle">
                                                         {{ $record['instructor'] }}
                                                     </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
+                                                    <td class="p-1" style="vertical-align: middle">
                                                         @if(!empty($record['image']))
                                                         <img style="max-height: 150px;max-width: 150px" src="{{ asset('assets/img/'.$record['image']) }}">
                                                         @endif
                                                     </td>
-                                                    <td>
-                                                        <a href="{{route('webinar.edit',['id'=>$record['id']])}}" type="button" class="btn btn-bg-gradient-x-purple-red" style="float: right" title="Edit Webinar">
-                                                            <i class="fa fa-pencil"></i> Edit
+                                                    <td class="text-center">
+                                                        <a type="button" href="{{route('webinar.edit',['id'=>$record['id']])}}" class="btn btn-outline-primary btn-sm mr-2">
+                                                            <i class="ft-edit"></i> Edit
                                                         </a>
-                                                        <a href="#" type="button" class="btn btn-bg-gradient-x-purple-blue deleteWebinar" style="float: right" webinar_id="{{Crypt::encrypt($record['id'])}}"  title="Delete Webinar">
-                                                            <i class="fa fa-remove"></i> Delete
+                                                        <a type="button" href="javascript:void(0)" class="btn btn-outline-danger btn-sm deleteWebinar" webinar_id="{{Crypt::encrypt($record['id'])}}">
+                                                            <i class="ft-trash"></i> Delete
                                                         </a>
                                                     </td>
 

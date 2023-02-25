@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-Add Subscription Plan
+Add Category
 @endsection
 
 @section('local-style')
@@ -19,7 +19,7 @@ Add Subscription Plan
         <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
                 <h3 class="content-header-title">
-                    Add Subscription Plan
+                    Edit Category
                 </h3>
             </div>
             <div class="content-header-right col-md-8 col-12">
@@ -29,7 +29,7 @@ Add Subscription Plan
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Add Subscription Plan
+                                Edit Category
                             </li>
                         </ol>
                     </div>
@@ -45,8 +45,8 @@ Add Subscription Plan
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    <a href="{{ route('subscription.list') }}" type="button"
-                                       class="btn btn-bg-gradient-x-purple-blue">
+                                    <a href="{{ route('admin.categories') }}" type="button"
+                                       class="btn btn-secondary btn-sm"><i class="ft-arrow-left"></i>
                                         Back
                                     </a>
                                 </h4>

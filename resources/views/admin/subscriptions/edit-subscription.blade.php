@@ -46,7 +46,7 @@ Edit Subscription Plan
                             <div class="card-header">
                                 <h4 class="card-title">
                                     <a href="{{ route('subscription.list') }}" type="button"
-                                       class="btn btn-bg-gradient-x-purple-blue">
+                                       class="btn btn-secondary btn-sm"><i class="ft-arrow-left"></i>
                                         Back
                                     </a>
                                 </h4>

@@ -93,12 +93,12 @@ Subscription Listing
                                                       @endif
                                                     </td>
                                                   
-                                                    <td>
-                                                        <a href="{{url('admin/instructor-course-info',['id'=>$course->id])}}" type="button" class="btn btn-bg-gradient-x-purple-red" style="float: right" title="Edit Subscription">
-                                                            <i class="fa fa-pencil"></i> Edit
+                                                    <td class="text-center">
+                                                        <a type="button" href="{{url('admin/instructor-course-info',['id'=>$course->id])}}" class="btn btn-outline-primary btn-sm mr-2">
+                                                            <i class="ft-edit"></i> Edit
                                                         </a>
-                                                        <a href="{{url('admin/instructor-course-delete',['id'=>$course->id])}}" type="button" class="btn btn-bg-gradient-x-purple-blue" style="float: right" title="Delete Subscription">
-                                                            <i class="fa fa-remove"></i> Delete
+                                                        <a type="button" href="{{url('admin/instructor-course-delete',['id'=>$course->id])}}" class="btn btn-outline-danger btn-sm">
+                                                            <i class="ft-trash"></i> Delete
                                                         </a>
                                                     </td>
 

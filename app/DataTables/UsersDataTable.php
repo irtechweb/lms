@@ -24,10 +24,10 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($user) {
-                return '<a type="button" href="javascript:" class="btn btn-outline-success btn-sm mr-2">
+                return '<a type="button" href="javascript:" class="btn btn-outline-primary btn-sm mr-2">
                     <i class="ft-edit"></i> Edit
                 </a>
-                <a type="button" href="javascript:void(0)" data-table="users_table" data-method="get" data-url="' . route('students.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm px-1 ml-2 delete">
+                <a type="button" href="javascript:void(0)" data-table="users_table" data-method="get" data-url="' . route('students.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete">
                     <i class="ft-trash"></i> Delete
                 </a>';
             })
@@ -82,15 +82,15 @@ class UsersDataTable extends DataTable
             Column::make('email'),
             Column::make('phone_number'),
             Column::computed('status')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+                    ->exportable(false)
+                    ->printable(false)
+                    ->width(60)
+                    ->addClass('text-center'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(210)
-                  ->addClass('text-center'),
+                    ->exportable(false)
+                    ->printable(false)
+                    ->width(210)
+                    ->addClass('text-center'),
         ];
     }
 

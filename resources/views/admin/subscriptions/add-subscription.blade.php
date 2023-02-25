@@ -46,7 +46,7 @@ Add Subscription Plan
                             <div class="card-header">
                                 <h4 class="card-title">
                                     <a href="{{ route('subscription.list') }}" type="button"
-                                       class="btn btn-bg-gradient-x-purple-blue">
+                                       class="btn btn-secondary btn-sm"><i class="ft-arrow-left"></i> 
                                         Back
                                     </a>
                                 </h4>
@@ -163,7 +163,7 @@ Add Subscription Plan
                                             <div class="row">
                                                 <div class="col-lg-6 offset-6 text-right">
                                                     <a href="#"
-                                                       class="btn btn-sm btn-secondary mr-1">
+                                                       class="btn btn-sm btn-secondary mr-1" onclick="location.reload();">
                                                         <i class="ft-rotate-ccw"></i> Cancel
                                                     </a>
                                                     <button type="submit" class="btn btn-sm btn-info">
