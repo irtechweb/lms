@@ -176,7 +176,7 @@ $(document).ready(function () {
                                         <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;" class="text-start">Sign up for Free</h5>
                                         <p class="heading2 text-start"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
                                             <p class="heading2 text-start"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to Yoodli<span><img src="{{url('images/')}}/free-white.png"></p>
-                                        <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;">Sign for Free</button>
+                                        <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;">Sign up for Free</button>
                                         <input type="hidden" name="free_membership" id="free_membership" value="1">
                                     </div>
                                 </div>
