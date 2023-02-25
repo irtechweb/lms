@@ -1,7 +1,3 @@
-
-
-
-
 /* =============   Membership CSS   =========== */
 
 .membership-area {
@@ -430,6 +426,7 @@ select.list-dt:focus {
     border: none;
     border-radius: 0.5rem;
     position: relative;
+    border: 1px solid rgb(0 0 0 / 0%)!important;
 }
 
 /*FieldSet headings*/
