@@ -90,6 +90,13 @@
                             </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{route('user.logs')}}">
+                            <span class="menu-title" data-i18n="">
+                                 User Logs
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </li>
            

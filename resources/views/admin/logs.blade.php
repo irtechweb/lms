@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-    {{' Access to Free Course' }}
+    {{' User Logs' }}
 @endsection
 
 @section('local-style')
@@ -18,7 +18,7 @@
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
                     <h3 class="content-header-title">
-                        {{ ' Access to Free Course' }}
+                        {{ ' User Logs' }}
                     </h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
@@ -28,7 +28,7 @@
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    {{  ' Access to Free Course' }}
+                                    {{  ' User Logs' }}
                                 </li>
                             </ol>
                         </div>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Setting;
+use App\DataTables\UserslogsDataTable;
+use App\DataTables\UsersaccessDataTable;
 use Validator;
 
 class HomeController extends Controller
@@ -90,7 +92,7 @@ class HomeController extends Controller
         
         return view('admin.coachorders', compact('coach'));
     }
-    public function courseAcess(Request $request) {
+    public function courseAcess(UsersaccessDataTable $datatable) {
         $paginate_count = 10;
         
         
@@ -99,8 +101,25 @@ class HomeController extends Controller
                 ->select('courses.course_title', 'users.first_name', 'users.last_name','free_user_course_access.*')->orderby('free_user_course_access.id','desc')
                 ->paginate($paginate_count);
        
+        return $datatable->render('admin.access');
         
-        return view('admin.access', compact('access'));
+    }
+    // public function userLogs(Request $request) {
+    //     $paginate_count = 10;
+        
+        
+    //     $logs = \DB::table('user_login_logs')
+    //             ->join('users','user_login_logs.user_id','users.id')
+    //             ->select('users.first_name', 'users.last_name','user_login_logs.*')->orderby('user_login_logs.id','desc')
+    //             ->paginate($paginate_count);
+       
+        
+    //     return view('admin.logs', compact('logs'));
+    // }
+    public function userLogs(UserslogsDataTable $datatable)
+    {
+        return $datatable->render('admin.logs');
+
     }
     
 
