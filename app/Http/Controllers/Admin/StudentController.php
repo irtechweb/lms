@@ -17,8 +17,21 @@ class StudentController extends Controller {
     }
 
     public function edit($id) {
-
+        $data = User::getstudent($id);
+        return view('admin.student.edit-student', compact('data'));
     }
+
+    public function update(Request $request) {
+        $data = self::prepareData($request);
+        $data['id'] = $request->id;
+        $save = User::updateData($data);
+        if ($save) {
+            return redirect()->route('students.index')->with('Saved Successfully!');
+        } else {
+            return redirect()->back()->with('Error occurred! please try again');
+        }
+    }
+    
     public function destroy($id)
     {
         try 
@@ -44,6 +57,17 @@ class StudentController extends Controller {
                 'message' => $exception->getMessage()
             ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR); 
         }
+    }
+
+    public static function prepareData($request)
+    {
+        $inputs['first_name'] = $request['first_name'];
+        $inputs['last_name'] = $request['last_name'];
+        $inputs['phone_number'] = $request['phone_number'];
+        $inputs['city'] = $request['city'];
+        $inputs['status'] = $request['status'];
+
+        return $inputs;
     }
 
 }

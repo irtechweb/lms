@@ -46,7 +46,7 @@ Edit Subscription Plan
                             <div class="card-header">
                                 <h4 class="card-title">
                                     <a href="{{ route('subscription.list') }}" type="button"
-                                       class="btn btn-bg-gradient-x-purple-blue">
+                                       class="btn btn-secondary btn-sm"><i class="ft-arrow-left"></i>
                                         Back
                                     </a>
                                 </h4>
@@ -157,6 +157,19 @@ Edit Subscription Plan
                                                         <input step="any"
                                                                name="price"
                                                                type="number" class="form-control" value ="{{$data['price']}}" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="price">Enter no. of free booking credits</label>
+                                                        <input step="1" min="0" value="{{$data['booking_credit']}}"
+                                                               name="booking_credit"
+                                                               type="number" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>

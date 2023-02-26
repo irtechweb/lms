@@ -31,7 +31,7 @@ Subscription Listing
         <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
                 <h3 class="content-header-title">
-                    Subscription Listing
+                    Categories Listing
                 </h3>
             </div>
             <div class="content-header-right col-md-8 col-12">
@@ -41,7 +41,7 @@ Subscription Listing
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Subscription Listing
+                                Categories Listing
                             </li>
                         </ol>
                     </div>
@@ -77,7 +77,7 @@ Subscription Listing
                                             <th>Category Name</th>
                                             <th>Slug</th>
                                             <th>Status</th>
-                                            <th>Actions</th>
+                                            <th class="text-center">Actions</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -94,20 +94,13 @@ Subscription Listing
                                               <span class="badge badge-danger">Inactive</span>
                                               @endif
                                             </td>
-                                            <td>
-
-                                              <a href="{{ url('admin/category-form/'.$category->id) }}"type="button" class="btn btn-bg-gradient-x-purple-red" style="float: right" title="Edit Subscription">
-                                                <i class="fa fa-pencil"></i> Edit
+                                            <td class="text-center">
+                                            <a type="button" href="{{ url('admin/category-form/'.$category->id) }}" class="btn btn-outline-primary btn-sm mr-2">
+                                                <i class="ft-edit"></i> Edit
                                             </a>
-                                            <a href="{{ url('admin/delete-category/'.$category->id) }}" type="button" class="btn btn-bg-gradient-x-purple-blue" style="float: right" title="Delete Subscription">
-                                                <i class="fa fa-remove"></i> Delete
+                                            <a type="button" href="{{ url('admin/delete-category/'.$category->id) }}" class="btn btn-outline-danger btn-sm">
+                                                <i class="ft-trash"></i> Delete
                                             </a>
-
-                                            
-                                              <a href="{{ url('admin/category-form/'.$category->id) }}" class="btn btn-xs btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Edit" >
-                                                <i class="icon wb-pencil" aria-hidden="true"></i>
-                                              </a>
-                            
                                               
                                             </td>
                                           </tr>

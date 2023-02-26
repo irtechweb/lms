@@ -25,7 +25,8 @@ class Subscription extends Model {
         'feedback_video_count',
         'webinar_access',
         'yoodli_access',
-        'price'
+        'price',
+        'booking_credit',
     ];
 
     /**
@@ -47,7 +48,8 @@ class Subscription extends Model {
             'feedback_video_count' => $data['feedback_video_count'],
             'webinar_access' => $data['webinar_access'],
             'price' => $data['price'],
-            'yoodli_access' => $data['yoodli_access']]);
+            'yoodli_access' => $data['yoodli_access'],
+            'booking_credit' => $data['booking_credit']]);
         return ($update) ? true : false;
     }
 

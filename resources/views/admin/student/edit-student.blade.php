@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-Add Webinar
+Edit Student
 @endsection
 
 @section('local-style')
@@ -19,7 +19,7 @@ Add Webinar
         <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
                 <h3 class="content-header-title">
-                    Add Webinar Plan
+                    Edit Student
                 </h3>
             </div>
             <div class="content-header-right col-md-8 col-12">
@@ -29,7 +29,7 @@ Add Webinar
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Add Webinar Plan
+                                Edit Student
                             </li>
                         </ol>
                     </div>
@@ -45,7 +45,7 @@ Add Webinar
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">
-                                    <a href="{{ route('webinar.list') }}" type="button"
+                                    <a href="{{ route('students.index') }}" type="button"
                                        class="btn btn-secondary btn-sm"><i class="ft-arrow-left"></i>
                                         Back
                                     </a>
@@ -67,90 +67,78 @@ Add Webinar
                                     @include('includes.error')
 
                                     <form method="post" enctype="multipart/form-data"
-                                          action="{{route('saveWebinar')}}">
+                                          action="{{route('students.update', $data['id'])}}">
                                         @csrf
+                                        @method('put')
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="url">Enter Webinar URL</label>
-                                                        <input step="any"
-                                                               name="url"
+                                                        <label for="first_name">First Name</label>
+                                                        <input name="first_name"
+                                                               type="text" class="form-control" value="{{$data['first_name']}}" required>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="last_name">Last Name</label>
+                                                        <input name="last_name"
+                                                               type="text" class="form-control" value="{{$data['last_name']}}" required>
+                                                        <input step="any" name="id" type="hidden" value="{{$data['id']}}">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email">Email</label>
+                                                        <input name="email"
+                                                               type="email" value="{{$data['email']}}" class="form-control" required readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="phone_number">Phone</label>
+                                                        <input name="phone_number"
+                                                               type="phone" value="{{$data['phone_number']}}" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="city">City</label>
+                                                        <input value="{{$data['city']}}"
+                                                               name="city"
                                                                type="text" class="form-control" required>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="date">Select Date of Webinar</label>
-                                                        <input step="any"
-                                                               name="date"
-                                                               type="datetime-local" class="form-control" required>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="title">Write Introduction (Max 200 Words)</label>
-                                                        <textarea name="title" rows="4" cols="50"
-                                                                  maxlength="200" class="form-control" required></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="instructor_name">Enter Instructor Name</label>
-                                                        <input step="any"
-                                                               name="instructor_name"
-                                                               type="text" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="type">Please select Webinar Type</label>
-                                                        <select class="select2 form-control" required name="type">
-                                                            <option value="recorded">Recorded</option>
-                                                            <option value="upcoming">Upcoming</option>
+                                                        <label for="status">Status</label>
+                                                        <select name="status" id="status" value="{{$data['status']}}" class="form-control">
+                                                            <option value="1" <?=($data['status']=='1' ) ? 'selected' : '' ; ?>>Active</option>
+                                                            <option value="0" <?=($data['status']=='0' ) ? 'selected' : '' ; ?>>In-Active</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </fieldset>
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="image">Add Image</label>
-                                                        <input step="any"
-                                                               name="image"
-                                                               type="file" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+
                                         <fieldset>
                                             <br>
                                             <div class="row">
                                                 <div class="col-lg-6 offset-6 text-right">
                                                     <a href="#"
-                                                       class="btn btn-sm btn-secondary mr-1" onclick="location.reload();">
+                                                       class="btn btn-sm btn-secondary mr-1">
                                                         <i class="ft-rotate-ccw"></i> Cancel
                                                     </a>
                                                     <button type="submit" class="btn btn-sm btn-info">

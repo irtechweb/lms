@@ -56,4 +56,11 @@
         justify-content: flex-end
     }
 
+    body.vertical-layout[data-color=bg-gradient-x-purple-blue] .content-wrapper-before, body.vertical-layout[data-color=bg-gradient-x-purple-blue] .navbar-container {
+        background-image: linear-gradient(to right, #1c1c1c, #1c1c1c) !important;
+    }
+
+    .back-btn-dark {
+        background-color: #1c1c1c;
+    }
 </style>

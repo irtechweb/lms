@@ -52,6 +52,7 @@ class SubscriptionController extends Controller {
         $inputs['webinar_access'] = ($request['webinar_access'] == 1) ? '1' : '0';
         $inputs['yoodli_access'] = ($request['yoodli_access'] == 1) ? '1' : '0';
         $inputs['price'] = $request['price'];
+        $inputs['booking_credit'] = $request['booking_credit'] ?? 2;
 
         return $inputs;
     }

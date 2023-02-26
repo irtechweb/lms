@@ -24,7 +24,7 @@ class SettingsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($user) {
-                return '<a type="button" href="javascript:" class="btn btn-outline-success btn-sm edit-settings">
+                return '<a type="button" href="javascript:" class="btn btn-outline-primary btn-sm edit-settings">
                     <i class="ft-edit"></i> Edit
                 </a>';
             })
