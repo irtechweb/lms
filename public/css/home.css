@@ -332,6 +332,9 @@ button.accordion-button {
     font-family:'Space Grotesk', sans-serif; 
     font-weight:500;
 }
+.webinar-button a{
+    text-decoration: none !important
+} 
 /* width */
 ::-webkit-scrollbar {
     width: 4px;
@@ -1087,3 +1090,4 @@ label.form-label {
         width: 160px;
     }
 }
+
