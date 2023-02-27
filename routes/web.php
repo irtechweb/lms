@@ -24,8 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::post('free-plan', [App\Http\Controllers\Auth\RegisteredUserController::class, 'freeMemberShipPlan'])->name('free-plan');
 });
 
-Route::middleware(['auth'])->group(function () {
-     Route::get('vprofile', function () {
+Route::middleware(['auth','urlrecorder'])->group(function () {
+    Route::get('vprofile', function () {
         return view('profile');
     })->name('vprofile');
     Route::get('dashboard', function () {
