@@ -153,8 +153,8 @@ class ContentController extends Controller
         return response()->json($output, $code); 
     }
 
-    setting
-    public function setting(Request $request)
+    
+    
         
     
 }
