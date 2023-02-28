@@ -76,7 +76,8 @@ Coach Orders
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $key = 1; @endphp
+                                                @php 
+                                                $key = ($coach->currentpage()-1)* $coach->perpage() + 1; @endphp
                                                 @foreach ($coach as $c)
                                                 <tr>
                                                     <td class="p-1 text-center"

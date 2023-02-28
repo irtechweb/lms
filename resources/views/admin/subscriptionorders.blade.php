@@ -12,7 +12,7 @@ Subscription Orders
 
 @section('body')
 
-<?php //dd($plan);?>
+<?php $page = (isset($_GET['page']) && $_GET['page'] != "")? $_GET['page'] :1;?>
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-wrapper">
@@ -74,7 +74,7 @@ Subscription Orders
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $key = 1; @endphp
+                                                @php $key = ($plan->currentpage()-1)* $plan->perpage() + 1 @endphp
                                                 @foreach ($plan as $p)
                                                 <tr>
                                                     <td class="p-1 text-center"
