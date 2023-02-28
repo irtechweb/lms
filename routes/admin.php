@@ -175,6 +175,9 @@ Route::prefix('admin')->group(static function () {
         Route::get('/coaching/orders', [\App\Http\Controllers\Admin\HomeController::class, 'coachOrder'])->name('coach.orders');
         Route::get('/course/access', [\App\Http\Controllers\Admin\HomeController::class, 'courseAcess'])->name('access.course');
         Route::get('/user/logs', [\App\Http\Controllers\Admin\HomeController::class, 'userLogs'])->name('user.logs');
+        Route::get('/user/activity', [\App\Http\Controllers\Admin\HomeController::class, 'userActivity'])->name('user.activity');
+        Route::get('/user/activity/details', [\App\Http\Controllers\Admin\HomeController::class, 'userActivitydetails'])->name('user.activitydetails');
+        Route::get('/user/activity/details/{userid}', [\App\Http\Controllers\Admin\HomeController::class, 'userActivitydetaillist'])->name('user.activitydetaillist');
         
        
         
