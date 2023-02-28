@@ -76,7 +76,7 @@
             event.preventDefault();
             var form_check = true;
             var type = $("#type option:selected").val();
-            alert(type);
+            console.log(type);
             var text = tinymce.activeEditor.getContent(); 
            
             var errors = [];
