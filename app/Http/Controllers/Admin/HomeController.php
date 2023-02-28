@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Setting;
 use App\DataTables\UserslogsDataTable;
 use App\DataTables\UsersaccessDataTable;
+use App\DataTables\useractivityDataTable;
+use App\DataTables\UserActivityDetailListDataTable;
 use Validator;
 
 class HomeController extends Controller
@@ -121,6 +123,18 @@ class HomeController extends Controller
         return $datatable->render('admin.logs');
 
     }
+    public function userActivity(useractivityDataTable $datatable)
+    {
+        return $datatable->render('admin.activity');
+
+    }
+    public function userActivitydetaillist($user_id,UserActivityDetailListDataTable $datatable)
+    {
+        //dd(1);
+        return $datatable->with('id', $user_id)->render('admin.activitydetails');
+
+    }
+    
     
 
     
