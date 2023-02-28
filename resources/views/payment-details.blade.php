@@ -26,7 +26,9 @@
                     <div class="form-card col-lg-12 col-md-6 col-sm-12">
                         <div class="membership-payment">
                             <h1>Payment details</h1>
-                            <form method="post" enctype="multipart/form-data" action="#"> @csrf
+                            <form id="payment-form" method="post" enctype="multipart/form-data" action="#"> 
+                                @csrf
+                                <div id="card-element">
                                 <div class="membership-field card">
                                     <label for="exampleInputEmail1" class="form-label">Card number</label>
                                     <input type="text" class="form-control f-img card-number" placeholder="Enter card number" name='card_number' required> <img src="{{asset('/images/credit_card.svg')}}" alt="">
@@ -70,6 +72,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="m-payment" style="background-color: #1C1C1C; color: #fff;"> Start membership</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -151,7 +154,7 @@ $(document).ready(function() {
     })
 });
 </script>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 <script type="text/javascript">
 $(function() {
     /*------------------------------------------
