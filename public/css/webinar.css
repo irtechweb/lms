@@ -107,13 +107,12 @@ header.main-site {
     flex-wrap: wrap;
 }
 .webinar-card {
-    /* width: calc(33.3% - 40px); */
+    width: calc(33.3% - 40px);
     border: 1px solid #E0E0E0;
     border-radius: 12px;
     padding: 32px;
     margin: 10px;
     flex-basis: 30%;
-    text-align: center;
 }
 .webinar-card:last-child {
     margin-right: 0;
@@ -162,15 +161,15 @@ header.main-site {
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 32px;
-    width: 310px; /* Set the container width to a fixed value */
-     height: 220px; /* Set the container height to a fixed value */
+    max-width: 100%;/* Set the container width to a fixed value */
+    height: 220px; /* Set the container height to a fixed value */
 
 }
-.webinar-imag img {
-    display: block; /* Set the image display property to block */
-    max-width: 100%; /* Set the maximum width of the image to 100% of the container */
-    height: auto; /* Set the height of the image to auto to maintain its aspect ratio */
-  }
+.webinar-image img {
+    
+    max-height: 100%; /* Set the maximum height of the image to 100% of the container */
+    
+}
 .webinar-button button {
     font-size: 18px;
     line-height: 27px;
