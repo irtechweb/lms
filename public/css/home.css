@@ -624,20 +624,9 @@ header.main-site {
 /* ================   Webinar CSS   ============ */
 
 
-.webinar-card {
-    /* width: calc(33.3% - 40px); */
-    border: 1px solid #E0E0E0;
-    background:#F2F2F233;
-    border-radius: 12px;
-    padding: 32px;
-}
 
-.webinar-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
+  
+ 
 .upcoming-webinar h2 {
     margin: 0;
     font-size: 32px;

@@ -44,7 +44,7 @@
             <div class="webinar-heading">{{$record['title']}}</div>
             <div class="webinar-description">{{$record['instructor']}}, Instructor</div>
             <div class="webinar-image">
-               @if(!empty($record['image']))
+               @if(!empty($record['video_url']))
                <iframe style="max-height: 220px;max-width: 310px" src="{{$record['video_url']}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                @else
                <img src="{{url('images/f1.png')}}" alt="">

@@ -14,11 +14,22 @@ use Notification;
 class WebinarController extends Controller {
 
     public function getWebinars() {
-        $data['recorded'] = \App\Models\Webinar::getWebinarsAgainstType('type', 'recorded');
+        $recorded = \App\Models\Webinar::getWebinarsAgainstType('type', 'recorded');
+        foreach($recorded as $key=>$record){
+            $url = $record['video_url'];
+            $parsedUrl = parse_url($url);
+            if(!isset($parsedUrl['query']))
+              continue;
+            parse_str($parsedUrl['query'], $queryParams);
+            $videoId = $queryParams['v'];
+            $recorded[$key]['video_url']= "https://www.youtube.com/embed/". $videoId;
+        }
+        //dd($recorded);
+        $data['recorded'] =  $recorded;
         $data['userbooked'] = array_keys(\App\Models\Webinar::leftjoin('booked_webinar','booked_webinar.webinar_id','webinars.id')->where('type','upcoming')->where('user_id',Auth::user()->id)->select('webinars.id')->get()->keyBy('id')->toArray());
         $data['upcoming'] = \App\Models\Webinar::getWebinarsAgainstType('type', 'upcoming');
-
-        //dd($data['upcoming']);
+        
+       
         return view('webinars', compact('data'));
     }
     public function bookWebinar(Request $request) {
