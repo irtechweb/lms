@@ -12,8 +12,6 @@ Edit Webinar Detail
 
 @section('body')
 
-<?php //dd($data);?>
-
 <!-- BEGIN: Content-->
 <div class="app-content content">
     <div class="content-wrapper">
@@ -107,7 +105,7 @@ Edit Webinar Detail
                                                         <label for="duration">Date</label>
                                                         <input step="any"
                                                                name="date"
-                                                               type="datetime-local" value="{{$data['date']}}" class="form-control" required>
+                                                               type="date" value="{{$data['date']}}" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,7 +151,7 @@ Edit Webinar Detail
                                                         @endif
                                                         <input step="any"
                                                                name="image"
-                                                               type="file" class="form-control" accept="image/*">
+                                                               type="file" class="form-control" required>
 
                                                     </div>
                                                 </div>

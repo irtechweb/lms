@@ -38,17 +38,14 @@ class Webinar extends Model {
     }
 
     public static function updateData($data) {
-        $toupdate = ['title' => $data['title'],
+        $update = Webinar::where('id', $data['id'])
+                ->update(['title' => $data['title'],
             'video_url' => $data['video_url'],
             'date' => $data['date'],
             'instructor' => $data['instructor'],
-            'type' => $data['type']
-            ];
-        if(isset($data['image']) && $data['image'] != null)   
-            $toupdate['image'] = $data['image'];        
-        $update = Webinar::where('id', $data['id'])
-                ->update($toupdate);
-
+            'type' => $data['type'],
+            'image' => !empty($data['image']) ? $data['image'] : null,
+        ]);
         return ($update) ? true : false;
     }
 
