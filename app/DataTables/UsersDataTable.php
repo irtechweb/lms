@@ -37,14 +37,14 @@ class UsersDataTable extends DataTable
                 }
             })
             ->addColumn('available_booking_counts', function ($user) {
-                return strlen($user->phone_number) > 12 ? substr($user->phone_number, 0, 12) ."..." : $user->phone_number;
-            })
-            ->addColumn('phone_number', function ($user) {
                 $count = $user->availableBookingCounts ? $user->availableBookingCounts->booking_count : 0;
                 $class = $user->availableBookingCounts ? 'primary' : 'danger';
                 return '<span class="badge badge-'.$class.' px-2">'. $count .'</span>';
             })
-            ->rawColumns(['status', 'action', 'available_booking_counts', 'phone_number']);
+            ->addColumn('phone_number', function ($user) {
+                return strlen($user->phone_number) > 12 ? substr($user->phone_number, 0, 12) ."..." : $user->phone_number;
+            })
+            ->rawColumns(['status', 'action', 'phone_number', 'available_booking_counts']);
     }
 
     /**

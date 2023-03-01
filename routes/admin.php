@@ -172,6 +172,7 @@ Route::prefix('admin')->group(static function () {
         // Route::get('/setting', [\App\Http\Controllers\Admin\HomeController::class, 'setting'])->name('setting');
         // Route::post('/setting', [\App\Http\Controllers\Admin\HomeController::class, 'saveSetting'])->name('savesetting');
         Route::get('/subscription/orders', [\App\Http\Controllers\Admin\HomeController::class, 'subsOrder'])->name('subscriptions.orders');
+        Route::get('subscription-orders-dt', [\App\Http\Controllers\Admin\HomeController::class, 'dataTable'])->name('subscription-orders-datatable');
         Route::get('/coaching/orders', [\App\Http\Controllers\Admin\HomeController::class, 'coachOrder'])->name('coach.orders');
         Route::get('/course/access', [\App\Http\Controllers\Admin\HomeController::class, 'courseAcess'])->name('access.course');
         Route::get('/user/logs', [\App\Http\Controllers\Admin\HomeController::class, 'userLogs'])->name('user.logs');

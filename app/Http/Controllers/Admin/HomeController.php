@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Validator;
 use App\Models\User;
 use App\Models\Setting;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\DataTables\UserslogsDataTable;
 use App\DataTables\UsersaccessDataTable;
+use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\useractivityDataTable;
 use App\DataTables\UserActivityDetailListDataTable;
-use Validator;
 
 class HomeController extends Controller
 {
@@ -71,16 +73,7 @@ class HomeController extends Controller
     }
     
     public function subsOrder(Request $request) {
-        $paginate_count = 10;
-        
-        
-        $plan = \DB::table('user_subscribed_plans')->join('users','user_subscribed_plans.user_id','users.id')                
-                ->leftJoin('subscriptions', 'subscriptions.id',  'user_subscribed_plans.subscription_id')
-                ->select('user_subscribed_plans.*', 'users.first_name', 'users.last_name','subscriptions.plans')->orderby('user_subscribed_plans.id','desc')
-                ->paginate($paginate_count);
-       
-        
-        return view('admin.subscriptionorders', compact('plan'));
+        return view('admin.subscriptionorders');
     }
     public function coachOrder(Request $request) {
         $paginate_count = 10;
@@ -134,8 +127,40 @@ class HomeController extends Controller
         return $datatable->with('id', $user_id)->render('admin.activitydetails');
 
     }
-    
-    
+
+    public function dataTable()
+    {
+        $plans = DB::table('user_subscribed_plans')->join('users', 'user_subscribed_plans.user_id', 'users.id')
+            ->leftJoin('subscriptions', 'subscriptions.id', 'user_subscribed_plans.subscription_id')
+            ->select('user_subscribed_plans.*', 'users.first_name', 'users.last_name', 'subscriptions.plans')->orderby('user_subscribed_plans.id', 'desc')->get();
+        return Datatables::of($plans)
+            ->addColumn('plan', function ($record) {
+                return $record->plans;
+            })
+            ->addColumn('user', function ($record) {
+                return $record->first_name . ' ' . $record->last_name;
+            })
+            ->addColumn('price', function ($record) {
+                return $record->price;
+            })
+            ->addColumn('status', function ($record) {
+                return $record->is_active ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>';
+            })
+            ->addColumn('paid_with', function ($record) {
+                return ucfirst(str_replace('_', ' ', $record->paid_with));
+            })
+            ->addColumn('subscription_start_date', function ($record) {
+                return $record->subscription_start_date;
+            })
+            ->addColumn('subscription_end_date', function ($record) {
+                return $record->subscription_end_date;
+            })
+            ->addColumn('created_at', function ($record) {
+                return $record->created_at;
+            })
+            ->rawColumns(['plan', 'user', 'price', 'paid_with', 'status', 'subscription_start_date', 'subscription_end_date', 'created_at'])
+            ->addIndexColumn()->make(true);
+    }
 
     
 }
