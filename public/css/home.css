@@ -624,9 +624,14 @@ header.main-site {
 /* ================   Webinar CSS   ============ */
 
 
+.course-card {
+    /* width: calc(33.3% - 40px); */
+    border: 1px solid #E0E0E0;
+    background:#F2F2F233;
+    border-radius: 12px;
+    padding: 32px;
+}
 
-  
- 
 .upcoming-webinar h2 {
     margin: 0;
     font-size: 32px;
@@ -671,6 +676,13 @@ header.main-site {
     margin-bottom: 32px;
     font-family: 'Inter', sans-serif !important;
 }
+
+.webinar-image {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+}
+
 .webinar-button button {
     font-size: 18px;
     line-height: 27px;

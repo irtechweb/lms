@@ -112,7 +112,7 @@ $setting = \App\Models\Setting::first();
                     <div class="row" style="padding-top:20px;">
                 <?php } ?>        
                 <div class="col-lg-4">
-                    <div class="webinar-card">
+                    <div class="course-card">
                         <div class="webinar-heading">{{$course->course_title}}</div>
                         <div class="webinar-description">Susie Ashfield, Instructor</div>
                         <div class="webinar-image">
