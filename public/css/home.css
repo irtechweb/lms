@@ -671,13 +671,6 @@ header.main-site {
     margin-bottom: 32px;
     font-family: 'Inter', sans-serif !important;
 }
-
-.webinar-image {
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 32px;
-}
-
 .webinar-button button {
     font-size: 18px;
     line-height: 27px;

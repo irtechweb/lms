@@ -17,7 +17,7 @@
             <div class="webinar-heading">{{$record['title']}}</div>
             <div class="webinar-image">
                @if(!empty($record['video_url']))
-               <img style="max-height: 220px;max-width: 310px" src="{{ asset('assets/img/'.$record['image']) }}">
+               <img src="{{ asset('assets/img/'.$record['image']) }}">
                @else
                <img src="{{url('images/f1.png')}}" alt="">
                @endif
