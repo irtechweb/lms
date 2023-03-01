@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Subscription;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UsersDataTable extends DataTable
+class SubscriptionsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -23,39 +23,31 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($user) {
-                return '<a type="button" href="'. route('students.edit', $user->id) .'" class="btn btn-outline-primary btn-sm mr-2">
+            ->addColumn('action', function ($subscription) {
+                return '<a type="button" href="'. route('subscription.edit', $subscription->id) .'" class="btn btn-outline-primary btn-sm mr-2">
                     <i class="ft-edit"></i> Edit
                 </a>';
             })
             ->setRowId('id')
-            ->addColumn('status', function ($user) {
-                if ($user->status == 1) {
+            ->addColumn('status', function ($subscription) {
+                if ($subscription->status == 1) {
                     return '<span class="badge badge-success">Active</span>';
                 } else {
                     return '<span class="badge badge-danger">In-Active</span>';
                 }
             })
-            ->addColumn('available_booking_counts', function ($user) {
-                $count = $user->availableBookingCounts ? $user->availableBookingCounts->booking_count : 0;
-                $class = $user->availableBookingCounts ? 'primary' : 'danger';
-                return '<span class="badge badge-'.$class.' px-2">'. $count .'</span>';
-            })
-            ->addColumn('phone_number', function ($user) {
-                return strlen($user->phone_number) > 12 ? substr($user->phone_number, 0, 12) ."..." : $user->phone_number;
-            })
-            ->rawColumns(['status', 'action', 'phone_number', 'available_booking_counts']);
+            ->rawColumns(['status', 'action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\User $model
+     * @param \App\Models\Subscription $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model): QueryBuilder
+    public function query(Subscription $model): QueryBuilder
     {
-        return $model->newQuery()->with('availableBookingCounts');
+        return $model->newQuery();
     }
 
     /**
@@ -66,11 +58,11 @@ class UsersDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('users_table')
+                    ->setTableId('subscriptions-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle();
     }
 
@@ -82,22 +74,18 @@ class UsersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('first_name'),
-            Column::make('email'),
-            Column::make('phone_number'),
+            Column::make('id')
+                    ->title('ID'),
+            Column::make('plans')
+                    ->title('Subscription Plan'),
+            Column::make('duration'),
+            Column::make('price')
+                    ->title('Price ($)'),
             Column::computed('status')
                     ->exportable(false)
                     ->printable(false)
                     ->width(60)
                     ->addClass('text-center'),
-            Column::computed('available_booking_counts')
-                    ->exportable(false)
-                    ->printable(false)
-                    ->width(40)
-                    ->addClass('text-center')
-                    ->title('Booking Credits')
-                    ->orderable(false),
             Column::computed('action')
                     ->exportable(false)
                     ->printable(false)
@@ -114,6 +102,6 @@ class UsersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Users_' . date('YmdHis');
+        return 'Subscriptions_' . date('YmdHis');
     }
 }

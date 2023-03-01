@@ -48,55 +48,15 @@ Subscription Listing
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
                                     @include('includes.error')
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered base-style">
-                                            <thead>
-                                                <tr>
-                                                    <th class="p-1 text-center"
-                                                        style="width: 5px !important; vertical-align: middle">#</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle">Subscription Plan</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle">Duration</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle">Price ($)</th>
-                                                    <th class="p-1 text-center" style="vertical-align: middle"> Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($data as $key => $record)
-                                                <tr>
-                                                    <td class="p-1 text-center"
-                                                        style="width: 5px !important; vertical-align: middle">
-                                                        {{ ++$key }}
-                                                    </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
-                                                        {{ $record['plans'] }}
-                                                    </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
-                                                        {{ $record['duration'] }}
-                                                    </td>
-                                                    <td class="p-1 text-center" style="vertical-align: middle">
-                                                        {{ $record['price'] }}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a type="button" href="{{route('subscription.edit',['id'=>$record['id']])}}" class="btn btn-outline-primary btn-sm mr-2">
-                                                            <i class="ft-edit"></i> Edit
-                                                        </a>
-                                                        <a type="button" href="javascript:void(0)" class="btn btn-outline-danger btn-sm">
-                                                            <i class="ft-trash"></i> Delete
-                                                        </a>
-                                                    </td>
-
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-
-                                        </table>
+                                    <div class="">
+                                        {{ $dataTable->table(['class' => 'table table-striped table-bordered table-responsive', 'style' => 'width: 100% !important; display: table;', 'id' => 'subscription_plans_table']) }}
                                     </div>
                                 </div>
                             </div>
@@ -115,10 +75,10 @@ Subscription Listing
 @endsection
 
 @section('local-script')
-<!-- BEGIN: Page JS-->
-
-
-<script src="{{ asset('public/theme/app-assets/js/scripts/tables/datatables/datatable-styling.js') }}"
-type="text/javascript"></script>
-<!-- END: Page JS-->
+{{ $dataTable->scripts() }}
+<script>
+    $(function() {
+            $("#subscription_plans_table_wrapper div:first-child").addClass("align-items-baseline");
+        });
+</script>
 @endsection

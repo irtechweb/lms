@@ -172,6 +172,15 @@ Edit Subscription Plan
                                                                type="number" class="form-control" required>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="price">Status</label>
+                                                        <select name="status" id="status" class="select2 form-control" value="{{$data['status']}}" class="form-control">
+                                                            <option  value="1" <?= ($data['status'] == '1') ? 'selected' : ''; ?>>Active</option>
+                                                            <option  value="0" <?= ($data['status'] == '0') ? 'selected' : ''; ?>>In-Active</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </fieldset>
 

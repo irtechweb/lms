@@ -55,8 +55,8 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
                                         @include('includes.error')
-                                        <div class="table-responsive">
-                                            {{ $dataTable->table(['class' => 'table table-striped table-bordered', 'style' => 'width: 100%']) }}
+                                        <div class="">
+                                            {{ $dataTable->table(['class' => 'table table-striped table-bordered table-responsive', 'style' => 'width: 100% !important; display: table;', 'id' => 'students_table']) }}
                                         </div>
                                     </div>
                                 </div>
@@ -75,4 +75,9 @@
 
 @section('local-script')
     {{ $dataTable->scripts() }}
+    <script>
+        $(function() {
+            $("#students_table_wrapper div:first-child").addClass("align-items-baseline");
+        });
+    </script>
 @endsection

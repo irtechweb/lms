@@ -168,6 +168,15 @@ Add Subscription Plan
                                                                type="number" class="form-control" required>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="price">Status</label>
+                                                        <select name="status" id="status" class="select2 form-control" class="form-control">
+                                                            <option value="1">Active</option>
+                                                            <option value="0">In-Active</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </fieldset>
 
