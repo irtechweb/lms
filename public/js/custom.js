@@ -1,10 +1,11 @@
 $(document).on('click', '.delete', function () {
     let url = $(this).data('url');
+    let redirectUrl = $(this).data('redirect');
     let tableId = '#' + $(this).data('table');
-    deleteConfirmation(url, tableId);
+    deleteConfirmation(url, tableId, redirectUrl);
 });
 
-function deleteConfirmation(url, tableId) {
+function deleteConfirmation(url, tableId, redirectUrl) {
     window.swal.fire({
         title: 'Are you sure?',
         text: "You want to delete this record",
@@ -24,11 +25,16 @@ function deleteConfirmation(url, tableId) {
             window.axios.delete(url).then(response => {
                 if (response.status === 200) {
                     window.swal.close();
-                    $(tableId).DataTable().ajax.reload();
+                    if (tableId) {
+                        $(tableId).DataTable().ajax.reload();
+                    }
                     window.toast.fire({
                         icon: 'success',
                         title: response.data.message
                     });
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    }
                 }
             }).catch(error => {
                 window.swal.close();

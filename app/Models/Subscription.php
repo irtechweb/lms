@@ -27,6 +27,7 @@ class Subscription extends Model {
         'yoodli_access',
         'price',
         'booking_credit',
+        'status',
     ];
 
     /**
@@ -49,6 +50,7 @@ class Subscription extends Model {
             'webinar_access' => $data['webinar_access'],
             'price' => $data['price'],
             'yoodli_access' => $data['yoodli_access'],
+            'status' => $data['status'],
             'booking_credit' => $data['booking_credit']]);
         return ($update) ? true : false;
     }

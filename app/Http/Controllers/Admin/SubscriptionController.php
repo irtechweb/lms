@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\SubscriptionsDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
 
 class SubscriptionController extends Controller {
 
-    public function getList() {
-        $data = Subscription::getSubscriptions();
-        return view('admin.subscriptions.subscription-listing', compact('data'));
+    public function getList(SubscriptionsDataTable $datatable) {
+        return $datatable->render('admin.subscriptions.subscription-listing');
     }
 
     public function getSubscriptionView() {
@@ -52,6 +52,7 @@ class SubscriptionController extends Controller {
         $inputs['webinar_access'] = ($request['webinar_access'] == 1) ? '1' : '0';
         $inputs['yoodli_access'] = ($request['yoodli_access'] == 1) ? '1' : '0';
         $inputs['price'] = $request['price'];
+        $inputs['status'] = $request['status'];
         $inputs['booking_credit'] = $request['booking_credit'] ?? 2;
 
         return $inputs;

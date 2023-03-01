@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-    {{' Students' }}
+    {{' User Activities' }}
 @endsection
 
 @section('local-style')
@@ -18,7 +18,7 @@
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
                     <h3 class="content-header-title">
-                        {{ ' Students' }}
+                        {{ ' User Activities' }}
                     </h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
@@ -28,7 +28,7 @@
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active">
-                                    {{  ' Students' }}
+                                    {{  ' User Activities' }}
                                 </li>
                             </ol>
                         </div>
@@ -48,15 +48,14 @@
                                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                            {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
                                         @include('includes.error')
-                                        <div class="">
-                                            {{ $dataTable->table(['class' => 'table table-striped table-bordered table-responsive', 'style' => 'width: 100% !important; display: table;', 'id' => 'students_table']) }}
+                                        <div class="table-responsive">
+                                            {{ $dataTable->table(['class' => 'table table-striped table-bordered', 'style' => 'width: 100%']) }}
                                         </div>
                                     </div>
                                 </div>
@@ -68,16 +67,12 @@
 
             </div>
         </div>
-    </div>
-
+    </div>   
     <!-- END: Content-->
 @endsection
 
 @section('local-script')
     {{ $dataTable->scripts() }}
-    <script>
-        $(function() {
-            $("#students_table_wrapper div:first-child").addClass("align-items-baseline");
-        });
-    </script>
+
+    
 @endsection

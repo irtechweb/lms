@@ -101,13 +101,22 @@ class User extends Authenticatable implements MustVerifyEmail
         return !empty($results) ? $results->toArray() : [];
     }
 
-    public static function updateData($data) {
-        $update = User::where('id', $data['id'])
-                ->update(['first_name' => $data['first_name'],
+    public static function updateData($data, $count = null) {
+        $user = User::where('id', $data['id'])->first();
+        $update = $user->update([
+            'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'phone_number' => $data['phone_number'],
             'city' => $data['city'],
-            'status' => $data['status']]);
+            'status' => $data['status']
+        ]);
+        if ($update && $count) {
+            AvailableBookingCount::updateOrCreate([
+                'user_id' => $data['id'],
+            ],[
+                'booking_count' => $data['booking_count'],
+            ]);
+        }
         return ($update) ? true : false;
     }
 }

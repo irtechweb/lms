@@ -83,6 +83,7 @@ Route::get('practise', [App\Http\Controllers\HomeController::class, 'practise'])
 Route::get('course-lesson-detail/{id}/{lesson_id}', [App\Http\Controllers\HomeController::class, 'courseLessonDetail'])->name('course-lesson-detail');
 
 
+
 });
 
 Route::get('cookiepolicy', [App\Http\Controllers\HomeController::class, 'cookiepolicy'])->name('cookiepolicy');

@@ -83,10 +83,17 @@
                 </a>
                 <ul class="menu-content">
                     <li class="navigation-divider"></li>
-                    <li>
+                    <!-- <li>
                         <a href="{{route('access.course')}}">
                             <span class="menu-title" data-i18n="">
                                 Free Users Tracking
+                            </span>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="{{route('user.activity')}}">
+                            <span class="menu-title" data-i18n="">
+                                Users Activity Logs
                             </span>
                         </a>
                     </li>
@@ -307,13 +314,13 @@
                     <li>
                         <a class="menu-item" href="{{ route('showSiteContent') }}">CMS Pages</a>
                     </li>
-                    {{-- <li>
+                    <!-- {{-- <li>
                         <a class="menu-item" href="{{ route('setting') }}">Social Link Settings</a>
                     </li>  --}}
                     <li class="navigation-divider"></li>
                     {{-- <li>
                         <a class="menu-item" href="{{ route('admin.messageCodes') }}">Message Codes</a>
-                    </li> --}}
+                    </li> --}} -->
                     <li>
                         <a class="menu-item" href="{{ route('settings.index') }}">General Settings</a>
                     </li>

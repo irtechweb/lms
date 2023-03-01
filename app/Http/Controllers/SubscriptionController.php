@@ -352,7 +352,7 @@ class SubscriptionController extends Controller {
             return Redirect::away($redirect_url);
         }
         DB::rollback();
-        \Session::put('error', 'Unknown error occurred');
+        //\Session::put('error', 'Unknown error occurred');
         return Redirect::route('home');
     }
 

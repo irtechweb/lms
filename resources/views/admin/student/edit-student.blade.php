@@ -134,9 +134,28 @@ Edit Student
                                         </fieldset>
 
                                         <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="booking_count">Available Booking Credits</label>
+                                                        <input value="{{ $data['available_booking_counts'] ? $data['available_booking_counts']['booking_count'] : 0 }}"
+                                                               name="booking_count" step="1" min="0"
+                                                               type="number" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
                                             <br>
                                             <div class="row">
-                                                <div class="col-lg-6 offset-6 text-right">
+                                                <div class="col-md-6">
+                                                    <a type="button" href="javascript:void(0)" data-method="get"
+                                                        data-url="{{ route('students.destroy', $data['id']) }}" class="btn btn-outline-danger btn-sm delete" data-redirect="{{ route('students.index') }}">
+                                                        <i class="ft-trash"></i> Delete This User
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6 text-right">
                                                     <a href="#"
                                                        class="btn btn-sm btn-secondary mr-1">
                                                         <i class="ft-rotate-ccw"></i> Cancel

@@ -23,9 +23,10 @@
                 <div class="box mb-3">
                     <textarea name="contenttext" id="editor" class="form-control"></textarea>
                 </div>
+                <div id="error" class="error"></div>
                 <div id="msg"></div>
                 <div class="text-right">
-                    <button type="submit" class="btn">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
               </form>
               <br>
@@ -69,39 +70,44 @@
 <script>
     
     $(document).ready(function(){
+        console.log('load content page');
       
-      $('form#content_form').on('submit', function(event) {
+      $('form#setting').on('submit', function(event) {
             event.preventDefault();
             var form_check = true;
             var type = $("#type option:selected").val();
+            console.log(type);
             var text = tinymce.activeEditor.getContent(); 
            
             var errors = [];
             
             if(text ==''){
-                  $("#editor").parent('.form-group').addClass("has-error");
+                  $("#editor").parent().addClass("has-error");
                   errors.push('Please enter text.');
                   form_check = false;
             }else{
-                $("#editor").parent('.form-group').removeClass("has-error");
+                $("#editor").parent().removeClass("has-error");
             }
 
             if(type ==''){
-                  $("#content_type").parent('.form-group').addClass("has-error");
+                  $("#content_type").parent().addClass("has-error");
                   errors.push('Please select content type');
                   form_check = false;
             }else{
-                $("#content_type").parent('.form-group').removeClass("has-error");
+                $("#content_type").parent().removeClass("has-error");
             }
             if(form_check){
                 //prj.App.showAlerts("#offer_messages","error","","hide");
+                $("div#error").css('display:none');
                 formdata = new FormData(this);
                 var serviceresponse = prj.content.save(formdata);
             }else{
-                prj.App.showAlerts("#offer_messages","error",'<i class="icon-report"></i>'+errors[0],"show");
+                $("div#error").css('display:block');
+                $("div#error")('<i class="icon-report"></i>'+errors[0]);
             }
         });
-      $('form#content_form #type').on('change', function(event) {
+      $('form#setting #type').on('change', function(event) {
+            
             event.preventDefault();
             var type = $("#type option:selected").val();
             tinymce.activeEditor.setContent('');
