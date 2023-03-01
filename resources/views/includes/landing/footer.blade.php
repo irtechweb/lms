@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="logo">
-                        <a href="{{ Auth::check() ? '/home' : '/' }}"><img src="{{url('logo/Speak_2_Impact_Logo_Black_Bg_white.png')}}" height="80px" class="css-class cursor-pointer" alt="alt text"></a>
+                        <a href="{{ Auth::check() ? '/home' : '/' }}"><img src="{{url('logo/footer-yellow-logo.svg')}}" height="80px" class="css-class cursor-pointer" alt="alt text"></a>
                     </div>
                 </div>
                 <div class="col-md-6 offset-sm-1">

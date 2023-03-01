@@ -25,10 +25,9 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
-public/logo
+
 public/course
 
-public/logo
 public/course
 vendor
 public/images
