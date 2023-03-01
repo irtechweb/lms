@@ -17,14 +17,15 @@ class StudentController extends Controller {
     }
 
     public function edit($id) {
-        $data = User::getstudent($id);
+        $user = $results = User::with('availableBookingCounts')->where('id', $id)->first();
+        $data = !empty($results) ? $results->toArray() : [];
         return view('admin.student.edit-student', compact('data'));
     }
 
     public function update(Request $request) {
         $data = self::prepareData($request);
         $data['id'] = $request->id;
-        $save = User::updateData($data);
+        $save = User::updateData($data, true);
         if ($save) {
             return redirect()->route('students.index')->with('Saved Successfully!');
         } else {
@@ -66,6 +67,7 @@ class StudentController extends Controller {
         $inputs['phone_number'] = $request['phone_number'];
         $inputs['city'] = $request['city'];
         $inputs['status'] = $request['status'];
+        $inputs['booking_count'] = $request['booking_count'];
 
         return $inputs;
     }

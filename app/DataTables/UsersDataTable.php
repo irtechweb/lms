@@ -26,9 +26,6 @@ class UsersDataTable extends DataTable
             ->addColumn('action', function ($user) {
                 return '<a type="button" href="'. route('students.edit', $user->id) .'" class="btn btn-outline-primary btn-sm mr-2">
                     <i class="ft-edit"></i> Edit
-                </a>
-                <a type="button" href="javascript:void(0)" data-table="users_table" data-method="get" data-url="' . route('students.destroy', $user->id) . '" class="btn btn-outline-danger btn-sm delete">
-                    <i class="ft-trash"></i> Delete
                 </a>';
             })
             ->setRowId('id')
@@ -39,7 +36,15 @@ class UsersDataTable extends DataTable
                     return '<span class="badge badge-danger">In-Active</span>';
                 }
             })
-            ->rawColumns(['status', 'action']);
+            ->addColumn('available_booking_counts', function ($user) {
+                return strlen($user->phone_number) > 12 ? substr($user->phone_number, 0, 12) ."..." : $user->phone_number;
+            })
+            ->addColumn('phone_number', function ($user) {
+                $count = $user->availableBookingCounts ? $user->availableBookingCounts->booking_count : 0;
+                $class = $user->availableBookingCounts ? 'primary' : 'danger';
+                return '<span class="badge badge-'.$class.' px-2">'. $count .'</span>';
+            })
+            ->rawColumns(['status', 'action', 'available_booking_counts', 'phone_number']);
     }
 
     /**
@@ -50,7 +55,7 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('availableBookingCounts');
     }
 
     /**
@@ -86,11 +91,19 @@ class UsersDataTable extends DataTable
                     ->printable(false)
                     ->width(60)
                     ->addClass('text-center'),
+            Column::computed('available_booking_counts')
+                    ->exportable(false)
+                    ->printable(false)
+                    ->width(40)
+                    ->addClass('text-center')
+                    ->title('Booking Credits')
+                    ->orderable(false),
             Column::computed('action')
                     ->exportable(false)
                     ->printable(false)
                     ->width(210)
-                    ->addClass('text-center'),
+                    ->addClass('text-center d-flex justify-content-center')
+                    ->orderable(false),
         ];
     }
 
