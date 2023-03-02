@@ -86,7 +86,7 @@ Edit Webinar Detail
                                                         <label for="duration">Date</label>
                                                         <input step="any"
                                                                name="date"
-                                                               type="date" value="{{$data['date']}}" class="form-control" required>
+                                                               type="datetime-local" value="{{$data['date']}}" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,7 +138,7 @@ Edit Webinar Detail
                                                                 <img style="max-height: 100px; max-width: 100px; margin-bottom: 2px;" src="{{ asset('assets/img/'.$data['image']) }}">
                                                             </div>
                                                         @endif
-                                                        <input name="image" type="file" class="form-control" required>
+                                                        <input name="image" type="file" class="form-control" accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>
