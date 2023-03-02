@@ -3,7 +3,7 @@
           <nav class="navbar" style="padding-left: 50px;
     padding-right: 50px;">
             <div class="logo">
-                <a href="/"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text"></a>
+                <a href="/"><img src="{{url('logo/header-logo.svg')}}"   style="height: 80px;" class="css-class" alt="alt text"></a>
             </div>
             <div class="login-action">
             @if (Auth::check() && Auth::user()->email_verified_at  != NULL)
