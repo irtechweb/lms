@@ -56,7 +56,7 @@ Edit Webinar Detail
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -81,31 +81,12 @@ Edit Webinar Detail
 
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="url">Introduction (Max 200 Words)</label>
-                                                        <textarea step="any"
-                                                                  name="title"
-                                                                  rows="5" class="form-control" required>{{$data['title']}}</textarea>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-
-
-                                        <fieldset>
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="duration">Date</label>
                                                         <input step="any"
                                                                name="date"
-                                                               type="date" value="{{$data['date']}}" class="form-control" required>
+                                                               type="datetime-local" value="{{$data['date']}}" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,12 +102,6 @@ Edit Webinar Detail
                                                                type="text" class="form-control" value="{{$data['instructor']}}" required>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset>
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="access">Webinar Type</label>
@@ -138,21 +113,32 @@ Edit Webinar Detail
                                                 </div>
                                             </div>
                                         </fieldset>
+
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="url">Introduction (Max 200 Words)</label>
+                                                        <textarea step="any"
+                                                                  name="title"
+                                                                  rows="5" class="form-control" required>{{$data['title']}}</textarea>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="image">Change Image</label>
                                                         @if(!empty($data['image']))
-                                                        <div class="image-clean">
-                                                            <img style="max-height: 250px;max-width: 250px" src="{{ asset('assets/img/'.$data['image']) }}">
-
-                                                        </div>
+                                                            <div class="image-clean">
+                                                                <img style="max-height: 100px; max-width: 100px; margin-bottom: 2px;" src="{{ asset('assets/img/'.$data['image']) }}">
+                                                            </div>
                                                         @endif
-                                                        <input step="any"
-                                                               name="image"
-                                                               type="file" class="form-control" required>
-
+                                                        <input name="image" type="file" class="form-control" accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>

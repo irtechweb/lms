@@ -79,11 +79,6 @@ Add Webinar
                                                                type="text" class="form-control" required>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="date">Select Date of Webinar</label>
@@ -100,28 +95,12 @@ Add Webinar
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="title">Write Introduction (Max 200 Words)</label>
-                                                        <textarea name="title" rows="4" cols="50"
-                                                                  maxlength="200" class="form-control" required></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
                                                         <label for="instructor_name">Enter Instructor Name</label>
                                                         <input step="any"
                                                                name="instructor_name"
                                                                type="text" class="form-control" required>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="type">Please select Webinar Type</label>
@@ -133,14 +112,25 @@ Add Webinar
                                                 </div>
                                             </div>
                                         </fieldset>
+
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="title">Write Introduction (Max 200 Words)</label>
+                                                        <textarea name="title" rows="4" cols="50"
+                                                                  maxlength="200" class="form-control" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="image">Add Image</label>
-                                                        <input step="any"
-                                                               name="image"
-                                                               type="file" class="form-control" required>
+                                                        <input name="image" type="file" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
