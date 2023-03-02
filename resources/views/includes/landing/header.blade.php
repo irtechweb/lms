@@ -2,7 +2,7 @@
     <header>
       <nav class="navbar" style="padding-left: 50px;padding-right: 50px;">
         <div class="logo">
-          <a href="{{ Auth::check() ? '/home' : '/' }}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class cursor-pointer" alt="alt text"></a>
+          <a href="{{ Auth::check() ? '/home' : '/' }}"><img src="{{url('logo/header-logo.svg')}}"  style="height: 80px;" class="css-class cursor-pointer" alt="alt text"></a>
         </div>
         <div class="login-action">
             @if (Auth::check())

@@ -2,7 +2,7 @@
           <nav class="navbar" style="padding-left: 50px;
     padding-right: 50px;">
             <div class="logo">
-            <img src="{{url('logo/Speak2Impact Academy.png')}}"   class="css-class" alt="alt text">
+            <img src="{{url('logo/header-logo.svg')}}"   style="height: 80px;" class="css-class" alt="alt text">
             </div>
             <div class="login-action">
             @if (Auth::check())

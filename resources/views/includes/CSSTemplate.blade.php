@@ -121,7 +121,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="logo">
-                            <a href="{{url('/')}}"><img src="{{url('logo/Speak2Impact Academy.png')}}"   class="img-responsive res-logo" alt="alt text"></a>
+                            <a href="{{url('/')}}"><img src="{{url('logo/header-logo.svg')}}"  style="height: 80px;"  class="img-responsive res-logo" alt="alt text"></a>
                          </div>
                         
                         <!-- <a class="navbar-brand" href="#">Speak2Impact Academy</a> -->

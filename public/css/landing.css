@@ -429,7 +429,7 @@ ul.checks li img {
 }
 
 .hero-top {
-    background-image: url(./images/heading-bg.svg);
+    background-image: url(/images/heading-bg.svg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
