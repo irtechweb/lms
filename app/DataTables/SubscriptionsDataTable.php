@@ -25,8 +25,8 @@ class SubscriptionsDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($subscription) {
                 return '<a type="button" href="'. route('subscription.edit', $subscription->id) .'" class="btn btn-outline-primary btn-sm mr-2">
-                    <i class="ft-edit"></i> Edit
-                </a>';
+                            <i class="ft-edit"></i>&nbsp;Edit
+                        </a>';
             })
             ->setRowId('id')
             ->addColumn('status', function ($subscription) {

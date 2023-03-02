@@ -55,7 +55,7 @@
                                     <div class="card-body card-dashboard">
                                         @include('includes.error')
                                         <div class="table-responsive">
-                                            {{ $dataTable->table(['class' => 'table table-striped table-bordered', 'style' => 'width: 100%']) }}
+                                            {{ $dataTable->table(['class' => 'table table-striped table-bordered base-style ', 'style' => 'width: 100%']) }}
                                         </div>
                                     </div>
                                 </div>

@@ -181,10 +181,7 @@ Route::prefix('admin')->group(static function () {
         Route::get('/user/activity', [\App\Http\Controllers\Admin\HomeController::class, 'userActivity'])->name('user.activity');
         Route::get('/user/activity/details', [\App\Http\Controllers\Admin\HomeController::class, 'userActivitydetails'])->name('user.activitydetails');
         Route::get('/user/activity/details/{userid}', [\App\Http\Controllers\Admin\HomeController::class, 'userActivitydetaillist'])->name('user.activitydetaillist');
-        
-       
-        
-        
+        Route::put('/subscription-dates/update/{id}', [\App\Http\Controllers\Admin\HomeController::class, 'updateSubscriptionDates'])->name('subscription-dates-update');
 
     });
 });

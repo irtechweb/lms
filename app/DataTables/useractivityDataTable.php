@@ -27,7 +27,7 @@ class useractivityDataTable extends DataTable
             //->addColumn('action', 'useractivity.action')
             ->addColumn('action', function ($user) {
                 return '<a target="__blank" type="button" href="'.url('admin/user/activity/details').'/'.$user->id.'" class="btn btn-outline-primary btn-sm edit-settings">
-                    <i class="ft-view"></i> View Details
+                    <i class="ft-view"></i>&nbsp;View&nbsp;Details
                 </a>';
             })
             ->setRowId('id')

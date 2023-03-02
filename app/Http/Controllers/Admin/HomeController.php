@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Validator;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Models\UserSubscribedPlan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\DataTables\UserslogsDataTable;
@@ -132,6 +135,12 @@ class HomeController extends Controller
             ->leftJoin('subscriptions', 'subscriptions.id', 'user_subscribed_plans.subscription_id')
             ->select('user_subscribed_plans.*', 'users.first_name', 'users.last_name', 'subscriptions.plans')->orderby('user_subscribed_plans.id', 'desc')->get();
         return Datatables::of($plans)
+            ->addColumn('action', function ($record) {
+                return '<a type="button" href="javascript:" class="btn btn-outline-primary btn-sm edit-subscription-order">
+                            <i class="ft-edit"></i>&nbsp;Edit
+                        </a>';
+            })
+            ->setRowId('id')
             ->addColumn('plan', function ($record) {
                 return $record->plans;
             })
@@ -148,16 +157,45 @@ class HomeController extends Controller
                 return ucfirst(str_replace('_', ' ', $record->paid_with));
             })
             ->addColumn('subscription_start_date', function ($record) {
-                return $record->subscription_start_date;
+                return Carbon::createFromFormat('Y-m-d H:i:s', $record->subscription_start_date)->format('Y-m-d');
             })
             ->addColumn('subscription_end_date', function ($record) {
-                return $record->subscription_end_date;
+                return Carbon::createFromFormat('Y-m-d H:i:s', $record->subscription_end_date)->format('Y-m-d');
             })
-            ->addColumn('created_at', function ($record) {
-                return $record->created_at;
-            })
-            ->rawColumns(['plan', 'user', 'price', 'paid_with', 'status', 'subscription_start_date', 'subscription_end_date', 'created_at'])
+            // ->addColumn('created_at', function ($record) {
+            //     return $record->created_at;
+            // })
+            ->rawColumns(['plan', 'user', 'price', 'paid_with', 'status', 'subscription_start_date', 'subscription_end_date', 'action'])
             ->addIndexColumn()->make(true);
     }
     
+    public function updateSubscriptionDates(Request $request, $id) {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        try {
+            $userSubscription = UserSubscribedPlan::where('id', $id)->first();
+            $userSubscription->update([
+                'subscription_start_date' => $request->start_date. ' 23:59:59',
+                'subscription_end_date' => $request->end_date. ' 23:59:59',
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Subscription order dates updated successfully'
+            ], JsonResponse::HTTP_OK);
+        } catch (\Exception $error) {
+            return response()->json([
+                'status' => false,
+                'message' => $error->getMessage()
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -25,8 +25,8 @@ class SettingsDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($user) {
                 return '<a type="button" href="javascript:" class="btn btn-outline-primary btn-sm edit-settings">
-                    <i class="ft-edit"></i> Edit
-                </a>';
+                            <i class="ft-edit"></i>&nbsp;Edit
+                        </a>';
             })
             ->setRowId('id');
     }

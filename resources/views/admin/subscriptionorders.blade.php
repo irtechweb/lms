@@ -50,7 +50,7 @@ Subscription Orders
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@ Subscription Orders
                                 <div class="card-body card-dashboard">
                                     @include('includes.error')
                                     <div class="">
-                                        <table class="table table-striped table-bordered base-style table-responsive" id="subscription_orders_table" style="width: 100%; white-space: nowrap;">
+                                        <table class="table table-striped table-bordered base-style table-responsive" id="subscription_orders_table" style="width: 100%; display: table; white-space: nowrap;">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -66,10 +66,11 @@ Subscription Orders
                                                     <th>User</th>
                                                     <th>Price</th>
                                                     <th>status</th>
-                                                    <th> Paid With</th>
-                                                    <th> Subscription Start Date</th>
-                                                    <th> Subscription End Date</th>
-                                                    <th> Created Date</th>
+                                                    <th>Paid With</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    {{-- <th>Created Date</th> --}}
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
 
@@ -90,6 +91,7 @@ Subscription Orders
 
         </div>
     </div>
+    @include('admin.modals.subscription_orders_modal')
 </div>
 
 <!-- END: Content-->
@@ -98,10 +100,6 @@ Subscription Orders
 
 @section('local-script')
 <!-- BEGIN: Page JS-->
-
-
-<script src="{{ asset('public/theme/app-assets/js/scripts/tables/datatables/datatable-styling.js') }}"
-type="text/javascript"></script>
 
 <script>
     $(function() {
@@ -123,13 +121,61 @@ type="text/javascript"></script>
                 {data: 'paid_with', name: 'paid_with'},
                 {data: 'subscription_start_date', name: 'subscription_start_date'},
                 {data: 'subscription_end_date', name: 'subscription_end_date'},
-                {data: 'created_at', name: 'created_at'},
-                // {data: 'actions', name: 'actions'},
-            ]
+                // {data: 'created_at', name: 'created_at'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ],
+            rowCallback: function(row, data) {
+                $(row).attr('data-start-date', data.subscription_start_date);
+                $(row).attr('data-end-date', data.subscription_end_date);
+            }
         });
 
         $("#subscription_orders_table_wrapper div:first-child").addClass("align-items-baseline");
     });
+</script>
+
+<script>
+    $(document).on('click', '.edit-subscription-order', function (e) { 
+        e.preventDefault();
+        let subscriptionOrderId = $(this).closest('tr').attr('id');
+        let startDate = $(this).closest('tr').attr('data-start-date');
+        let endDate = $(this).closest('tr').attr('data-end-date')
+        let updateUrl = "{{ route('subscription-dates-update', ':subscriptionOrderId') }}";
+        updateUrl = updateUrl.replace(':subscriptionOrderId', subscriptionOrderId);
+        $('#subscriptionOrderModal #subscriptionOrderModalForm').attr('action', updateUrl);
+        $('#subscriptionOrderModal #start_date').attr('value', startDate);
+        $('#subscriptionOrderModal #end_date').attr('value', endDate);
+        $('#subscriptionOrderModal').modal('show');
+    });
+
+    $(document).on('submit', '.update-subscription-order-data', function (e) { 
+        e.preventDefault();
+        var action = $(this).attr('action');
+        var data = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: action,
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $('#subscriptionOrderModal').modal('hide');
+                $('#subscription_orders_table').DataTable().ajax.reload();
+                window.toast.fire({
+                    icon: 'success',
+                    title: response.message
+                });
+            },
+            error: function(error) {
+                window.toast.fire({
+                    icon: 'error',
+                    title: error.responseJSON.message
+                });
+            }
+        });
+    });
+
 </script>
 <!-- END: Page JS-->
 @endsection
