@@ -158,12 +158,14 @@ Route::prefix('admin')->group(static function () {
         Route::get('/edit-subscription/{id}', [\App\Http\Controllers\Admin\SubscriptionController::class, 'editSubscription'])->name('subscription.edit');
         Route::post('/updatesubscription/', [\App\Http\Controllers\Admin\SubscriptionController::class, 'updateSubscription'])->name('updateSubscription');
 
+        // Webinar Routes
         Route::get('/add-webinar/', [\App\Http\Controllers\Admin\WebinarController::class, 'getWebinarView'])->name('webinar.add');
         Route::get('/webinars/', [\App\Http\Controllers\Admin\WebinarController::class, 'getList'])->name('webinar.list');
-
         Route::post('/save-webinar/', [\App\Http\Controllers\Admin\WebinarController::class, 'saveWebinar'])->name('saveWebinar');
         Route::get('/edit-webinar/{id}', [\App\Http\Controllers\Admin\WebinarController::class, 'editWebinar'])->name('webinar.edit');
         Route::post('/update-webinar/', [\App\Http\Controllers\Admin\WebinarController::class, 'updateWebinar'])->name('updateWebinar');
+        Route::delete('/webinars/delete/{id}', [\App\Http\Controllers\Admin\WebinarController::class, 'destroy'])->name('webinar.destroy');
+
         Route::resource('settings', SettingController::class);
         Route::get('/manage/content', [\App\Http\Controllers\Admin\HomeController::class, 'showSiteContent'])->name('showSiteContent');
         Route::post('/content/add', [\App\Http\Controllers\Admin\ContentController::class, 'add'])->name('add');

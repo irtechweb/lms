@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Webinar;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\DataTables\WebinarsDataTable;
 use Illuminate\Support\Facades\Crypt;
 use Intervention\Image\Facades\Image;
 
 class WebinarController extends Controller {
 
-    public function getList() {
-        $data = Webinar::getWebinars();
-        return view('admin.webinars.webinar-listing', compact('data'));
+    public function getList(WebinarsDataTable $datatable) {
+        return $datatable->render('admin.webinars.webinar-listing');
     }
 
     public function getWebinarView() {
@@ -98,6 +100,25 @@ class WebinarController extends Controller {
             return ['success' => true, 'filename' => $filename];
         } else {
             return ['success' => false];
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+            $webinar = Webinar::findOrFail($id);
+            $webinar->delete();
+            DB::commit();
+            return response()->json([
+                'success' => JsonResponse::HTTP_OK,
+                'message' => 'Webinar Deleted successfully'
+            ], JsonResponse::HTTP_OK);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -123,9 +123,7 @@ class HomeController extends Controller
     }
     public function userActivitydetaillist($user_id,UserActivityDetailListDataTable $datatable)
     {
-        //dd(1);
         return $datatable->with('id', $user_id)->render('admin.activitydetails');
-
     }
 
     public function dataTable()
@@ -161,6 +159,5 @@ class HomeController extends Controller
             ->rawColumns(['plan', 'user', 'price', 'paid_with', 'status', 'subscription_start_date', 'subscription_end_date', 'created_at'])
             ->addIndexColumn()->make(true);
     }
-
     
 }
