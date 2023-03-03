@@ -56,7 +56,7 @@ Add Subscription Plan
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -75,8 +75,8 @@ Add Subscription Plan
                                                     <div class="form-group">
                                                         <label for="Status">Plan</label>
                                                         <select class="form-control" required="" name="plans">
-                                                            <option value="weekly">Weekly</option>
                                                             <option value="monthly">Monthly</option>
+                                                            <option value="halfyearly">Half Yearly</option>
                                                             <option value="yearly">Yearly</option>
                                                         </select>
                                                     </div>

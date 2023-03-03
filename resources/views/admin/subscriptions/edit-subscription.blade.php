@@ -56,7 +56,7 @@ Edit Subscription Plan
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -75,8 +75,8 @@ Edit Subscription Plan
                                                     <div class="form-group">
                                                         <label for="Status">Plan</label>
                                                         <select name="plans" id="plans" value="{{$data['plans']}}" class="form-control">
-                                                            <option  value="weekly" <?= ($data['plans'] == 'weekly') ? 'selected' : ''; ?>>Weekly</option>
                                                             <option  value="monthly" <?= ($data['plans'] == 'monthly') ? 'selected' : ''; ?>>Monthly</option>
+                                                            <option  value="halfyearly" <?= ($data['plans'] == 'halfyearly') ? 'selected' : ''; ?>>Half Yearly</option>
                                                             <option  value="yearly" <?= ($data['plans'] == 'yearly') ? 'selected' : ''; ?>>Yearly</option>
                                                         </select>
                                                     </div>

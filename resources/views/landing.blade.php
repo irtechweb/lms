@@ -165,23 +165,24 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                             $divclass = 'membership2';
                             $saave = 'saave2';
                             $divheading = 'heading2';
-                            $style = "background-color: #1C1C1C; color: #fff;";
+                            $style = "background-color: #1C1C1C; color: #fff; border: 1px solid #1c1c1c;";
                             $checkimage = url('images/check_black.png');
 
                           }
                         ?>
-            <div class="col-lg-6" style="padding-right: 25px; padding-left: 25px;">
+            <div class="col-lg-6 mb-3" style="padding-right: 25px; padding-left: 25px;">
                 <div class="{{$divclass}}">
                     <div class="mem-btn">
-                        <button class="membership-btn" style="{{$style}}">{{ucfirst($record['plans'])}}
-                            membership</button>
+                        <button class="membership-btn" style="{{$style}}">{{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ucfirst($record['plans']) }}
+                            Membership</button>
                     </div>
-                    <h3 class="price">£{{$record['price']}} {{ucfirst($record['plans'])}}</h3>
+                    <h3 class="price">£{{$record['price']}} {{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ucfirst($record['plans']) }}</h3>
 
-                    <p class="{{$saave}}">
+                    <p class="{{$saave}}" style="height: 24px;">
                         @if($record['plans'] == "yearly")
                         (Save {{$record['discount_percentage']}}% on {{$record['plans']}})@endif</p>
 
+                    <div style="min-height: 185px;">
                     @if($record['is_access_cource'] == 1)
                     <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to all courses</p>
                     @endif
@@ -200,6 +201,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                     @if($record['yoodli_access'] == '1')
                     <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to Yoodli</p>
                     @endif
+                    </div>
                     @if(auth()->check())
                     <?php 
 
@@ -226,9 +228,9 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
     </div>
 </section>
 
-<div class="container pt-5">
+<div class="container pt-2">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="padding-right: 25px; padding-left: 25px;">
             <div class="align-items-center justify-content-center">
                 <div class="Sign " style="border: 1px solid;">
                     <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign

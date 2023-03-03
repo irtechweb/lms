@@ -402,11 +402,11 @@ class SubscriptionController extends Controller {
         $data['user_id'] = $subscriptionData['request_data']['user_id'];
         $data['subscription_start_date'] = date('Y-m-d H:i:s');
         if (strtolower($subscriptionData['subscription']['plans']) == 'yearly' || strtolower($subscriptionData['subscription']['plans']) == 'anually') {
-            $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 1 years'));
+            $data['subscription_end_date'] = date('Y-m-d 23:59:59', strtotime($data['subscription_start_date'] . ' + 1 years'));
         } elseif (strtolower($subscriptionData['subscription']['plans']) == 'monthly') {
-            $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 1 months'));
-        } elseif (strtolower($subscriptionData['subscription']['plans']) == 'weekly') {
-            $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 1 weeks'));
+            $data['subscription_end_date'] = date('Y-m-d 23:59:59', strtotime($data['subscription_start_date'] . ' + 1 months'));
+        } elseif (strtolower($subscriptionData['subscription']['plans']) == 'halfyearly') {
+            $data['subscription_end_date'] = date('Y-m-d 23:59:59', strtotime($data['subscription_start_date'] . ' + 6 months'));
         }
         $data['paid_with'] = 'paypal';
         $data['is_active'] = 0;
