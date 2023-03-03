@@ -116,9 +116,9 @@ $setting = \App\Models\Setting::first();
                         <div class="webinar-heading">{{$course->course_title}}</div>
                         <div class="webinar-description">Susie Ashfield, Instructor</div>
                         <div class="webinar-image">
-                            <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;">
+                            <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;width:100%;height:100%;">
                                 <iframe id="videoId" src="{{url($file_name)}}"" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
-                                style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                style="position:absolute;top:0;left:0;width:inherit;height:inherit;">
                                 </iframe>
                             </div>
                             {{-- <video width="100%" height="100%" controls preload="auto"><source src="{{ url($file_name)}}" type="video/mp4"></video> --}}

@@ -66,7 +66,7 @@
                                                         @endif 
                                                         per 
                                                     @if(isset($subscription['plans'])) 
-                                                    {{$subscription['plans']}} 
+                                                    {{ $subscription['plans'] == 'halfyearly' ? 'half yearly' : $subscription['plans']}} 
                                                     @endif
                                         </span> 
                                     </div>
