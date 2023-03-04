@@ -125,7 +125,7 @@ class RegisteredUserController extends Controller {
         
         if ($user) {            
             DB::commit();
-            return back()->with('success', 'Data saved successfully!');
+            return redirect(route('profile'))->with('success', 'Data saved successfully!');
         }
         
         DB::rollback();

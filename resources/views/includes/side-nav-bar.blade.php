@@ -34,16 +34,16 @@
              <ul class="menu-content">
                 <li class="navigation-divider"></li>
                     <li>
-                        <a href="{{route('subscription.add')}}">
+                        <a href="{{route('subscription.list')}}">
                             <span class="menu-title" data-i18n="">
-                                Add New Plan
+                                All Plans
                             </span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('subscription.list')}}">
+                        <a href="{{route('subscription.add')}}">
                             <span class="menu-title" data-i18n="">
-                                All Plans
+                                Add New Plan
                             </span>
                         </a>
                     </li>
@@ -116,16 +116,16 @@
              <ul class="menu-content">
                 <li class="navigation-divider"></li>
                     <li>
-                        <a href="{{route('webinar.add')}}">
+                        <a href="{{route('webinar.list')}}">
                             <span class="menu-title" data-i18n="">
-                                Add Webinar
+                                All Webinars
                             </span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('webinar.list')}}">
+                        <a href="{{route('webinar.add')}}">
                             <span class="menu-title" data-i18n="">
-                                Webinar Listing
+                                Add New Webinar
                             </span>
                         </a>
                     </li>
@@ -154,11 +154,11 @@
                 <ul class="menu-content">
                     <li class="navigation-divider"></li>
                     <li>
-                        <a class="menu-item" href="{{ route('instructor.course.list') }}">All</a>
+                        <a class="menu-item" href="{{ route('instructor.course.list') }}">All Courses</a>
                     </li>
 
                     <li>
-                        <a class="menu-item" href="{{ route('instructor.course.info') }}">Add Course</a>
+                        <a class="menu-item" href="{{ route('instructor.course.info') }}">Add New Course</a>
                     </li>
                     
                 </ul>
@@ -199,11 +199,11 @@
                 <ul class="menu-content">
                     <li class="navigation-divider"></li>
                     <li>
-                        <a class="menu-item" href="{{ route('admin.categories')}}">All</a>
+                        <a class="menu-item" href="{{ route('admin.categories')}}">All Categories</a>
                     </li>
 
                     <li>
-                        <a class="menu-item" href="{{ route('admin.categoryForm') }}">Add Category</a>
+                        <a class="menu-item" href="{{ route('admin.categoryForm') }}">Add New Category</a>
                     </li>
                     
                 </ul>
@@ -225,9 +225,15 @@
                 <ul class="menu-content">
                     <li class="navigation-divider"></li>
                     <li>
-                        <a class="menu-item" href="{{ route('students.index') }}">All</a>
+                        <a class="menu-item" href="{{ route('students.index') }}">All Students</a>
                     </li>
-
+                    <li>
+                        <a href="{{route('students.create')}}">
+                            <span class="menu-title" data-i18n="">
+                                Add New Student
+                            </span>
+                        </a>
+                    </li>
                 </ul>
                 </li>
             </li>

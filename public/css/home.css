@@ -1085,3 +1085,12 @@ label.form-label {
     }
 }
 
+.nav-tabs .nav-link {
+    color: #1c1c1c;
+    font-weight: normal;
+}
+
+.nav-tabs .nav-link.active {
+    font-weight: 700;
+}
+

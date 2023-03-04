@@ -142,7 +142,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
                                                         <label for="exampleInputEmail1" class="form-label">Password</label>
-                                                        <input type="password" class="form-control" name="password" required="required" placeholder="Enter password" minlength="8" minlength="25">
+                                                        <input type="password" class="form-control" name="password" required="required" placeholder="Enter password" minlength="8" minlength="25" autocomplete="off">
                                                         <div class="alert alert-danger mt-1 mb-1 passwordError" style="display: none;">Please enter password</div>
                                                         <div class="alert alert-danger mt-1 mb-1 mpasswordError" style="display: none;">Password does not match with confirm password</div>
 
@@ -151,7 +151,7 @@
                                                 <div class="col-lg-5 offset-lg-2">
                                                     <div class="signup-field">
                                                         <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
-                                                        <input type="password" class="form-control" name="password_confirmation" required="required" placeholder="Confirm Password" minlength="8" minlength="25">
+                                                        <input type="password" class="form-control" name="password_confirmation" required="required" placeholder="Confirm Password" minlength="8" minlength="25" autocomplete="off">
                                                         <div class="alert alert-danger mt-1 mb-1 cpasswordError" style="display: none;">Please enter confirm password</div>
                                                         <div class="alert alert-danger mt-1 mb-1 mpasswordError" style="display: none;">Confirm Password does not match withpassword</div>
 

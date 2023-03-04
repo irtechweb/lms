@@ -68,7 +68,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
         <header>
             <div class="container">
                 <div class="main-header mt-4 mb-4">
-                    <div class="pull-right">
+                    <div class="pull-right" style="margin-top: 1.3rem;">
                     <div class="dropdown">
                             <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
                                 <div class="avatar avatar-sm avatar-circle mt-1">

@@ -25,8 +25,11 @@ class UsersDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($user) {
                 return '<a type="button" href="'. route('students.edit', $user->id) .'" class="btn btn-outline-primary btn-sm mr-2">
-                    <i class="ft-edit"></i>&nbsp;Edit
-                </a>';
+                            <i class="ft-edit"></i>&nbsp;Edit
+                        </a>
+                        <a type="button" href="javascript:" class="btn btn-outline-warning btn-sm mr-2" style="color: black;">
+                            <i class="ft-video"></i>&nbsp;Courses
+                        </a>';
             })
             ->setRowId('id')
             ->addColumn('status', function ($user) {
