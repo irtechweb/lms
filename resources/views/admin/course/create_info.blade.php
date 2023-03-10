@@ -121,7 +121,7 @@ Subscription Listing
                                                   placeholder="Strike Out Price" value="{{ $course->strike_out_price }}" />
                                           </div>
                                   
-                                          <div class="form-group col-md-4">
+                                          <div class="form-group col-md-2">
                                               <label class="form-control-label">Status</label>
                                               <div>
                                                 <div class="radio-custom radio-default radio-inline">
@@ -131,6 +131,20 @@ Subscription Listing
                                                 <div class="radio-custom radio-default radio-inline">
                                                   <input type="radio" id="inputBasicInactive" name="is_active" value="0" @if(!$course->is_active) checked @endif/>
                                                   <label for="inputBasicInactive">Inactive</label>
+                                                </div>
+                                              </div>
+                                          </div>
+                                  
+                                          <div class="form-group col-md-2">
+                                              <label class="form-control-label">Accessibility</label>
+                                              <div>
+                                                <div class="radio-custom radio-default radio-inline">
+                                                  <input type="radio" id="inputBasicLocked" name="is_locked" value="1" @if($course->is_locked) checked @endif />
+                                                  <label for="inputBasicLocked">Locked</label>
+                                                </div>
+                                                <div class="radio-custom radio-default radio-inline">
+                                                  <input type="radio" id="inputBasicUnLocked" name="is_locked" value="0" @if(!$course->is_locked) checked @endif/>
+                                                  <label for="inputBasicUnLocked">Un Locked</label>
                                                 </div>
                                               </div>
                                           </div>

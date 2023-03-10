@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-
+    <div class="student-courses-div"></div>
     <!-- END: Content-->
 @endsection
 
@@ -78,6 +78,59 @@
     <script>
         $(function() {
             $("#students_table_wrapper div:first-child").addClass("align-items-baseline");
+        });
+    </script>
+
+    <script>
+        $(document).on('click', '.open-student-courses-modal', function (e) { 
+            e.preventDefault();
+            var user_id = $(this).attr('data-user-id');
+            let url = $(this).attr('data-url');
+            $.ajax({
+                type: "POST",
+                url: url,
+                // cache: false,
+                // contentType: false,
+                // processData: false,
+                success: function (response) {
+                    $('.student-courses-div').html(response);
+                    $('#studentCourseStatusModal').modal('show');
+                    console.log(response);
+                },
+                error: function(error) {
+                    window.toast.fire({
+                        icon: 'error',
+                        title: error.responseJSON.message
+                    });
+                }
+            });
+        });
+
+        $(document).on('submit', '.save-student-courses', function (e) { 
+            e.preventDefault();
+            var action = $(this).attr('action');
+            var data = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: action,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#studentCourseStatusModal').modal('hide');
+                    window.toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+                },
+                error: function(error) {
+                    window.toast.fire({
+                        icon: 'error',
+                        title: error.responseJSON.message
+                    });
+                }
+            });
         });
     </script>
 @endsection

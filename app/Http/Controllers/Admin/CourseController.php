@@ -492,6 +492,7 @@ class CourseController extends Controller {
             'category_id' => 'required',
             'instruction_level_id' => 'required',
             'is_on_free' => 'sometimes|in:0,1',
+            'is_locked' => 'in:0,1',
         ];
 
         $validator = Validator::make($request->all(), $validation_rules);
@@ -530,6 +531,7 @@ class CourseController extends Controller {
         $course->strike_out_price = $request->input('strike_out_price');
 
         $course->is_active = $request->input('is_active');
+        $course->is_locked = $request->input('is_locked');
         $course->is_on_free = 0;//$request->input('is_on_free');
         $course->save();
 

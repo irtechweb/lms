@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Course;
 use App\Mail\NewUserMail;
 use Illuminate\Http\Request;
 use App\Jobs\SendUserMailJob;
@@ -132,6 +133,44 @@ class StudentController extends Controller {
         $inputs['booking_count'] = $request['booking_count'];
 
         return $inputs;
+    }
+
+    public function getStudentCourses($id) {
+        $student = User::findOrFail($id);
+        $studentCourses = $student->courses->pluck('id')->toArray();
+        $courses = Course::where('is_active', 1)->select('id', 'course_title')->get();
+        // dd($courses);
+        return view('admin.modals.student_courses_modal', compact('courses', 'studentCourses', 'id'))->render();
+    }
+
+    public function saveStudentCourses(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        try {
+            $student = User::findOrFail($request->user_id);
+            // dd($request->all());
+            $student->courses()->sync($request->courses);
+            // $student->update([
+            //     'title' => $request->title,
+            //     'value' => $request->value,
+            // ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Student courses Updated Successfully'
+            ], JsonResponse::HTTP_OK);
+        } catch (\Exception $error) {
+            return response()->json([
+                'status' => false,
+                'message' => $error->getMessage()
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

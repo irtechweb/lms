@@ -13,6 +13,10 @@
         background-color: #333333;
     }
 
+    .mb-60px {
+        margin-bottom: 60px;
+    }
+
     @media(min-width:768px) {
         .fun-facts iframe {
             width: 800px;
@@ -154,7 +158,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                           $divclass = 'membership1';
                           $saave = 'saave';
                           $divheading = 'heading';
-                          $style = "";
+                          $style = "border-radius: 6px;";
                           $checkimage = url('images/check.png');
                           
                         ?>
@@ -165,12 +169,12 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                             $divclass = 'membership2';
                             $saave = 'saave2';
                             $divheading = 'heading2';
-                            $style = "background-color: #1C1C1C; color: #fff; border: 1px solid #1c1c1c;";
+                            $style = "background-color: #1C1C1C; color: #fff; border: 1px solid #1c1c1c; border-radius: 6px;";
                             $checkimage = url('images/check_black.png');
 
                           }
                         ?>
-            <div class="col-lg-6 mb-3" style="padding-right: 25px; padding-left: 25px;">
+            <div class="col-lg-6 mb-60px" style="padding-right: 25px; padding-left: 25px;">
                 <div class="{{$divclass}}">
                     <div class="mem-btn">
                         <button class="membership-btn" style="{{$style}}">{{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ucfirst($record['plans']) }}
@@ -226,28 +230,28 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 
         </div>
     </div>
-</section>
-
-<div class="container pt-2">
-    <div class="row">
-        <div class="col-lg-12" style="padding-right: 25px; padding-left: 25px;">
-            <div class="align-items-center justify-content-center">
-                <div class="Sign " style="border: 1px solid;">
-                    <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign
-                        up for Free</h5>
-                    <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">
-                        <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to webinars and other pre-recorded content'?>
-                        <span><img src="{{url('images/')}}/free-white.png">
-                    </p>
-                    <button class="start-membershiIp" style="
-                                background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none;
-    color: #FFF" href="{{url('register')}}">Sign up for Free</a></button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 25px; padding-left: 25px;">
+                <div class="align-items-center justify-content-center">
+                    <div class="Sign " style="border: 1px solid;">
+                        <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign
+                            up for Free</h5>
+                        <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                            <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to webinars and other pre-recorded content'?>
+                            <span><img src="{{url('images/')}}/free-white.png">
+                        </p>
+                        <button class="start-membershiIp" style="
+                                    background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none;
+        color: #FFF" href="{{url('register')}}">Sign up for Free</a></button>
+                    </div>
                 </div>
             </div>
         </div>
+    
     </div>
+</section>
 
-</div>
 <script type="text/javascript">
     $('button.start-membership').on('click',function(){
 

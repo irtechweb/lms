@@ -978,3 +978,10 @@ p.heading2 span img{
 
     padding: 10px
 }
+
+
+@media only screen and (min-width: 280px) and (max-width: 768px) {
+    .membership2 {
+        margin-top: 0px;
+    }
+}

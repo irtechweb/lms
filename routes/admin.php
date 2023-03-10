@@ -152,6 +152,8 @@ Route::prefix('admin')->group(static function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
         Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
         Route::resource('students', StudentController::class);
+        Route::post('student-courses/{id}', [StudentController::class, 'getStudentCourses'])->name('get.student.courses');
+        Route::post('save-student-courses', [StudentController::class, 'saveStudentCourses'])->name('save.student.courses');
         Route::get('/subscriptions/', [\App\Http\Controllers\Admin\SubscriptionController::class, 'getList'])->name('subscription.list');
         Route::get('/add-subscription/', [\App\Http\Controllers\Admin\SubscriptionController::class, 'getSubscriptionView'])->name('subscription.add');
         Route::post('/save-subscription/', [\App\Http\Controllers\Admin\SubscriptionController::class, 'saveSubscription'])->name('saveSubscription');
