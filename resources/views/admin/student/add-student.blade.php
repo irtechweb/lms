@@ -114,6 +114,28 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <label for="selected_plan">Select Plan</label>
+                                                        <select name="selected_plan" id="selected_plan" class="form-control">
+                                                            <option value="" selected disabled>--Select Plan--</option>
+                                                            @foreach ($plans as $plan)
+                                                                <option value="{{ $plan->id }}" data-plan="{{ $plan->plans }}" data-price="{{ $plan->price }}">{{ $plan->plans }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="fee_price">Fee Price</label>
+                                                        <input name="fee_price" step="1" id="fee_price" min="0" type="number" class="form-control" value="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
                                                         <label for="start_date">Subscription Start Date</label>
                                                         <input name="start_date" type="date" class="form-control" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}">
                                                     </div>
@@ -121,7 +143,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="end_date">Subscription End Date</label>
-                                                        <input name="end_date" type="date" class="form-control" min="{{ date('Y-m-d', strtotime(' +1 day')) }}">
+                                                        <input name="end_date" id="end_date" type="date" class="form-control" min="{{ date('Y-m-d', strtotime(' +1 day')) }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,6 +191,20 @@
 
 @section('local-script')
     <script>
+        $(document).on('change', '#selected_plan', function() {
+            let val = $(this).find(':selected').data('plan');
+            let price = $(this).find(':selected').data('price');
+            var currentDate = new Date();
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            if (val === 'halfyearly') {
+                currentDate.setMonth(currentDate.getMonth() + 5);
+            } else if (val === 'yearly') {
+                currentDate.setMonth(currentDate.getMonth() + 11);
+            }
+            var formattedDate = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1).toString().padStart(2, '0') + '-' + currentDate.getDate().toString().padStart(2, '0');
+            $('#fee_price').val(price);
+            $('#end_date').val(formattedDate);
+        });
         $(document).on('submit', '#add_new_student_form', function (e) { 
             e.preventDefault();
             var action = $(this).attr('action');

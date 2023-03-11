@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Course;
 use App\Mail\NewUserMail;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Jobs\SendUserMailJob;
 use Illuminate\Http\JsonResponse;
 use App\DataTables\UsersDataTable;
+use App\Models\UserSubscribedPlan;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Models\AvailableBookingCount;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller {
@@ -23,19 +26,24 @@ class StudentController extends Controller {
     }
 
     public function create() {
-        return view('admin.student.add-student');
+        $plans = Subscription::where('status', 1)->get();
+        return view('admin.student.add-student', compact('plans'));
     }
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|regex:/^[A-Za-z ]+$/',
             'email' => 'required|email|unique:users',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
+            'booking_count' => 'required',
+            'fee_price' => 'required_with:selected_plan',
+            'start_date' => 'required_with:selected_plan|date',
+            'end_date' => 'required_with:selected_plan|date|after:start_date',
         ],[
             'first_name.required' => 'First name is required.',
-            'start_date.required' => 'Subscription start date is required.',
-            'end_date.required' => 'Subscription end date is required.',
+            'booking_count.required' => 'First name is required.',
+            'fee_price.required_with' => 'Fee price is required.',
+            'start_date.required_with' => 'Subscription start date is required.',
+            'end_date.required_with' => 'Subscription end date is required.',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -55,6 +63,21 @@ class StudentController extends Controller {
                 'city' => $request->city,
                 'status' => $request->status,
             ]);
+            if (isset($request->selected_plan)) {
+                UserSubscribedPlan::create([
+                    'subscription_id' => $request->selected_plan,
+                    'user_id' => $user->id,
+                    'price' => $request->fee_price,
+                    'subscription_start_date' => $request->start_date . ' 23:59:59',
+                    'subscription_end_date' => $request->end_date . ' 23:59:59',
+                    'paid_with' => 'cash',
+                    'is_active' => 1,
+                ]);
+            }
+            AvailableBookingCount::create([
+                'user_id' => $user->id,
+                'booking_count' => $request->booking_count,
+            ]);
             $data = [
                 'name' => $user->first_name . ' ' . $user->last_name,
                 'email' => $user->email,
@@ -64,8 +87,6 @@ class StudentController extends Controller {
                 'note' => 'Please update your password as soon as possible.'
             ];
             SendUserMailJob::dispatch($data);
-            // 'subscription_start_date' => $request->start_date . ' 23:59:59',
-            // 'subscription_end_date' => $request->end_date . ' 23:59:59',
             DB::commit();
             return response()->json([
                 'status' => true,
@@ -155,12 +176,7 @@ class StudentController extends Controller {
         }
         try {
             $student = User::findOrFail($request->user_id);
-            // dd($request->all());
             $student->courses()->sync($request->courses);
-            // $student->update([
-            //     'title' => $request->title,
-            //     'value' => $request->value,
-            // ]);
             return response()->json([
                 'status' => true,
                 'message' => 'Student courses Updated Successfully'

@@ -14,7 +14,7 @@
                     <input type="hidden" name="user_id" value="{{ $id }}">
                     <div class="row pl-2 pr-2 mb-1" style="font-size: 14px; font-weight: 700; color; black;">
                         <div class="col-md-8">Course Name</div>
-                        <div class="col-md-4 text-center">Unlock</div>
+                        <div class="col-md-4 text-center">Is Accessible</div>
                     </div>
                     <hr class="pl-2 pr-2">
                     @foreach ($courses as $course)
