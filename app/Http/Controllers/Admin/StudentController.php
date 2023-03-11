@@ -160,7 +160,6 @@ class StudentController extends Controller {
         $student = User::findOrFail($id);
         $studentCourses = $student->courses->pluck('id')->toArray();
         $courses = Course::where('is_active', 1)->select('id', 'course_title')->get();
-        // dd($courses);
         return view('admin.modals.student_courses_modal', compact('courses', 'studentCourses', 'id'))->render();
     }
 
