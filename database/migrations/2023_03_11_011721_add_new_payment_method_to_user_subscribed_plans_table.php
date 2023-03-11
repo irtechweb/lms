@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('user_subscribed_plans', function (Blueprint $table) {
-            DB::statement("ALTER TABLE user_subscribed_plans MODIFY COLUMN paid_with ENUM('credit_card', 'paypal', 'bank_transfer', 'stripe', 'cash')");
+            DB::statement("ALTER TABLE user_subscribed_plans MODIFY COLUMN paid_with ENUM('credit_card', 'paypal', 'bank_transfer', 'stripe', 'cash', 'manual')");
         });
     }
 
