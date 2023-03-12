@@ -66,7 +66,7 @@
                                                         @endif 
                                                         per 
                                                     @if(isset($subscription['plans'])) 
-                                                    {{ $subscription['plans'] == 'halfyearly' ? 'half yearly' : $subscription['plans']}} 
+                                                    {{ $subscription['plans'] == 'halfyearly' ? 'half y early' : $subscription['plans']}} 
                                                     @endif
                                         </span> 
                                     </div>
@@ -154,7 +154,7 @@ $(document).ready(function() {
     })
 });
 </script>
-<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
 $(function() {
     /*------------------------------------------
