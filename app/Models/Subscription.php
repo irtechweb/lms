@@ -56,7 +56,7 @@ class Subscription extends Model {
     }
 
     public static function getSubscriptions() {
-        $results = Subscription::get();
+        $results = Subscription::where('status', 1)->get();
         return !empty($results) ? $results->toArray() : [];
     }
 
