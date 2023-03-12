@@ -872,7 +872,7 @@ $(document).ready(function(){
 
         success: function (msg)
         {
-          alert("succse");
+          alert("success");
           $('.lecture-'+lid).find('.su_course_lecture_label').removeClass('su_orange_curr_block');
           $('.lecture-'+lid).find('.su_course_lecture_label').addClass('su_green_curr_block');
           $('.su_course_add_video_section_submit').val('Add');
