@@ -46,6 +46,7 @@ Route::middleware(['auth','urlrecorder'])->group(function () {
 
 
     Route::get('course', [App\Http\Controllers\CourseController::class, 'couseView'])->name('course');
+    Route::get('courses', [App\Http\Controllers\CourseController::class, 'viewAllCourses'])->name('view.all.courses');
     Route::get('home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
     Route::get('course-lesson/{id}', [App\Http\Controllers\HomeController::class, 'courseLesson'])->name('course-lesson');
     Route::get('course-lesson-number/{id}/{lesson_id}', [App\Http\Controllers\HomeController::class, 'courseLesson'])->name('course-lesson-number');

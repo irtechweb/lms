@@ -38,7 +38,17 @@ class HomeController extends Controller {
                     ->orWhere('is_active', 1)
                     ->paginate($paginate_count);
         } else {
-            $courses = Course::with(['course_videos', 'categories'])->where('is_active', 1)->get();
+            $userId = Auth::user()->id;
+
+            $lockedCourses = Course::with(['course_videos', 'categories'])->whereDoesntHave('users', function ($query) use ($userId) {
+                $query->where('users.id', $userId);
+            })->where('is_active', 1)->orderBy('is_locked', 'asc')->get();
+
+            $userCourses = Auth::user()->courses()->with(['course_videos', 'categories'])->where('is_active', 1)->orderBy('course_user.created_at', 'desc')->get();
+
+            $allCourses = $userCourses->concat($lockedCourses);
+
+            $lockedCount = $lockedCourses->where('is_locked', 0)->count() + $userCourses->count();
             // dd($courses);
             // $courses = DB::table('courses')
             //             ->select('courses.*','courses.id as course_id','course_videos.*')
@@ -50,7 +60,7 @@ class HomeController extends Controller {
         }
 //        $courses = $courses->toArray();
         //dd($courses);
-        return view('home', compact('courses'));
+        return view('home', compact('allCourses', 'lockedCount'));
     }
 
     public function courseLesson($id, $lesson_id='') {

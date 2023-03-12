@@ -571,4 +571,9 @@ class Course extends Model
       ->where('course_id', $course_id)
       ->get()->keyBy('id')->toArray();
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
+    }
 }

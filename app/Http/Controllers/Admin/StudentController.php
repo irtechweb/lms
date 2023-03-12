@@ -36,8 +36,8 @@ class StudentController extends Controller {
             'email' => 'required|email|unique:users',
             'booking_count' => 'required',
             'fee_price' => 'required_with:selected_plan',
-            'start_date' => 'required_with:selected_plan|date',
-            'end_date' => 'required_with:selected_plan|date|after:start_date',
+            'start_date' => 'required_with:selected_plan',
+            'end_date' => 'required_with:selected_plan|nullable|after:start_date',
         ],[
             'first_name.required' => 'First name is required.',
             'booking_count.required' => 'First name is required.',
@@ -159,7 +159,7 @@ class StudentController extends Controller {
     public function getStudentCourses($id) {
         $student = User::findOrFail($id);
         $studentCourses = $student->courses->pluck('id')->toArray();
-        $courses = Course::where('is_active', 1)->select('id', 'course_title')->get();
+        $courses = Course::where('is_active', 1)->where('is_locked', 1)->select('id', 'course_title')->get();
         return view('admin.modals.student_courses_modal', compact('courses', 'studentCourses', 'id'))->render();
     }
 

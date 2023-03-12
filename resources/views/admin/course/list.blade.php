@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-Subscription Listing
+Courses Listing
 @endsection
 
 @section('local-style')
@@ -18,7 +18,7 @@ Subscription Listing
         <div class="content-header row">
             <div class="content-header-left col-md-4 col-12 mb-2">
                 <h3 class="content-header-title">
-                    Subscription Listing
+                    Courses Listing
                 </h3>
             </div>
             <div class="content-header-right col-md-8 col-12">
@@ -28,7 +28,7 @@ Subscription Listing
                             <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active">
-                                Subscription Listing
+                                Courses Listing
                             </li>
                         </ol>
                     </div>
@@ -97,7 +97,7 @@ Subscription Listing
                                                         <a type="button" href="{{url('admin/instructor-course-info',['id'=>$course->id])}}" class="btn btn-outline-primary btn-sm mr-2">
                                                             <i class="ft-edit"></i> Edit
                                                         </a>
-                                                        <a type="button" href="{{url('admin/instructor-course-delete',['id'=>$course->id])}}" class="btn btn-outline-danger btn-sm">
+                                                        <a type="button" href="javascript:void(0)" data-url="{{ route('instructor-course-delete.id', $course->id) }}" data-redirect="{{ route('instructor.course.list') }}" class="btn btn-outline-danger delete btn-sm">
                                                             <i class="ft-trash"></i> Delete
                                                         </a>
                                                     </td>
