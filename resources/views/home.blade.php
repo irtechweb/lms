@@ -123,7 +123,7 @@
             <div class="webinar-inner">
                 <h2 class="head-heding">Courses List</h2>
                 <div class="row">
-                    @php $i =1; @endphp
+                    @php $i =1; $uPlan = \Auth::user()->userSubscribedPlans()->get()->count();@endphp
                     @foreach ($allCourses->take(6) as $course)
                         @php
                             $file_name = 'https://player.vimeo.com/video/800186201?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0';
@@ -141,7 +141,7 @@
                             <div class="course-card">
                                 <div class="webinar-heading">{{$course->course_title}}</div>
                                 <div class="webinar-description">Susie Ashfield, Instructor</div>
-                                <div class="webinar-image @if($loop->iteration > $lockedCount) video-overlay @endif">
+                                <div class="webinar-image @if($loop->iteration > $lockedCount || !$uPlan) video-overlay @endif">
                                     <div id="play_lesson" style="padding:58.00% 0 0 0;position:relative;width:100%;height:100%;">
                                         <iframe id="videoId" src="{{url($file_name)}}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:inherit;height:inherit;"></iframe>
                                     </div>
@@ -150,8 +150,8 @@
                                     </video> --}}
                                 </div>
                                 <div class="webinar-button">
-                                    <a href="{{ $loop->iteration > $lockedCount ? 'javascript:void(0)' : route('course-lesson',[$course->id]) }}" style="text-decoration: none;">
-                                        <button>@if($loop->iteration > $lockedCount) <i class="fa fa-lock" aria-hidden="true"></i>@endif Start learning</button>
+                                    <a href="{{ !$uPlan ? url('membership-plans') : ($loop->iteration > $lockedCount ? 'javascript:void(0)' : route('course-lesson',[$course->id])) }}" style="text-decoration: none;">
+                                        <button>@if($loop->iteration > $lockedCount || !$uPlan) <i class="fa fa-lock" aria-hidden="true"></i>@endif Start learning</button>
                                     </a>
                                 </div>
                             </div>
