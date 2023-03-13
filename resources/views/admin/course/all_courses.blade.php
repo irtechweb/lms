@@ -22,14 +22,14 @@
         }
     </style>
 
-    @if(count($allCourses) > 0)
+    @if(count($currentCourses) > 0)
         <div class="upcoming-webinar">
             <div class="container">
                 <div class="webinar-inner">
-                    <h2 class="head-heding">Courses List</h2>
+                    <h2 class="head-heding">Current Courses</h2>
                     <div class="row">
                         @php $i =1; $uPlan = \Auth::user()->userSubscribedPlans()->get()->count();@endphp
-                        @foreach ($allCourses as $course)
+                        @foreach ($currentCourses as $course)
                             @php
                                 $file_name = 'https://player.vimeo.com/video/800186201?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0';
                                 if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
@@ -46,7 +46,7 @@
                                 <div class="course-card">
                                     <div class="webinar-heading">{{$course->course_title}}</div>
                                     <div class="webinar-description">Susie Ashfield, Instructor</div>
-                                    <div class="webinar-image @if($loop->iteration > $lockedCount || !$uPlan) video-overlay @endif">
+                                    <div class="webinar-image @if(!$uPlan) video-overlay @endif">
                                         <div id="play_lesson" style="padding:58.00% 0 0 0;position:relative;width:100%;height:100%;">
                                             <iframe id="videoId" src="{{url($file_name)}}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:inherit;height:inherit;"></iframe>
                                         </div>
@@ -55,8 +55,8 @@
                                         </video> --}}
                                     </div>
                                     <div class="webinar-button">
-                                        <a href="{{ !$uPlan ? url('membership-plans') : ($loop->iteration > $lockedCount ? 'javascript:void(0)' : route('course-lesson',[$course->id])) }}" style="text-decoration: none;">
-                                            <button>@if($loop->iteration > $lockedCount || !$uPlan) <i class="fa fa-lock" aria-hidden="true"></i>@endif Start learning</button>
+                                        <a href="{{ !$uPlan ? url('membership-plans') : route('course-lesson',[$course->id]) }}" style="text-decoration: none;">
+                                            <button>@if(!$uPlan) <i class="fa fa-lock" aria-hidden="true"></i>@endif Start learning</button>
                                         </a>
                                     </div>
                                 </div>
@@ -69,4 +69,50 @@
         </div>
     @endif
     
+    @if(count($upcomingCourses) > 0)
+        <div class="upcoming-webinar">
+            <div class="container">
+                <div class="webinar-inner">
+                    <h2 class="head-heding">Upcoming Courses</h2>
+                    <div class="row">
+                        @php $i =1; $uPlan = \Auth::user()->userSubscribedPlans()->get()->count();@endphp
+                        @foreach ($upcomingCourses as $course)
+                            @php
+                                $file_name = 'https://player.vimeo.com/video/800186201?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0';
+                                if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
+                                    //$file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
+                                    $file_name = $course->course_videos[0]->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
+                                    // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
+                                }
+                            @endphp
+                            @if($i > 3 && $i % 3 == 1)
+                                </div>
+                                <div class="row" style="padding-top:20px;">
+                            @endif
+                            <div class="col-lg-4">
+                                <div class="course-card">
+                                    <div class="webinar-heading">{{$course->course_title}}</div>
+                                    <div class="webinar-description">Susie Ashfield, Instructor</div>
+                                    <div class="webinar-image video-overlay">
+                                        <div id="play_lesson" style="padding:58.00% 0 0 0;position:relative;width:100%;height:100%;">
+                                            <iframe id="videoId" src="{{url($file_name)}}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:inherit;height:inherit;"></iframe>
+                                        </div>
+                                        {{-- <video width="100%" height="100%" controls preload="auto">
+                                            <source src="{{ url($file_name)}}" type="video/mp4">
+                                        </video> --}}
+                                    </div>
+                                    <div class="webinar-button">
+                                        <a href="javascript:void(0)" style="text-decoration: none;">
+                                            <button><i class="fa fa-lock" aria-hidden="true"></i> Start learning</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            @php $i++; @endphp
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection

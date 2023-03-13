@@ -121,7 +121,7 @@
     <div class="upcoming-webinar">
         <div class="container">
             <div class="webinar-inner">
-                <h2 class="head-heding">Courses List</h2>
+                <h2 class="head-heding">My Courses</h2>
                 <div class="row">
                     @php $i =1; $uPlan = \Auth::user()->userSubscribedPlans()->get()->count();@endphp
                     @foreach ($allCourses->take(6) as $course)
