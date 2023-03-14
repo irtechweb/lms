@@ -136,7 +136,7 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                     //$videopath ='https://player.vimeo.com/video/800179717';
                     $videopath =$video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                     //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
-                    $videopath = "https://player.vimeo.com/video/68481134";
+                    //$videopath = "https://player.vimeo.com/video/68481134";
                     $imgsrc = url('images/Play button.svg');
                     $completed = "";
                     if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 )){
