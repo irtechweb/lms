@@ -38,6 +38,7 @@ Route::middleware(['auth','urlrecorder'])->group(function () {
             ->name('profile');
     
     Route::post('profileImage', [\App\Http\Controllers\SiteController::class, 'profileImage']);
+    Route::post('update-password', [\App\Http\Controllers\SiteController::class, 'updatePassword'])->name('update.user.password');
 
     Route::get('editprofile', function () {
         return view('editprofile');

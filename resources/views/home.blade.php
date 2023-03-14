@@ -198,4 +198,76 @@
     </div>
 </div>
 </div>
+
+
+<!-- ================   Change Password Modal   =============== -->
+
+<!-- Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('update.user.password') }}" class="update-user-password">
+                    @csrf
+                    <div class="form-group">
+                        <label for="password">New Password</label>
+                        <input id="password" type="password" class="form-control" name="password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password-confirm">Confirm Password</label>
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(Auth::user()->created_by === 'admin' && is_null(Auth::user()->password_updated_at))
+    <script src="{{ asset('/js/app.js') }}"></script>
+    <script>
+        $(function() {
+            $('#changePasswordModal').modal('show');
+        });
+
+        $(document).on('submit', '.update-user-password', function (e) { 
+            e.preventDefault();
+            var action = $(this).attr('action');
+            var data = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: action,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $('#changePasswordModal').modal('hide');
+                    $('div.loaderImage').hide();
+                    window.toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+                },
+                error: function(error) {
+                    $('div.loaderImage').hide();
+                    window.toast.fire({
+                        icon: 'error',
+                        title: error.responseJSON.message
+                    });
+                }
+            });
+        });
+    </script>
+@endif
+
 @endsection('content')

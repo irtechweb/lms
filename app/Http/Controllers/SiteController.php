@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
 
 class SiteController extends Controller
 {
@@ -48,5 +52,32 @@ class SiteController extends Controller
         $destinationPath = public_path('/profile_images');
         $image->move($destinationPath, $name);
         echo json_encode(['success' => true, 'payload' => url('profile_images/' . $name)]);
+    }
+
+    public function updatePassword(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+                'message' => $validator->errors()->first(),
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        try {
+            Auth::user()->update([
+                'password' => Hash::make($request->password),
+                'password_updated_at' => date('Y-m-d H:i:s'),
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Password Updated Successfully'
+            ], JsonResponse::HTTP_OK);
+        } catch (\Exception $error) {
+            return response()->json([
+                'status' => false,
+                'message' => $error->getMessage()
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

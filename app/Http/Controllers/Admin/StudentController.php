@@ -62,6 +62,7 @@ class StudentController extends Controller {
                 'phone_number' => $request->phone_number,
                 'city' => $request->city,
                 'status' => $request->status,
+                'created_by' => 'admin',
             ]);
             if (isset($request->selected_plan)) {
                 UserSubscribedPlan::create([
