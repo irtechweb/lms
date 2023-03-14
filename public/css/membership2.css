@@ -10,7 +10,11 @@
     align-items: flex-start;
 }
 
-
+.membership-payment-1 {
+    width: 100%;
+    max-width: 54%;
+    margin-left: 23%;
+}
 .membership-plan {
     background: #1C1C1C;
     border-radius: 12px;

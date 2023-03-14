@@ -91,17 +91,21 @@
                     <!--                            <input type="button" name="previous" onclick="history.go(-1);" class="previous action-button-previous" value="Previous" />-->
                 </fieldset>
             </form>
-            <div class="row">
+            <fieldset>
+            
                 <div class="form-card col-lg-12 col-md-6 col-sm-12">
-                    <div class="membership-payment">
-                        <form method="post" action="{{route('postPaymentWithpaypal')}}" enctype="multipart/form-data" id="msform"> @csrf
-                            <input type="hidden" name='user_id' value="{{Crypt::encrypt($data['user_id'])}}">
-                            <input type="hidden" name='subscription_id' value="{{Crypt::encrypt($data['subscription_id'])}}">
-                            <button type="submit" class="m-payment"><img src="{{asset('/images/pp.svg')}}" alt=""> Pay with Paypal</button>
-                        </form>
+                    <div class="membership-payment-1">
+                        <div id="card-element">
+                            <form method="post" action="{{route('postPaymentWithpaypal')}}" enctype="multipart/form-data" id="msform"> @csrf
+                                <input type="hidden" name='user_id' value="{{Crypt::encrypt($data['user_id'])}}">
+                                <input type="hidden" name='subscription_id' value="{{Crypt::encrypt($data['subscription_id'])}}">
+                                <button type="submit" class="m-payment"><img src="{{asset('/images/pp.svg')}}" alt=""> Pay with Paypal</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+           
+        </fieldset>
         </div>
     </div>
 </div>
