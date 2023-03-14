@@ -105,6 +105,7 @@ class RegisteredUserController extends Controller {
                 if($request->has('password_confirmation') && $request->password_confirmation!='' 
                     && $request->password_confirmation!=null &&  $request->password==$request->password_confirmation){
                     $updateArray['password'] = Hash::make($request->password);
+                    $updateArray['password_updated_at'] = date('Y-m-d H:i:s');
                 }
             }
 
