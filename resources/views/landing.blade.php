@@ -75,7 +75,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 <div class="fun-facts">
     <div class="container">
         <!--  <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png"> -->
-        <iframe src="{{ isset($promo_video_link) ? $promo_video_link : 'https://www.youtube.com/embed/sIBcQil9ARA' }}" title="Introduction Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe src="{{ isset($promo_video_link) ? $promo_video_link.'?rel=0' : 'https://www.youtube.com/embed/sIBcQil9ARA?rel=0' }}" title="Introduction Video" frameborder="0"  allowfullscreen></iframe>
         {{-- <video width="800" height="500" controls>
             <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>"
                 type="video/mp4"> --}}
