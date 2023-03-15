@@ -1,31 +1,35 @@
 @extends('layouts.main')
 @section('content')
 
-<?php //dd($completed_lesson_count,$totalquiz);
+<?php 
 $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
 //dd("here");
 ?>
 <style type="text/css">
-  div.done {
-    /*background-color:green;*/
-    
-  }
-  div.done i {
-    /*background-color:black;*/
-    
-  }
-  .done i{
-    /*color:green;*/
-    
-  }
-  div.in-progress:not(.accordion-body){
-    /*background-color:orange;*/
+input[type="checkbox"] {
+  -webkit-appearance: none; /* Remove default checkbox styling on Safari/Chrome */
+  -moz-appearance: none; /* Remove default checkbox styling on Firefox */
+  appearance: none; /* Remove default checkbox styling */
 
-  }
-  .in-progress i{
-    /*color:lightgreen;*/
-    
-  }
+  width: 16px; /* Set width of checkbox */
+  height: 16px; /* Set height of checkbox */
+  border-radius: 4px; /* Add rounded corners to checkbox */
+  outline: none; /* Remove outline when checkbox is focused */
+  background-color: white; /* Set background color of checkbox to white */
+}
+
+input[type="checkbox"]:checked::before {
+  content: "\2713"; /* Add checkmark symbol */
+  display: block; /* Display checkmark symbol */
+  text-align: center; /* Center checkmark symbol */
+  line-height: 16px; /* Set line height to match checkbox height */
+  font-weight: 900; /* Make checkmark symbol even bolder */
+  background: #1c1d1f;
+  border-color: #1c1d1f;
+  color: #fff;
+  font-size: 12px;
+}
+
   .completed i{
     color:black;
     /*background-color: yellow;*/
@@ -85,8 +89,6 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
         <div class="chapter-playlist">
           <div class="chapter-video">
           <?php 
-                //dd($course['course_video']);
-                //$first_video = ($course->getvideoinfo($course['course_video'])[0]);
                 if(isset($first_video))
                 {
                     $file_name = $first_video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
@@ -106,11 +108,9 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
             <div class="accordion" id="accordionExample">
            
             @foreach($sections as $section) 
-            <?php //dd($slectedsessionid);
+            <?php 
                   $acc = "secacc".$section->section_id;
-                  
                   $show = ($section->section_id == $slectedsessionid)?"show":"";
-                  
              ?> 
             <div class="accordion-item" sect="{{$section->section_id}}" Selectedsession="{{$slectedsessionid}}">
                 <h2 class="accordion-header" id="headingOne">
@@ -132,18 +132,17 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                       $video = $course_video[$lecturequiz->media];
                    
                     if($video != null)
-                    //$videopath = url('course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type);
-                    //$videopath ='https://player.vimeo.com/video/800179717';
-                    $videopath =$video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
-                    //dd($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]);
-                    //$videopath = "https://player.vimeo.com/video/68481134";
+                      $videopath =$video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
+                   
                     $imgsrc = url('images/Play button.svg');
                     $completed = "";
+                    $checked = "";
                     if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 1 )){
                       $imgsrc = url('images/greentick.png');
                       $cl =  "done-video";
                       $checkbox = "checked";
-                      $completed = "hide";
+                      $checked = "checked";
+                      //$completed = "hide";
                     }
                     else if((isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]) && isset($lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed) && $lecturesnotes[$section->section_id][$lecturequiz->lecture_quiz_id]->completed == 0 )){
                       $cl =  "selected-video";
@@ -151,28 +150,21 @@ $completion_per = ($totalquiz>0)?($completed_lesson_count/$totalquiz*100):0;
                     else{
                       $cl = "active-video"; 
                     } ?>
-                    
-
-
                     <!-- <a href="javascript:none;"> -->
 
                     <!-- <a href="{{route('course-lesson-number',[$course->id,$lecturequiz->lecture_quiz_id])}}"> -->
 
                     <div  class="play-list {{$cl}} main-div">
-                     <!-- @if($video != null)  -->
-                                      
                      <img onclickevent="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" id="play_btn" class="play" attr="{{$videopath}}" alt="" src="{{$imgsrc}}" >
-                     <!-- <img class="check-color" onclick="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" class="play" attr="{{$videopath}}" alt="" src="{{url('images/check-white.svg')}}" > -->
-                     <!--  @else -->
-                     <!-- <img src="{{url('images/Play button.svg')}}" alt="">
-                     @endif -->
-                  
                      <span>{!! $lecturequiz->title !!}<!-- <small style= "float:right"> 2:01 mins</small> --></span> 
                       <span class="pull-right completed {{$completed}}" id="mark_completed" course_id="{{$course->id}}"
-                        lesson_id="{{$lecturequiz->lecture_quiz_id}}"><i class="fa fa-check" aria-hidden="true"></i></span>
-                      <!-- <img onclick="play(this)" class="play"  alt="" src="{{url('images/Play button.svg')}}" >  -->
+                        lesson_id="{{$lecturequiz->lecture_quiz_id}}">
+                        <div class="checkbox-container">
+                          <input type="checkbox" id="myCheckbox" title="Mark as completed" {{$checked}}>
+                          <label for="myCheckbox"></label>
+                        </div>
+                      </span>
                     </div>
-                    <!-- </a> -->
                     @php
                     @endphp
                     @endforeach   
@@ -327,44 +319,29 @@ $(document).ready(function(){
     });
 
     $('div.main-div').on('click',function(){
-      //alert("maindiv1"+ $(this).find('#play_btn').attr('class'));
-      console.log(($(this).find('span#mark_completed').hasClass('in-progress')));
       if(($(this).find('span#mark_completed').hasClass('in-progress')) == true ){
-        console.log('dont proceed');
         return
       }
       if($(this).find('#play_btn').attr('class') == "play"){
-        //alert('coming to play');
         play($(this).find('#play_btn'),true)
       }else if($(this).find('#play_btn').attr('class') == "pause"){
-        //alert('coming to pause');
         pause($(this).find('#play_btn'),true)
       }
-      console.log($('#play_btn').attr('class'));
     });
 
-    // $('button#complete').click(function(){
-    //     event.preventDefault();
-    //     saveData('','',1);
-    // });
     $('span.completed').click(function(){
-        //alert('span completed call');
-        //event.preventDefault();
         stopaction = true;
         $('#lesson_id').val($(this).attr('lesson_id'));
         $('#course_id').val($(this).attr('course_id'));
         $(this).addClass('in-progress');
-        $(this).addClass('hide');
-
-        saveData($(this).attr('course_id'),$(this).attr('lesson_id'),1)
-        // $('#iscomplete').val(1);
-        // saveData();
+        //$(this).addClass('hide');
+        const checkboxValue = $(this).find('input[type="checkbox"]').prop('checked');
+        saveData($(this).attr('course_id'),$(this).attr('lesson_id'), checkboxValue ? 1 : 0)
     });
 });
 function saveData(course_id,lesson_id,completed=0){
   var url = $(location).attr('href');
   var segments = url.split( '/' );
-  console.log(segments);
   var lesson_id = $('#lesson_id').val();
   var course_id = $('#course_id').val();
   $.ajax({
@@ -372,11 +349,8 @@ function saveData(course_id,lesson_id,completed=0){
     method:'GET',
     success: function(result)
     {
-      
       obj = $('span.in-progress');
-      
       obj.parent().removeClass('in-progress');
-      
       obj.parent().addClass('done');
       
       obj.addClass('done');
@@ -384,14 +358,14 @@ function saveData(course_id,lesson_id,completed=0){
       obj.removeClass('completed');
       obj.removeClass('in-progress');
       obj.parent().find('img').removeAttr('src');
-      obj.parent().find('img').attr('src','<?php echo url('images/greentick.png'); ?>');
+      if(completed == 1)
+        obj.parent().find('img').attr('src','<?php echo url('images/greentick.png'); ?>');
+      else
+        obj.parent().find('img').attr('src','<?php echo url('images/Play button.svg'); ?>');
       obj.parent().find('img').addClass('play');
       obj.parent().find('img').attr('onclickevent','play(this)')
       obj.parent().find('img').removeClass('pause');
-      obj.parent().find('span#mark_completed').addClass('hide');
-      //onclickevent
-      
-      
+      //obj.parent().find('span#mark_completed').addClass('hide');
     }
 
   })
@@ -401,7 +375,6 @@ function saveData(course_id,lesson_id,completed=0){
 function saveNotes(){
   var url = $(location).attr('href');
   var segments = url.split( '/' );
-  console.log(segments);
   var lesson_id = $('#lesson_id').val();
   var course_id = $('#course_id').val();
   $.ajax({
@@ -416,29 +389,29 @@ function saveNotes(){
 
 }
 function getLessonDetail(course_id,lesson_id){
-  //alert(course_id,lesson_id);
   var url = $(location).attr('href');
   $('input#course_id').val(course_id);
   $('input#lesson_id').val(lesson_id);
   $('#save_notes').html('');
-  
+  // empty notes and desc
+  $('#lessondesc p').html('');
+  $('textarea#notes').val('');
+  $('textarea#notes').attr('disabled', true);
   $.ajax({
     url:'<?= url('course-lesson-detail'); ?>'+'/'+course_id+'/'+lesson_id,
     method:'GET',
     success: function(result)
     {
-      console.log(result.desc);
-      console.log($('div#overview'));
       obj = $('span.in-progress');
       obj.addClass('done');
       obj.removeClass('completed');
       obj.removeClass('in-progress');
-      console.log( $('#lessondesc'));
       $('#lessondesc p').html(result.desc);
-      if(result.completed == 0)
-        $('textarea#notes').removeAttr('readonly');
+      if(result.completed == 0){
+        $('textarea#notes').attr('disabled', false);
+      }
       else
-        $('textarea#notes').attr('readonly');
+        $('textarea#notes').attr('disabled', false);
 
       $('textarea#notes').val(result.notes);
     }
@@ -446,63 +419,91 @@ function getLessonDetail(course_id,lesson_id){
   })
 
 }
-
-
-    </script>
-
+</script>
 <script>
 function play(obj,from_play=false)
 {
-      $('div.play-list img.pause').each(function() {
-        console.log('playlistimage');
-        $(this).addClass( "play" );
-        $(this).removeClass( "pause" );
-        $(this).attr('onclickevent','play(this)');
+  $('div.play-list img.pause').each(function() {
+        $(this).addClass("play");
+        $(this).removeClass("pause");
         $(this).attr('src','<?php echo url('images/Play button.svg'); ?>');
       });
+
       var course_id =  $(obj).attr("course_id");
       var lesson_id =  $(obj).attr("lesson_id");
       var pause = '<?php echo url('images/pause.svg'); ?>';
-      
-      var course_id =  $(obj).attr("course_id");
-      var lesson_id =  $(obj).attr("lesson_id");
+      var video_url = $(obj).attr("attr");
       
       $(obj).removeAttr("src");
       $(obj).attr("src", pause);
-      
-   
       $(obj).addClass('pause');
       $(obj).parent().addClass('in-progress');
       $(obj).attr('onclickevent','pause(this)');
       $(obj).removeClass('play');
+      
+      // delete the localStorage value for the previous video, if it exists
+      const prevCourseId = localStorage.getItem('currentCourseId');
+      const prevLessonId = localStorage.getItem('currentLessonId');
+      
+      // set the current course_id and lesson_id in localStorage
+      localStorage.setItem('currentCourseId', course_id);
+      localStorage.setItem('currentLessonId', lesson_id);
+     
+      // verify that the value has been set correctly
+      if((prevCourseId == course_id) && (prevLessonId != lesson_id)) {
+        localStorage.removeItem('currentTime_' + prevCourseId + '_' + prevLessonId);
+      }
 
-      $("#videoId").attr('src',$(obj).attr("attr"));
+      const currentTimeKey = "currentTime_" + course_id + "_" + lesson_id;
+      const storedTime = localStorage.getItem(currentTimeKey);
+
+      if (!isNaN(storedTime)) {
+         player.currentTime = storedTime;
+      }
+      // in case of new lesson load video  else play from last pause
+      if(storedTime <= 0 || isNaN(storedTime)){
+        getLessonDetail(course_id,lesson_id);
+        player.loadVideo(video_url).then(function() {
+        player.play();
+        });
+      }
+      else{
+        player.play();
+      }
+     
       $('#lessondesc p').html();
       $('span#save_notes textarea').val();
-      
-      getLessonDetail(course_id,lesson_id);
       $(obj).parent().find('span#mark_completed').removeClass('hide');
-      player.play();
-      
-     
 };
-function pause(obj,from_play=false)
+
+async function pause(obj,from_play=false)
 {
-      //console.log(obj);
       var course_id =  $(obj).attr("course_id");
       var lesson_id =  $(obj).attr("lesson_id");
-      //alert("pause"+from_play);
       var play = '<?php echo url('images/Play button.svg'); ?>';
-      // alert(pause);
       $(obj).attr("src", play);
-   
       $(obj).addClass('play');
-      $(obj).attr('onclickevent','play(this)')
       $(obj).removeClass('pause');
       player.pause();
+      const currentTime = await getCurrentTime();
 
-      getLessonDetail(course_id,lesson_id);
-     
+      // save current playback position to localStorage
+      const currentTimeKey = "currentTime_" + course_id + "_" + lesson_id;
+      localStorage.setItem(currentTimeKey, currentTime);
 };
-    </script>
+
+function getCurrentTime() {
+  return player.getCurrentTime()
+    .then(function(time) {
+      return time;
+    })
+    .catch(function(error) {
+      console.log('Failed to get current time');
+    });
+}
+// clear local storage video current time
+window.onbeforeunload = function() {
+   localStorage.clear();
+};
+</script>
 @endsection('content')
