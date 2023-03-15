@@ -126,13 +126,44 @@
        <form method="post" enctype="multipart/form-data" action="#"> @csrf <div class="row">
            <div class="col-lg-12">
             
-             <div class="membership-field card"><label for="exampleInputEmail1" class="form-label">Card number</label><input type="text" class="form-control f-img card-number" placeholder="Enter card number" name='card_number' required><img src="{{asset('/images/credit_card.svg')}}" alt=""><div class="master-card"><a href="#"><img src="{{asset('/images/visa.svg')}}" alt=""></a><a href="#"><img src="{{asset('/images/m-card.svg')}}" alt=""></a></div></div>
+                  <div class="membership-field card">
+                    <label for="exampleInputEmail1" class="form-label">Card number</label>
+                    <input type="text" class="form-control f-img card-number" placeholder="Enter card number" name='card_number' required><img src="{{asset('/images/credit_card.svg')}}" alt="">
+                    <div class="master-card"><a href="#"><img src="{{asset('/images/visa.svg')}}" alt=""></a>
+                    <a href="#"><img src="{{asset('/images/m-card.svg')}}" alt=""></a>
+                    </div>  
+                  </div>
 
-             <div class="row"><div class="membership-field m-half"><label for="name" class="form-label">Name on Card</label><input name='card_name' type="text" placeholder="Name on Card" class="form-control" required></div>
+                <div class="row">
+                  <div class="col-lg-6">
+                        <div class="membership-field">
+                        <label for="name" class="form-label">Name on Card</label>
+                        <input name='card_name' type="text" placeholder="Name on Card" class="form-control" required>
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="membership-field cvc"><label for="exampleInputEmail1" class="form-label">CVV</label>
+                        <input type="text" name='cvc' class="form-control card-cvc" placeholder="Enter CVV">
+                      </div>
+                  </div>
+                </div>
 
-             <div class="membership-field m-half cvc"><label for="exampleInputEmail1" class="form-label">CVV</label><input type="text" name='cvc' class="form-control card-cvc" placeholder="Enter CVV"></div></div>
+             
 
-             <div class="row"><div class="membership-field m-half expiration"><label for="expiryMonth" class="form-label">Expiry Month</label><input name='expiry_month' type="text" class="form-control card-expiry-month" placeholder="MM" required></div><div class="membership-field m-half expiration"><label for="expiryYear" class="form-label">Expiry Year</label><input name='expiry_year' type="text" class="form-control card-expiry-year" placeholder="YYYY" required></div></div>
+             <div class="row">
+                  <div class="col-lg-6">
+                    <div class="membership-field expiration">
+                      <label for="expiryMonth" class="form-label">Expiry Month</label>
+                      <input name='expiry_month' type="text" class="form-control card-expiry-month" placeholder="MM" required>
+                    </div>
+                  </div>
+                    <div class="col-lg-6">
+                        <div class="membership-field expiration">
+                          <label for="expiryYear" class="form-label">Expiry Year</label>
+                          <input name='expiry_year' type="text" class="form-control card-expiry-year" placeholder="YYYY" required>
+                        </div>
+                    </div>
+              </div>
 
              <!-- <div class="signup-field">
                <label for="exampleInputEmail1" class="form-label">First Name</label>
