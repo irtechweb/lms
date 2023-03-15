@@ -1,6 +1,3 @@
-<link rel="stylesheet" type="text/css"
-    href="{{ url('theme/app-assets/vendors/css/forms/toggle/switchery.min.css') }}">
-
 <!-- BEGIN: Vendor CSS-->
 <link rel="stylesheet" type="text/css"
     href="{{ url('theme/app-assets/vendors/css/forms/toggle/switchery.min.css') }}">

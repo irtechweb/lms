@@ -1,13 +1,11 @@
 @extends('layouts.default')
+
 @section('title')
-Subscription Listing
+    Subscription Listing
 @endsection
 
 @section('local-style')
-<!-- BEGIN: Vendor CSS-->
-<link rel="stylesheet" type="text/css"
-      href="{{ asset('/theme/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
-<!-- END: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/theme/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
 @endsection
 
 @section('body')
@@ -55,8 +53,8 @@ Subscription Listing
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
                                     @include('includes.error')
-                                    <div class="">
-                                        {{ $dataTable->table(['class' => 'table table-striped table-bordered table-responsive', 'style' => 'width: 100% !important; display: table;', 'id' => 'subscription_plans_table']) }}
+                                    <div class="table-responsive">
+                                        {{ $dataTable->table(['class' => 'table table-striped table-bordered base-style ', 'style' => 'width: 100% !important; display: table;', 'id' => 'subscription_plans_table']) }}
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +76,7 @@ Subscription Listing
 {{ $dataTable->scripts() }}
 <script>
     $(function() {
-            $("#subscription_plans_table_wrapper div:first-child").addClass("align-items-baseline");
-        });
+        $("#subscription_plans_table_wrapper div:first-child").addClass("align-items-baseline");
+    });
 </script>
 @endsection

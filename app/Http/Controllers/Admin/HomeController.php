@@ -6,6 +6,7 @@ use Validator;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Setting;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\UserSubscribedPlan;
@@ -23,6 +24,7 @@ class HomeController extends Controller
     {
         // dd(auth()->user());
         $data['students'] =  User::where('is_active','1')->count();
+        $data['plans'] =  Subscription::where('status','1')->count();
         return view('admin.index',compact('data'));
     }
 

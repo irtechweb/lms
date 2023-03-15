@@ -5,6 +5,36 @@ Courses Listing
 @section('body')
 <link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min599c.css?v4.0.2') }}">
 
+
+
+<style type="text/css">
+label.cabinet{
+    display: block;
+    cursor: pointer;
+}
+
+.cabinet.center-block{
+    margin-bottom: -1rem;
+}
+
+#upload-demo{
+    width: 825px;
+    height: 325px;
+  padding-bottom:25px;
+}
+
+.course-image-container{
+    width: 435px;
+    height: 246px;
+    border: 1px solid #e4eaec;;
+    position: relative;
+}
+
+.custom-blockquote{
+  margin-top: 85px;
+}
+</style>
+
 @php
     $rec = App\Models\CourseVideos::find($course->course_video);
     $promoVideo = isset($rec) ? $rec->video_title : '';
@@ -45,7 +75,7 @@ Courses Listing
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -108,14 +138,16 @@ Courses Listing
                                           <div id='output_image'></div>
                               
                                           <div class="row">
-                                              <div class="col-md-6">
-                                                  <div class="input-group input-group-file" data-plugin="inputGroupFile">
-                                                      <input type="url" class="form-control" name="promo_video_link" id="promo_video_link" placeholder="Enter Video Link" data-url="{!! route('save.course.lesson.vimeo.url', 0) !!}" value="{{ $promoVideo }}">
-                                                  </div>
+                                              <div class="col-md-12">
+                                                <fieldset class="form-group">
+                                                    <div class="input-group input-group-file" data-plugin="inputGroupFile">
+                                                        <input type="url" class="form-control" name="promo_video_link" id="promo_video_link" placeholder="Enter Video Link" data-url="{!! route('save.course.lesson.vimeo.url', 0) !!}" value="{{ $promoVideo }}">
+                                                    </div>
+                                                </fieldset>
                                               </div>
                               
                                               <div class="col-md-6">
-                                                  <input type="submit" class="btn btn-primary upload-promo-video" value="Save">
+                                                  <input type="submit" class="btn btn-primary upload-promo-video" value="Submit">
                                               </div>
                                           </div>
                               
@@ -147,71 +179,11 @@ Courses Listing
 
 
 
+@endsection
 
+@section('local-script')
 
-
-
-
-
-<!-- BEGIN: Vendor JS-->
-<script src="{{ url('theme/app-assets/vendors/js/vendors.min.js') }}"></script>
-<!-- BEGIN Vendor JS-->
-
-
-<!-- BEGIN: switchery JS-->
-<script src="{{ url('theme/app-assets/vendors/js/forms/toggle/switchery.min.js') }}"></script>
-<!-- BEGIN switchery JS-->
-
-
-<!-- BEGIN: jquery steps JS-->
-<script src="{{ url('theme/app-assets/vendors/js/extensions/jquery.steps.min.js') }}"></script>
-<!-- BEGIN jquery steps JS-->
-
-
-<!-- BEGIN: moment-with-locales JS-->
-<script src="{{ url('theme/app-assets/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
-<!-- BEGIN moment-with-locales JS-->
-
-
-<!-- BEGIN: daterangepicker JS-->
-<script src="{{ url('theme/app-assets/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
-<!-- BEGIN daterangepicker JS-->
-
-
-<!-- BEGIN: jquery.validate JS-->
-<script src="{{ url('theme/app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
-<!-- BEGIN jquery.validate JS-->
-
-
-<!-- BEGIN: Page Vendor JS-->
-<script src="{{ url('theme/app-assets/vendors/js/tables/datatable/datatables.min.js') }}"
-type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
-<!-- END: Page Vendor JS-->
-<script src="{{ url('theme/app-assets/vendors/js/extensions/toastr.min.js') }}" type="text/javascript">
-</script>
-
-
-<!-- BEGIN: Theme JS-->
-<script src="{{ url('theme/app-assets/js/core/app-menu.js') }}" type="text/javascript"></script>
-<script src="{{ url('theme/app-assets/js/core/app.js') }}" type="text/javascript"></script>
-<script src="{{ url('theme/app-assets/js/scripts/extensions/toastr.js') }}" type="text/javascript"></script>
-<script src="{{ url('theme/app-assets/js/scripts/forms/wizard-steps.js') }}" type="text/javascript">
-</script>
-<script src="{{ url('theme/app-assets/js/scripts/tooltip/tooltip.min.js') }}" type="text/javascript">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-<script src="{{ asset('backend/vendor/croppie/croppie.min.js?v4.0.2') }}"></script>
-<!-- END: Theme JS-->
-
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
-<!-- BEGIN: Custom Js-->
-<script src="{{ url('theme/assets/js/scripts.js') }}" type="text/javascript"></script>
-<!-- BEGIN: Page JS-->
-
 
 <script type="text/javascript">
   // function upload_video() 
@@ -302,78 +274,3 @@ type="text/javascript"></script>
     });
   </script>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<style type="text/css">
-label.cabinet{
-    display: block;
-    cursor: pointer;
-}
-
-.cabinet.center-block{
-    margin-bottom: -1rem;
-}
-
-#upload-demo{
-    width: 825px;
-    height: 325px;
-  padding-bottom:25px;
-}
-
-.course-image-container{
-    width: 435px;
-    height: 246px;
-    border: 1px solid #e4eaec;;
-    position: relative;
-}
-
-.custom-blockquote{
-  margin-top: 85px;
-}
-</style>
-

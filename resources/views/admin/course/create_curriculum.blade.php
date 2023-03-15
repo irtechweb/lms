@@ -7,9 +7,9 @@ Courses Listing
 use App\Library\ulearnHelpers;
 $course_id = $course->id;
 @endphp
-<link href="{{ asset('backend/curriculum/css/createcourse/style.css') }}" rel="stylesheet">
 
 @section('body')
+<link href="{{ asset('backend/curriculum/css/createcourse/style.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min599c.css?v4.0.2') }}">
 
 <div class="app-content content">
@@ -48,7 +48,7 @@ $course_id = $course->id;
                                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
+                                        {{-- <li><a data-action="close"><i class="ft-x"></i></a></li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -576,73 +576,11 @@ $course_id = $course->id;
 
 
 
+@endsection
 
+@section('local-script')
 
-
-
-
-
-
-<!-- BEGIN: Vendor JS-->
-<script src="{{ url('theme/app-assets/vendors/js/vendors.min.js') }}"></script>
-<!-- BEGIN Vendor JS-->
-
-
-<!-- BEGIN: switchery JS-->
-<script src="{{ url('theme/app-assets/vendors/js/forms/toggle/switchery.min.js') }}"></script>
-<!-- BEGIN switchery JS-->
-
-
-<!-- BEGIN: jquery steps JS-->
-<script src="{{ url('theme/app-assets/vendors/js/extensions/jquery.steps.min.js') }}"></script>
-<!-- BEGIN jquery steps JS-->
-
-
-<!-- BEGIN: moment-with-locales JS-->
-<script src="{{ url('theme/app-assets/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
-<!-- BEGIN moment-with-locales JS-->
-
-
-<!-- BEGIN: daterangepicker JS-->
-<script src="{{ url('theme/app-assets/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
-<!-- BEGIN daterangepicker JS-->
-
-
-<!-- BEGIN: jquery.validate JS-->
-<script src="{{ url('theme/app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
-<!-- BEGIN jquery.validate JS-->
-
-
-<!-- BEGIN: Page Vendor JS-->
-<script src="{{ url('theme/app-assets/vendors/js/tables/datatable/datatables.min.js') }}"
-type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
-<!-- END: Page Vendor JS-->
-<script src="{{ url('theme/app-assets/vendors/js/extensions/toastr.min.js') }}" type="text/javascript">
-</script>
-
-
-<!-- BEGIN: Theme JS-->
-<script src="{{ url('theme/app-assets/js/core/app-menu.js') }}" type="text/javascript"></script>
-<script src="{{ url('theme/app-assets/js/core/app.js') }}" type="text/javascript"></script>
-<script src="{{ url('theme/app-assets/js/scripts/extensions/toastr.js') }}" type="text/javascript"></script>
-<script src="{{ url('theme/app-assets/js/scripts/forms/wizard-steps.js') }}" type="text/javascript">
-</script>
-<script src="{{ url('theme/app-assets/js/scripts/tooltip/tooltip.min.js') }}" type="text/javascript">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-<script src="{{ asset('backend/vendor/croppie/croppie.min.js?v4.0.2') }}"></script>
-<!-- END: Theme JS-->
-
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
-<!-- BEGIN: Custom Js-->
-<script src="{{ url('theme/assets/js/scripts.js') }}" type="text/javascript"></script>
-<!-- BEGIN: Page JS-->
-
-
 
 <script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/tinymce/jscripts/tiny_mce/tiny_mce.js') }}"></script>
 <script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/fileupload/jquery.ui.widget.js') }}"></script>

@@ -7,14 +7,14 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <title>Fixed Layout - Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit</title>
-<link rel="apple-touch-icon" href="{{ url('theme/app-assets/images/ico/apple-icon-120.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('theme/app-assets/images/ico/apple-icon-120.png') }}">
 {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/theme/app-assets/images/ico/boatek.png') }}"> --}}
 <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {{--jquery for globally access ajax calls--}}
 <!-- BEGIN: Custom Js-->
-<script src="{{url('theme/app-assets/vendors/js/tables/jquery-1.12.3.js')}}" type="text/javascript"></script>
+<script src="{{ asset('theme/app-assets/vendors/js/tables/jquery-1.12.3.js') }}" type="text/javascript"></script>
 
 <!-- END: Custom JS-->
 <script>
