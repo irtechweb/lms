@@ -2,8 +2,7 @@
 <link rel="stylesheet" type="text/css"
     href="{{ url('theme/app-assets/vendors/css/forms/toggle/switchery.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url('theme/app-assets/vendors/css/vendors.min.css') }}">
-<link rel="stylesheet" type="text/css"
-    href="{{ url('theme/app-assets/vendors/css/extensions/toastr.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('theme/app-assets/vendors/css/extensions/toastr.css') }}">
 <!-- END: Vendor CSS-->
 
 <!-- BEGIN: Theme CSS-->
@@ -14,12 +13,9 @@
 <!-- END: Theme CSS-->
 
 <!-- BEGIN: Page CSS-->
-<link rel="stylesheet" type="text/css"
-    href="{{ url('theme/app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
-<link rel="stylesheet" type="text/css"
-    href="{{ url('theme/app-assets/css/core/colors/palette-gradient.css') }}">
-<link rel="stylesheet" type="text/css"
-    href="{{ url('theme/app-assets/css/plugins/extensions/toastr.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('theme/app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('theme/app-assets/css/core/colors/palette-gradient.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('theme/app-assets/css/plugins/extensions/toastr.css') }}">
 <!-- END: Page url-->
 
 <!-- BEGIN: Custom CSS-->
@@ -33,6 +29,7 @@
 
 <!-- BEGIN: wizard CSS-->
 <link rel="stylesheet" type="text/css" href="{{ url('theme/app-assets/css/plugins/forms/wizard.css') }}">
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <!-- END: wizard CSS-->
 <style>
     * {

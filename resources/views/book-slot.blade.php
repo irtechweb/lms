@@ -276,9 +276,12 @@ color: #686868;">You have opted for <span id='quantity'>1</span> additional slot
              /* token contains id, last4, and card type */
              var token = response['id'];
              $form.find('input[type=text]').empty();
-             $form.append(" < input type = 'hidden'\
-               name = 'stripeToken'\
-               value = '" + token + "' / > ");
+             var tokenField = $('<input>').attr({
+              type: 'hidden',
+              name: 'stripeToken',
+              value: token
+            });
+             $form.append(tokenField);
                $form.get(0).submit();
              }
            }

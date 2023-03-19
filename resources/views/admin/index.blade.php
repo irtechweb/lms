@@ -22,7 +22,7 @@
                                                     <i class="icon-share icon-opacity primary font-large-4"></i>
                                                 </div>
                                                 <div class="media-body text-right align-self-bottom mt-3">
-                                                    <span class="d-block mb-1 font-medium-1">Students</span>
+                                                    <span class="d-block mb-1 font-medium-1">Active Students</span>
                                                     <h1 class="info mb-0">
                                                         {{ $data['students'] }}
                                                     </h1>

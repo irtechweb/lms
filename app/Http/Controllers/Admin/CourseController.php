@@ -1254,7 +1254,9 @@ class CourseController extends Controller {
         }
         try {
             DB::beginTransaction();
-            $courseVideo = CourseVideos::create([
+            $courseVideo = CourseVideos::updateOrCreate([
+                'course_id' => $request->course_id,
+            ],[
                 'video_title' => $request->link,
                 'video_name' => 'Video Link',
                 'video_type' => '.mp4',
@@ -1262,7 +1264,6 @@ class CourseController extends Controller {
                 'image_name' => 'no_image.png',
                 'video_tag' => 'curriculum',
                 'uploader_id' => \Auth::user()->id,
-                'course_id' => $request->course_id,
                 'processed' => '1',
             ]);
             $course = Course::find($request->course_id);

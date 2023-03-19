@@ -41,13 +41,12 @@ type="text/javascript"></script>
 <script src="{{ url('theme/app-assets/js/core/app.min.js') }}" type="text/javascript"></script>
 <script src="{{ url('theme/app-assets/js/scripts/customizer.min.js') }}" type="text/javascript"></script>
 <script src="{{ url('theme/app-assets/vendors/js/jquery.sharrre.js') }}" type="text/javascript"></script>
+<script src="{{ url('theme/app-assets/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 {{-- <script src="{{ url('theme/app-assets/js/core/app-menu.js') }}" type="text/javascript"></script> --}}
 <script src="{{ url('theme/app-assets/js/core/app.js') }}" type="text/javascript"></script>
 <script src="{{ url('theme/app-assets/js/scripts/extensions/toastr.js') }}" type="text/javascript"></script>
-<script src="{{ url('theme/app-assets/js/scripts/forms/wizard-steps.js') }}" type="text/javascript">
-</script>
-<script src="{{ url('theme/app-assets/js/scripts/tooltip/tooltip.min.js') }}" type="text/javascript">
-</script>
+<script src="{{ url('theme/app-assets/js/scripts/forms/wizard-steps.js') }}" type="text/javascript"></script>
+<script src="{{ url('theme/app-assets/js/scripts/tooltip/tooltip.min.js') }}" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>

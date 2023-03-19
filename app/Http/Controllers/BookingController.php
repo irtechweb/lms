@@ -81,16 +81,16 @@ class BookingController extends Controller {
             //dd('$payment saving data',$paymentData);
 
             $savePayment = \App\Models\CoachPayment::saveData($paymentData);
-           
+            
             $availableslot = \App\Models\AvailableBookingCount::where('user_id',$data['request_data']['user_id'])->first();
             if($availableslot != NULL){
                 $book_count = $availableslot->booking_count+$data['quantity'];
             }
-            else
+            else {
                 $book_count = $data['quantity'];
-
+            }
             //add booking count
-            $saveCount = \App\Models\AvailableBookingCount::createOrUpdate(['user_id' => $data['request_data']['user_id'], 'booking_count' => $book_count]);
+            $saveCount = \App\Models\AvailableBookingCount::updateOrCreate(['user_id' => $data['request_data']['user_id']],[ 'booking_count' => $book_count]);
             if (!$savePayment) {
                 return redirect()->back()->with('Error occurred! please try again');
             }
@@ -100,7 +100,6 @@ class BookingController extends Controller {
             return redirect()->back()->with('Error occurred! please try again');
         }
     }catch(Exception $e){
-        debug::log($e->getMessage());
         return redirect()->back()->with($e->getMessage());
 
     }

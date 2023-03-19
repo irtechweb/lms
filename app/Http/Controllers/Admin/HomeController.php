@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         // dd(auth()->user());
-        $data['students'] =  User::where('is_active','1')->count();
+        $data['students'] =  User::where('status','1')->count();
         $data['plans'] =  Subscription::where('status','1')->count();
         return view('admin.index',compact('data'));
     }

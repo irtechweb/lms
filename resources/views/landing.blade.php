@@ -23,6 +23,7 @@
             height: 500px;
         }
     }
+
 </style>
 @php
 $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video')->pluck('value')->first();
@@ -75,7 +76,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 <div class="fun-facts">
     <div class="container">
         <!--  <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png"> -->
-        <iframe src="{{ isset($promo_video_link) ? $promo_video_link.'?rel=0' : 'https://www.youtube.com/embed/sIBcQil9ARA?rel=0' }}" title="Introduction Video" frameborder="0"  allowfullscreen></iframe>
+        <iframe src="{{ isset($promo_video_link) ? $promo_video_link.'?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/' : 'https://www.youtube.com/embed/sIBcQil9ARA?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/' }}" title="Introduction Video" frameborder="0"  allowfullscreen id="youtube_player"></iframe>
         {{-- <video width="800" height="500" controls>
             <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>"
                 type="video/mp4"> --}}
@@ -100,8 +101,6 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
         </div>
     </div>
 </div>
-
-
 
 <div class="testimonial">
     <div class="container">

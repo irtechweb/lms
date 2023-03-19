@@ -154,6 +154,7 @@ class SubscriptionController extends Controller {
         $data['subscription_id'] = $subscriptionData['subscription']['id'];
         $data['price'] = $subscriptionData['subscription']['price'];
         $data['user_id'] = $subscriptionData['request_data']['user_id'];
+        $data['paid_with'] = 'credit_card';
         $data['subscription_start_date'] = date('Y-m-d H:i:s');
         if (strtolower($subscriptionData['subscription']['plans']) == 'yearly' || strtolower($subscriptionData['subscription']['plans']) == 'anually') {
             $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 1 years'));

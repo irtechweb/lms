@@ -3,7 +3,6 @@
 Courses Listing
 @endsection
 @section('body')
-
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
@@ -105,7 +104,7 @@ Courses Listing
                                   
                                           <div class="form-group col-md-8">
                                               <label class="form-control-label">Keywords</label>
-                                              <input type="text" class="form-control tagsinput" name="keywords" 
+                                              <input type="text" class="form-control" name="keywords" 
                                                   placeholder="Keywords" value="{{ $course->keywords }}" />
                                           </div>
                                   
@@ -202,8 +201,10 @@ Courses Listing
 @endsection
 
 @section('local-script')
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 <script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/tinymce/jscripts/tiny_mce/tiny_mce.js') }}"></script>
 <script >
 
@@ -233,7 +234,8 @@ Courses Listing
         }
       });
 
-        $(".tagsinput").tagsinput();
+      var tagInput = document.querySelector('input[name=keywords]')
+        new Tagify(tagInput);
 
         $("#courseForm").validate({
             rules: {

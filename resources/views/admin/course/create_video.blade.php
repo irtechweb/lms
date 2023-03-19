@@ -93,8 +93,8 @@ label.cabinet{
                                     
                                       <div class="col-md-6">
                                           <label class="cabinet center-block">
-                                              <figure class="course-image-container">
-                                                  <div class="video-preview">
+                                              <figure class="course-image-container" style="border-radius: 12px;">
+                                                  {{-- <div class="video-preview"> --}}
                                                   @if($video)
                                                     @php
                                                       $file_name = 'course/'.$video->course_id.'/'.$video->video_title.'.'.$video->video_type;
@@ -103,7 +103,8 @@ label.cabinet{
                                                     {{-- {{dd( storage_path())}} --}}
                                                     
                                                     @if(!empty($file_name))
-                                                      <video width="100%" height="100%" controls preload="auto"><source src="{{ url($file_name)}}" type="video/mp4"></video>
+                                                        <iframe src="{{ $video->video_title .'?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/' }}" width="100%" height="100%" frameborder="0" allowfullscreen style="border-radius: 12px;"></iframe>
+                                                      {{-- <video width="100%" height="100%" controls preload="auto"><source src="{{ $video->video_title }}"></video> --}}
                                                     @else
                                                       <blockquote class="blockquote custom-blockquote blockquote-success mt-4">
                                                       <p class="mb-0">Promo video not yet uploaded</p>
@@ -115,14 +116,14 @@ label.cabinet{
                                                       </blockquote>
                                                   @endif
                                                   
-                                                  </div>
+                                                  {{-- </div> --}}
                                               </figure>
                                           </label>
                                       </div>
                                       
                                       <div class="col-md-6">
                                           <span style="font-size: 10px;">
-                                              Supported File Formats: mp4
+                                              Supported File Formats: Youtube Vide Link
                                               <br>Duration: 5-10 Mins
                                               <br> Max File Size: 300MB
                                           </span>
@@ -257,20 +258,25 @@ label.cabinet{
     $('body').on('click','.upload-promo-video',function(e){
       e.preventDefault();
       var elem = $('#promo_video_link');
-      var input_link = elem.val();
-      var url = elem.attr('data-url');
-      $.ajax({
-          url: url,
-          data:{link:input_link, course_id:$('[name="course_id"]').val()},
-          method:'POST',
-          success: function(result)
-          {
+      var embed_url = elem.val();
+      if (embed_url.startsWith('https://www.youtube.com/watch?v=') || embed_url.startsWith('https://www.youtube.com/embed/')) {
+          var input_link = embed_url.replace('watch?v=', 'embed/');
+          var url = elem.attr('data-url');
+          $.ajax({
+            url: url,
+            data:{link:input_link, course_id:$('[name="course_id"]').val()},
+            method:'POST',
+            success: function(result)
+            {
             alert('updated')
-          },
-          error: function (response) {
+            },
+            error: function (response) {
             alert('error')
-          }
+            }
         });
+      } else {
+        alert('Please enter valid youtube video link!')
+      }
     });
   </script>
 @endsection
