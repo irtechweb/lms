@@ -131,7 +131,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::segment(1) === '/' ? 'active' : null }}" aria-current="page" href="{{url('home')}}">Home</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" aria-current="page" href="{{url('home')}}">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     
@@ -140,7 +140,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                     <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{url('home')}}"><i class="fa fa-lock" aria-hidden="true" color="black"></i> Courses</a>
                                     
                                     @else
-                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{ route('view.all.courses') }}">Courses</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'courses' ? 'active' : null }}" href="{{ route('view.all.courses') }}">Courses</a>
                                     @endif
                                 </li>
                                 <li class="nav-item">
