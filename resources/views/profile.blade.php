@@ -36,8 +36,6 @@
         use App\Models\UserSubscribedPlan;
         $subs=UserSubscribedPlan::join('subscriptions','subscriptions.id','user_subscribed_plans.subscription_id')->where('user_id',Auth::user()->id)->where('is_active',1)->select('subscriptions.plans','user_subscribed_plans.*')->first(); 
         $profilePic = Auth::user()->profile_pic;
-        //dd($subs);
-        //dd(Auth::user()->first_name);
         ?>
 <div class="container emp-profile ff">
             <form method="get" action="{{url('editprofile')}}">
@@ -50,28 +48,6 @@
                                 <label><i class="fa fa-pencil"></i></label>
                             </div> --}}
                        </div>
-                    <!-- <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="150px" class="rounded-circle mx-auto d-block" alt="avatar">
-                    <div class="" style="box-sizing: border-box;
-    position: absolute;
-    
-    right: 0%;
-  
-    bottom: 0%;
-    background: #FFFFFF;
-    border: 0.5px solid #1C1C1C;
-    height: 24px;
-    width: 24px;
-    left: 0px;
-    top: 0px;
-    border-radius: 50%;
-}
-">
-                    <i style="position: absolute;
-    left: 19.43%;
-    right: 20.84%;
-    top: 11.25%;
-    bottom: 30.08%;" class="fa fa-pencil" aria-hidden="true"></i>
-                    </div> -->
                     <br/>
                     <div class="profile-work text-center">
                         <h5 class="cfhp">
@@ -140,7 +116,7 @@
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-2">
-                                            <button class="btn btn-custom"><i class="fa fa-pencil"></i>&nbsp; Edit About Info</button>
+                                            <button type="button" id="change-url-btn" class="btn btn-custom"><i class="fa fa-pencil"></i>&nbsp; Edit About Info</button>
                                         </div>
                                     </div>
                                 </div>
@@ -155,5 +131,14 @@
             </form> 
             <div style="height: 200px;" ></div>         
         </div>
+        <script>
+            $(document).ready(function() {  
+                $('#change-url-btn').on('click', function() {
+                    // Change the URL with JavaScript's window.location
+                    window.location.href = '/editaboutus';
+                });
+            });
+        </script>
 @endsection('content')
+
 

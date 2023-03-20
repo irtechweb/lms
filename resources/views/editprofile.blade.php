@@ -81,16 +81,16 @@
                                    
                             <ul class="nav nav-tabs text-center" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Contact Info</a>
+                                    <a class="nav-link {{($aboutUs ? '':'active')}}" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Contact Info</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">About</a>
+                                    <a class="nav-link {{($aboutUs ? 'active':'')}}" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">About</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-md-12">
                             <div class="tab-content profile-tab" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="tab-pane fade {{($aboutUs ? '':'show active')}}" id="home" role="tabpanel" aria-labelledby="home-tab">
                                
                                     @csrf
                                             <input type="hidden"  value=" {{Auth::user()->id}}" name="id">
@@ -176,7 +176,7 @@
                                 </form>
                                             
                                 </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="tab-pane fade {{($aboutUs ? 'show active':'')}}" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <form action="{{url('editprofile')}}" method="post">
                                     @csrf
                                 <input type="hidden" name="id"  value=" {{Auth::user()->id}}">
@@ -185,6 +185,7 @@
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">About</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1" name="about" rows="3" maxlength="255">{{Auth::user()->about}}</textarea>
+                                        <input type="hidden" name="about_hidden" value="1">
                                     </div>
                                                 
                                             </div>

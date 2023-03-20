@@ -40,9 +40,8 @@ Route::middleware(['auth','urlrecorder'])->group(function () {
     Route::post('profileImage', [\App\Http\Controllers\SiteController::class, 'profileImage']);
     Route::post('update-password', [\App\Http\Controllers\SiteController::class, 'updatePassword'])->name('update.user.password');
 
-    Route::get('editprofile', function () {
-        return view('editprofile');
-    })->name('editprofile');
+    Route::get('editprofile', [\App\Http\Controllers\SiteController::class, 'editProfile'])->name('editprofile');
+    Route::get('editaboutus', [\App\Http\Controllers\SiteController::class, 'editAboutUs'])->name('editaboutus');
     Route::post('editprofile', [App\Http\Controllers\Auth\RegisteredUserController::class, 'update']);
 
 

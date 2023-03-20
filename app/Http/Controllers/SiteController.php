@@ -33,7 +33,16 @@ class SiteController extends Controller
     {
         return view('profile');
     }
-
+    public function editAboutUs()
+    {
+        $aboutUs = true;
+        return view('editprofile',compact('aboutUs'));
+    }
+    public function editProfile()
+    {
+        $aboutUs = false;
+        return view('editprofile',compact('aboutUs'));
+    }
     public function profileImage(Request $request)
     {
         $this->validate(
