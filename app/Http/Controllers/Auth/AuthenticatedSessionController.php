@@ -79,12 +79,16 @@ class AuthenticatedSessionController extends Controller {
      * @param $social
      * @return Response
      */
-    public function handleProviderCallback($social) {
-        // dd(Socialite::driver($social)->user()->name,'firstname'=>); 
+    public function handleProviderCallback($social) 
+    {
         $userSocial = Socialite::driver($social)->user();
-        // dd($user->email);
+        $full_name = explode(" ", $userSocial->name);
+        $first_name = $full_name[0];
+        $last_name = $full_name[1];
+
         $data['email'] = $userSocial->email;
-        $data['first_name'] = $userSocial->name;
+        $data['first_name'] = $first_name;
+        $data['last_name'] = $last_name;
         $data['is_active'] = '1';
 
         $user = User::where(['email' => $userSocial->getEmail()])->first();
@@ -97,19 +101,14 @@ class AuthenticatedSessionController extends Controller {
             UserLoginLog::saveData($user,'login');
             //------------------------
              return redirect(RouteServiceProvider::HOME);
-            //return redirect()->route('home');
         } else {
             $user = User::create([
                         'first_name' => $data['first_name'],
+                        'last_name' => $data['last_name'],
                         'email' => $data['email'],
                         'is_active' => $data['is_active'],
                         'email_verified_at' => date('Y-m-d H:i:s')
             ]);
-
-            // $a=$user->roles()
-            //    ->attach(Role::where('name', 'student')->first());
-            //    dd($a,$user );
-            // User::insert($data);
             Auth::login($user);
             //----------logging logins
             $user = User::where('id',$user->id)->select('id as user_id','last_login_at','last_logout_at')->first()->toArray();
@@ -119,14 +118,12 @@ class AuthenticatedSessionController extends Controller {
         }
     }
 
-    public function signUpFree() {
-
-        
+    public function signUpFree() 
+    {   
         \DB::table('users')
             ->where('id', Auth::user()->id)
             ->update(['is_sign_up_free'=>1]);
         return redirect('/home');
-        
     }
 
 }

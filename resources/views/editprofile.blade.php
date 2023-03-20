@@ -120,7 +120,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="signup-field">
                                                         <label for="exampleInputEmail1" class="form-label">Phone Number</label>
-                                                        <input type="text" class="form-control f-img" name="phone_number" required="required" placeholder="Enter phone number" value="{{Auth::user()->phone_number}}">
+                                                        <input type="text" class="form-control f-img" name="phone_number"  placeholder="Enter phone number" value="{{Auth::user()->phone_number}}">
                                                         <img src="{{url('images/')}}/call.svg" alt="">
                                                         <div class="alert alert-danger mt-1 mb-1 phoneNumberError" style="display: none;">Please enter phone number</div>
 
