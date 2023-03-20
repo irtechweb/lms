@@ -95,7 +95,7 @@ class BookingController extends Controller {
                 return redirect()->back()->with('Error occurred! please try again');
             }
             Session::flash('success', 'Payment successful!');
-            return redirect()->route('calendly')->with('Payment Done Successfully!, Please Proceed further with booking');
+            return redirect()->route('meeting')->with('Payment Done Successfully!, Please Proceed further with booking');
         } else {
             return redirect()->back()->with('Error occurred! please try again');
         }
@@ -324,10 +324,10 @@ class BookingController extends Controller {
             //dd($ex);
             if (\Config::get('app.debug')) {
                 \Session::put('error', 'Connection timeout');
-                return Redirect::route('calendly');
+                return Redirect::route('meeting');
             } else {
                 \Session::put('error', 'Some error occur, sorry for inconvenience');
-                return Redirect::route('calendly');
+                return Redirect::route('meeting');
             }
         }
         
@@ -368,7 +368,7 @@ class BookingController extends Controller {
             if (!$saveCount) {
                 \Session::put('error', 'Slot in not booked yet');
                 DB::rollback();
-                return Redirect::route('calendly');
+                return Redirect::route('meeting');
             }
             $data['payment_id'] = $paymentID;
             $data['gateway_response'] = $createdPayment;

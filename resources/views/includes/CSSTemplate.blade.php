@@ -144,10 +144,10 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                     @endif
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::segment(1) === 'calendly' ? 'active' : null }}" href="{{url('calendly')}}">Schedule meeting with Coach</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'meeting' ? 'active' : null }}" href="{{url('meeting')}}">Schedule meeting with Coach</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::segment(1) === 'practise' ? 'active' : null }}"  href="{{url('practise')}}">Practice</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'practice' ? 'active' : null }}"  href="{{url('practice')}}">Practice</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link  {{ Request::segment(1) === 'webinars' ? 'active' : null }}" href="{{url('webinars')}}">Webinars</a>

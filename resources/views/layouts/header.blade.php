@@ -30,13 +30,13 @@
                 <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" aria-current="page" href="{{url('home')}}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ Request::segment(1) === 'practise' ? 'active' : null }}" href="{{ route('view.all.courses') }}">Courses</a>
+                <a class="nav-link {{ Request::segment(1) === 'courses' ? 'active' : null }}" href="{{ route('view.all.courses') }}">Courses</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ Request::segment(1) === 'practise' ? 'active' : null }}" href="#">Schedule meeting with Coach</a>
+                <a class="nav-link {{ Request::segment(1) === 'meeting' ? 'active' : null }}" href="#">Schedule meeting with Coach</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {{ Request::segment(1) === 'practise' ? 'active' : null }}"  href="{{url('practise')}}">Practice</a>
+                <a class="nav-link {{ Request::segment(1) === 'practice' ? 'active' : null }}"  href="{{url('practice')}}">Practice</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link  {{ Request::segment(1) === 'webinars' ? 'active' : null }}" href="{{url('webinars')}}">Webinars</a>

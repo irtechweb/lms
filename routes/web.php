@@ -55,8 +55,7 @@ Route::middleware(['auth','urlrecorder'])->group(function () {
     // {user_id}/{subscription_id}
 
    
-    Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
-    //Route::get('calendly', [App\Http\Controllers\HomeController::class, 'calendly'])->name('calendly');
+    Route::get('meeting', [App\Http\Controllers\HomeController::class, 'calendly'])->name('meeting');
     
 
     Route::get('membership-plans', [App\Http\Controllers\SubscriptionController::class, 'membershipPlans'])->name('membershipPlans');
@@ -79,7 +78,7 @@ Route::post('/createBooking', [\App\Http\Controllers\BookingController::class, '
 Route::get('book-slot', [App\Http\Controllers\BookingController::class, 'bookSlot'])->name('bookSlot');
 Route::post('book-slot', [App\Http\Controllers\BookingController::class, 'bookPaymentSlot'])->name('paybookSlot');
 
-Route::get('practise', [App\Http\Controllers\HomeController::class, 'practise'])->name('practise');
+Route::get('practice', [App\Http\Controllers\HomeController::class, 'practise'])->name('practice');
 
 Route::get('course-lesson-detail/{id}/{lesson_id}', [App\Http\Controllers\HomeController::class, 'courseLessonDetail'])->name('course-lesson-detail');
 

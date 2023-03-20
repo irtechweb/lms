@@ -105,6 +105,7 @@ Subscription Orders
     $(function() {
         $('#subscription_orders_table').DataTable({
             ajax: '{{ route("subscription-orders-datatable") }}',
+            order: [[0, 'desc']],
             processing: true,
             serverSide: true,
             scrollX: false,

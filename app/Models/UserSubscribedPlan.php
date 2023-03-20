@@ -33,7 +33,6 @@ class UserSubscribedPlan extends Model {
      * @var array<int, string>
      */
     public static function saveData($data) {
-    
         $results = UserSubscribedPlan::create($data);
         return !empty($results) ? $results->toArray() : [];
     }

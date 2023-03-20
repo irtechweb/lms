@@ -160,8 +160,8 @@ class SubscriptionController extends Controller {
             $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 1 years'));
         } elseif (strtolower($subscriptionData['subscription']['plans']) == 'monthly') {
             $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 1 months'));
-        } elseif (strtolower($subscriptionData['subscription']['plans']) == 'weekly') {
-            $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 1 weeks'));
+        } elseif (strtolower($subscriptionData['subscription']['plans']) == 'halfyearly') {
+            $data['subscription_end_date'] = date('Y-m-d H:i:s', strtotime($data['subscription_start_date'] . ' + 6 months'));
         }
         return $data;
     }

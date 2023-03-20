@@ -28,10 +28,10 @@ class urlrecorder
             $data['page'] = request()->segments()[0];
             $data['objectname'] ="N/A";
             switch (request()->segments()[0]) {
-              case 'calendly':            
+              case 'meeting':            
                 $data['objecttype']='page';
                 break;
-              case 'practise':
+              case 'practice':
                 $data['objecttype']='page';
                 break;
               case 'webinars':            
