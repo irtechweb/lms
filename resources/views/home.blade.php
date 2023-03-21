@@ -150,7 +150,7 @@
                                     </video> --}}
                                 </div>
                                 <div class="webinar-button">
-                                    <a href="{{ !$uPlan ? url('membership-plans') : ($loop->iteration > $lockedCount ? 'javascript:void(0)' : route('course-lesson',[$course->id])) }}" style="text-decoration: none;">
+                                    <a href="{{ !$uPlan ? url('membership-plans/'.$course->id) : ($loop->iteration > $lockedCount ? 'javascript:void(0)' : route('course-lesson',[$course->id])) }}" style="text-decoration: none;">
                                         <button>@if($loop->iteration > $lockedCount || !$uPlan) <i class="fa fa-lock" aria-hidden="true"></i>@endif Start learning</button>
                                     </a>
                                 </div>

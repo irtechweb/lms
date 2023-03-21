@@ -24,7 +24,7 @@ class UserActivityDetailListDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        
+        $query->orderBy('dated', 'desc'); // Sort by the 'dated' column in descending order
         return (new EloquentDataTable($query))
             ->addColumn('action', 'useractivitydetaillist.action')
             ->editColumn('dated', function ($rec){

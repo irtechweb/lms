@@ -49,6 +49,18 @@ class urlrecorder
                 $obj = Course::find($data['objectid']);
                 $data['objectname']=is_object($obj)?$obj->course_title:"NA";
                 break;
+            case 'membership-plans':
+                $data['objecttype']='membership-plans';
+                $data['objectid']=request()->segments()[1];
+                $obj = Course::find($data['objectid']);
+                $data['objectname']=is_object($obj)?$obj->course_title:"NA";
+                break;    
+            case 'course-lesson-detail':
+                $data['objecttype'] = Course::find(request()->segments()[1])->course_title;
+                $data['objectid']=request()->segments()[2];
+                $obj = \DB::table('curriculum_lectures_quiz')->where('lecture_quiz_id', $data['objectid'])->first();
+                $data['objectname']=is_object($obj)?$obj->title:"NA";
+                break;    
             case 'payment-details':
                 $data['objecttype']='viewsubscription';
                 $data['objectid']=$request->only('selected-plan')['selected-plan'];

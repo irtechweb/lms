@@ -134,13 +134,12 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                     <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" aria-current="page" href="{{url('home')}}">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    
                                      @if (Auth::check() && (isset(Auth::user()->email_verified_at)) && Auth::user()->getUserSubscription(Auth::user()->id) == null)
                                      <?php ?>
-                                    <a class="nav-link {{ Request::segment(1) === 'home' ? 'active' : null }}" href="{{url('home')}}"><i class="fa fa-lock" aria-hidden="true" color="black"></i> Courses</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'courses' ? 'active' : null }}" href="{{url('courses')}}"><i class="fa fa-lock" aria-hidden="true" color="black"></i> Courses</a>
                                     
                                     @else
-                                    <a class="nav-link {{ Request::segment(1) === 'courses' ? 'active' : null }}" href="{{ route('view.all.courses') }}">Courses</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'courses' ? 'active' : null }}" href="{{ url('courses') }}">Courses</a>
                                     @endif
                                 </li>
                                 <li class="nav-item">

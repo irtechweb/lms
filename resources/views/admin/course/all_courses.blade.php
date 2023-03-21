@@ -55,7 +55,7 @@
                                         </video> --}}
                                     </div>
                                     <div class="webinar-button">
-                                        <a href="{{ !$uPlan ? url('membership-plans') : route('course-lesson',[$course->id]) }}" style="text-decoration: none;">
+                                        <a href="{{ !$uPlan ? url('membership-plans/'.$course->id) : route('course-lesson',[$course->id]) }}" style="text-decoration: none;">
                                             <button>@if(!$uPlan) <i class="fa fa-lock" aria-hidden="true"></i>@endif Start learning</button>
                                         </a>
                                     </div>

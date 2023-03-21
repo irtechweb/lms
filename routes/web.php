@@ -57,8 +57,8 @@ Route::middleware(['auth','urlrecorder'])->group(function () {
    
     Route::get('meeting', [App\Http\Controllers\HomeController::class, 'calendly'])->name('meeting');
     
-
     Route::get('membership-plans', [App\Http\Controllers\SubscriptionController::class, 'membershipPlans'])->name('membershipPlans');
+    Route::get('membership-plans/{id}', [App\Http\Controllers\SubscriptionController::class, 'membershipPlans'])->name('membershipPlans');
     Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');
   //  Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');
     Route::post('payment', [App\Http\Controllers\SubscriptionController::class, 'savePaymentDetails'])->name('savePaymentDetail');
