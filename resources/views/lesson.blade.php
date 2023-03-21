@@ -55,10 +55,6 @@ input[type="checkbox"]:checked::before {
 .hide{
   display:none;
 }
-
-.d-none {
-  display: none !important;
-}
 </style>
   <!-- ===============   Practice Start   ============== -->
   <div class="daily-goals">
@@ -95,19 +91,16 @@ input[type="checkbox"]:checked::before {
           <?php 
                 if(isset($first_video))
                 {
-                    $file_name = $first_video->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                    $file_name = $first_video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                 ?>
             <?php                 
                 }else{
-                $file_name = $first_video->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                $file_name = $first_video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
                 }
                 ?>
               <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;border-radius: 12px;">
                 <iframe id="videoId" src="{{url($file_name)}}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
-                style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius: 12px;">
-                </iframe>
-                <iframe id="videoId1" src="https://player.vimeo.com/video/798543316" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
-                style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius: 12px;" class="d-none">
+                style="position:absolute;top:0;left:0;width:100%;height:100%;">
                 </iframe>
               </div>
           </div>
@@ -255,7 +248,7 @@ input[type="checkbox"]:checked::before {
             <h3><span id="plan-price" > @if(isset($subscriptionPlanMonthly->price)) ${{$subscriptionPlanMonthly->price}}.00 @else $0.00 @endif </span></h3>
             <h6>Annual membership<span>$<?php  echo isset($subscriptionPlanAnually->price) ? number_format($subscriptionPlanAnually->price/12,2):'0' ?>/month</span></h6>
             <?php $plan = isset($subscriptionPlanMonthly)?$subscriptionPlanMonthly:$subscriptionPlanAnually; ?>
-           
+         
 
 
              <a href="{{route('paymentDetails',['user_id'=>(Crypt::encrypt(auth()->user()->id)),'subscription_id'=>(Crypt::encrypt($plan->id))])}}"> <button class="start-membership">Start membership</button></a>
@@ -276,7 +269,7 @@ input[type="checkbox"]:checked::before {
 <script src="https://player.vimeo.com/api/player.js"></script>
 <script>
   var stopaction = false;
-  var player = new Vimeo.Player(document.querySelector('iframe#videoId1'));
+  var player = new Vimeo.Player(document.querySelector('iframe'));
 
 // playButton.addEventListener('click', function() {
 //   player.play().then(function() {
@@ -326,8 +319,6 @@ $(document).ready(function(){
     });
 
     $('div.main-div').on('click',function(){
-      document.querySelector('iframe#videoId').classList.add('d-none');
-      document.querySelector('iframe#videoId1').classList.remove('d-none');
       if(($(this).find('span#mark_completed').hasClass('in-progress')) == true ){
         return
       }
@@ -433,8 +424,6 @@ function getLessonDetail(course_id,lesson_id){
 function play(obj,from_play=false)
 {
   $('div.play-list img.pause').each(function() {
-        document.querySelector('iframe#videoId').classList.add('d-none');
-        document.querySelector('iframe#videoId1').classList.remove('d-none');
         $(this).addClass("play");
         $(this).removeClass("pause");
         $(this).attr('src','<?php echo url('images/Play button.svg'); ?>');
