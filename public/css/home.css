@@ -1094,3 +1094,90 @@ label.form-label {
     font-weight: 700;
 }
 
+.cd-content-home {
+    margin: 30px;
+    background-color: #1C1C1C;
+    color: white;
+    height: 419px !important;
+}
+
+.cd-title {
+    font-weight: 500;
+    font-family: 'Inter';
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.cd-heading {
+    font-family: 'Inter' !important;
+    line-height: 38px;
+}
+
+.cd-vid-sec {
+    min-width: 381px;
+    width: 381px;
+    height: 237px;
+    border-radius: 12px;
+    margin-top: 0px;
+    margin-right: 24px;
+}
+
+.cd-vid-img {
+    margin-bottom: 0px;
+    height: inherit;
+    width: 100%
+}
+
+.cd-vid-inner {
+    padding: 58.00% 0 0 0;
+    position: relative;
+    width: inherit;
+    border-radius: 12px;
+    height: 100%;
+}
+
+.cd-ifram {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+}
+
+.cd-course-title {
+    margin-top: 16px;
+    margin-bottom: 24px;
+}
+
+.cd-course-desc {
+    min-height: 72px;
+    display: block
+}
+
+.cd-play-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 12px;
+    width: 254px;
+    height: 56px;
+    background: #FFFFC8;
+    border-radius: 6px;
+    margin-top: 24px;
+}
+
+.cd-play-btn-txt {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    color: #1C1C1C;
+}
+
+.cd-btn-link:hover {
+    text-decoration: none;
+}
