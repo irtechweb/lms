@@ -1094,6 +1094,10 @@ label.form-label {
     font-weight: 700;
 }
 
+.cd-sec {
+    display: flex;
+}
+
 .cd-content-home {
     margin: 30px;
     background-color: #1C1C1C;
@@ -1122,6 +1126,25 @@ label.form-label {
     margin-right: 24px;
 }
 
+@media (max-width: 769px) {
+    .cd-sec {
+        display: block !important;
+    }
+    .cd-content-home {
+        height: auto !important;
+        margin: 20px;
+    }
+    .cd-vid-sec {
+        min-width: 200px;
+        width: 200px;
+    }
+    .cd-course-desc {
+        width: auto !important;
+    }
+    .cd-play-btn {
+        width: auto !important;
+    }
+}
 .cd-vid-img {
     margin-bottom: 0px;
     height: inherit;

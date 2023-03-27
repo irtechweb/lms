@@ -80,7 +80,7 @@
                         <p class="cd-title">Continue learning</p> 
                         <h1 Class="cd-heading">{{ $allCourses[0]->course_title }}</h1>
                     </div>
-                    <div class="d-flex" style="margin-top: 24px;">
+                    <div class="cd-sec" style="margin-top: 24px;">
                         {{-- Start Promo Vidoe --}}
                         @if(isset($allCourses[0]->course_videos[0]) && !empty($allCourses[0]->course_videos))
                             @php
@@ -107,7 +107,8 @@
                                 {!! strlen(strip_tags($allCourses[0]->overview)) > 351 ? substr(strip_tags($allCourses[0]->overview), 0, 351) . "..." : $allCourses[0]->overview !!}
                             </span>
                             {{-- Continue Button --}}
-                            <a href="{{route('course-lesson',[$allCourses[0]->id])}}" class="cd-btn-link">
+                            {{-- <a href="{{route('course-lesson',[$allCourses[0]->id])}}" class="cd-btn-link"> --}}
+                            <a href="javascript:void(0)" class="cd-btn-link">
                                 <div class="cd-play-btn">
                                     <img src="{{ asset('/images/play_arrow.png') }}" alt="">
                                     <span class="cd-play-btn-txt">Continue learning</span>
