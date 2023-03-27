@@ -1165,6 +1165,8 @@ label.form-label {
     left: 0;
     width: inherit;
     height: inherit;
+    border-radius: 12px;
+    background-color: black;
 }
 
 .cd-course-title {

@@ -92,16 +92,14 @@ input[type="checkbox"]:checked::before {
         </div>
         <div class="chapter-playlist">
           <div class="chapter-video">
-          <?php 
+            <?php 
                 if(isset($first_video))
                 {
-                    $file_name = $first_video->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
-                ?>
-            <?php                 
-                }else{
-                $file_name = $first_video->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                  $file_name = $first_video->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                } else {
+                  $file_name = "https://www.youtube.com/embed/sIBcQil9ARA?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
                 }
-                ?>
+            ?>
               <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;border-radius: 12px;">
                 <iframe id="videoId" src="{{url($file_name)}}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
                 style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius: 12px;">

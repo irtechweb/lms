@@ -73,53 +73,46 @@
     <!-- ===============   Courses List Start   ============== -->
     @if(count($allCourses) > 0)
         <!-- ===============   Continue Learning Start   ============== -->
-        <div class="chapter-detail">
-            <div class="container">
-                <div class="chapter-detail-content cd-content-home">
-                    <div class="chapter-header">
-                        <p class="cd-title">Continue learning</p> 
-                        <h1 Class="cd-heading">{{ $allCourses[0]->course_title }}</h1>
-                    </div>
-                    <div class="cd-sec" style="margin-top: 24px;">
-                        {{-- Start Promo Vidoe --}}
-                        @if(isset($allCourses[0]->course_videos[0]) && !empty($allCourses[0]->course_videos))
-                            @php
-                                $file_name = 'https://www.youtube.com/embed/sIBcQil9ARA?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/';
-                                if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
-                                    $file_name = $course->course_videos[0]->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
-                                }
-                            @endphp
+        @if (isset($lastWatch))
+            <div class="chapter-detail">
+                <div class="container">
+                    <div class="chapter-detail-content cd-content-home">
+                        <div class="chapter-header">
+                            <p class="cd-title">Continue learning</p> 
+                            <h1 Class="cd-heading">{{ $lastWatch['course_title'] }}</h1>
+                        </div>
+                        <div class="cd-sec" style="margin-top: 24px;">
+                            {{-- Start Promo Vidoe --}}
                             <div class="chapter-video cd-vid-sec">
                                 <div class="webinar-image cd-vid-img">
                                     <div id="play_lesson" class="cd-vid-inner">
-                                        <iframe id="videoId" src="{{url($file_name)}}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" class="cd-ifram"></iframe>
+                                        <iframe src="{{ url($lastWatch['lesson_video_url']) }}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" class="cd-ifram"></iframe>
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                        {{-- End Promo Vidoe --}}
+                            {{-- End Promo Vidoe --}}
 
-                        {{-- Start Descrition --}}
-                        <div>
-                            {{-- Right Side Title and Description --}}
-                            <h5 class="cd-course-title">{{$allCourses[0]->course_title}}</h5>
-                            <span class="cd-course-desc">
-                                {!! strlen(strip_tags($allCourses[0]->overview)) > 351 ? substr(strip_tags($allCourses[0]->overview), 0, 351) . "..." : $allCourses[0]->overview !!}
-                            </span>
-                            {{-- Continue Button --}}
-                            {{-- <a href="{{route('course-lesson',[$allCourses[0]->id])}}" class="cd-btn-link"> --}}
-                            <a href="javascript:void(0)" class="cd-btn-link">
-                                <div class="cd-play-btn">
-                                    <img src="{{ asset('/images/play_arrow.png') }}" alt="">
-                                    <span class="cd-play-btn-txt">Continue learning</span>
-                                </div>
-                            </a>
+                            {{-- Start Descrition --}}
+                            <div>
+                                {{-- Right Side Title and Description --}}
+                                <h5 class="cd-course-title">{{ $lastWatch['lesson_title'] }}</h5>
+                                <span class="cd-course-desc">
+                                    {!! strlen(strip_tags($lastWatch['description'])) > 351 ? substr(strip_tags($lastWatch['description']), 0, 351) . "..." : $lastWatch['description'] !!}
+                                </span>
+                                {{-- Continue Button --}}
+                                <a href="{{ route('course-lesson', $lastWatch['course_id']) }}" class="cd-btn-link">
+                                    <div class="cd-play-btn">
+                                        <img src="{{ asset('/images/play_arrow.png') }}" alt="">
+                                        <span class="cd-play-btn-txt">Continue learning</span>
+                                    </div>
+                                </a>
+                            </div>
+                            {{-- End Descrition --}}
                         </div>
-                        {{-- End Descrition --}}
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <!-- ===============   My Courses Start   ============== -->
         <div class="upcoming-webinar">

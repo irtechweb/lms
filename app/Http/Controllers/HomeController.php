@@ -49,18 +49,23 @@ class HomeController extends Controller {
             $allCourses = $userCourses->concat($lockedCourses);
 
             $lockedCount = $lockedCourses->where('is_locked', 0)->count() + $userCourses->count();
-            // dd($courses);
-            // $courses = DB::table('courses')
-            //             ->select('courses.*','courses.id as course_id','course_videos.*')
-            //             // ->rightJoin('categories', 'categories.id', '=', 'courses.category_id')
-            //             ->rightJoin('course_videos', 'course_videos.course_id', '=', 'courses.id')
-            //             // ->groupBy('courses.id')
-            //             // ->where('courses.instructor_id', $instructor_id)
-            //             ->paginate($paginate_count);
+            $lastWatchCourse = Auth::user()->logs()
+                ->where('page', 'course-lesson-detail')
+                ->with('courseVideo.course')
+                ->orderBy('created_at', 'desc')
+                ->first();
+            $lastWatch = [''];
+            if (isset($lastWatchCourse)) {
+                $lastWatch = [
+                    'course_id' => $lastWatchCourse->courseVideo->course->id,
+                    'course_title' => $lastWatchCourse->objecttype,
+                    'lesson_title' => $lastWatchCourse->objectname,
+                    'description' => $lastWatchCourse->courseVideo->course->overview,
+                    'lesson_video_url' => $lastWatchCourse->courseVideo->video_title,
+                ];
+            }
         }
-//        $courses = $courses->toArray();
-        //dd($courses);
-        return view('home', compact('allCourses', 'lockedCount'));
+        return view('home', compact('allCourses', 'lockedCount', 'lastWatch'));
     }
 
     public function courseLesson($id, $lesson_id='') {
@@ -138,8 +143,6 @@ class HomeController extends Controller {
             $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
             return view('lesson', $data);
         } else {
-           
-                
             $access['user_id'] = Auth::user()->id;
             $access['course_id'] = $id;
             $access['created_at'] = date('Y-m-d H:i:s');
