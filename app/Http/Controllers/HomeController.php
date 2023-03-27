@@ -54,7 +54,7 @@ class HomeController extends Controller {
                 ->with('courseVideo.course')
                 ->orderBy('created_at', 'desc')
                 ->first();
-            $lastWatch = [''];
+            $lastWatch = null;
             if (isset($lastWatchCourse)) {
                 $lastWatch = [
                     'course_id' => $lastWatchCourse->courseVideo->course->id,
