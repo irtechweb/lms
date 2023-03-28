@@ -51,17 +51,17 @@ class HomeController extends Controller {
             $lockedCount = $lockedCourses->where('is_locked', 0)->count() + $userCourses->count();
             $lastWatchCourse = Auth::user()->logs()
                 ->where('page', 'course-lesson-detail')
-                ->with('courseVideo.course')
+                ->with('curriculumLecturesQuiz.courseVideo.course')
                 ->orderBy('created_at', 'desc')
                 ->first();
             $lastWatch = null;
             if (isset($lastWatchCourse)) {
                 $lastWatch = [
-                    'course_id' => $lastWatchCourse->courseVideo->course->id,
+                    'course_id' => $lastWatchCourse->curriculumLecturesQuiz->courseVideo->course->id,
                     'course_title' => $lastWatchCourse->objecttype,
                     'lesson_title' => $lastWatchCourse->objectname,
-                    'description' => $lastWatchCourse->courseVideo->course->overview,
-                    'lesson_video_url' => $lastWatchCourse->courseVideo->video_title,
+                    'description' => $lastWatchCourse->curriculumLecturesQuiz->courseVideo->course->overview,
+                    'lesson_video_url' => $lastWatchCourse->curriculumLecturesQuiz->courseVideo->video_title,
                 ];
             }
         }
@@ -180,9 +180,6 @@ class HomeController extends Controller {
             $data['completed'] = $notes->completed;
         }
         return response()->json($data);
-        
-       
-        
     }
 
     public function calendly() {
@@ -196,8 +193,7 @@ class HomeController extends Controller {
     }
 
     public function practise() {
-
-         return view('yoodli');
+        return view('yoodli');
     }
 
     public function saveLessonNotes() {

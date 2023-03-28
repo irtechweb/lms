@@ -86,7 +86,7 @@
                             <div class="chapter-video cd-vid-sec">
                                 <div class="webinar-image cd-vid-img">
                                     <div id="play_lesson" class="cd-vid-inner">
-                                        <iframe src="{{ url($lastWatch['lesson_video_url']) }}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" class="cd-ifram"></iframe>
+                                        <iframe src="{{ url($lastWatch['lesson_video_url'].'?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/') }}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" class="cd-ifram"></iframe>
                                     </div>
                                 </div>
                             </div>

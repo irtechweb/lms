@@ -12,8 +12,8 @@ class logroutes extends Model
         'objecttype','objectid','user_id','page','objectname'
     ];
 
-    public function courseVideo()
+    public function curriculumLecturesQuiz()
     {
-        return $this->belongsTo(CourseVideos::class, 'objectid');
+        return $this->belongsTo(CurriculumLecturesQuiz::class, 'objectid', 'lecture_quiz_id');
     }
 }
