@@ -104,7 +104,7 @@ Route::prefix('admin')->group(static function () {
         // Route::post('courses/section/save', 'Admin\CourseController@postSectionSave');
         Route::post('courses/section/save', [\App\Http\Controllers\Admin\CourseController::class, 'postSectionSave']);
 
-        Route::post('courses/section/delete', 'Admin\CourseController@postSectionDelete');
+        Route::post('courses/section/delete', '\App\Http\Controllers\Admin\CourseController@postSectionDelete');
         // Route::post('courses/lecture/save', 'Admin\CourseController@postLectureSave');
         Route::post('courses/lecture/save', [\App\Http\Controllers\Admin\CourseController::class, 'postLectureSave']);
 
@@ -135,7 +135,7 @@ Route::prefix('admin')->group(static function () {
         Route::post('courses/lectureexres/save', 'Admin\CourseController@postLectureExternalResourceSave');
 
         // Sorting Curriculum
-        Route::post('courses/curriculum/sort', 'CourseController@postCurriculumSort');
+        Route::post('courses/curriculum/sort', '\App\Http\Controllers\Admin\CourseController@postCurriculumSort');
 
         Route::get('/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.categories');
         Route::get('/category-form', [\App\Http\Controllers\Admin\CategoryController::class, 'getForm'])->name('admin.categoryForm');

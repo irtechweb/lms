@@ -1,4 +1,3 @@
-
 @extends('layouts.default')
 @section('title')
 Courses Listing
@@ -60,9 +59,7 @@ $course_id = $course->id;
                                    
                                     <form method="POST" action="{{ 'course/updatecourse' }}" accept-charset="UTF-8" class="form-horizontal saveLabel" parsley-validate="" novalidate=" " enctype="multipart/form-data">
             
-                                      <input name="course_id" type="hidden" value="{{ $course->id }}">
-                         
-                         
+                                     <input name="course_id" type="hidden" value="{{ $course->id }}">
                                      <input name="coursesection" type="hidden" value="{{ url('admin/courses/section/save') }}">
                                      <input name="courselecture" type="hidden" value="{{ url('admin/courses/lecture/save') }}">
                                      <input name="coursequiz" type="hidden" value="{{ url('admin/courses/quiz/save') }}">
@@ -79,9 +76,6 @@ $course_id = $course->id;
                                      <input name="courseselectlibrary" type="hidden" value="{{ url('admin/courses/lecturelib/save') }}">
                                      <input name="courseselectlibraryres" type="hidden" value="{{ url('admin/courses/lecturelibres/save') }}">
                                      <input name="courseexternalres" type="hidden" value="{{ url('admin/courses/lectureexres/save') }}">
-                                     
-                                     
-                                     
                                      
                                      <div class="su_course_curriculam">
                          
@@ -130,7 +124,9 @@ $course_id = $course->id;
                                                    <div class="updatelecture" onclick="updatelecture({!! $lecturequiz->lecture_quiz_id !!},{!! $section->section_id !!})"></div>
                                                    <div class="lecture_add_content" id="lecture_add_content{!! $lecturequiz->lecture_quiz_id !!}">
                                                      @if(empty($lecturequiz->description))
-                                                     <input type="button" name="lecture_add_content" class="adddescription" value="Lesson Description" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
+                                                     <input type="button" name="lecture_add_content" class="adddescription" value="Add Lesson Description" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
+                                                     @else
+                                                     <input type="button" name="lecture_add_content" class="adddescription" value="Edit Lesson Description" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
                                                      @endif
                                                      @if(empty($lecturequiz->media) && is_null($lecturequiz->media_type))
                                                       <input type="button" name="lecture_add_content" value="Add Video URL" class="addvideocontents" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
@@ -181,7 +177,7 @@ $course_id = $course->id;
                          
                                              <!-- add description start -->
                          
-                                             <div class="su_course_add_lecture_desc_content su_course_add_content_desc_form @if(empty($lecturequiz->description)) hideit editing @endif" id="adddescblock-{!! $lecturequiz->lecture_quiz_id !!}">
+                                             <div style="display:none;" class="su_course_add_lecture_desc_content  su_course_add_content_desc_form @if(empty($lecturequiz->description)) hideit editing @endif" id="adddescblock-{!! $lecturequiz->lecture_quiz_id !!}">
                                                <div class="divtitlehead"><p><strong>Lesson Description</strong></p></div>
                                                <div class="formrow @if(empty($lecturequiz->description)) hideit @endif" id="descblock{!! $lecturequiz->lecture_quiz_id !!}">
                                                  <div class="row-fluid">
@@ -205,234 +201,86 @@ $course_id = $course->id;
                                                </div>
                          
                                              </div>
-                         
                                              <!-- add description end -->
                                            </li>
                                            @php $lecturecount++; @endphp
-                                           @elseif($lecturequiz->type == 1)
-                                           <li class="lq_sort_quiz su_lgray_curr quiz quiz-{!! $lecturequiz->lecture_quiz_id !!} parent-s-{!! $section->section_id !!}">
-                                             <div class="row-fluid sorthandle">
-                                               <div class="col col-lg-12">
-                                                 <div class="su_course_quiz_label @if($lecturequiz->publish == 1) su_green_curr_block @else su_lgray_curr_block @endif">
-                                                   <div class="edit_option edit_option_quiz">{!! Lang::get('curriculum.Quiz')!!} <span class="serialno">{!! $quizcount !!}</span>: <label class="slqtitle">{!! $lecturequiz->title !!}</label>
-                                                     <input type="text" maxlength="80" class="chcountfield su_course_update_quiz_textbox" value="{!! $lecturequiz->title !!}">
-                                                     <span class="ch-count">{!! 80-strlen($lecturequiz->title) !!}</span>
-                                                   </div>
-                                                   <input type="hidden" value="{!! $lecturequiz->lecture_quiz_id !!}" class="quizid" name="quizids[]">
-                                                   <input type="hidden" value="{!! $lecturequiz->sort_order !!}" class="quizpos" name="quizposition[]">
-                                                   <input type="hidden" value="{!! $section->section_id !!}" class="quizsectionid" name="quizsectionid">
-                                                   <div class="deletequiz" onclick="deletequiz({!! $lecturequiz->lecture_quiz_id !!},{!! $section->section_id !!})"></div>
-                                                   <div class="updatequiz" onclick="updatequiz({!! $lecturequiz->lecture_quiz_id !!},{!! $section->section_id !!})"></div>
-                                                   <div class="lecture_add_content" id="lecture_add_quiz{!! $lecturequiz->lecture_quiz_id !!}">
-                                                     <input type="button" name="lecture_add_quiz" value="Add Questions" class="addquestions" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                     <div class="closeheader">
-                                                       <span class="closetext"></span>
-                                                       <input type="button" name="lecture_close_question" value="X" class="btn-danger closequestion" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                               </div>
-                                             </div>
-                                             
-                                             <!-- list quiz questions start -->
-                                             <div class="su_course_add_lecture_desc_content @if(!isset($lecturesquizquestions[$section->section_id][$lecturequiz->lecture_quiz_id]) || empty($lecturesquizquestions[$section->section_id][$lecturequiz->lecture_quiz_id])) hideit nondata @endif" id="questionsblock{!! $lecturequiz->lecture_quiz_id !!}">
-                                               <div class="lecture_buttons lecture_edit_content">
-                                                 @if($lecturequiz->publish == 0)
-                                                 <input type="button" name="lecture_publish_content_quiz" class="btn btn-warning publishcontentquiz" value="Publish" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                 @else
-                                                 <input type="button" name="lecture_unpublish_content_quiz" class="btn btn-danger unpublishcontentquiz" value="{!! Lang::get('curriculum.Unpublish')!!}" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                 @endif
-                                               </div>
-                                               <div class="divtitlehead"><p><strong>{!! Lang::get('curriculum.Questions')!!}</strong></p></div>
-                                               <div class="formrow questionlist">
-                                                 <div class="row-fluid quizquestions" id="quizquestions{!! $lecturequiz->lecture_quiz_id !!}" data-lid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                   @if(isset($lecturesquizquestions[$section->section_id][$lecturequiz->lecture_quiz_id]))
-                                                   @php $quescount=1; @endphp
-                                                   @foreach($lecturesquizquestions[$section->section_id][$lecturequiz->lecture_quiz_id] as $question)
-                                                   <div class="quescount" id="questions{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}"> @if($question->question_type == '0') <i class="fa fa-list"></i>  @else <i class="fa fa-check"></i> @endif <span id="quescount{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}">{!! $quescount !!}</span>. {!! substr(strip_tags($question->question), 0, 56) !!}  <div class="goright quessort" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" data-rid="{!! $question->quiz_question_id !!}"><i class="goright fa fa-align-justify"></i></div><div class="goright quesdelete" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" data-rid="{!! $question->quiz_question_id !!}"><i class="goright fa fa-trash-o"></i></div> <div class="goright quesedit" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" data-rid="{!! $question->quiz_question_id !!}" data-ltype="{!! $question->question_type !!}"><i class="goright fa fa-pencil"></i></div> <input type="hidden" value="{!! $question->quiz_question_id !!}" class="quizquestionid"></div>
-                                                   @php $quescount++; @endphp
-                                                   @endforeach
-                                                   @endif
-                                                 </div>
-                                               </div>
-                                             </div>
-                                             <!-- list quiz questions end -->
-                         
-                                             <!-- add question block start -->
-                                             <div class="lecturepopup hideit" id="quesblock-{!! $lecturequiz->lecture_quiz_id !!}">
-                                               <div class="quizques">
-                                                 <div class="quiz-type">
-                                                   <div class="clearfix">
-                                                     <div class="divli lquiz-multiple" data-lid="{!! $lecturequiz->lecture_quiz_id !!}"  alt="multiple"><div class="quiztype"><span>{!! Lang::get('curriculum.Multiple Choice')!!}</span></div><label>{!! Lang::get('curriculum.Multiple_Choice')!!}</label><div class="innershadowquiz"></div></div>
-                                                     <div class="divli lquiz-truefalse" data-lid="{!! $lecturequiz->lecture_quiz_id !!}"  alt="truefalse"><div class="quiztype"><span>{!! Lang::get('curriculum.true_false')!!}</span></div><label>{!! Lang::get('curriculum.true_false')!!}</label><div class="innershadowquiz"></div></div>
-                                                   </div>
-                                                 </div>
-                                               </div>
-                                             </div>
-                                             <!-- Add question block end -->
-                         
-                                             <!-- Question content -->
-                                             <div class="lecturepopup hideit" id="contentques-{!! $lecturequiz->lecture_quiz_id !!}">
-                                               <div class="quizques">
-                                                 <div class="divtitlehead"><p><strong>{!! Lang::get('curriculum.Questions')!!}</strong></p></div>
-                                                 
-                                                 <div class="formrow margbot">
-                                                   <div class="row-fluid">
-                                                     <div><textarea name="quizquestion" id="quizquestion-{!! $lecturequiz->lecture_quiz_id !!}" class="form-control curricullamEditor"></textarea></div>
-                                                   </div>
-                                                 </div>
-                                                 
-                                                 <div class="divtitlehead"><p><strong>{!! Lang::get('curriculum.Answers')!!}</strong></p></div>
-                                                 <div class="qmultiple hideit" id="multipleques-{!! $lecturequiz->lecture_quiz_id !!}">
-                                                   <div class="divtitlesub"><p>{!! Lang::get('curriculum.ans_writeup')!!}</p></div>
-                                                   <div class="qanswer">
-                                                     <div class="col col-lg-12">
-                                                       <input type="radio" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}" value="1">
-                                                       <input type="text" placeholder="{!! Lang::get('curriculum.Add_an_answer')!!}" class="chcountfield count600 answer" maxlength="600" name="answers[]" data-lid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                       <span class="answers-counter ch-count">600</span>
-                                                     </div>
-                                                     <div class="col col-lg-12">
-                                                       <input type="text" placeholder="{!! Lang::get('curriculum.best_answer')!!}" class="chcountfield count600 answer-feedback" maxlength="600" name="answersfeedback[]">
-                                                       <span class="answers-feedback-counter ch-count">600</span>
-                                                     </div>
-                                                   </div>
-                                                   <div class="qanswer">
-                                                     <div class="col col-lg-12">
-                                                       <input type="radio" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}" value="2">
-                                                       <input type="text" placeholder="{!! Lang::get('curriculum.Add_an_answer')!!}" class="chcountfield count600 answer" maxlength="600" name="answers[]" data-lid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                       <span class="answers-counter ch-count">600</span>
-                                                     </div>
-                                                     <div class="col col-lg-12">
-                                                       <input type="text" placeholder="{!! Lang::get('curriculum.best_answer')!!}" class="chcountfield count600 answer-feedback" maxlength="600" name="answersfeedback[]">
-                                                       <span class="answers-feedback-counter ch-count">600</span>
-                                                     </div>
-                                                   </div>
-                                                   <div class="qanswer">
-                                                     <div class="col col-lg-12">
-                                                       <div class="delques"><i class="fa fa-trash-o"></i></div>
-                                                       <input type="radio" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}" value="3">
-                                                       <input type="text" placeholder="{!! Lang::get('curriculum.Add_an_answer')!!}" class="chcountfield count600 qlastchild answer" maxlength="600" name="answers[]" data-lid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                       <span class="answers-counter ch-count">600</span>
-                                                     </div>
-                                                     <div class="col col-lg-12">
-                                                       <input type="text" placeholder="{!! Lang::get('curriculum.best_answer')!!}" class="chcountfield count600 answer-feedback" maxlength="600" name="answersfeedback[]">
-                                                       <span class="answers-feedback-counter ch-count">600</span>
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                                 
-                                                 <div class="qtruefalse hideit" id="truefalseques-{!! $lecturequiz->lecture_quiz_id !!}">
-                                                   <div class="divtitlesub"><p>{!! Lang::get('curriculum.quiz_msg')!!}</p></div>
-                                                   <div class="formrow">
-                                                     <div class="row-fluid">
-                                                       <div class="col col-lg-2">
-                                                         <input type="radio" id="radtrue{!! $lecturequiz->lecture_quiz_id !!}" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}" value="1"> {!! Lang::get('curriculum.True')!!}
-                                                       </div>
-                                                       <div class="col col-lg-2">
-                                                         <input type="radio" id="radfalse{!! $lecturequiz->lecture_quiz_id !!}" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}" value="2"> {!! Lang::get('curriculum.False')!!}
-                                                       </div>
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                                 <div class="formrow">
-                                                   <div class="row-fluid">
-                                                     <input type="button" name="su_course_add_quiz_question_submit" value="{!! Lang::get('curriculum.sb_save')!!}" class="btn btn-warning su_course_add_quiz_question_submit"  data-lid="{!! $lecturequiz->lecture_quiz_id !!}"> 
-                                                     <input type="hidden" value="0" id="quiztype{!! $lecturequiz->lecture_quiz_id !!}">
-                                                     <input type="hidden" value="0" id="coption{!! $lecturequiz->lecture_quiz_id !!}">
-                                                   </div>
-                                                 </div>
-                                               </div>
-                                             </div>
-                                             <!-- Question content end -->
-                         
-                                             <!-- Question edit content -->
-                                             <div class="lecturepopup hideit editquestionpart" id="editquestionpart{!! $lecturequiz->lecture_quiz_id !!}">
-                                               @if(isset($lecturesquizquestions[$section->section_id][$lecturequiz->lecture_quiz_id]))
-                                               @foreach($lecturesquizquestions[$section->section_id][$lecturequiz->lecture_quiz_id] as $question)
-                                               <div class="contenteditques" id="contenteditques-{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}">
-                                                 <div class="quizques">
-                                                   <div class="divtitlehead"><p><strong>{!! Lang::get('curriculum.Questions')!!}</strong></p></div>
-                                                   
-                                                   <div class="formrow margbot">
-                                                     <div class="row-fluid">
-                                                       <div><textarea name="quizquestion" id="quizeditquestion-{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}" class="form-control curricullamEditor">{!! $question->question !!}</textarea></div>
-                                                     </div>
-                                                   </div>
-                                                   
-                                                   <div class="divtitlehead"><p><strong>{!! Lang::get('curriculum.Answers')!!}</strong></p></div>
-                                                   @if($question->question_type == 0)
-                                                   <div class="qmultiple" id="multipleeditques-{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}">
-                                                     <div class="divtitlesub"><p>{!! Lang::get('curriculum.ans_writeup')!!}</p></div>
-                                                     @php $quesanswers = json_decode($question->options); $anscount=1; $countans = count($quesanswers); @endphp
-                                                     @foreach($quesanswers as $answer)
-                                                     <div class="qanswer">
-                                                       <div class="col col-lg-12">
-                                                         @if($anscount > 2)
-                                                         <div class="deleditques"><i class="fa fa-trash-o"></i></div>
-                                                         @endif
-                                                         <input type="radio" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}" value="{!! $anscount !!}" @if($anscount == $question->correct_option) checked="checked" @endif>
-                                                         <input type="text" placeholder="{!! Lang::get('curriculum.Add_an_answer')!!}" class="chcountfield count600 answer" maxlength="600" name="answers[]" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" value="{!! $answer->answer !!}">
-                                                         <span class="answers-counter ch-count">{!! 600-strlen($answer->answer) !!}</span>
-                                                       </div>
-                                                       <div class="col col-lg-12">
-                                                         <input type="text" placeholder="{!! Lang::get('curriculum.best_answer')!!}" class="chcountfield count600 answer-feedback" maxlength="600" name="answersfeedback[]" value="{!! $answer->feedback !!}">
-                                                         <span class="answers-feedback-counter ch-count">{!! 600-strlen($answer->feedback) !!}</span>
-                                                       </div>
-                                                     </div>
-                                                     @php $anscount++; @endphp
-                                                     @endforeach
-                                                     <div class="qanswer">
-                                                       <div class="col col-lg-12">
-                                                         <div class="deleditques"><i class="fa fa-trash-o"></i></div>
-                                                         <input type="radio" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}" value="{!! $countans+1 !!}">
-                                                         <input type="text" placeholder="{!! Lang::get('curriculum.Add_an_answer')!!}" class="chcountfield count600 qlasteditchild answer" maxlength="600" name="answers[]" data-lid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                         <span class="answers-counter ch-count">600</span>
-                                                       </div>
-                                                       <div class="col col-lg-12">
-                                                         <input type="text" placeholder="{!! Lang::get('curriculum.best_answer')!!}" class="chcountfield count600 answer-feedback" maxlength="600" name="answersfeedback[]">
-                                                         <span class="answers-feedback-counter ch-count">600</span>
-                                                       </div>
-                                                     </div>
-                                                   </div>
-                                                   @elseif($question->question_type == 1)
-                                                   <div class="qtruefalse" id="truefalseeditques-{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}">
-                                                     <div class="divtitlesub"><p>{!! Lang::get('curriculum.quiz_msg')!!}</p></div>
-                                                     <div class="formrow">
-                                                       <div class="row-fluid">
-                                                         <div class="col col-lg-2">
-                                                           <input type="radio" id="radtrue{!! $lecturequiz->lecture_quiz_id !!}" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}" value="1" @if(1 == $question->correct_option) checked="checked" @endif> {!! Lang::get('curriculum.True')!!}
-                                                         </div>
-                                                         <div class="col col-lg-2">
-                                                           <input type="radio" id="radfalse{!! $lecturequiz->lecture_quiz_id !!}" name="answers-radio{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}" value="2" @if(2 == $question->correct_option) checked="checked" @endif> {!! Lang::get('curriculum.False')!!}
-                                                         </div>
-                                                       </div>
-                                                     </div>
-                                                   </div>
-                                                   @endif
-                                                   <div class="formrow">
-                                                     <div class="row-fluid">
-                                                       <input type="button" name="su_course_add_quiz_question_update" value="{!! Lang::get('curriculum.sb_save')!!}" class="btn btn-warning su_course_add_quiz_question_update" data-lid="{!! $lecturequiz->lecture_quiz_id !!}" data-qid="{!! $question->quiz_question_id !!}"> 
-                                                       <input type="hidden" value="{!! $question->question_type !!}" id="quiztype{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}">
-                                                       <input type="hidden" value="{!! $question->correct_option !!}" id="coption{!! $lecturequiz->lecture_quiz_id !!}_{!! $question->quiz_question_id !!}">
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                               </div>
-                                               @endforeach
-                                               @endif
-                                             </div>
-                                             <!-- Question edit content end -->
-                                             
-                                             <div class="su_course_add_lecture_desc_content quizeditdesc" id="quizeditdesc{!! $lecturequiz->lecture_quiz_id !!}">
-                                               <div class="divtitlehead"><p><strong> {!! Lang::get('curriculum.Description')!!}</strong></p></div>
-                                               <textarea name="lectureeditdescription" id="lectureeditdesc-{!! $lecturequiz->lecture_quiz_id !!}" class="form-control curricullamEditor"></textarea>
-                                               <div class="quizeditdescription" id="quizeditdescription{!! $lecturequiz->lecture_quiz_id !!}">{!! $lecturequiz->description !!}</div>
-                                             </div>
-                                             
-                                           </li>
                                            @php $quizcount++; @endphp
                                            @endif
                                            @endforeach
+                                           <!-- Add Lecture Here -->
+                                           <div class="add_section_lecture" id="{!!$section->section_id!!}">
+                                            <ul class="clearfix">
+                                            <li class="su_blue_curr">
+                                             <div class="col col-lg-12">
+                                               <div class="row-fluid add_quiz_lecture_part">
+                                               <div class="col col-lg-6">
+                                                 <div class="su_course_add_lecture_label su_blue_curr_block">
+                                                 <span> Add Lecture</span>
+                                                 </div>
+                                               </div>
+                                               </div>
+                                        
+                                               <div class="su_course_add_lecture_content su_course_add_content_form">
+                                               <div class="formrow">
+                                                 <div class="row-fluid">
+                                                 <div class="col col-lg-3">
+                                                   <label>New Lecture: <span class="text-danger">*</span></label>
+                                                 </div>
+                                                 <div class="col col-lg-9">
+                                                   <input type="text" id="new_lecture" name="su_course_add_lecture_textbox" value="" placeholder="Lecture Title" class="form-element su_course_add_lecture_textbox chcountfield" maxlength="80">
+                                                   <span id="lecture_title_counter" class="ch-count">80</span>
+                                                 </div>
+                                                 </div>
+                                               </div>
+                                               <div class="formrow">
+                                                 <div class="row-fluid">
+                                                 <div class="col col-lg-9">
+                                                   <input type="button" name="su_course_add_lecture_submit" value="Add Lecture" class="btn btn-warning su_course_add_lecture_submit">
+                                                   <input type="button" id="btn_lecture" name="su_course_add_lecture_cancel" value="Cancel" class="btn btn-warning su_course_add_lecture_cancel">
+                                                 </div>
+                                                 </div>
+                                               </div>
+                                               </div>
+                                        
+                                               <div class="su_course_add_quiz_content su_course_add_content_form su_course_add_quiz_form">
+                                               <div class="formrow">
+                                                 <div class="row-fluid">
+                                                 <div class="col col-lg-3">
+                                                   <label>{!! Lang::get('curriculum.New_Quiz')!!}: <span class="text-danger">*</span></label>
+                                                 </div>
+                                                 <div class="col col-lg-9">
+                                                   <input type="text" id="new_quiz" name="su_course_add_quiz_textbox" value="" placeholder="{!! Lang::get('curriculum.quiz_title')!!}" class="form-element su_course_add_quiz_textbox chcountfield" maxlength="80">
+                                                   <span id="quiz_title_counter" class="ch-count">80</span>
+                                                 </div>
+                                                 </div>
+                                               </div>
+                                               <div class="formrow">
+                                                 <div class="row-fluid">
+                                                 <div class="col col-lg-3">
+                                                   <label> {!! Lang::get('curriculum.Description')!!}: <span class="text-danger">*</span></label>
+                                                 </div>
+                                                 <div class="col col-lg-9">
+                                                   <div><textarea name="quizdescription" id="quizdesc" class="form-control curricullamEditor su_course_add_quiz_desc"></textarea></div>
+                                                 </div>
+                                                 </div>
+                                               </div>
+                                               <div class="clearfix"></div>
+                                               <div class="formrow">
+                                                 <div class="row-fluid">
+                                                 <div class="col col-lg-9">
+                                                   <input type="button" name="su_course_add_quiz_submit" value=" {!! Lang::get('curriculum.Add_Quiz')!!}" class="btn btn-warning su_course_add_quiz_submit">
+                                                   <input type="button" id="btn_quiz" name="su_course_add_quiz_cancel" value=" {!! Lang::get('curriculum.cancel')!!}" class="btn btn-warning su_course_add_quiz_cancel">
+                                                 </div>
+                                                 </div>
+                                               </div>
+                                               </div>
+                                        
+                                             </div>
+                                                </li>
+                                          </ul>
+                                        </div>	
+                                                                 
+                                           <!-- end Add Lecture Here -->
                                            @endif
                                            
                                            @php $sectioncount++; @endphp
@@ -442,74 +290,7 @@ $course_id = $course->id;
                          
                                        <div class="su_course_curriculam_default">
                                          <ul class="clearfix">
-                                           <li class="su_blue_curr">
-                                             <div class="col col-lg-12">
-                                               <div class="row-fluid add_quiz_lecture_part">
-                                                 <div class="col col-lg-6">
-                                                   <div class="su_course_add_lecture_label su_blue_curr_block">
-                                                     <span> Add Lecture</span>
-                                                   </div>
-                                                 </div>
-                                                 
-                                               </div>
-                         
-                                               <div class="su_course_add_lecture_content su_course_add_content_form">
-                                                 <div class="formrow">
-                                                   <div class="row-fluid">
-                                                     <div class="col col-lg-3">
-                                                       <label>New Lecture: <span class="text-danger">*</span></label>
-                                                     </div>
-                                                     <div class="col col-lg-9">
-                                                       <input type="text" id="new_lecture" name="su_course_add_lecture_textbox" value="" placeholder="Lecture Title" class="form-element su_course_add_lecture_textbox chcountfield" maxlength="80">
-                                                       <span id="lecture_title_counter" class="ch-count">80</span>
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                                 <div class="formrow">
-                                                   <div class="row-fluid">
-                                                     <div class="col col-lg-9">
-                                                       <input type="button" name="su_course_add_lecture_submit" value="Add Lecture" class="btn btn-warning su_course_add_lecture_submit">
-                                                       <input type="button" id="btn_lecture" name="su_course_add_lecture_cancel" value="Cancel" class="btn btn-warning su_course_add_lecture_cancel">
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                               </div>
-                         
-                                               <div class="su_course_add_quiz_content su_course_add_content_form su_course_add_quiz_form">
-                                                 <div class="formrow">
-                                                   <div class="row-fluid">
-                                                     <div class="col col-lg-3">
-                                                       <label>{!! Lang::get('curriculum.New_Quiz')!!}: <span class="text-danger">*</span></label>
-                                                     </div>
-                                                     <div class="col col-lg-9">
-                                                       <input type="text" id="new_quiz" name="su_course_add_quiz_textbox" value="" placeholder="{!! Lang::get('curriculum.quiz_title')!!}" class="form-element su_course_add_quiz_textbox chcountfield" maxlength="80">
-                                                       <span id="quiz_title_counter" class="ch-count">80</span>
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                                 <div class="formrow">
-                                                   <div class="row-fluid">
-                                                     <div class="col col-lg-3">
-                                                       <label> {!! Lang::get('curriculum.Description')!!}: <span class="text-danger">*</span></label>
-                                                     </div>
-                                                     <div class="col col-lg-9">
-                                                       <div><textarea name="quizdescription" id="quizdesc" class="form-control curricullamEditor su_course_add_quiz_desc"></textarea></div>
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                                 <div class="clearfix"></div>
-                                                 <div class="formrow">
-                                                   <div class="row-fluid">
-                                                     <div class="col col-lg-9">
-                                                       <input type="button" name="su_course_add_quiz_submit" value=" {!! Lang::get('curriculum.Add_Quiz')!!}" class="btn btn-warning su_course_add_quiz_submit">
-                                                       <input type="button" id="btn_quiz" name="su_course_add_quiz_cancel" value=" {!! Lang::get('curriculum.cancel')!!}" class="btn btn-warning su_course_add_quiz_cancel">
-                                                     </div>
-                                                   </div>
-                                                 </div>
-                                               </div>
-                         
-                                             </div>
-                                           </li>
+                                           
                          
                                            <li class="su_gray_curr">
                                              <div class="row-fluid">
@@ -534,7 +315,7 @@ $course_id = $course->id;
                                                      <div class="row-fluid">
                                                        <div class="col col-lg-9">
                                                          <input type="button" name="su_course_add_section_submit" value="Add Section" class="btn btn-warning su_course_add_section_submit">
-                                                         <input type="button" id="btn_section" name="su_course_add_section_cancel" value="{!! Lang::get('curriculum.cancel')!!}" class="btn btn-warning su_course_add_section_cancel">
+                                                         <input type="button" id="btn_section" name="su_course_add_section_cancel" value="Cancel" class="btn btn-warning su_course_add_section_cancel">
                                                        </div>
                                                      </div>
                                                    </div>
@@ -586,9 +367,19 @@ $course_id = $course->id;
 <script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/fileupload/jquery.ui.widget.js') }}"></script>
 <script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/fileupload/jquery.fileupload.js') }}"></script>
 <script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/fileupload/jquery.fileupload-process.js') }}"></script>
-<script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/fileupload/jquery.fileupload-validate.js') }}"></script>
+{{-- <script type="text/javascript" src="{{ asset('backend/curriculum/js/plugins/fileupload/jquery.fileupload-validate.js') }}"></script> --}}
+setTimeout(function() {
+  loadScript('/backend/curriculum/js/plugins/fileupload/jquery.fileupload-validate.js');
+}, 5000);
 
 <script type="text/javascript">
+
+function loadScript(src) {
+  var script = document.createElement('script');
+  script.src = src;
+  document.head.appendChild(script);
+}
+
 $('.curriculam-block').bind({
     dragenter: function(e) {
         $(this).addClass('highlighted');
@@ -605,7 +396,6 @@ $('.curriculam-block').bind({
     },
     drop: function(e) {
         var dt = e.originalEvent.dataTransfer;
-        console.log(dt.files.length);
         return false;
     }
 });
@@ -765,8 +555,7 @@ $(document).ready(function(){
 
     // add video url work
     $('.su_course_add_video_section_cancel').click(function(){
-      var cid = $('.lecturecontent').attr('id');
-      //console.log(cid); // Output: 'div-1'
+      var cid = $(this).parents('.lecturecontent').attr('id');
       $('#'+cid).hide();
     });
 
@@ -815,8 +604,7 @@ $(document).ready(function(){
           $('.lecture-'+lid).find('.su_course_lecture_label').addClass('su_green_curr_block');
           $('.su_course_add_video_section_submit').val('Add');
          // hide add content after success
-          var cid = $('.lecturecontent').attr('id');
-          console.log(cid); // Output: 'div-1'
+          var cid = 'wholeblock-'+lid;
           $('#'+cid).hide();
           //location.reload(true);
         }
@@ -841,12 +629,12 @@ $(document).ready(function(){
         data: "&courseid="+courseid+"&section="+sval+"&position="+sno+"&id=0"+"&_token="+_token,
         success: function (msg)
         {
-          
-          $('.su_course_curriculam_sortable ul').append('<li class="su_gray_curr parentli section-'+msg+'"><div class="row-fluid sorthandle"><div class="col col-lg-12"><div class="su_course_section_label su_gray_curr_block"><div class="edit_option edit_option_section">Section <span class="serialno">'+sno+'</span>: <label  class="slqtitle">'+sval+'</label> <input type="text" maxlength="80" class="chcountfield su_course_update_section_textbox" value="'+sval+'" /><span class="ch-count">'+(80-sval.length)+'</span></div> <input type="hidden" value="'+msg+'" class="sectionid" name="sectionids[]"/> <input type="hidden" value="'+sno+'" class="sectionpos" name="sectionposition[]"/><div class="deletesection" onclick="deletesection('+msg+')"></div><div class="updatesection" onclick="updatesection('+msg+')"></div></div></div></div></li>');
+          //$('.su_course_curriculam_sortable ul').append('<li class="su_gray_curr parentli section-'+msg+'"><div class="row-fluid sorthandle"><div class="col col-lg-12"><div class="su_course_section_label su_gray_curr_block"><div class="edit_option edit_option_section">Section <span class="serialno">'+sno+'</span>: <label  class="slqtitle">'+sval+'</label> <input type="text" maxlength="80" class="chcountfield su_course_update_section_textbox" value="'+sval+'" /><span class="ch-count">'+(80-sval.length)+'</span></div> <input type="hidden" value="'+msg+'" class="sectionid" name="sectionids[]"/> <input type="hidden" value="'+sno+'" class="sectionpos" name="sectionposition[]"/><div class="deletesection" onclick="deletesection('+msg+')"></div><div class="updatesection" onclick="updatesection('+msg+')"></div></div></div></div></li>');
           $('.su_course_add_section_textbox').val('')
           $('.su_course_add_section_label').show();
           $('.su_course_add_section_content').hide();
           $('.su_course_add_section_submit').prop("disabled", false);
+          location.reload(true);
         }
       });
     } else {
@@ -854,12 +642,14 @@ $(document).ready(function(){
       $('.su_course_add_section_submit').prop("disabled", false);
     }
   });
-
+    // end video url work
   //Add new lecture for course
   $('.su_course_add_lecture_submit').click(function(){
     $('.su_course_add_lecture_submit').prop("disabled", true);
-    if($.trim($('.su_course_add_lecture_textbox').val()).length>1) {
-      var sid=$('.su_course_curriculam_sortable li.parentli').last().find('.sectionid').val();
+    $('.su_course_add_lecture_submit').val("Please wait");
+    var lecture_name = $(this).closest('.su_course_add_lecture_content').find('.su_course_add_lecture_textbox').val()
+    if(lecture_name.length > 1) {
+      var sid = $(this).closest('.add_section_lecture').attr('id');
       var sno=1
       $( '.childli' ).each(function(){
         sno++;
@@ -869,7 +659,7 @@ $(document).ready(function(){
         lqno++;
       });
       var cno=$('.su_course_curriculam_sortable li.childli').length+2;
-      var sval=$('.su_course_add_lecture_textbox').val();
+      var sval=lecture_name;
       var courseid=$('[name="course_id"]').val();
       var courselecture=$('[name="courselecture"]').val();
       var _token=$('[name="_token"]').val();
@@ -882,6 +672,7 @@ $(document).ready(function(){
         success: function (msg)
         {
           $('.su_course_add_lecture_submit').prop("disabled", false);
+          $('.su_course_add_lecture_submit').val("Add Lecture");
           $('.su_course_curriculam_sortable ul').append('');
           
           
@@ -998,8 +789,9 @@ $(document).ready(function(){
   $('.su_course_add_lecture_label').click(function(){
     $('#lecture_title_counter').text('80');
     if($('.su_course_curriculam_sortable li.parentli').length>0) {
-      $('.add_quiz_lecture_part').hide();
-      $('.su_course_add_lecture_content').show();
+      $(this).closest('.add_quiz_lecture_part').hide();
+      $(this).closest('.add_quiz_lecture_part').next('.su_course_add_lecture_content').show();
+
     } else {
       alert('{!! Lang::get("curriculum.section_message")!!}');
     }
@@ -1082,12 +874,8 @@ $(document).ready(function(){
     $(this).parent('div').parent('div').children('.closeheader').children('.closecontents').hide();
     $(this).parent('div').parent('div').children('.closeheader').children('span.closetext').text('');
     $(this).parent('div').parent('div').children('.closeheader').hide();
-    
-    if($('#adddescblock-'+cid).hasClass("hideit")) {
-      $("#adddescblock-"+cid).hide();
-    } else {
-      $("#adddescblock-"+cid).show();
-    }
+    $("#adddescblock-"+cid).css('display', 'none');
+    $(this).parent('div').parent('div').children('.adddescription').show();
     
     $("#wholeblock-"+cid).hide();
     if($('#contentpopshow'+cid).hasClass("hideit")) {
@@ -1101,7 +889,6 @@ $(document).ready(function(){
     }
     $('#cccontainer'+cid).hide();
   });
-
   $(document).on('click','.su_course_add_lecture_desc_cancel',function () { 
     tinyMCE.activeEditor.setContent("");
     var cid = $(this).attr('data-blockid');
@@ -1226,14 +1013,15 @@ $(document).ready(function(){
           $('#lecture_add_content'+lid).find('.closeheader .closecontents').hide();
           $('#lecture_add_content'+lid).find('.closeheader span.closetext').text('');
           $('#lecture_add_content'+lid).find('.closeheader').hide();
-          location.reload(true);
+          $('.su_course_add_lecture_desc_content').hide();
+          
+          //location.reload(true);
         }
       });
     } else {
       alert('{!! Lang::get("curriculum.curriculum_description") !!}');
     }
   });
-
   $(document).on('click','.publishcontent',function(){
     var lid = $(this).data('blockid');
     var courselecturepublish =$('[name="courselecturepublish"]').val();
@@ -1889,13 +1677,11 @@ $(document).ready(function(){
 //filesuploadajax();
 
 function filesuploadajax(){
-  //console.log('trying to upload video');
   $('.videofiles').fileupload({
     autoUpload: true,
     acceptFileTypes: /(\.|\/)(mp4|avi|mov|flv)$/i,
     maxFileSize: 4096000000, // 4 GB
     progress: function (e, data) {
-      // console.log(data);
       
       $("#videoresponse"+data.lid).text("");
       $('#probar_status_'+data.lid).val(1);
@@ -1943,8 +1729,6 @@ function filesuploadajax(){
     acceptFileTypes: /(\.|\/)(mp3|wav)$/i,
     maxFileSize: 1024000000, // 1 GB
     progress: function (e, data) {
-      // console.log(data);
-      // alert(data.lid);
       $("#videoresponse"+data.lid).text("");
       $('#probar_status_'+data.lid).val(1);
       var percentage = parseInt(data.loaded / data.total * 100);
@@ -1995,8 +1779,6 @@ function filesuploadajax(){
     acceptFileTypes: /(\.|\/)(pdf)$/i,
     maxFileSize: 1024000000, // 1 GB
     progress: function (e, data) {
-      // console.log(data);
-      // alert(data.lid);
       $("#videoresponse"+data.lid).text("");
       $('#probar_status_'+data.lid).val(1);
       var percentage = parseInt(data.loaded / data.total * 100);
@@ -2042,7 +1824,6 @@ function filesuploadajax(){
     acceptFileTypes: /(\.|\/)(pdf)$/i,
     maxFileSize: 1024000000, // 1 GB
     progress: function (e, data) {
-      // console.log(data);
       // alert(data.lid);
       $('#probar_status_'+data.lid).val(1);
       $("#videoresponse"+data.lid).text("");
@@ -2089,7 +1870,6 @@ function filesuploadajax(){
     acceptFileTypes: /(\.|\/)(pdf|doc|docx)$/i,
     maxFileSize: 1024000000, // 1 GB
     progress: function (e, data) {
-      // console.log(data);
       // alert(data.lid);
       $('#probar_status_'+data.lid).val(1);
       $("#resresponse"+data.lid).text("");
@@ -2209,7 +1989,7 @@ function deletelecture(id,sid) {
         lq++;
       });
       updatesorting();
-      location.reload(true);
+      //location.reload(true);
       //$('.su_course_add_lecture_content .col.col-lg-3 span').text($('.su_course_curriculam li.childli').length+1);
     }
   });
