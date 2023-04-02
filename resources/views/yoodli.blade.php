@@ -6,9 +6,15 @@
             <div class="col-md-6 hero-heading">
                 <span class="header">Practise your pitches with yoodli</br></span> 
             </div>
+            <div class="col-md-6 text-right">
+                <a href="https://speak2impact.yoodli.ai" target="_blank">
+                    <button class="custom_button"> Open in New Window</button> 
+                </a>
+            </div>
         </div>
     </div>
 </div>
+
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
     <div class="row">
