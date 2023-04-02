@@ -482,7 +482,13 @@ ul.features li:first-child {
     display: block;
     margin: 45px auto 98px;
 }
-
+.hero .custom_button {
+    font-size: 16px;
+    line-height: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    display: inline-block;
+}
 .hero-heading span {
     font-size: 20px;
     line-height: 25px;
