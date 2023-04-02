@@ -123,8 +123,8 @@
                         @php $i =1; $uPlan = \Auth::user()->userSubscribedPlans()->get()->count();@endphp
                         @foreach ($allCourses->take(6) as $course)
                             @php
-                                $file_name = 'https://www.youtube.com/embed/sIBcQil9ARA?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/';
-                                if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
+                                $file_name = 'https://www.youtube.com/embed/YLExFohPbBc?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/';
+                                if(isset($course->course_videos[0]) && !empty($course->course_videos) && $course->course_videos[0]->video_name == "Video Link") {
                                     //$file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
                                     $file_name = $course->course_videos[0]->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
                                     // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
@@ -138,7 +138,7 @@
                                 <div class="course-card">
                                     <div class="webinar-heading">{{$course->course_title}}</div>
                                     <div class="webinar-description">Susie Ashfield, Instructor</div>
-                                    <div class="webinar-image @if($loop->iteration > $lockedCount || !$uPlan) video-overlay @endif">
+                                    <div class="webinar-image">
                                         <div id="play_lesson" style="padding:58.00% 0 0 0;position:relative;width:100%;height:100%;">
                                             <iframe id="videoId" src="{{url($file_name)}}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:inherit;height:inherit;"></iframe>
                                         </div>

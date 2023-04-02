@@ -256,8 +256,8 @@ button.accordion-button {padding: 20px;background: none;border: 1px solid #E0E0E
 .chapter-list .accordion-button:not(.collapsed) {
     background: #fff;
     color: #1C1C1C;
-    font-size: 18px;
-    line-height: 27px;
+    /* font-size: 18px;
+    line-height: 27px; */
     font-weight: 500;
     font-family: 'Inter', sans-serif;
 }
@@ -265,10 +265,13 @@ button.accordion-button {padding: 20px;background: none;border: 1px solid #E0E0E
 .chapter-list button.accordion-button.collapsed {
     background: #fff;
     color: #1C1C1C;
-    font-size: 18px;
-    line-height: 27px;
+    /* font-size: 18px;
+    line-height: 27px; */
     font-weight: 500;
     font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .play-list {

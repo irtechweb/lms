@@ -49,19 +49,23 @@ class HomeController extends Controller {
             $allCourses = $userCourses->concat($lockedCourses);
 
             $lockedCount = $lockedCourses->where('is_locked', 0)->count() + $userCourses->count();
-            $lastWatchCourse = Auth::user()->logs()
-                ->where('page', 'course-lesson-detail')
-                ->with('curriculumLecturesQuiz.courseVideo.course')
-                ->orderBy('created_at', 'desc')
-                ->first();
+            $lastWatchCourse = Auth::user()->logs()->where('page', 'course-lesson-detail')->with('curriculumLecturesQuiz.courseVideo')->orderBy('created_at', 'desc')->first();
             $lastWatch = null;
             if (isset($lastWatchCourse)) {
+                $sectionId = $lastWatchCourse->curriculumLecturesQuiz->section_id;
+                $course_id = \DB::table('curriculum_sections')->select('course_id')->where('section_id', '=', $sectionId)->pluck('course_id')->first();
+                $description =  Course::select('overview')->where('id',$course_id)->pluck('overview')->first();
+                
+                if($lastWatchCourse->curriculumLecturesQuiz->media == null)
+                    $lesson_video_url = 'https://player.vimeo.com/video/798543316';
+                else
+                    $lesson_video_url = $lastWatchCourse->curriculumLecturesQuiz->courseVideo->video_title;    
                 $lastWatch = [
-                    'course_id' => $lastWatchCourse->curriculumLecturesQuiz->courseVideo->course->id,
+                    'course_id' => $course_id,
                     'course_title' => $lastWatchCourse->objecttype,
                     'lesson_title' => $lastWatchCourse->objectname,
-                    'description' => $lastWatchCourse->curriculumLecturesQuiz->courseVideo->course->overview,
-                    'lesson_video_url' => $lastWatchCourse->curriculumLecturesQuiz->courseVideo->video_title,
+                    'description' => $description,
+                    'lesson_video_url' => $lesson_video_url,
                 ];
             }
         }
@@ -76,7 +80,7 @@ class HomeController extends Controller {
         $data['course'] = $course;
         $data['course_video'] = Course::get_course_video($id);//->course_videos();
         $data['sections'] = $coursecurriculum['sections'];
-        $data['lecturesquiz'] = $coursecurriculum['lecturesquiz'];        
+        $data['lecturesquiz'] = $coursecurriculum['lecturesquiz']; 
         $data['lecturesquizquestions'] = $coursecurriculum['lecturesquizquestions'];
         $data['lecturesmedia'] = $coursecurriculum['lecturesmedia'];
         $data['lecturesresources'] = $coursecurriculum['lecturesresources'];
@@ -105,11 +109,17 @@ class HomeController extends Controller {
             $data['slectedsessionid'] = $lesson->section_id;
 
         }
-        $data['first_video'] = DB::table('course_videos')->where('course_id', $id)->get()->toArray()[0];
+        $lectureQuiz = collect($data['lecturesquiz'])->first();
+        $firstLecture = $lectureQuiz->first();
+        $mediaId = $firstLecture->media;
+        $firstVideo = DB::table('course_videos')->where('id', $mediaId)->where('video_name','!=','Video Link')->get()->toArray();
+        if($firstVideo)
+            $data['first_video'] = $firstVideo[0];
+
         $data['notes'] = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
       
         if (isset($data['lecturesquiz'][$last]) && !empty($data['lecturesquiz'])) {
-            $intro = DB::table('course_videos')->where('id', $data['lecturesquiz'][$last][0]->media)->get()->toArray();
+            $intro = DB::table('course_videos')->where('id', $data['lecturesquiz'][$last][0]->media)->where('video_name','!=','Video Link')->get()->toArray();
             $data['quiz_description'] = $data['lecturesquiz'][$last][0]->description;
             $data['slectedsessionid'] = $data['lecturesquiz'][$last][0]->section_id;
             $data['first_video'] = isset($intro[0]) ? $intro[0] : array();
@@ -117,7 +127,6 @@ class HomeController extends Controller {
             $data['subscriptionPlanAnually'] = Subscription::Where('plans', 'yearly')->first();
             $data['subscriptionPlans'] = array();
             $data['access'] = 'true';
-            
             if (!empty($lesson_id)) {
                 $lection_quiz = DB::table('curriculum_lectures_quiz')->where('lecture_quiz_id', $lesson_id)->first();
                 $data['quiz_description'] = $lection_quiz->description;

@@ -87,9 +87,9 @@ $course_id = $course->id;
                                            <li class="su_gray_curr parentli section-{!! $section->section_id !!}">
                                              <div class="row-fluid sorthandle">
                                                <div class="col col-lg-12">
-                                                 <div class="su_course_section_label su_gray_curr_block">
+                                                 <div class="su_course_section_label su_gray_curr_block" style="text-transform: none;">
                                                    <div class="edit_option edit_option_section">Chapter Section <span class="serialno">{!! $sectioncount !!}</span>: <label class="slqtitle">{!! $section->title !!}</label>
-                                                     <input type="text" maxlength="80" class="chcountfield su_course_update_section_textbox" @if($section->title == 'Start Here') placeholder="Start Here" value="" @else value="{!! $section->title !!}" @endif>
+                                                     <input type="text" maxlength="80"  style="text-transform: none;" class="chcountfield su_course_update_section_textbox" @if($section->title == 'Start Here') placeholder="Start Here" value="" @else value="{!! $section->title !!}" @endif>
                                                      <span class="ch-count">@if($section->title == 'Start Here') 80 @else{!! 80-strlen($section->title) !!}@endif</span>
                                                    </div>
                                                    <input type="hidden" value="{!! $section->section_id !!}" class="sectionid" name="sectionids[]">
@@ -112,9 +112,9 @@ $course_id = $course->id;
                                            <li class="lq_sort su_lgray_curr childli lecture-{!! $lecturequiz->lecture_quiz_id !!} lecture parent-s-{!! $section->section_id !!}">
                                              <div class="row-fluid sorthandle">
                                                <div class="col col-lg-12">
-                                                 <div class="su_course_lecture_label @if(!is_null($lecturequiz->media_type) && $lecturequiz->publish == 0) su_orange_curr_block @elseif(!is_null($lecturequiz->media_type) && $lecturequiz->publish == 1) su_green_curr_block @else su_lgray_curr_block @endif">
+                                                 <div style="text-transform: none" class="su_course_lecture_label @if(!is_null($lecturequiz->media_type) && $lecturequiz->publish == 0) su_orange_curr_block @elseif(!is_null($lecturequiz->media_type) && $lecturequiz->publish == 1) su_green_curr_block @else su_lgray_curr_block @endif">
                                                    <div class="edit_option edit_option_lecture">Lesson<span class="serialno">{!! $lecturecount !!}</span>: <label class="slqtitle">{!! $lecturequiz->title !!}</label>
-                                                     <input type="text" class="su_course_update_lecture_textbox chcountfield" value="{!! $lecturequiz->title !!}" maxlength="80">
+                                                     <input type="text" class="su_course_update_lecture_textbox chcountfield" style="text-transform:none" value="{!! $lecturequiz->title !!}" maxlength="80">
                                                      <span class="ch-count">{!! 80-strlen($lecturequiz->title) !!}</span>
                                                    </div>
                                                    <input type="hidden" value="{!! $lecturequiz->lecture_quiz_id !!}" class="lectureid" name="lectureids[]">
