@@ -15,11 +15,11 @@
          <div class="webinar-card">
             <div class="date">{{$record['date']}}</div>
             <div class="webinar-heading">{{$record['title']}}</div>
-            <div class="webinar-image">
+            <div class="webinar-image" style="display: flex; align-items: center; justify-content: center; background-color: #1c1c1c;">
                @if(!empty($record['video_url']))
-               <img src="{{ asset('assets/img/'.$record['image']) }}">
+               <img src="{{ asset('assets/img/'.$record['image']) }}" style="max-width: 100%; max-height: 100%;">
                @else
-               <img src="{{url('images/f1.png')}}" alt="">
+               <img src="{{url('images/f1.png')}}" alt="" style="max-width: 100%; max-height: 100%;">
                @endif
             </div>
             <div class="webinar-button">
@@ -43,11 +43,11 @@
             <div class="date">{{$record['date']}}</div>
             <div class="webinar-heading">{{$record['title']}}</div>
             <div class="webinar-description">{{$record['instructor']}}, Instructor</div>
-            <div class="webinar-image">
+            <div class="webinar-image" style="display: flex; align-items: center; justify-content: center; background-color: #1c1c1c;">
                @if(!empty($record['video_url']))
                <iframe style="height: inherit;width: inherit" src="{{$record['video_url']}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                @else
-               <img src="{{url('images/f1.png')}}" alt="">
+               <img src="{{url('images/f1.png')}}" alt="" style="max-width: 100%; max-height: 100%;">
                @endif
             </div>
             
