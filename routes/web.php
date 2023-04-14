@@ -59,6 +59,8 @@ Route::middleware(['auth','urlrecorder'])->group(function () {
     
     Route::get('membership-plans/{id?}', [App\Http\Controllers\SubscriptionController::class, 'membershipPlans'])->name('membershipPlans');
     Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');
+    Route::get('/payment-success', [App\Http\Controllers\SubscriptionController::class, 'showPaymentSuccess'])->name('payment.success');
+    Route::post('stripe-checkout-success', [App\Http\Controllers\SubscriptionController::class, 'handleCheckoutSuccess'])->name('stripe.checkout.success');
   //  Route::post('payment-details', [App\Http\Controllers\SubscriptionController::class, 'paymentDetails'])->name('paymentDetails');
     Route::post('payment', [App\Http\Controllers\SubscriptionController::class, 'savePaymentDetails'])->name('savePaymentDetail');
 //    Route::get('paywithpaypal', [App\Http\Controllers\SubscriptionController::class, 'paywithpaypal'])->name('paywithpaypal');

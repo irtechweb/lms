@@ -33,7 +33,10 @@ class SubscriptionController extends Controller {
         $this->_api_context->setConfig($paypal_configuration['settings']);
     }
 
-    public function membershipPlans(Request $request) {
+    public function membershipPlans(Request $request,$id = null) {
+        if ($request->has('canceled') && $request->input('canceled') == 1) {
+            Session::flash('error', 'We are sorry, the payment process was canceled. Please try again later.');
+        }
         $data['plans'] = \App\Models\Subscription::getSubscriptions();
         $data['hide_free_signup'] = session()->get('hide_free_signup');
         $userSubscriptionPlan = UserSubscribedPlan::where('user_id', auth()->user()->id)->where('is_active', 1)->first();
@@ -43,62 +46,132 @@ class SubscriptionController extends Controller {
         return view('membership-plan', compact('data'));
     }
 
-    public function paymentDetails(Request $request) {
-        $user_id = \Auth::user()->id;
-        $subscription_id = $request->get('selected-plan');
+    // public function paymentDetails(Request $request) {
+    //     $user_id = \Auth::user()->id;
+    //     $subscription_id = $request->get('selected-plan');
        
-        $data['user_id'] = $user_id;
-        $data['subscription_id'] =$subscription_id;
+    //     $data['user_id'] = $user_id;
+    //     $data['subscription_id'] =$subscription_id;
 
-        $subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
-        $data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
-        $subscription = $subscription;
+    //     $subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
+    //     $data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
+    //     $subscription = $subscription;
 
-        return view('payment-details', compact('data', 'subscription'));
-    }
+    //     return view('payment-details', compact('data', 'subscription'));
+    // }
 
     //stripe own page payment
-//    public function paymentDetails($user_id, $subscription_id) {
-//        $data['user_id'] = Crypt::decrypt($user_id);
-//        $data['subscription_id'] = Crypt::decrypt($subscription_id);
-//        $subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
-//        $data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
-//
-//        $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
-//        //create customer
-//        //pass customer in session
-//        $checkout_session = $stripe->checkout->sessions->create([
-//            'line_items' => [[
-//            'price_data' => [
-//                'currency' => 'usd',
-//                'product_data' => [
-//                    'name' => $subscription['plans'] . ' Subscription Plan',
-//                ],
-//                'unit_amount' => $data['price'] * 100,
-//            ],
-//            'quantity' => 1,
-//                ]],
-//            'mode' => 'payment',
-//            'success_url' => 'http://127.0.0.1:8000',
-//            'cancel_url' => 'http://127.0.0.1:8000/membershipPlans',
-//        ]);
-//
-//        header("HTTP/1.1 303 See Other");
-//        header("Location: " . $checkout_session->url);
-//
-//        echo "<pre>";
-//        print_r($checkout_session);
-//        exit;
-//
-////        echo "<pre>";
-////        print_r($decrypted_user_id);
-////        echo "<pre>";
-////        print_r($decrypted_subscription_id);
-////        exit;
-////        return view('payment-details', compact('data'));
-//    }
+    public function paymentDetails(Request $request) 
+    {
+        $user_id = \Auth::user()->id;
+        $subscription_id = $request->get('selected-plan');
+        $data['user_id'] = $user_id;
+        $data['subscription_id'] =$subscription_id;
+        $subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
+        $data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
 
-    public function savePaymentDetails(Request $request) {
+        $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
+        $product_description = 'The Impact Program from the Speak2Impact Academy by Susie Ashfield provides access to courses, practice with AI Tools, monthly group calls, and many other features.';
+        $plan = ($subscription['plans'] == "halfyearly" ? "Billed half yearly":"Billed yearly");
+        $checkout_session = $stripe->checkout->sessions->create([
+            'line_items' => [[
+            'price_data' => [
+                'currency' => 'gbp',
+                'product_data' => [
+                    'name' => "Impact ($plan)",
+                    'description' => $product_description,
+                    'images' => [
+                        'https://academy.susieashfield.com/favicon.ico'
+                    ],
+                ],
+                'unit_amount' => $data['price'] * 100 ,
+                'tax_behavior' => 'exclusive', // Add this line
+            ],
+            //'price' => $data['price'] * 100,
+            'quantity' => 1,
+                ]],
+            'mode' => 'payment',
+            // Add custom metadata to store the membership plan
+            'metadata' => [
+                'membership_plan' => $subscription['plans'],
+                'user_id' => $user_id,
+                'subscription_id' => $subscription_id,
+                'price' => $data['price'] * 100,
+            ],
+            'allow_promotion_codes' => true,
+            'billing_address_collection' => 'required', // Require billing address
+            // 'terms_of_service' => 'required',
+            // 'tax_rates' => ['tax_rate_id'], // Replace 'tax_rate_id' with your actual tax rate ID
+            'success_url' => url('/payment-success?session_id={CHECKOUT_SESSION_ID}'), // Replace with your success route and include session ID
+            'cancel_url' => url('/membership-plans?canceled=1'), // Replace with your cancel route
+            'automatic_tax' => [
+                'enabled' => true,
+              ],
+        ]);
+
+        return redirect()->away($checkout_session->url);
+    }
+    
+    public function showPaymentSuccess()
+    {
+        return view('payment-success');
+    }
+    public function handleCheckoutSuccess(Request $request)
+    {   
+        \Stripe\Stripe::setApiKey(config('paths.secret_key'));    
+        // Retrieve the session from the Stripe API using the session ID
+        $session = \Stripe\Checkout\Session::retrieve($request->input('session_id'));
+        $metadata = $session->metadata;
+        // Extract your membership plan, user_id, and subscription_id from the metadata
+        $membership_plan = $metadata['membership_plan'];
+        $user_id = $metadata['user_id'];
+        $subscription_id = $metadata['subscription_id'];
+        $price = $session->amount_total / 100;
+
+        // Save the session and subscription data to the database
+        $subscription = new UserSubscribedPlan();
+        $subscription->user_id = auth()->user()->id;
+        $subscription->subscription_id = $subscription_id;
+        $subscription->price = $price;
+        $subscription->paid_with = 'credit_card';
+        $subDate = date('Y-m-d H:i:s');
+        $subscription->subscription_start_date = $subDate;
+        if (strtolower($membership_plan) == 'yearly') {
+            $subscription->subscription_end_date = date('Y-m-d H:i:s', strtotime($subDate . ' + 1 years'));
+        } elseif (strtolower($membership_plan) == 'halfyearly') {
+            $subscription->subscription_end_date = date('Y-m-d H:i:s', strtotime($subDate . ' + 6 months'));
+        }
+        $subscription->save();
+
+        $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_intent);
+        // Retrieve the PaymentMethod object
+        $paymentMethod = \Stripe\PaymentMethod::retrieve($paymentIntent->payment_method);
+        // now save payment details
+        $paymentData = new \App\Models\Payment();
+        $paymentData->subscription_id = $subscription_id;
+        $paymentData->price = $price;
+        $paymentData->user_id = auth()->user()->id;
+        $paymentData->card_number = $paymentMethod->card->last4; 
+        $paymentData->card_type = $paymentMethod->card->brand;
+        $paymentData->card_name = $paymentMethod->billing_details->name;
+        $paymentData->exp_month = '00';
+        $paymentData->exp_year = '0000';
+        // Retrieve the Charge object
+        $charges = \Stripe\Charge::all(['payment_intent' => $paymentIntent->id]);
+        $paymentData->receipt_url = $charges->data[0]->receipt_url;
+        $paymentData->payment_method_id = $paymentIntent->payment_method;
+
+        $paymentData->intent_id = $session->payment_intent;
+        $paymentData->gateway_response = serialize($session); // Serialize the entire session as the gateway response
+        $paymentData->save();
+
+        // Redirect the user to a success page
+        Session::flash('success', 'Stripe Payment has been successful!');
+        return redirect()->route('home')->with('Subscribed Successfully!');
+    }
+
+    public function savePaymentDetails(Request $request) 
+    {
         if (isset($request->user_id) && isset($request->subscription_id)) {
             // check if customer already subscribed to any subscription
             $data['request_data'] = $request->toArray();
@@ -115,8 +188,6 @@ class SubscriptionController extends Controller {
             }
             $data['subscription'] = \App\Models\Subscription::getSubscription($data['request_data']['subscription_id']);
             $paymentMthod = self::createPaymentMethod($data);
-            \Log::info('payment method');
-            \Log::info($paymentMthod);
             if ($paymentMthod['success'] == false) {
                 return redirect()->back()->with('Error occurred while adding payment method! please try again');
             }

@@ -95,7 +95,6 @@
                 success: function (response) {
                     $('.student-courses-div').html(response);
                     $('#studentCourseStatusModal').modal('show');
-                    console.log(response);
                 },
                 error: function(error) {
                     window.toast.fire({

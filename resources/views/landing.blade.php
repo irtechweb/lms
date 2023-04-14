@@ -253,8 +253,6 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 
 <script type="text/javascript">
     $('button.start-membership').on('click',function(){
-
-        console.log($(this).attr('route'));
         location.replace($(this).attr('route'));
     })
 </script>
