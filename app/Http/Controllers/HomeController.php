@@ -55,8 +55,6 @@ class HomeController extends Controller {
                 $course_id = \DB::table('curriculum_sections')->select('course_id')->where('section_id', '=', $sectionId)->pluck('course_id')->first();
                 $courseStatus =  Course::select('overview','is_active')->where('id',$course_id)->first();
                 if($courseStatus){
-                   
-                    $description =  Course::select('overview')->where('id',$course_id)->pluck('overview')->first();
                     
                     if($lastWatchCourse->curriculumLecturesQuiz->media == null)
                         $lesson_video_url = 'https://player.vimeo.com/video/798543316';
