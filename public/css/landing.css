@@ -441,14 +441,15 @@ ul.checks li img {
 }
 .hero-heading h1 {
     font-family: 'Space Grotesk', sans-serif !important;
-    font-size: 80px;
+    font-size: 90px;
     line-height: 115px;
     font-weight: 700;
-    max-width: 690px;
+    max-width: 750px;
     text-align: center;
     display: block;
     margin: 0 auto;
     color: #1C1C1C;
+    padding-right: 16px;
 }
 
 ul.features {

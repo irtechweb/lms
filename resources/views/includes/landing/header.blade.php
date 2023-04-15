@@ -15,7 +15,7 @@
               @else
                 <a href="{{url('login')}}"><button class="login login-action-gap">Login</button></a>
                 @if(Request::segment(1) != "verify-email" )
-                  <a href="{{route('register')}}"><button class="start-learning">Sign up</button></a>
+                  <a href="{{route('register')}}"><button class="start-learning" style="max-width: 186px; padding: 18px 19px;">Get started now</button></a>
                 @endif
               @endif
             @endif  
