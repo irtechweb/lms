@@ -61,56 +61,71 @@ class SubscriptionController extends Controller {
     // }
 
     //stripe own page payment
-    public function paymentDetails(Request $request) 
-    {
-        $user_id = \Auth::user()->id;
-        $subscription_id = $request->get('selected-plan');
-        $data['user_id'] = $user_id;
-        $data['subscription_id'] =$subscription_id;
-        $subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
-        $data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
+        public function paymentDetails(Request $request) 
+        {
+            $user_id = \Auth::user()->id;
+            $email = \Auth::user()->email;
+            $subscription_id = $request->get('selected-plan');
+            $data['user_id'] = $user_id;
+            $data['subscription_id'] =$subscription_id;
+            $subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
+            $data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
 
-        $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
-        $product_description = 'The Impact Program from the Speak2Impact Academy by Susie Ashfield provides access to courses, practice with AI Tools, monthly group calls, and many other features.';
-        $plan = ($subscription['plans'] == "halfyearly" ? "Billed half yearly":"Billed yearly");
-        $checkout_session = $stripe->checkout->sessions->create([
-            'line_items' => [[
-            'price_data' => [
-                'currency' => 'gbp',
-                'product_data' => [
-                    'name' => "Impact ($plan)",
-                    'description' => $product_description,
-                    'images' => [
-                        'https://academy.susieashfield.com/favicon.ico'
+            $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
+            $product_description = 'The Impact Program from the Speak2Impact Academy by Susie Ashfield provides access to courses, practice with AI Tools, monthly group calls, and many other features.';
+            $plan = ($subscription['plans'] == "halfyearly" ? "Billed half yearly":"Billed yearly");
+            $product_id = $subscription['stripe_product_id'];
+            $product = $stripe->products->retrieve($product_id);
+
+            $prices = $stripe->prices->all([
+                'product' => $product_id,
+            ]);
+            
+            $price_id = null;
+            if (count($prices->data) > 0) {
+                $price_id = $prices->data[0]->id;
+            } 
+            $recurring_interval = 'year';
+            if($price_id){
+                $stripe_price = $stripe->prices->retrieve($price_id);
+                $recurring_interval = $stripe_price->recurring->interval; 
+            }
+            $checkout_session = $stripe->checkout->sessions->create([
+                'customer_email' => $email,
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'gbp',
+                        'product_data' => [
+                            'name' => $product->name,
+                            'description' => $product->description, // Use the product description
+                            'images' => [
+                                isset($product->images[0]) ? $product->images[0] : 'https://academy.susieashfield.com/favicon.ico'
+                            ],
+                        ],
+                        'unit_amount' => $data['price'] * 100,
+                        'tax_behavior' => 'exclusive',
+                        'recurring' => ['interval' => $recurring_interval],
                     ],
-                ],
-                'unit_amount' => $data['price'] * 100 ,
-                'tax_behavior' => 'exclusive', // Add this line
-            ],
-            //'price' => $data['price'] * 100,
-            'quantity' => 1,
+                    'quantity' => 1,
                 ]],
-            'mode' => 'payment',
-            // Add custom metadata to store the membership plan
-            'metadata' => [
-                'membership_plan' => $subscription['plans'],
-                'user_id' => $user_id,
-                'subscription_id' => $subscription_id,
-                'price' => $data['price'] * 100,
-            ],
-            'allow_promotion_codes' => true,
-            'billing_address_collection' => 'required', // Require billing address
-            // 'terms_of_service' => 'required',
-            // 'tax_rates' => ['tax_rate_id'], // Replace 'tax_rate_id' with your actual tax rate ID
-            'success_url' => url('/payment-success?session_id={CHECKOUT_SESSION_ID}'), // Replace with your success route and include session ID
-            'cancel_url' => url('/membership-plans?canceled=1'), // Replace with your cancel route
-            'automatic_tax' => [
-                'enabled' => true,
-              ],
-        ]);
-
-        return redirect()->away($checkout_session->url);
-    }
+                'mode' => 'subscription',
+                'metadata' => [
+                    'membership_plan' => $subscription['plans'],
+                    'user_id' => $user_id,
+                    'subscription_id' => $subscription_id,
+                    'price' => $data['price'] * 100,
+                ],
+                'allow_promotion_codes' => true,
+                'billing_address_collection' => 'required',
+                'success_url' => url('/payment-success?session_id={CHECKOUT_SESSION_ID}&payment_method={PAYMENT_METHOD_ID}'),
+                'cancel_url' => url('/membership-plans?canceled=1'),
+                'automatic_tax' => [
+                    'enabled' => true,
+                ],
+            ]);
+            
+            return redirect()->away($checkout_session->url);
+        }
     
     public function showPaymentSuccess()
     {
@@ -143,9 +158,13 @@ class SubscriptionController extends Controller {
         }
         $subscription->save();
 
-        $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_intent);
+       // Remove this line: $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_method);
         // Retrieve the PaymentMethod object
-        $paymentMethod = \Stripe\PaymentMethod::retrieve($paymentIntent->payment_method);
+        //$paymentMethod = \Stripe\PaymentMethod::retrieve($session->payment_method);
+        $session = \Stripe\Checkout\Session::retrieve($request->input('session_id'));
+        $subscription = \Stripe\Subscription::retrieve($session->subscription);
+        $paymentMethodId = $subscription->default_payment_method;
+        $paymentMethod = \Stripe\PaymentMethod::retrieve($paymentMethodId);
         // now save payment details
         $paymentData = new \App\Models\Payment();
         $paymentData->subscription_id = $subscription_id;
@@ -156,14 +175,21 @@ class SubscriptionController extends Controller {
         $paymentData->card_name = $paymentMethod->billing_details->name;
         $paymentData->exp_month = '00';
         $paymentData->exp_year = '0000';
-        // Retrieve the Charge object
-        $charges = \Stripe\Charge::all(['payment_intent' => $paymentIntent->id]);
-        $paymentData->receipt_url = $charges->data[0]->receipt_url;
-        $paymentData->payment_method_id = $paymentIntent->payment_method;
 
-        $paymentData->intent_id = $session->payment_intent;
+        // Retrieve the latest invoice ID from the subscription
+        $invoice_id = $subscription->latest_invoice;
+
+        // Retrieve the Invoice object using the invoice ID
+        $invoice = \Stripe\Invoice::retrieve($invoice_id);
+
+        // Get the hosted invoice URL
+        $paymentData->receipt_url = $invoice->hosted_invoice_url;
+        $paymentData->payment_method_id =  $paymentMethodId;
+
+        $paymentData->intent_id = $invoice->payment_intent;
         $paymentData->gateway_response = serialize($session); // Serialize the entire session as the gateway response
         $paymentData->save();
+
 
         // Redirect the user to a success page
         Session::flash('success', 'Stripe Payment has been successful!');

@@ -31,7 +31,7 @@
                         @php $i =1; $uPlan = \Auth::user()->userSubscribedPlans()->get()->count();@endphp
                         @foreach ($currentCourses as $course)
                             @php
-                                $file_name = 'https://player.vimeo.com/video/800186201?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0';
+                                $file_name = 'https://www.youtube.com/embed/YLExFohPbBc?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/';
                                 if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
                                     //$file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
                                     $file_name = $course->course_videos[0]->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
@@ -46,7 +46,7 @@
                                 <div class="course-card">
                                     <div class="webinar-heading">{{$course->course_title}}</div>
                                     <div class="webinar-description">Susie Ashfield, Instructor</div>
-                                    <div class="webinar-image @if(!$uPlan) video-overlay @endif">
+                                    <div class="webinar-image">
                                         <div id="play_lesson" style="padding:58.00% 0 0 0;position:relative;width:100%;height:100%;">
                                             <iframe id="videoId" src="{{url($file_name)}}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:inherit;height:inherit;"></iframe>
                                         </div>
@@ -93,7 +93,7 @@
                                 <div class="course-card">
                                     <div class="webinar-heading">{{$course->course_title}}</div>
                                     <div class="webinar-description">Susie Ashfield, Instructor</div>
-                                    <div class="webinar-image video-overlay">
+                                    <div class="webinar-image">
                                         <div id="play_lesson" style="padding:58.00% 0 0 0;position:relative;width:100%;height:100%;">
                                             <iframe id="videoId" src="{{url($file_name)}}" allow=" autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:inherit;height:inherit;"></iframe>
                                         </div>

@@ -73,6 +73,16 @@ Edit Subscription Plan
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <label for="stripe_product_id">Stripe Product Id</label>
+                                                        <input step="any"
+                                                               name="stripe_product_id"
+                                                               type="text" class="form-control" value="{{$data['stripe_product_id']}}" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
                                                         <label for="Status">Plan</label>
                                                         <select name="plans" id="plans" value="{{$data['plans']}}" class="form-control">
                                                             <option  value="monthly" <?= ($data['plans'] == 'monthly') ? 'selected' : ''; ?>>Monthly</option>

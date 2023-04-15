@@ -73,6 +73,16 @@ Add Subscription Plan
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <label for="stripe_product_id">Stripe Product Id</label>
+                                                        <input step="any"
+                                                               name="stripe_product_id"
+                                                               type="text" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
                                                         <label for="Status">Plan</label>
                                                         <select class="form-control" required="" name="plans">
                                                             <option value="monthly">Monthly</option>

@@ -54,6 +54,7 @@ class SubscriptionController extends Controller {
         $inputs['price'] = $request['price'];
         $inputs['status'] = $request['status'];
         $inputs['booking_credit'] = $request['booking_credit'] ?? 2;
+        $inputs['stripe_product_id'] = $request['stripe_product_id'];
 
         return $inputs;
     }
