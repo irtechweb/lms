@@ -37,16 +37,11 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                 <img src="./images/heading-bg2.svg"
                     style="--top-right:10px;--bottom-right:50px; background: radial-gradient(#ffffc8,#fff); z-index:-1;"
                     class="h-patteren">
-                <h1>The Art of <br>Public Speaking </h1>
-                <span>by<img src="./images/r1.png"><span class="wavy">Susie Ashfield</span></span>
+                <h1>From muddled to mesmerising </h1>
+                <span style="font-weight: 500; font-size: 36px; line-height:46px; margin-top: 13px;">Share your story. Communicate to<br>connect. Frame, practice and deliver<br>talks that blow others away. </span>
             </div>
-            <ul class="features">
-                <li>✦ Learn at your pace</li>
-                <li>✦ Free webinars</li>
-                <li>✦ Schedule meeting with a Coach</li>
-            </ul>
             <a href="{{route('register')}}" style="text-decoration: none;">
-                <button>start learning <img src="./images/ar.svg" alt=""></button>
+                <button>Join the Academy <img src="./images/ar.svg" alt=""></button>
             </a>
         </div>
     </div>
@@ -56,18 +51,18 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
     <div class="container">
         <h2 class="mb-7">As featured in</h2>
         <div class="owl-carousel owl-theme">
-            <div class="item"> <img src="{{url('images/')}}/image-1.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/image-2.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/image-3.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/image-4.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/image-5.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/image-6.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/image-7.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c1.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c2.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c3.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c4.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c5.png" alt=""></div>
+            <div class="item"> <img src="{{url('images/featured/Black')}}/city-am.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/Daily Express.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/Daily Mail black.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/ELLE.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/Forbes.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/Stylist.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/The Independent.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/The Telegraph.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured/Black')}}/The Times.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured')}}/Metro.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured')}}/New York Post.png" alt=""></div>
+            <div class="item"><img src="{{url('images/featured')}}/We Are The City.png" alt=""></div>
         </div>
     </div>
 </div>
@@ -85,18 +80,17 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
         </video> --}}
         <div class="fun-stats">
             <h2><span>Learn the art of public speaking</span> with Susie Ashfield</h2>
-            <p>Join with yearly or monthly membership and get access to a our free webinars and schedule a meeting with
-                coach</p>
+            <p>Join with a yearly membership and get access to free webinars, personalised coaching and a community of people like you</p>
             <div class="facts">
-                <span><b class="counter">9</b>Chapters</span>
-                <span><b class="counter">62</b>Lessons</span>
+                <span><b class="counter">2</b>New courses<br>every month</span>
+                <span><b class="counter">5</b>Coach feedback<br>on exercise videos</span>
                 <span><b class="counter">80</b>Hours of videos</span>
             </div>
-            <ul class="checks">
+            <ul class="checks" style="font-size: 16px;">
                 <li><img src="{{url('images/')}}/check.svg" alt="">Learn at your own pace</li>
-                <li><img src="{{url('images/')}}/check.svg" alt="">Practice your pitch and get feedbacks</li>
-                <li><img src="{{url('images/')}}/check.svg" alt="">Free Webinars</li>
-                <li><img src="{{url('images/')}}/check.svg" alt="">Schedule meeting with a Coach</li>
+                <li><img src="{{url('images/')}}/check.svg" alt="">Practice your pitch and get feedback from a pro</li>
+                <li><img src="{{url('images/')}}/check.svg" alt="">Free Webinars to boost your skills further</li>
+                <li><img src="{{url('images/')}}/check.svg" alt="">Get access to the best coaches in the field</li>
             </ul>
         </div>
     </div>
@@ -133,16 +127,18 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
     <div class="container">
         <h2 class="mb-5">Trusted by</h2>
         <div class="owl-carousel trusted owl-theme">
-            <div class="item"><img src="{{url('images/')}}/c1.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c2.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c3.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c4.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c5.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c1.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c2.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c3.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c4.png" alt=""></div>
-            <div class="item"><img src="{{url('images/')}}/c5.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby/Black')}}/Lancashire.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby/Black')}}/Lloyds.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby/Black')}}/Rolls Royce.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby/Black')}}/Walt Disney.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/Coca Cola.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/Debretts.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/Generali.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/NATO OTAN.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/Royal Bank of Scotland.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/S_P Global.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/Santander-Logo.png" alt=""></div>
+            <div class="item"><img src="{{url('images/trustedby')}}/The Wine Society 1874.png" alt=""></div>
         </div>
     </div>
 </div>
@@ -157,7 +153,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                           $divclass = 'membership1';
                           $saave = 'saave';
                           $divheading = 'heading';
-                          $style = "border-radius: 6px;";
+                          $style = "border-radius: 6px; min-width: 246px;";
                           $checkimage = url('images/check.png');
                           
                         ?>
@@ -168,7 +164,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                             $divclass = 'membership2';
                             $saave = 'saave2';
                             $divheading = 'heading2';
-                            $style = "background-color: #1C1C1C; color: #fff; border: 1px solid #1c1c1c; border-radius: 6px;";
+                            $style = "background-color: #1C1C1C; color: #ffffc8; border: 1px solid #1c1c1c; border-radius: 6px; min-width: 246px;";
                             $checkimage = url('images/check_black.png');
 
                           }
@@ -176,17 +172,35 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
             <div class="col-lg-6 mb-60px" style="padding-right: 25px; padding-left: 25px;">
                 <div class="{{$divclass}}">
                     <div class="mem-btn">
-                        <button class="membership-btn" style="{{$style}}">{{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ucfirst($record['plans']) }}
-                            Membership</button>
+                        <button class="membership-btn" style="{{$style}}">{{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ($loop->iteration == 2 ? 'Impact Plus' : 'Impact') }}</button>
                     </div>
-                    <h3 class="price">£{{$record['price']}} {{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ucfirst($record['plans']) }}</h3>
+                    <h3 class="price">£{{$record['price']}} per year <span style="font-size: 16px;">+VAT</span></h3>
 
                     <p class="{{$saave}}" style="height: 24px;">
-                        @if($record['plans'] == "yearly")
-                        (Save {{$record['discount_percentage']}}% on {{$record['plans']}})@endif</p>
+                        @if($key === 1) (Get “The King’s Speech” treatment)@endif</p>
 
-                    <div style="min-height: 185px;">
-                    @if($record['is_access_cource'] == 1)
+                    <div style="min-height: 347px;" class="d-flex align-items-center">
+                        @if($loop->iteration == 1)
+                            <div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Access to two new courses every month</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Access to exercises to practise what you learn</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">5 practise video review[s] by a coach per month</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Unlimited access to Yoodli, the AI speech coaching technology</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">30% discount on 1:1 coaching sessions</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">A new educational webinar every month</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">1 live monthly group Q&A session with Susie Ashfield</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">1 live monthly group review video session with Susie Ashfield</p></div>
+                            </div>
+                        @else
+                            <div>
+                                <div class="d-flex fw-bolder"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">All features of Impact</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">A monthly 30-minute live coaching session with a coach of your choice. Worth over £ 2100</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Trained actors with years of experience in public speaking will transform you into a communication rockstar</p></div>
+                                <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">A bespoke approach for professionals who want a guided learning experience tailored to their needs</p></div>
+                            </div>
+                        @endif
+                        {{-- <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span></p><p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span></p> --}}
+                    {{-- @if($record['is_access_cource'] == 1)
                     <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to all courses</p>
                     @endif
                     <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>{{$record['duration']}} mins of
@@ -203,13 +217,13 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 
                     @if($record['yoodli_access'] == '1')
                     <p class="{{$divheading}}"><span><img src="{{$checkimage}}"></span>Access to Yoodli</p>
-                    @endif
+                    @endif --}}
                     </div>
                     @if(auth()->check())
                     <?php 
 
-                                    $route = route('paymentDetails',['user_id'=>(Crypt::encrypt(auth()->user()->id)),'subscription_id'=>(Crypt::encrypt($record['id']))]);
-                                    $label = "Start membership";
+                                        $route = route('paymentDetails',['user_id'=>(Crypt::encrypt(auth()->user()->id)),'subscription_id'=>(Crypt::encrypt($record['id']))]);
+                                        $label = "Start membership";
                                 ?>
                     @else
                     <?php
@@ -234,20 +248,22 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
             <div class="col-md-12" style="padding-right: 25px; padding-left: 25px;">
                 <div class="align-items-center justify-content-center">
                     <div class="Sign " style="border: 1px solid;">
-                        <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign
-                            up for Free</h5>
-                        <p class="heading2"><img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                        <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign up for Free</h5>
+                        <p class="heading2" style="margin-bottom: 12px;">
+                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
                             <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to webinars and other pre-recorded content'?>
-                            <span><img src="{{url('images/')}}/free-white.png">
+                            {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
                         </p>
-                        <button class="start-membershiIp" style="
-                                    background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none;
-        color: #FFF" href="{{url('register')}}">Sign up for Free</a></button>
+                        <p class="heading2" style="margin-bottom: 24px;">
+                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                            <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to Yoodli, the AI speech coaching technology'?>
+                            {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
+                        </p>
+                        <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;"><a style="text-decoration: none; color: #FFF" href="{{url('register')}}">Sign up for Free</a></button>
                     </div>
                 </div>
             </div>
         </div>
-    
     </div>
 </section>
 

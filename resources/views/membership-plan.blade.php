@@ -99,7 +99,7 @@ $(document).ready(function () {
                                       $divclass = 'membership1';
                                       $saave = 'saave';
                                       $divheading = 'heading';
-                                      $style = "border-radius: 6px;";
+                                      $style = "border-radius: 6px; min-width: 246px;";
                                       $checkimage = url('images/check.png');
                                       
                                     ?>
@@ -110,7 +110,7 @@ $(document).ready(function () {
                                         $divclass = 'membership2';
                                         $saave = 'saave2';
                                         $divheading = 'heading2';
-                                        $style = "background-color: #1C1C1C; color: #fff; border: 1px solid #1c1c1c; border-radius: 6px;";
+                                        $style = "background-color: #1C1C1C; color: #ffffc8; border: 1px solid #1c1c1c; border-radius: 6px; min-width: 246px;";
                                         $checkimage = url('images/check_black.png');
             
                                       }
@@ -118,16 +118,34 @@ $(document).ready(function () {
                                     <div class="col-lg-6" style="padding-right: 25px; padding-left: 25px; margin-bottom: 60px;">
                                         <div class="{{$divclass}}">
                                             <div class="mem-btn">
-                                            <button class="membership-btn" style="{{$style}}">{{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ucfirst($record['plans']) }} Membership</button>
+                                                <button class="membership-btn" style="{{$style}}">{{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ($loop->iteration == 2 ? 'Impact Plus' : 'Impact') }}</button>
                                             </div>
-                                            <h3 class="price">£{{$record['price']}} {{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ucfirst($record['plans']) }}</h3>
-                                            
+                                            <h3 class="price">£{{$record['price']}} per year <span style="font-size: 16px;">+VAT</span></h3>
+
                                             <p class="{{$saave}}" style="height: 24px;">
-                                                    @if($record['plans'] == "yearly")
-                                            (Save {{$record['discount_percentage']}}% on {{$record['plans']}})@endif</p>
-                                            
-                                            <div style="min-height: 185px;">
-                                             @if($record['is_access_cource'] == 1)
+                                                @if($key === 1) (Get “The King’s Speech” treatment)@endif</p>
+
+                                            <div style="min-height: 347px;" class="d-flex align-items-center">
+                                                @if($loop->iteration == 1)
+                                                    <div class="text-start">
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Access to two new courses every month</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Access to exercises to practise what you learn</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">5 practise video review[s] by a coach per month</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Unlimited access to Yoodli, the AI speech coaching technology</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">30% discount on 1:1 coaching sessions</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">A new educational webinar every month</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">1 live monthly group Q&A session with Susie Ashfield</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">1 live monthly group review video session with Susie Ashfield</p></div>
+                                                    </div>
+                                                @else
+                                                    <div class="text-start">
+                                                        <div class="d-flex fw-bolder"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">All features of Impact</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">A monthly 30-minute live coaching session with a coach of your choice. Worth over £ 2100</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Trained actors with years of experience in public speaking will transform you into a communication rockstar</p></div>
+                                                        <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">A bespoke approach for professionals who want a guided learning experience tailored to their needs</p></div>
+                                                    </div>
+                                                @endif
+                                             {{-- @if($record['is_access_cource'] == 1)
                                             <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>Access to all courses</p>
                                             @endif
                                            <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>{{$record['duration']}} mins of 1-to-1 with a coach per month</p>
@@ -139,7 +157,7 @@ $(document).ready(function () {
                                             
                                             @if($record['yoodli_access'] == '1')
                                             <p class="{{$divheading}} text-start"><span><img src="{{$checkimage}}"></span>Access to Yoodli</p>
-                                            @endif
+                                            @endif --}}
                                             </div>
                                             @if(auth()->check())
                                             <?php 
@@ -176,8 +194,16 @@ $(document).ready(function () {
                                 <div class="align-items-center justify-content-center">
                                     <div class="Sign " style="border: 1px solid;">
                                         <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;" class="text-start">Sign up for Free</h5>
-                                        <p class="heading2 text-start"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to webinars and other pre-recorded content <span><img src="{{url('images/')}}/free-white.png"></p>
-                                            <p class="heading2 text-start"><img src="./images/check.svg" alt="" style="margin-right: 1%;">Access to Yoodli<span><img src="{{url('images/')}}/free-white.png"></p>
+                                        <p class="heading2 text-start" style="margin-bottom: 12px;">
+                                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                                            <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to webinars and other pre-recorded content'?>
+                                            {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
+                                        </p>
+                                        <p class="heading2 text-start" style="margin-bottom: 24px;">
+                                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                                            <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to Yoodli, the AI speech coaching technology'?>
+                                            {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
+                                        </p>
                                         <button class="start-membershiIp" style="background-color:  #1C1C1C; color: #fff;">Sign up for Free</button>
                                         <input type="hidden" name="free_membership" id="free_membership" value="1">
                                     </div>
