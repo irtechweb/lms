@@ -33,9 +33,11 @@
                             @php
                                 $file_name = 'https://www.youtube.com/embed/YLExFohPbBc?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/';
                                 if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
-                                    //$file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
-                                    $file_name = $course->course_videos[0]->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
-                                    // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
+                                    $promoVideo = collect($course->course_videos)->where('video_name','Video Link')->first();
+                                    if($promoVideo){
+                                        $promoVideo->toArray();
+                                        $file_name = $promoVideo['video_title']."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                                    }  
                                 }
                             @endphp
                             @if($i > 3 && $i % 3 == 1)
@@ -78,11 +80,13 @@
                         @php $i =1; $uPlan = \Auth::user()->userSubscribedPlans()->get()->count();@endphp
                         @foreach ($upcomingCourses as $course)
                             @php
-                                $file_name = 'https://player.vimeo.com/video/800186201?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0';
+                                $file_name = 'https://www.youtube.com/embed/YLExFohPbBc?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/';
                                 if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
-                                    //$file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
-                                    $file_name = $course->course_videos[0]->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
-                                    // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
+                                    $promoVideo = collect($course->course_videos)->where('video_name','Video Link')->first();
+                                    if($promoVideo){
+                                        $promoVideo->toArray();
+                                        $file_name = $promoVideo['video_title']."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                                    }  
                                 }
                             @endphp
                             @if($i > 3 && $i % 3 == 1)

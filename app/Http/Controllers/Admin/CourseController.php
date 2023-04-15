@@ -1254,18 +1254,31 @@ class CourseController extends Controller {
         }
         try {
             DB::beginTransaction();
-            $courseVideo = CourseVideos::updateOrCreate([
-                'course_id' => $request->course_id,
-            ],[
-                'video_title' => $request->link,
-                'video_name' => 'Video Link',
-                'video_type' => '.mp4',
-                'duration' => '5:00',
-                'image_name' => 'no_image.png',
-                'video_tag' => 'curriculum',
-                'uploader_id' => \Auth::user()->id,
-                'processed' => '1',
-            ]);
+            $courseVideo = CourseVideos::where('course_id',$request->course_id)->where('video_name','Video Link')->first();
+            if($courseVideo){
+                $courseVideo->video_title = $request->link;
+                $courseVideo->video_name = 'Video Link';
+                $courseVideo->video_type = '.mp4';
+                $courseVideo->duration = '5:00';
+                $courseVideo->image_name = 'no_image.png';
+                $courseVideo->video_tag = 'curriculum';
+                $courseVideo->uploader_id = \Auth::user()->id;
+                $courseVideo->processed = 1;
+                $courseVideo->save();
+            }
+            else{
+                $courseVideo = new CourseVideos();
+                $courseVideo->course_id = $request->course_id;
+                $courseVideo->video_title = $request->link;
+                $courseVideo->video_name = 'Video Link';
+                $courseVideo->video_type = '.mp4';
+                $courseVideo->duration = '5:00';
+                $courseVideo->image_name = 'no_image.png';
+                $courseVideo->video_tag = 'curriculum';
+                $courseVideo->uploader_id = \Auth::user()->id;
+                $courseVideo->processed = 1;
+                $courseVideo->save();
+            }
             $course = Course::find($request->course_id);
             $course->course_video = $courseVideo->id;
             $course->save();

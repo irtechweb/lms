@@ -124,10 +124,12 @@
                         @foreach ($allCourses->take(6) as $course)
                             @php
                                 $file_name = 'https://www.youtube.com/embed/YLExFohPbBc?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/';
-                                if(isset($course->course_videos[0]) && !empty($course->course_videos) && $course->course_videos[0]->video_name == "Video Link") {
-                                    //$file_name = 'course/' . $course->id . '/' . $course->course_videos[0]->video_title . '.' . $course->course_videos[0]->video_type;
-                                    $file_name = $course->course_videos[0]->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
-                                    // $file_name = 'course/'.$course->course_id.'/'.$course->video_title.'.'.$course->video_type;
+                                if(isset($course->course_videos[0]) && !empty($course->course_videos)) {
+                                    $promoVideo = collect($course->course_videos)->where('video_name','Video Link')->first();
+                                    if($promoVideo){
+                                        $promoVideo->toArray();
+                                        $file_name = $promoVideo['video_title']."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                                    }  
                                 }
                             @endphp
                             @if($i > 3 && $i % 3 == 1)
