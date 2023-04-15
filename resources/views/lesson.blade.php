@@ -97,7 +97,7 @@ input[type="checkbox"]:checked::before {
                 {
                   $file_name = $first_video->video_title."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
                 } else {
-                  $file_name = "https://www.youtube.com/embed/sIBcQil9ARA?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
+                  $file_name = "https://www.youtube.com/embed/YLExFohPbBc?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/";
                 }
             ?>
               <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;border-radius: 12px;">

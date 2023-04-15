@@ -28,6 +28,7 @@ class Subscription extends Model {
         'price',
         'booking_credit',
         'status',
+        'stripe_product_id'
     ];
 
     /**
@@ -51,7 +52,8 @@ class Subscription extends Model {
             'price' => $data['price'],
             'yoodli_access' => $data['yoodli_access'],
             'status' => $data['status'],
-            'booking_credit' => $data['booking_credit']]);
+            'booking_credit' => $data['booking_credit'],
+            'stripe_product_id' => $data['stripe_product_id']]);
         return ($update) ? true : false;
     }
 

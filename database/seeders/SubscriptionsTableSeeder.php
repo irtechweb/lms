@@ -17,7 +17,7 @@ class SubscriptionsTableSeeder extends Seeder
     {
         $plans = [
             [
-                'plans' => 'monthly',
+                'plans' => 'yearly',
                 'discount_percentage' => 30,
                 'is_access_cource' => 1,
                 'duration' => 20,
@@ -26,6 +26,7 @@ class SubscriptionsTableSeeder extends Seeder
                 'yoodli_access' => '1',
                 'price' => 150,
                 'booking_credit' => 2,
+                'stripe_product_id' => 'prod_Ne2hSAHuvCd7dJ',
             ],[
                 'plans' => 'yearly',
                 'discount_percentage' => 30,
@@ -36,6 +37,7 @@ class SubscriptionsTableSeeder extends Seeder
                 'yoodli_access' => '1',
                 'price' => 2000,
                 'booking_credit' => 2,
+                'stripe_product_id' => 'prod_Ne2hSAHuvCd7dJ',
             ]
         ];
         Subscription::insert($plans);
