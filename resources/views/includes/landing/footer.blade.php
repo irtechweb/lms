@@ -30,7 +30,7 @@
                 <div class="col-md-2 offset-sm-1">
                     <div class="footer-links">
                         <a href="javascript:" class="contact-us-txt">Contact us</a>
-                        <a href="javascript:" class="contact-us-txt"><?=isset($setting->contact_email)?$setting->contact_email:"info@speak2impact.com"?></a>
+                        <a href="javascript:" class="contact-us-txt"><?=isset($setting->contact_email)?$setting->contact_email:"academy@susieashfield.com"?></a>
                     </div>
                     <div class="social-icon">
                         <a href="<?=isset($setting['instagram_link'])?$setting['instagram_link']:'https://www.instagram.com/speak2impact/' ?>" target="_blank"><img src="{{url('images/')}}/instagram.svg" width="28px" height="28px" alt=""></a>

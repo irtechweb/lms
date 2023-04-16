@@ -82,16 +82,16 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
             <h2><span>Learn the art of public speaking</span> with Susie Ashfield</h2>
             <p>Join with a yearly membership and get access to free webinars, personalised coaching and a community of people like you</p>
             <div class="facts">
-                <span><b class="counter">2</b>New courses<br>every month</span>
-                <span><b class="counter">5</b>Coach feedback<br>on exercise videos</span>
-                <span><b class="counter">80</b>Hours of videos</span>
+                <span class="text-center"><b class="counter">2</b>New courses<br>every month</span>
+                <span class="text-center"><div><b class="counter">60</b><b>+</b></div>Engaging<br>lessons</span>
+                <span class="text-center"><div><b class="counter">30</b><b>+</b></div>Tried and tested<br>exercises</span>
             </div>
-            <ul class="checks" style="font-size: 16px;">
-                <li><img src="{{url('images/')}}/check.svg" alt="">Learn at your own pace</li>
-                <li><img src="{{url('images/')}}/check.svg" alt="">Practice your pitch and get feedback from a pro</li>
-                <li><img src="{{url('images/')}}/check.svg" alt="">Free Webinars to boost your skills further</li>
-                <li><img src="{{url('images/')}}/check.svg" alt="">Get access to the best coaches in the field</li>
-            </ul>
+            <div class="row checks" style="font-size: 16px; max-width: 808px;">
+                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Learn at your own pace</div>
+                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Practice your pitch and get feedback from a pro</div>
+                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Free Webinars to boost your skills further</div>
+                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Get access to the best coaches in the field</div>
+            </div>
         </div>
     </div>
 </div>
@@ -99,7 +99,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 <div class="testimonial">
     <div class="container">
 
-        <h2><span>Some professionals</span> talking about us </h2>
+        <h2><span>Sceptical?</span> So were they. </h2>
         <div class="reviews">
             <div class="review">
                 <div class="client">
