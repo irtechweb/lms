@@ -293,7 +293,7 @@ footer li, footer li a{
             <h2>Contact Us</h2>
             <div class="footer-email">
             <i class="far fa-envelope footer-envelope"></i>
-                <p> <a class="mail-link" href="mailto:info@speaktoimpact.com">hello@susieashfield.com</a></p>
+                <p> <a class="mail-link" href="mailto:info@speaktoimpact.com">academy@susieashfield.com</a></p>
             </div>
         </div>
         <div id="follow-us">
