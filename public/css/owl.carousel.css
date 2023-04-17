@@ -82,7 +82,7 @@ margin-left:30px;}
   .owl-carousel .owl-nav button.owl-next{
     position:absolute;
     font-size: 40px;
-    right: 23px;
+    right: 0;
     top:20%;
   }
   .owl-carousel.owl-loaded {

@@ -3,8 +3,8 @@
 
 <style>
     .fun-facts iframe {
-        width: 350px;
-        height: 350px;
+        width: 100%;
+        height: 500px;
         margin: 0 auto;
         display: block;
         margin-top: 50px;
@@ -16,14 +16,77 @@
     .mb-60px {
         margin-bottom: 60px;
     }
-
-    @media(min-width:768px) {
-        .fun-facts iframe {
-            width: 800px;
-            height: 500px;
+    .hero-heading span{
+        font-weight: 500; 
+        font-size: 36px; 
+        line-height:46px; 
+        margin-top: 13px;
+    }
+    .h-patteren{
+        --top-right:10px;
+        --bottom-right:50px;
+        background: radial-gradient(#ffffc8,#fff);
+        z-index:-1;
+    }
+    .checks img{
+        place-self: flex-start;
+        margin-top: 5px;
+        height:12px;
+    }
+    
+    @media only screen and (min-width:1200px){
+        .plan-body-txt {
+            min-height: 347px;
         }
     }
 
+    @media only screen and (min-width:992px){
+        .fun-facts iframe {
+            width: 800px;
+        }
+        .plan-body-txt {
+            min-height: 390px;
+        }
+    }
+
+    @media only screen and (min-width:769px) and (max-width:991px){
+        .h-patteren{
+            width: 120% !important;
+        }
+    }
+    
+    @media only screen and (max-width:768px){
+        .fun-facts iframe {
+            width: 100% !important;
+        }
+        img.h-patteren{
+            top: 35% !important;
+        }
+        .h-patteren{
+            width: 100% !important;
+        }
+        .hero-heading h1{
+            font-size: 3.5rem;
+        }
+        .hero-heading span{
+            font-weight: 500; 
+            font-size: 1.75rem; 
+            line-height:46px; 
+            margin-top: 13px;
+        }
+    }
+    @media only screen and (max-width:576px){
+        img.h-patteren{
+        top:20% !important;
+    }
+    .hero button{
+        padding: 16px 38px !important;
+    }
+    .fun-facts iframe{
+        width: 100%;
+        height: 350px;
+    }
+    }
 </style>
 @php
 $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video')->pluck('value')->first();
@@ -35,10 +98,9 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
         <div class="hero-top">
             <div class="hero-heading">
                 <img src="./images/heading-bg2.svg"
-                    style="--top-right:10px;--bottom-right:50px; background: radial-gradient(#ffffc8,#fff); z-index:-1;"
                     class="h-patteren">
                 <h1>From muddled to mesmerising </h1>
-                <span style="font-weight: 500; font-size: 36px; line-height:46px; margin-top: 13px;">Share your story. Communicate to<br>connect. Frame, practice and deliver<br>talks that blow others away. </span>
+                <span>Share your story. Communicate to<br>connect. Frame, practice and deliver<br>talks that blow others away. </span>
             </div>
             <a href="{{route('register')}}" style="text-decoration: none;">
                 <button>Join the Academy <img src="./images/ar.svg" alt=""></button>
@@ -71,7 +133,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 <div class="fun-facts">
     <div class="container">
         <!--  <video width="800" height="500" controls poster="{{url('images/')}}/Frame_29.png"> -->
-        <iframe src="{{ isset($promo_video_link) ? $promo_video_link.'?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/' : 'https://www.youtube.com/embed/sIBcQil9ARA?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/' }}" title="Introduction Video" frameborder="0"  allowfullscreen id="youtube_player"></iframe>
+        <iframe width="100%" src="{{ isset($promo_video_link) ? $promo_video_link.'?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/' : 'https://www.youtube.com/embed/sIBcQil9ARA?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/' }}" title="Introduction Video" frameborder="0"  allowfullscreen id="youtube_player"></iframe>
         {{-- <video width="800" height="500" controls>
             <source src="<?= isset($setting->promo_video_link)?$setting->promo_video_link:'movie.mp4'?>"
                 type="video/mp4"> --}}
@@ -86,11 +148,11 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                 <span class="text-center"><div><b class="counter">60</b><b>+</b></div>Engaging<br>lessons</span>
                 <span class="text-center"><div><b class="counter">30</b><b>+</b></div>Tried and tested<br>exercises</span>
             </div>
-            <div class="row checks" style="font-size: 16px; max-width: 808px;">
-                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Learn at your own pace</div>
-                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Practice your pitch and get feedback from a pro</div>
-                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Free Webinars to boost your skills further</div>
-                <div class="col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Get access to the best coaches in the field</div>
+            <div class="row checks" style="font-size: 16px; max-width: 808px; width:100%;">
+                <div class="d-flex col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Learn at your own pace</div>
+                <div class="d-flex col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Practice your pitch and get feedback from a pro</div>
+                <div class="d-flex col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Free Webinars to boost your skills further</div>
+                <div class="d-flex col-md-6 p-0 mb-2"><img src="{{url('images/')}}/check.svg" alt="" class="mr-2">Get access to the best coaches in the field</div>
             </div>
         </div>
     </div>
@@ -144,7 +206,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 </div>
 <section class="membership">
     <h1 class="mt-5 mb-5"
-        style="display: flex; justify-content: center; color: #1C1C1C; font-weight: 500; font-size: 40px;"> Membership
+        style="display: flex; justify-content: center; color: #1C1C1C; font-weight: 500; font-size: 40px;text-align:center;"> Membership
         Plans</h1>
     <div class="container">
         <div class="row">
@@ -164,7 +226,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                             $divclass = 'membership2';
                             $saave = 'saave2';
                             $divheading = 'heading2';
-                            $style = "background-color: #1C1C1C; color: #ffffc8; border: 1px solid #1c1c1c; border-radius: 6px; min-width: 246px;";
+                            $style = "background-color: #1C1C1C; color: #ffffc8; border: 1px solid #1c1c1c; border-radius: 6px; min-width: 246px";
                             $checkimage = url('images/check_black.png');
 
                           }
@@ -179,7 +241,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                     <p class="{{$saave}}" style="height: 24px;">
                         @if($key === 1) (Get “The King’s Speech” treatment)@endif</p>
 
-                    <div style="min-height: 347px;" class="d-flex align-items-center">
+                    <div class="d-flex align-items-center plan-body-txt">
                         @if($loop->iteration == 1)
                             <div>
                                 <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Access to two new courses every month</p></div>
@@ -250,12 +312,12 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                     <div class="Sign " style="border: 1px solid;">
                         <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;">Sign up for Free</h5>
                         <p class="heading2" style="margin-bottom: 12px;">
-                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                            <img src="{{ asset('/images/check.svg') }}" alt="" style="margin-right: 1%;">
                             <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to webinars and other pre-recorded content'?>
                             {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
                         </p>
                         <p class="heading2" style="margin-bottom: 24px;">
-                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                            <img src="{{ asset('/images/check.svg') }}" alt="" style="margin-right: 1%;">
                             <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to Yoodli, the AI speech coaching technology'?>
                             {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
                         </p>

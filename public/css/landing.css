@@ -508,6 +508,7 @@ ul.features li:first-child {
     text-align: center;
     margin-bottom: 23px;
     font-family: 'Space Grotesk', sans-serif !important;
+    position: relative;
 }
 
 img.h-patteren {
@@ -542,7 +543,7 @@ img.h-patteren {
 @media only screen and (min-width: 280px) and (max-width: 445px) {
     .login-action{
         display:grid;
-        grid-template-columns: 1fr 1fr;
+row-gap: 1rem  !important;
     }
     .login{
         padding:12px 40px;
@@ -584,7 +585,7 @@ img.h-patteren {
         cursor:pointer;
     }
     .h-patteren{
-        display: none;
+        display: inherit;
     }
     button.start-membershipp{
         font-size: 18px;
@@ -681,9 +682,9 @@ img.h-patteren {
         justify-content: center;
     }
 }
-@media only screen and (min-width: 768px) and (max-width: 992px) {
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     .h-patteren{
-        display: none;
+        display: inherit;
     }
     .fun-facts video{
         width: 600px;
@@ -691,11 +692,13 @@ img.h-patteren {
     }
   
     .membership1 {
-        margin:50px 50px;
+        margin-inline: 50px;
     }
     .membership2{
-        margin:50px 50px;
-        
+        margin-inline: 50px;   
+    }
+    .Sign{
+        margin-inline: 50px;
     }
     /*
     .body  {

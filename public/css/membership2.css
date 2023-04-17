@@ -132,6 +132,7 @@
     padding: 15px 20px;
     display: block;
     width: 100%;
+    margin-inline: auto;
 }
 
 button.start-membershipp {

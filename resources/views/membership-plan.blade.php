@@ -1,5 +1,18 @@
 @extends('layouts.landing')
 @section('content')
+<style>
+    @media only screen and (min-width:1200px){
+        .plan-body-txt {
+            min-height: 347px;
+        }
+    }
+
+    @media only screen and (min-width:992px){
+        .plan-body-txt {
+            min-height: 390px;
+        }
+    }
+</style>
 <script>
 $(document).ready(function () {
 
@@ -71,7 +84,7 @@ $(document).ready(function () {
 </script>
     <body>
         <!-- MultiStep Form -->
-        <div class="col-lg-12 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+        <div class="col-12 text-center p-0 mt-3 mb-2">
             <div class="">
                 <!-- @if (Session::has('success'))
                 <div class="alert alert-success text-center">
@@ -125,7 +138,7 @@ $(document).ready(function () {
                                             <p class="{{$saave}}" style="height: 24px;">
                                                 @if($key === 1) (Get “The King’s Speech” treatment)@endif</p>
 
-                                            <div style="min-height: 347px;" class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center plan-body-txt">
                                                 @if($loop->iteration == 1)
                                                     <div class="text-start">
                                                         <div class="d-flex"><p style="margin-right: 12px;"><img src="{{$checkimage}}"></p><p class="{{$divheading}}" style="margin-bottom: 12px;">Access to two new courses every month</p></div>
