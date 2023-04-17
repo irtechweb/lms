@@ -88,7 +88,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                             </div>
                                         </div> -->
                                         <div class="flex-grow-1 ms-2">
-                                            <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
+                                            <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{ isset($subs->plan_name) ? strtoupper($subs->plan_name) : 'N/A' }}</span></h6>
                                             <span class="card-text">Expires on: {{$subs->subscription_end_date}}</span>
                                         </div>
                                         </div>
@@ -97,7 +97,7 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                     <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
                                     <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{strtoupper($subs->plans)}}</span></h6>
+                                        <h6 class="mb-0">Subscription Plan &nbsp;: <span class="badge bg-primary rounded-pill text-uppercase ms-1">{{ isset($subs->plan_name) ? strtoupper($subs->plan_name) : 'N/A' }}</span></h6>
                                         </div>
                                         </div>
                                         </a>

@@ -36,7 +36,10 @@ class SubscriptionsDataTable extends DataTable
                     return '<span class="badge badge-danger">In-Active</span>';
                 }
             })
-            ->rawColumns(['status', 'action']);
+            ->addColumn('plan_name', function ($subscription) {
+                return isset($subscription->plan_name) ? $subscription->plan_name : 'N/A';
+            })
+            ->rawColumns(['plan_name', 'status', 'action']);
     }
 
     /**
@@ -78,6 +81,9 @@ class SubscriptionsDataTable extends DataTable
                     ->title('ID'),
             Column::make('plans')
                     ->title('Subscription Plan'),
+            Column::computed('plan_name')
+                    ->title('Plan Name')
+                    ->addClass('text-center'),
             Column::make('duration'),
             Column::make('price')
                     ->title('Price ($)'),
