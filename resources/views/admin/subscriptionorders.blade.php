@@ -57,12 +57,13 @@ Subscription Orders
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">
                                     @include('includes.error')
-                                    <div class="">
-                                        <table class="table table-striped table-bordered base-style table-responsive" id="subscription_orders_table" style="width: 100%; display: table; white-space: nowrap;">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered base-style " id="subscription_orders_table" style="width: 100%; display: table; white-space: nowrap;">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Plan</th>
+                                                    <th>Plan Name</th>
                                                     <th>User</th>
                                                     <th>Price</th>
                                                     <th>status</th>
@@ -116,6 +117,7 @@ Subscription Orders
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
                 {data: 'plan', name: 'plan'},
+                {data: 'plan_name', name: 'plan_name'},
                 {data: 'user', name: 'user'},
                 {data: 'price', name: 'price', orderable: false, searchable: false},
                 {data: 'status', name: 'status'},

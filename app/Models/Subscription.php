@@ -19,6 +19,7 @@ class Subscription extends Model {
      */
     protected $fillable = [
         'plans',
+        'plan_name',
         'discount_percentage',
         'is_access_cource',
         'duration',
@@ -44,6 +45,7 @@ class Subscription extends Model {
     public static function updateData($data) {
         $update = Subscription::where('id', $data['id'])
                 ->update(['plans' => $data['plans'],
+            'plan_name' => $data['plan_name'],
             'discount_percentage' => $data['discount_percentage'],
             'is_access_cource' => $data['is_access_cource'],
             'duration' => $data['duration'],
