@@ -19,7 +19,7 @@ font-weight: 500;
 line-height: 24px;
 letter-spacing: 0em;
 text-align: left;
-">You can Schedule 60 mins 1:1 meeting with a coach as per <u>your plan</u> selected
+">You can Schedule 30 mins 1:1 meeting with a coach as per <u>your plan</u> selected
                 with the given calendy below</h6>
                 <!-- <span class="header1">Schedule 1:1 meeting with coach</br></span>   -->
 
@@ -40,8 +40,8 @@ text-align: left;
 <!-- </div> -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if($count>0)
-<div class="calendly-inline-widget" data-url="https://calendly.com/susie-speak2impact-/60min" style="min-width:320px;height:630px;">
-    
+<!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/speak2impactacademy" style="min-width:320px;height:630px;"></div>
 </div>
 @else
 <!-- <div class="hero">
@@ -77,7 +77,7 @@ text-align: center;
                        Add More Booking credits?
                     </div> -->
                     
-                    <h6><span>£<?= $price ?> for each 60 min minutes</span></h6>
+                    <h6><span>£<?= $price ?> for each 30 min minutes</span></h6>
                     <button class="start-membership">Buy more booking slots</button>
                     
                 </div>
@@ -103,27 +103,38 @@ text-align: center;
     //}
 
 
+// function isCalendlyEvent(e) {
+//     return e.origin === "https://calendly.com/speak2impactacademy" && e.data.event && e.data.event.indexOf("calendly.") === 0;
+// };
 function isCalendlyEvent(e) {
     return e.origin === "https://calendly.com" && e.data.event && e.data.event.indexOf("calendly.") === 0;
-}
-;
+};
 
 window.addEventListener("message", function (e) {
+    console.log(e); // Log the event data
     if (isCalendlyEvent(e)) {
         /* name of the event */
         console.log("Event name:", e.data.event);
 
         /* payload of the event */
         console.log("Event details:", e.data.payload);
-        console.log("Event URL:", e.data.payload.event.uri);
-//        console.log("Event Invitee:", e.data.payload.invitee.uri);
-        var event_url = e.data.payload.event.uri;
-        var invitee_url = e.data.payload.invitee.uri;
 
-        scheduleEventFunction(event_url, invitee_url);
+        if (e.data.payload.event) {
+            console.log("Event URL:", e.data.payload.event.uri);
+            var event_url = e.data.payload.event.uri;
+        }
 
+        if (e.data.payload.invitee) {
+            console.log("Invitee URL:", e.data.payload.invitee.uri);
+            var invitee_url = e.data.payload.invitee.uri;
+        }
+
+        if (event_url && invitee_url) {
+            scheduleEventFunction(event_url, invitee_url);
+        }
     }
 });
+
 
 function scheduleEventFunction(event_url, invitee_url) {
     var routeUrl = '<?php echo route("createBooking") ?>';
@@ -134,7 +145,9 @@ function scheduleEventFunction(event_url, invitee_url) {
         type: "POST",
         data: {event_url: event_url, invitee_url: invitee_url},
         url: routeUrl,
+        dataType: 'json', // Add this line to ensure the response is treated as JSON
         success: function (data) {
+            console.log(data); // Add this line to log the response data
             if (data.success) {
                 Swal.fire('Booking Created Successfully');
                 setTimeout(function(){
@@ -144,12 +157,13 @@ function scheduleEventFunction(event_url, invitee_url) {
                 Swal.fire('Error occurred while saving booking data');
             }
         },
-        error: function () {
-//            console.log('flow is here in error case');
-            Swal.fire('something went wrong while saving this booking');
+        error: function (jqXHR, textStatus, errorThrown) { // Update the error function to capture more info
+            console.log('Error:', textStatus, errorThrown); // Log the error details
+            Swal.fire('Something went wrong while saving this booking');
         }
     });
 }
+
 
 </script>
 
