@@ -21,6 +21,9 @@ use PayPal\Api\Transaction;
 use Session;
 use Exception;
 use DB;
+use App\Models\AvailableBookingCount;
+use App\Models\BoughtCoaching;
+use Stripe\Charge;
 
 class BookingController extends Controller {
     private $_api_context;
@@ -31,15 +34,152 @@ class BookingController extends Controller {
         $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_configuration['client_id'], $paypal_configuration['secret']));
         $this->_api_context->setConfig($paypal_configuration['settings']);
     }
-    public function bookSlot() {
+    public function bookSlot(Request $request) {
+        if ($request->has('canceled') && $request->input('canceled') == 1) {
+            Session::flash('error', 'We are sorry, the payment process was canceled. Please try again later.');
+        }
         $data['coach_price'] = \App\Models\GeneralSetting::where('key','booking_credits_price')->pluck('value')->first();
-        
         $data['user_id'] = Auth::user()->id;
-
         return view('book-slot', compact('data'));
     }
-    
-    public function bookPaymentSlot(Request $request) {
+    public function bookPaymentSlot(Request $request){
+        $user_id = \Auth::user()->id;
+        $email = \Auth::user()->email;
+        $price = \App\Models\GeneralSetting::where('key','booking_credits_price')->pluck('value')->first();
+        $quantity = $request->get('quantity');
+
+        //$subscription_id = $request->get('selected-plan');
+        //$data['user_id'] = $user_id;
+        //$data['subscription_id'] =$subscription_id;
+        //$subscription = \App\Models\Subscription::getSubscription($data['subscription_id']);
+        //$data['price'] = !empty($subscription['price']) ? $subscription['price'] : null;
+
+        $stripe = new \Stripe\StripeClient(config('paths.secret_key'));
+        //$plan = ($subscription['plans'] == "halfyearly" ? "Billed half yearly":"Billed yearly");
+        $product_id = 'prod_NiLCkBAAzBb3TF';//$subscription['stripe_product_id'];
+        $product = $stripe->products->retrieve($product_id);
+
+        $prices = $stripe->prices->all([
+            'product' => $product_id,
+        ]);
+        
+        // $price_id = null;
+        // if (count($prices->data) > 0) {
+        //     $price_id = $prices->data[0]->id;
+        // } 
+        // //$recurring_interval = 'year';
+        // if($price_id){
+        //     $stripe_price = $stripe->prices->retrieve($price_id);
+        //     $recurring_interval = $stripe_price->recurring->interval; 
+        // }
+        $checkout_session = $stripe->checkout->sessions->create([
+            'customer_email' => $email,
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'gbp',
+                    'product_data' => [
+                        'name' => $product->name,
+                        'description' => $product->description, // Use the product description
+                        'images' => [
+                            isset($product->images[0]) ? $product->images[0] : 'https://academy.susieashfield.com/favicon.ico'
+                        ],
+                    ],
+                    'unit_amount' => $price * 100,
+                    'tax_behavior' => 'exclusive',
+                ],
+                'quantity' => $quantity,
+            ]],
+            'mode' => 'payment',
+            'metadata' => [
+                'user_id' => $user_id,
+                'price' => $price * 100,
+                'quantity' => $quantity,
+            ],
+            'allow_promotion_codes' => true,
+            'billing_address_collection' => 'required',
+            'success_url' => url('/meeting-payment-success?session_id={CHECKOUT_SESSION_ID}'),
+            'cancel_url' => url('/book-slot?canceled=1'),
+            'automatic_tax' => [
+                'enabled' => true,
+            ],
+        ]);
+        
+        return redirect()->away($checkout_session->url);
+    }
+    public function showPaymentSuccess()
+    {
+        return view('payment-success-stripe');
+    }
+    public function handleCheckoutSuccess(Request $request)
+    {   
+        \Stripe\Stripe::setApiKey(config('paths.secret_key'));    
+        // Retrieve the session from the Stripe API using the session ID
+        $session = \Stripe\Checkout\Session::retrieve($request->input('session_id'));
+        $metadata = $session->metadata;
+        // Extract your membership plan, user_id, and subscription_id from the metadata
+        $user_id = auth()->user()->id;
+        $price = $session->amount_total / 100;
+        $quantity = $metadata['quantity'];
+
+        $savepurchase = new BoughtCoaching();
+        $savepurchase->user_id = $user_id;
+        $savepurchase->price = $price;
+        $savepurchase->bill = $price * $quantity;
+        $savepurchase->quantity = $quantity;
+        $savepurchase->payment_status = 1;
+        $savepurchase->save();
+
+        $subscription = AvailableBookingCount::where('user_id',$user_id)->first();
+        if($subscription != NULL){
+            $book_count = $subscription->booking_count  + $quantity;
+        }
+        else {
+            $subscription = new AvailableBookingCount();
+            $book_count = $quantity;
+        }    
+        // Save the session and subscription data to the database
+        $subscription->user_id = auth()->user()->id;
+        $subscription->booking_count = $book_count;
+        $subscription->save();
+
+        $session = \Stripe\Checkout\Session::retrieve($request->input('session_id'));
+        $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_intent);
+        // Retrieve the PaymentMethod object
+        $paymentMethod = \Stripe\PaymentMethod::retrieve($paymentIntent->payment_method);
+
+       
+        // now save payment details
+        $paymentData = new \App\Models\CoachPayment();
+        $paymentData->price = $price;
+        $paymentData->user_id = auth()->user()->id;
+        $paymentData->card_number = $paymentMethod->card->last4; 
+        $paymentData->card_type = $paymentMethod->card->brand;
+        $paymentData->card_name = $paymentMethod->billing_details->name;
+        $paymentData->exp_month = '00';
+        $paymentData->exp_year = '0000';
+
+        // Retrieve the latest invoice ID from the subscription
+        $invoice_id = $subscription->latest_invoice;
+        // List charges related to the PaymentIntent
+        $charges = Charge::all([
+            'payment_intent' => $paymentIntent->id,
+        ]);
+
+        // Get the receipt URL from the first charge
+        $paymentData->receipt_url = $charges->data[0]->receipt_url;
+        $paymentData->payment_method_id =  $paymentMethod->id;
+
+        $paymentData->intent_id = $paymentIntent->id;
+        $paymentData->gateway_response = serialize($session); // Serialize the entire session as the gateway response
+        $paymentData->save();
+
+
+        // Redirect the user to a success page
+        Session::flash('success', 'Payment successful!');
+        return redirect()->route('meeting')->with('Payment Done Successfully!, Please Proceed further with booking');
+    }
+
+    public function bookPaymentSlotbk(Request $request) {
         
         try{
 

@@ -70,8 +70,9 @@ Route::middleware(['auth','urlrecorder'])->group(function () {
     Route::post('bookwithpaypal', [App\Http\Controllers\BookingController::class, 'postPaymentWithpaypal'])->name('bookwithpaypal');
     Route::get('bookwithpaypal', [App\Http\Controllers\BookingController::class, 'getPaymentStatus'])->name('bookstatus');
     Route::get('webinars', [App\Http\Controllers\WebinarController::class, 'getWebinars'])->name('getWebinars');
-Route::post('book-webinar', [App\Http\Controllers\WebinarController::class, 'bookWebinar'])->name('bookWebinar');
-
+    Route::post('book-webinar', [App\Http\Controllers\WebinarController::class, 'bookWebinar'])->name('bookWebinar');
+    Route::get('/meeting-payment-success', [App\Http\Controllers\BookingController::class, 'showPaymentSuccess'])->name('payment.success');
+    Route::post('meeting-stripe-checkout-success', [App\Http\Controllers\BookingController::class, 'handleCheckoutSuccess'])->name('meeting.stripe.checkout.success');
 
 Route::get('/deleteWebinar/{id}', [\App\Http\Controllers\Admin\WebinarController::class, 'deleteWebinar'])->name('deleteWebinar');
 Route::post('/createBooking', [\App\Http\Controllers\BookingController::class, 'createBooking'])->name('createBooking');
