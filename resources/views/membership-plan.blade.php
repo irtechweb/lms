@@ -208,12 +208,12 @@ $(document).ready(function () {
                                     <div class="Sign " style="border: 1px solid;">
                                         <h5 style="color: #1C1C1C; font-size:24px; font-weight:500; margin-bottom: 4%; margin-top: 0%;" class="text-start">Sign up for Free</h5>
                                         <p class="heading2 text-start" style="margin-bottom: 12px;">
-                                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                                            <img src="{{ asset('images/check.svg') }}" alt="" style="margin-right: 1%;">
                                             <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to webinars and other pre-recorded content'?>
                                             {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
                                         </p>
                                         <p class="heading2 text-start" style="margin-bottom: 24px;">
-                                            <img src="./images/check.svg" alt="" style="margin-right: 1%;">
+                                            <img src="{{ asset('images/check.svg') }}" alt="" style="margin-right: 1%;">
                                             <?= isset($setting->free_sign_up)?$setting->free_sign_up:'Access to Yoodli, the AI speech coaching technology'?>
                                             {{-- <span><img src="{{url('images/')}}/free-white.png"></span> --}}
                                         </p>

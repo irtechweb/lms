@@ -118,7 +118,7 @@
                                                         <select name="selected_plan" id="selected_plan" class="form-control">
                                                             <option value="" selected disabled>--Select Plan--</option>
                                                             @foreach ($plans as $plan)
-                                                                <option value="{{ $plan->id }}" data-plan="{{ $plan->plans }}" data-price="{{ $plan->price }}">{{ $plan->plans }}</option>
+                                                                <option value="{{ $plan->id }}" data-plan="{{ $plan->plans }}" data-price="{{ $plan->price }}">{{ isset($plan->plan_name) ? $plan->plan_name : 'N/A' }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

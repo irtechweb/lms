@@ -114,8 +114,8 @@ siteUrl = '<?php echo URL::to('/'); ?>/';
                                 <div class="dropdown-divider"></div> 
 
                         
-
-                                <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Sign out</a>
+                                {{-- <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Sign out</a> --}}
+                                <a class="dropdown-item" href="{{ route('logout') }}">Sign out</a>
                             </div>
                         </div>
                     </div>
