@@ -234,7 +234,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
             <div class="col-lg-6 mb-60px" style="padding-right: 25px; padding-left: 25px;">
                 <div class="{{$divclass}}">
                     <div class="mem-btn">
-                        <button class="membership-btn" style="{{$style}}">{{ $record['plans'] == 'halfyearly' ? 'Half Yearly' : ($loop->iteration == 2 ? 'Impact Plus' : 'Impact') }}</button>
+                        <button class="membership-btn" style="{{$style}}">{{ isset($record['plan_name']) ? $record['plan_name'] : 'N/A' }}</button>
                     </div>
                     <h3 class="price">£{{$record['price']}} per year <span style="font-size: 16px;">+VAT</span></h3>
 

@@ -79,6 +79,14 @@ Add Subscription Plan
                                                                type="text" class="form-control" required>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="plan_name">Plan Name</label>
+                                                        <input step="text"
+                                                               name="plan_name"
+                                                               type="text" class="form-control" required>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">

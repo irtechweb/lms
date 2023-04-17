@@ -45,6 +45,7 @@ class SubscriptionController extends Controller {
 
     public static function prepareData($request) {
         $inputs['plans'] = $request['plans'];
+        $inputs['plan_name'] = $request['plan_name'];
         $inputs['discount_percentage'] = $request['discount_percentage'];
         $inputs['is_access_cource'] = $request['is_access_cource'];
         $inputs['duration'] = $request['duration'];
