@@ -21,6 +21,7 @@ letter-spacing: 0em;
 text-align: left;
 ">You can Schedule 30 mins 1:1 meeting with a coach as per <u>your plan</u> selected
                 with the given calendy below</h6>
+                
                 <!-- <span class="header1">Schedule 1:1 meeting with coach</br></span>   -->
 
                 <!-- <span class="header2">You can Schedule 20 mins 1:1 meeting with a coach as per your plan selected

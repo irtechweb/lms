@@ -114,6 +114,7 @@ class SubscriptionController extends Controller {
                     'user_id' => $user_id,
                     'subscription_id' => $subscription_id,
                     'price' => $data['price'] * 100,
+                    'session_avaialable' => $subscription['booking_credit']
                 ],
                 'allow_promotion_codes' => true,
                 'billing_address_collection' => 'required',
@@ -139,13 +140,13 @@ class SubscriptionController extends Controller {
         $metadata = $session->metadata;
         // Extract your membership plan, user_id, and subscription_id from the metadata
         $membership_plan = $metadata['membership_plan'];
-        $user_id = $metadata['user_id'];
+        $user_id = auth()->user()->id;
         $subscription_id = $metadata['subscription_id'];
         $price = $session->amount_total / 100;
-
+        $booking_credit = $metadata['session_avaialable'];
         // Save the session and subscription data to the database
         $subscription = new UserSubscribedPlan();
-        $subscription->user_id = auth()->user()->id;
+        $subscription->user_id = $user_id;
         $subscription->subscription_id = $subscription_id;
         $subscription->price = $price;
         $subscription->paid_with = 'credit_card';
@@ -157,7 +158,8 @@ class SubscriptionController extends Controller {
             $subscription->subscription_end_date = date('Y-m-d H:i:s', strtotime($subDate . ' + 6 months'));
         }
         $subscription->save();
-
+        // booking credit 
+        \App\Models\AvailableBookingCount::createOrUpdate(['user_id' => $user_id, 'booking_count' => $booking_credit]);
        // Remove this line: $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_method);
         // Retrieve the PaymentMethod object
         //$paymentMethod = \Stripe\PaymentMethod::retrieve($session->payment_method);
