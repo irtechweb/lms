@@ -99,12 +99,15 @@ input[type="checkbox"]:checked::before {
                 $promo_video_name = $promo_video."?rel=0&autoplay=0&controls=0&modestbranding=1&origin=https://academy.susieashfield.com/"
             ?>
               <div  id="play_lesson" style="padding:58.00% 0 0 0;position:relative;border-radius: 12px;">
-                <iframe id="videoId" src="{{url($promo_video_name)}}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
-                style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius: 12px;">
-                </iframe>
-                <iframe id="videoId1" src="{{url($file_name)}}" allow="autoplay; picture-in-picture" allowfullscreen frameborder="0" 
-                style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius: 12px;" class="d-none">
-                </iframe>
+                @if(!$file_name)
+                  <iframe id="videoId" src="{{url($promo_video_name)}}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" 
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius: 12px;">
+                  </iframe>
+                @else  
+                  <iframe id="videoId1" src="{{url($file_name)}}" allow="autoplay; picture-in-picture" allowfullscreen frameborder="0" 
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius: 12px;">
+                  </iframe>
+                @endif  
               </div>
           </div>
           <div class="chapter-list" Style="min-height: 422px;">
@@ -322,11 +325,11 @@ $(document).ready(function(){
     });
 
     $('div.main-div').on('click',function(){
-      var youtubeIframe = document.querySelector('iframe#videoId');
-      youtubeIframe.src = ''; // Set the src to an empty string
-      youtubeIframe.classList.add('d-none');
+      // var youtubeIframe = document.querySelector('iframe#videoId');
+      // youtubeIframe.src = ''; // Set the src to an empty string
+      // youtubeIframe.classList.add('d-none');
       //document.querySelector('iframe#videoId').classList.add('d-none');
-      document.querySelector('iframe#videoId1').classList.remove('d-none');
+      //document.querySelector('iframe#videoId1').classList.remove('d-none');
       if(($(this).find('span#mark_completed').hasClass('in-progress')) == true ){
         return
       }
@@ -432,8 +435,8 @@ function getLessonDetail(course_id,lesson_id){
 function play(obj,from_play=false)
 {
   $('div.play-list img.pause').each(function() {
-        document.querySelector('iframe#videoId').classList.add('d-none');
-        document.querySelector('iframe#videoId1').classList.remove('d-none');
+        // document.querySelector('iframe#videoId').classList.add('d-none');
+        // document.querySelector('iframe#videoId1').classList.remove('d-none');
         $(this).addClass("play");
         $(this).removeClass("pause");
         $(this).attr('src','<?php echo url('images/Play button.svg'); ?>');
