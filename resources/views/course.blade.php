@@ -9,11 +9,12 @@
                 <img src="./images/trophy.png" alt="">
             </div>
             <div class="daily-progress">
-                <h3>Daily Goals<span><img src="./images/edit.svg" alt="">Edit Goals</span></h3>
+                {{-- <h3>Daily Goals<span><img src="./images/edit.svg" alt="">Edit Goals</span></h3> --}}
+                <h3>Daily Goals</h3>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <small>04/10 xp</small>
+                <small>Coming Soon</small>
             </div>
         </div>
     </div>

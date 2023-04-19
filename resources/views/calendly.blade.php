@@ -13,14 +13,10 @@
         <div class="row mt-5 mb-5">
             <div class="col-md-6">
                 <h2>Schedule 1:1 meeting with coach</h2>
-                <h6 style="font-family: Inter;
-font-size: 16px;
-font-weight: 500;
-line-height: 24px;
-letter-spacing: 0em;
-text-align: left;
-">You can Schedule 30 mins 1:1 meeting with a coach as per <u>your plan</u> selected
-                with the given calendy below</h6>
+                <h6 style="font-family: Inter; font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: 0em; text-align: left; text-align: justify;">
+                    You can purchase and book 1:1 Meeting slots with your coach at a 30% discounted price. For Plus members, you have 1
+                    session with your coach each month.
+                </h6>
                 
                 <!-- <span class="header1">Schedule 1:1 meeting with coach</br></span>   -->
 
