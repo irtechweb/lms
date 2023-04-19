@@ -91,11 +91,11 @@
      <button type="submit" class="login-m registerBtn">Book Slots</button>
     </form>
     </br>
-    <form method="post" action="{{route('bookwithpaypal')}}" enctype="multipart/form-data" id="msform"> @csrf <input type="hidden" name='user_id' value="{{Crypt::encrypt($data['user_id'])}}">
+    {{-- <form method="post" action="{{route('bookwithpaypal')}}" enctype="multipart/form-data" id="msform"> @csrf <input type="hidden" name='user_id' value="{{Crypt::encrypt($data['user_id'])}}">
       <input type="hidden" name='coach_price' value="{{$data['coach_price']}}">
       <button style="background: #FFFFFF;border: 1px solid #1C1C1C;box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);border-radius: 6px;display: block;width: 100%;border-radius: 6px;color: #1C1C1C;font-size: 18px;line-height: 27px;font-family: 'Inter', sans-serif;padding: 14px 20px;" type="submit" class="login-m registerBtn">
         <i class="fa fa-paypal" aria-hidden="true"></i>&nbsp; Pay with Paypal </button>
-    </form>
+    </form> --}}
     <br>
   </div>
 </div>
