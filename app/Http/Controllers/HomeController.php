@@ -96,7 +96,6 @@ class HomeController extends Controller {
         $data['completed_lesson_count'] = Course::join('curriculum_sections','curriculum_sections.course_id','courses.id')->join('curriculum_lectures_quiz','curriculum_lectures_quiz.section_id','curriculum_sections.section_id')->join('user_notes','curriculum_lectures_quiz.lecture_quiz_id','user_notes.lesson_id')->where('courses.id',$id)->where('user_notes.user_id',\Auth::user()->id)->where('completed',1)->count();
         
         $data['totalquiz'] = $coursecurriculum['totallectures'];
-
         $segments = request()->segments();
         //$last = request()->segment(2);
         //$lesson_id = request()->segment(3);
@@ -110,7 +109,14 @@ class HomeController extends Controller {
         else{
             $lesson = Course::get_lesson_section_id($lesson_id);
             $data['slectedsessionid'] = $lesson->section_id;
-            $firstLecture = collect($data['lecturesquiz'][3])->where('lecture_quiz_id',$lesson_id)->first();
+
+            $dynamicKey = null;
+            foreach ($data['lecturesquiz'] as $key => $value) {
+                $dynamicKey = $key;
+                break;
+            }
+            if ($dynamicKey !== null) 
+                $firstLecture = collect($data['lecturesquiz'][$dynamicKey])->where('lecture_quiz_id',$lesson_id)->first();
         }
         if($firstLecture)
             $mediaId = $firstLecture->media;
