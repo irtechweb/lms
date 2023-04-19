@@ -33,7 +33,158 @@
         margin-top: 5px;
         height:12px;
     }
-    
+    .brands-slp , .trusted-by-slp{
+  
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 35%;
+  z-index: 1;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.swiper, swiper-container{
+z-index: 0 !important;
+}
+.slp {
+position: absolute;
+left: 0;
+right: 0;
+top: 65%;
+-webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+}
+.carousal_img {
+width: 220px;
+height: 60px;
+}
+.swiper {
+width: 90%;
+height: 100%;
+margin-inline: auto;
+}
+.swiper-wrapper {
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-align: center;
+  -ms-flex-align: center;
+      align-items: center;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.swiper-slide img {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 25%;
+  flex: 1 0 25%;
+  display: block;
+  padding: 0 20px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  margin-inline: auto;
+  /* height: 250px; */
+}
+.swiper-button-next,
+.trusted-by-swiper-button-next,
+.trusted-by-swiper-button-prev,
+.swiper-button-prev {
+color: #000 !important;
+}
+.testimonials-swiper-button-prev:after,
+.trusted-by--swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+height: 277px !important;
+}
+.swiper-button-prev:after,
+.trusted-by-swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after,
+.swiper-rtl .trusted-by-swiper-button-next:after {
+font-size: 44px !important;
+font-weight: 900;
+height: auto;
+width: 101px;
+}
+.swiper-button-next:after,
+.trusted-by-swiper-next:after,
+.swiper-rtl .swiper-button-prev:after,
+.swiper-rtl .trusted-by-swiper-button-prev:after {
+font-size: 44px !important;
+font-weight: 900;
+height: auto;
+width: 101px;
+}
+.testimonials-swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after,
+.swiper-rtl .trusted-by-swiper-button-prev:after{
+height: 277px;
+}
+.brands, .trusted-by {
+width: 100%;
+padding-top: 50px;
+padding-bottom: 10px;
+position: relative;
+}
+
+.swiper-button-next, .swiper-button-prev{
+  margin-top: calc(-7px - (var(--swiper-navigation-size)/ 2));
+}
+.testimonials-container {
+  margin-top: 3rem;
+}
+/* 
+#testimonials > h3 {
+  text-align: center;
+  color: var(--color-primary-yellow);
+} */
+
+.testimonials-img > img {
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.testimonials-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 1rem 2rem;
+  line-height: 36px;
+  font-weight: 300;
+  width: 50%;
+  margin-inline: auto;
+  font-size: 1.6rem;
+
+}
+
+.testimonials-card > p {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
     @media only screen and (min-width:1200px){
         .plan-body-txt {
             min-height: 347px;
@@ -74,6 +225,12 @@
             line-height:46px; 
             margin-top: 13px;
         }
+        .testimonials-card {
+    width: 70%;
+    line-height: 1.5;
+    font-size: 24px;
+    margin: auto;
+  }
     }
     @media only screen and (max-width:576px){
         img.h-patteren{
@@ -86,24 +243,59 @@
         width: 100%;
         height: 350px;
     }
+    .testimonials-card > p{
+  font-size: 0.8rem;
+}
     }
+    @media screen and (max-width: 425px){
+        .swiper.mySwiper-1{
+width: 100% !important;
+        }
+        .testimonials-card{
+  width: 70%;
+  font-size: 20px;
+  line-height: 1.5;
+}
+.swiper-button-prev:after, .trusted-by-swiper-button-prev:after, .swiper-rtl .swiper-button-next:after, .swiper-rtl .trusted-by-swiper-button-next:after{
+    font-size: 2rem !important;
+}
+.swiper-button-next:after, .trusted-by-swiper-next:after, .swiper-rtl .swiper-button-prev:after, .swiper-rtl .trusted-by-swiper-button-prev:after{
+    font-size: 2rem !important;
+}
+.testimonials-swiper-button-next{
+    right: 0 !important;
+}
+.testimonials-swiper-button-prev{
+    left: 0 !important;
+}
+    }
+    @media (max-width: 1024px) {
+  .testimonials-card {
+    margin: 1rem 12rem;
+    margin-inline: auto;
+    line-height: 1.8;
+    width: 80%;
+  }
+}
+  
 </style>
 @php
 $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video')->pluck('value')->first();
 
 @endphp
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
 <div class="hero">
     <div class="container">
         <div class="hero-top">
             <div class="hero-heading">
-                <img src="./images/heading-bg2.svg"
+                <img src="{{ asset('images/heading-bg2.svg') }}"
                     class="h-patteren">
                 <h1>From muddled to mesmerising </h1>
                 <span>Share your story. Communicate to<br>connect. Frame, practice and deliver<br>talks that blow others away. </span>
             </div>
             <a href="{{route('register')}}" style="text-decoration: none;">
-                <button>Join the Academy <img src="./images/ar.svg" alt=""></button>
+                <button>Join the Academy <img src="{{ asset('images/ar.svg') }}" alt=""></button>
             </a>
         </div>
     </div>
@@ -112,20 +304,92 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 <div class="happy-client">
     <div class="container">
         <h2 class="mb-7">As featured in</h2>
-        <div class="owl-carousel owl-theme">
-            <div class="item"> <img src="{{url('images/featured/Black')}}/city-am.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/Daily Express.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/Daily Mail black.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/ELLE.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/Forbes.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/Stylist.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/The Independent.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/The Telegraph.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured/Black')}}/The Times.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured')}}/Metro.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured')}}/New York Post.png" alt=""></div>
-            <div class="item"><img src="{{url('images/featured')}}/We Are The City.png" alt=""></div>
-        </div>
+        <div class="brands">
+                <div class="container position-relative">
+                    <div class="brands-slp">
+                        <div id="brands-next" class="swiper-button-next"></div>
+                        <div id="brands-prev" class="swiper-button-prev"></div>
+                    </div>
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured/Black')}}/city-am.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured/Black')}}/Daily Express.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured/Black')}}/Daily Mail black.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class=" "  >
+                                <img src="{{url('images/featured/Black')}}/ELLE.png" alt="logo images"
+                                    class="carousal_img ">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured/Black')}}/Forbes.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class=" "  >
+                                <img src="{{url('images/featured/Black')}}/Stylist.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>           <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured/Black')}}/The Independent.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured/Black')}}/The Telegraph.png" alt="logo images"
+                                    class="carousal_img ">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured/Black')}}/The Times.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured')}}/Metro.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured')}}/New York Post.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/featured')}}/We Are The City.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          
+                        </div>
+                        
+                      </div>
+
+                </div>
+            </div>
     </div>
 </div>
 
@@ -162,7 +426,60 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
     <div class="container">
 
         <h2><span>Sceptical?</span> So were they. </h2>
-        <div class="reviews">
+        <div class="container p-0">
+                <div class="swiper mySwiper-1 w-100">
+                    <div class="testimonials-swiper-button-next swiper-button-next"></div>
+                    <div class="swiper-button-prev testimonials-swiper-button-prev"></div>
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <div class="testimonials-card">
+                            <p>If you are looking to get better at speaking, presenting, getting your message across or working with someone who can take your public speaking to the next level, look no further. Susie's 1:1 coaching, Academy, and workshops are all so brilliant, you won't go wrong in working with Susie if you want to communicate more effectively.</p>
+                            <div class="testimonials-img">
+                                <img src="{{asset('images/Testimonials')}}/stock_testimonial_1.jpg" alt="logo images">
+                            </div>
+                            <small>Sam Rathling</small>
+                            <p>LinkedIn Expert</p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="testimonials-card">
+                            <p>What helps Susie stand out from other speaking programs is that Susie helped me harness my authenticity as a presenter and storyteller, which I've learned is more impactful than the details I was so hung up on in the first place. Thank you, Susie! So grateful to have had your expertise- and better for it!</p>
+                            <div class="testimonials-img">
+                                <img src="{{asset('images/Testimonials')}}/stock_testimonial_2.jpg" alt="logo images">
+                            </div>
+                            <small>Jill Brewer Trainor</small>
+                            <p>Global Marketing Operations at Google</p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="testimonials-card">
+                            <p>If you are looking to start a journey in public speaking or just crave the confidence to speak up in meetings! Look no further, Susie has the ability to knock those jitters out and actually gets you to enjoy presenting or speaking out. </p>
+                            <div class="testimonials-img">
+                                <img src="{{asset('images/Testimonials')}}/stock_testimonial_3.jpg" alt="logo images">
+                            </div>
+                            <small>Vinny Wagjiani</small>
+                            <p>Coach</p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="testimonials-card">
+                            <p>Susie has hugely helped me and some of our team to speak with confidence and clarity, especially to large groups of people in stressful situations. I can't recommend her highly enough.</p>
+                            <div class="testimonials-img">
+                                <img src="{{asset('images/Testimonials')}}/stock_testimonial_2.jpg" alt="logo images">
+                            </div>
+                            <small>Derek Moore</small>
+                            <p>CEO of Coffee & TV Group</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                
+
+
+
+            </div>
+        <!-- <div class="reviews">
             <div class="review">
                 <div class="client">
                     <img src="./images/r1.png" alt="">
@@ -180,7 +497,7 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                 <p>“ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                     et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.“</p>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 
@@ -188,20 +505,92 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
 <div class="happy-client">
     <div class="container">
         <h2 class="mb-5">Trusted by</h2>
-        <div class="owl-carousel trusted owl-theme">
-            <div class="item"><img src="{{url('images/trustedby/Black')}}/Lancashire.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby/Black')}}/Lloyds.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby/Black')}}/Rolls Royce.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby/Black')}}/Walt Disney.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/Coca Cola.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/Debretts.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/Generali.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/NATO OTAN.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/Royal Bank of Scotland.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/S_P Global.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/Santander-Logo.png" alt=""></div>
-            <div class="item"><img src="{{url('images/trustedby')}}/The Wine Society 1874.png" alt=""></div>
-        </div>
+        <div class="trusted-by">
+                <div class="container position-relative">
+                    <div class="trusted-by-slp">
+                        <div id="trusted-next" class="swiper-button-next"></div>
+                        <div id="trusted-prev" class="swiper-button-prev"></div>
+                    </div>
+                    <div class="swiper trusted-by-swiper">
+                        <div class="swiper-wrapper">
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby/Black')}}/Lancashire.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby/Black')}}/Lloyds.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby/Black')}}/Rolls Royce.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class=" "  >
+                                <img src="{{url('images/trustedby/Black')}}/Walt Disney.png" alt="logo images"
+                                    class="carousal_img ">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby')}}/Coca Cola.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class=" "  >
+                                <img src="{{url('images/trustedby')}}/Debretts.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>           <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby')}}/Generali.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby')}}/NATO OTAN.png" alt="logo images"
+                                    class="carousal_img ">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby')}}/Royal Bank of Scotland.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby')}}/S_P Global.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby')}}/Santander-Logo.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div class="">
+                                <img src="{{url('images/trustedby')}}/The Wine Society 1874.png" alt="logo images"
+                                    class="carousal_img">
+                            </div>
+                          </div>
+                          
+                        </div>
+                        
+                      </div>
+
+                </div>
+            </div>
     </div>
 </div>
 <section class="membership">
@@ -328,11 +717,144 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
         </div>
     </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
 <script type="text/javascript">
     $('button.start-membership').on('click',function(){
         location.replace($(this).attr('route'));
     })
+    var swiper = new Swiper(".mySwiper", {
+          slidesPerView: 4,
+          spaceBetween: 10,
+          autoplay: {
+        delay: 3000,
+      },
+      loop: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          // Responsive breakpoints
+    breakpoints: {
+        320: {
+slidesPerView: 1,
+
+},
+375: {
+slidesPerView: 1,
+
+},
+550: {
+slidesPerView: 2,
+
+},
+768: {
+slidesPerView: 2,
+
+},
+1000: {
+slidesPerView: 3,
+
+},
+1200: {
+slidesPerView: 4,
+
+},
+    },
+    navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+    },
+    });
+
+    //Trusted By Swiper
+    var trusted_by_swiper = new Swiper(".trusted-by-swiper", {
+          slidesPerView: 4,
+          spaceBetween: 10,
+          autoplay: {
+        delay: 3000,
+      },
+      loop: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          // Responsive breakpoints
+    breakpoints: {
+        320: {
+slidesPerView: 1,
+
+},
+375: {
+slidesPerView: 1,
+
+},
+550: {
+slidesPerView: 2,
+
+},
+768: {
+slidesPerView: 3,
+
+},
+1000: {
+slidesPerView: 3,
+
+},
+1200: {
+slidesPerView: 4,
+
+},
+    },
+    navigation: {
+    nextEl: "#trusted-next",
+    prevEl: "#trusted-prev",
+    },
+    });
+    var testimonials_swiper = new Swiper(".mySwiper-1", {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      autoplay: {
+    delay: 3000,
+  },
+  loop: true,
+      pagination: {
+        el: ".swiper-pagination-2",
+        clickable: true,
+      },
+      // Responsive breakpoints
+breakpoints: {
+
+    320: {
+slidesPerView: 1,
+
+},
+375: {
+slidesPerView: 1,
+
+},
+550: {
+slidesPerView: 1,
+
+},
+768: {
+slidesPerView: 1,
+
+},
+1000: {
+slidesPerView: 1,
+
+},
+1200: {
+slidesPerView: 1,
+
+},
+},
+navigation: {
+nextEl: ".testimonials-swiper-button-next.swiper-button-next",
+prevEl: ".testimonials-swiper-button-prev.swiper-button-prev",
+},
+});
 </script>
 
 @endsection('content')
