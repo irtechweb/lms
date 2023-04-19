@@ -477,7 +477,7 @@ $(document).ready(function(){
     mode : "specific_textareas",
     editor_selector : "curricullamEditor",
     theme : "advanced",
-    theme_advanced_buttons1 : "bold,italic,underline",
+    theme_advanced_buttons1 : "bold,italic,underline,link",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align : "left",
     theme_advanced_statusbar_location : "bottom",
@@ -984,9 +984,11 @@ $(document).ready(function(){
     var lid = $(this).data('lid');
     // alert(lid);
     var text = $.trim(tinyClean(tinyMCE.get('lecturedesc-'+lid).getContent()));
+    var submitButton = $(this);
     if(text != '') {
       var courselecturedesc =$('[name="courselecturedesc"]').val();
       var _token =$('[name="_token"]').val();
+      submitButton.val('Please wait...');
       $.ajax ({
         type: "POST",
         url: courselecturedesc,
@@ -1014,9 +1016,14 @@ $(document).ready(function(){
           $('#lecture_add_content'+lid).find('.closeheader span.closetext').text('');
           $('#lecture_add_content'+lid).find('.closeheader').hide();
           $('.su_course_add_lecture_desc_content').hide();
-          
-          //location.reload(true);
-        }
+          submitButton.val('save');
+
+          location.reload(true);
+        },
+        error: function (error) {
+          // Change the button text back to "Save" in case of an error
+          submitButton.val('save');
+        },
       });
     } else {
       alert('{!! Lang::get("curriculum.curriculum_description") !!}');
@@ -1122,7 +1129,6 @@ $(document).ready(function(){
     $('#editblock'+lid).removeClass('hideit');
     $('#editblockfooter'+lid).removeClass('hideit');
     tinyMCE.get('lecturedesc-'+lid).setContent(getdescr);
-
   });
 
   $(document).on('click','.lmedia-video',function(){
