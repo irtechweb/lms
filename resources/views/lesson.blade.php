@@ -68,12 +68,14 @@ input[type="checkbox"]:checked::before {
           <img src="{{url('images/trophy.png')}}" alt="">
         </div>
         <div class="daily-progress">
-          <h3>Daily Goals<span><img src="{{url('images/edit.svg')}}" alt="">Edit Goals</span></h3>
+          {{-- <h3>Daily Goals<span><img src="{{url('images/edit.svg')}}" alt="">Edit Goals</span></h3> --}}
+          <h3>Daily Goals</h3>
           <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: {{$completion_per}}%" aria-valuenow="{{$completion_per}}" aria-valuemin="0"
               aria-valuemax="100"></div>
           </div>
-          <small>{{$completed_lesson_count}} / {{$totalquiz}} </small>
+          {{-- <small>{{$completed_lesson_count}} / {{$totalquiz}} </small> --}}
+          <small>Coming Soon</small>
         </div>
       </div>
     </div>

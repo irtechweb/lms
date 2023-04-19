@@ -287,7 +287,7 @@ footer li, footer li a{
 </style>
 <div id="footer-div">
         <div id="logo">
-          <a href="#"><img class="css-class cursor-pointer" src="{{url('logo/footer-yellow-logo.svg')}}" alt="logo" /></a>
+          <a href="{{ Auth::check() ? '/home' : '/' }}"><img class="css-class cursor-pointer" src="{{url('logo/footer-yellow-logo.svg')}}" alt="logo" /></a>
         </div>
         <div id="email">
             <h2>Contact Us</h2>
@@ -299,9 +299,9 @@ footer li, footer li a{
         <div id="follow-us">
             <h2>Follow Us</h2>
             <div class="footer-follow">
-                <a href="https://www.linkedin.com/in/susannahashfield/"><i class="fab fa-linkedin follow-icon"></i></a>
-                <a href="https://www.instagram.com/speak2impact/"><i class="fab fa-instagram follow-icon"></i></a>
-                <a href="https://www.tiktok.com/@smashfield89"><i class="fab fa-tiktok follow-icon"></i></a>
+                <a href="<?=isset($setting['linkedin_link'])?$setting['linkedin_link']:'https://www.linkedin.com/in/susannahashfield/' ?>" target="_blank"><i class="fab fa-linkedin follow-icon"></i></a>
+                <a href="<?=isset($setting['instagram_link'])?$setting['instagram_link']:'https://www.instagram.com/speak2impact/' ?>" target="_blank"><i class="fab fa-instagram follow-icon"></i></a>
+                <a href="<?=isset($setting['tiktok_link'])?$setting['tiktok_link']:'https://www.tiktok.com/@smashfield89' ?>" target="_blank"><i class="fab fa-tiktok follow-icon"></i></a>
             </div>
             <br/>
         </div>
@@ -314,9 +314,9 @@ footer li, footer li a{
 
         <div class="col-12 col-sm-12 col-md-7 col-lg-8 pl-0 pr-0 text-right text-end">
             <ul>
-                <li><a href="#">Cookie Policy</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li class="inline-grid-display"><a href="#">Terms of Service</a><span class="love-text"><a href="https://www.firstloop.se">Made with<b>&nbsp;❤️&nbsp;</b>by First Loop</a></span></li>
+                <li><a href="{{url('cookiepolicy')}}" target="_blank">Cookie Policy</a></li>
+                <li><a href="{{url('privacypolicy')}}" target="_blank">Privacy Policy</a></li>
+                <li class="inline-grid-display"><a href="{{url('termofservice')}}" target="_blank">Terms of Service</a><span class="love-text"><a href="https://www.firstloop.se" target="_blank">Made with<b>&nbsp;❤️&nbsp;</b>by First Loop</a></span></li>
             </ul>
         </div>
     </footer>
