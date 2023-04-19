@@ -66,6 +66,7 @@ class HomeController extends Controller {
                         'lesson_title' => $lastWatchCourse->objectname,
                         'description' => $courseStatus->description,
                         'lesson_video_url' => $lesson_video_url,
+                        'lesson_id' => $lastWatchCourse->objectid
                     ];
                 }
             }
@@ -100,6 +101,7 @@ class HomeController extends Controller {
         //$last = request()->segment(2);
         //$lesson_id = request()->segment(3);
         $last = $id;
+        $firstLecture = false;
         if ($lesson_id == null) {
             $lesson = Course::get_lesson_id($last);
             $lesson_id = $lesson->lecture_quiz_id;
@@ -108,11 +110,16 @@ class HomeController extends Controller {
         else{
             $lesson = Course::get_lesson_section_id($lesson_id);
             $data['slectedsessionid'] = $lesson->section_id;
-
+            $firstLecture = collect($data['lecturesquiz'][3])->where('lecture_quiz_id',$lesson_id)->first();
         }
-        $lectureQuiz = collect($data['lecturesquiz'])->first();
-        $firstLecture = $lectureQuiz->first();
-        $mediaId = $firstLecture->media;
+        if($firstLecture)
+            $mediaId = $firstLecture->media;
+        else{
+            $lectureQuiz = collect($data['lecturesquiz'])->first();
+            $firstLecture = $lectureQuiz->first();
+            $mediaId = $firstLecture->media;
+        }
+
         $firstVideo = DB::table('course_videos')->where('id', $mediaId)->get()->toArray();
         if($firstVideo)
             $data['first_video'] = $firstVideo[0];
@@ -131,7 +138,7 @@ class HomeController extends Controller {
            
         }
         $data['notes'] = DB::table('user_notes')->where('lesson_id', $lesson_id)->first();
-      
+       
         if (isset($data['lecturesquiz'][$last]) && !empty($data['lecturesquiz'])) {
             //$intro = DB::table('course_videos')->where('id', $data['lecturesquiz'][$last][0]->media)->where('video_name','!=','Video Link')->get()->toArray();
             $data['quiz_description'] = $data['lecturesquiz'][$last][0]->description;

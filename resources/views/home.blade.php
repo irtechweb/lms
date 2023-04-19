@@ -101,7 +101,7 @@
                                     {!! strlen(strip_tags($lastWatch['description'])) > 351 ? substr(strip_tags($lastWatch['description']), 0, 351) . "..." : $lastWatch['description'] !!}
                                 </span>
                                 {{-- Continue Button --}}
-                                <a href="{{ route('course-lesson', $lastWatch['course_id']) }}" class="cd-btn-link">
+                                <a href="{{ route('course-lesson-number', ['id' =>  $lastWatch['course_id'], 'lesson_id' =>$lastWatch['lesson_id']]) }}" class="cd-btn-link">
                                     <div class="cd-play-btn">
                                         <img src="{{ asset('/images/play_arrow.png') }}" alt="">
                                         <span class="cd-play-btn-txt">Continue learning</span>

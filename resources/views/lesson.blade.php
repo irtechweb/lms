@@ -138,7 +138,7 @@ input[type="checkbox"]:checked::before {
                       $video = $course_video[$lecturequiz->media];
                    
                     if($video != null)
-                      $videopath =$video->video_title."?title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&share=0";
+                      $videopath =$video->video_title;
                    
                     $imgsrc = url('images/Play button.svg');
                     $completed = "";
@@ -161,7 +161,8 @@ input[type="checkbox"]:checked::before {
                     <!-- <a href="{{route('course-lesson-number',[$course->id,$lecturequiz->lecture_quiz_id])}}"> -->
 
                     <div  class="play-list {{$cl}} main-div">
-                     <img onclickevent="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" id="play_btn" class="play" attr="{{$videopath}}" alt="" src="{{$imgsrc}}" >
+                     <img onclickevent="play(this)" course_id = "{{$course->id}}" lesson_id="{{$lecturequiz->lecture_quiz_id}}" id="play_btn" 
+                     class="play" attr="{{$videopath}}" alt="" src="{{$imgsrc}}" >
                      <span>{!! $lecturequiz->title !!}<!-- <small style= "float:right"> 2:01 mins</small> --></span> 
                       <span class="pull-right completed {{$completed}}" id="mark_completed" course_id="{{$course->id}}"
                         lesson_id="{{$lecturequiz->lecture_quiz_id}}">
