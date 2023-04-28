@@ -62,6 +62,7 @@ Subscription Orders
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
+                                                    <th>Email</th>
                                                     <th>Plan</th>
                                                     <th>Plan Name</th>
                                                     <th>User</th>
@@ -116,6 +117,7 @@ Subscription Orders
             ],
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
+                {data: 'email', name: 'email'},
                 {data: 'plan', name: 'plan'},
                 {data: 'plan_name', name: 'plan_name'},
                 {data: 'user', name: 'user'},

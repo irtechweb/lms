@@ -471,6 +471,17 @@ $promo_video_link = \App\Models\GeneralSetting::where('key','landing_page_video'
                             <p>CEO of Coffee & TV Group</p>
                         </div>
                       </div>
+                      <div class="swiper-slide">
+                        <div class="testimonials-card">
+                            <p>Thanks for being my personal trainer and making me do my reps. I felt amazing in delivering in the end…and learned to
+                            relax. I had lots of positive feedback from different levels of understanding – so pitch was perfect!</p>
+                            <div class="testimonials-img">
+                                <img src="{{asset('images/Testimonials')}}/stock_testimonial_3.jpg" alt="logo images">
+                            </div>
+                            <small>Harsha Patel</small>
+                            <p>Senior Investment Manager - Railpen Investments</p>
+                        </div>
+                      </div>
                     </div>
 
                   </div>

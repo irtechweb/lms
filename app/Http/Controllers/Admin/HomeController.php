@@ -135,7 +135,7 @@ class HomeController extends Controller
     {
         $plans = DB::table('user_subscribed_plans')->join('users', 'user_subscribed_plans.user_id', 'users.id')
             ->leftJoin('subscriptions', 'subscriptions.id', 'user_subscribed_plans.subscription_id')
-            ->select('user_subscribed_plans.*', 'users.first_name', 'users.last_name', 'subscriptions.plans', 'subscriptions.plan_name')->orderby('user_subscribed_plans.id', 'desc')->get();
+            ->select('user_subscribed_plans.*', 'users.email', 'users.first_name', 'users.last_name', 'subscriptions.plans', 'subscriptions.plan_name')->orderby('user_subscribed_plans.id', 'desc')->get();
         return Datatables::of($plans)
             ->addColumn('action', function ($record) {
                 return '<a type="button" href="javascript:" class="btn btn-outline-primary btn-sm edit-subscription-order">
@@ -143,6 +143,9 @@ class HomeController extends Controller
                         </a>';
             })
             ->setRowId('id')
+            ->addColumn('email', function ($record) {
+                return $record->email;
+            })
             ->addColumn('plan', function ($record) {
                 return $record->plans;
             })
@@ -170,7 +173,7 @@ class HomeController extends Controller
             // ->addColumn('created_at', function ($record) {
             //     return $record->created_at;
             // })
-            ->rawColumns(['plan', 'plan_name', 'user', 'price', 'paid_with', 'status', 'subscription_start_date', 'subscription_end_date', 'action'])
+            ->rawColumns(['email', 'plan', 'plan_name', 'user', 'price', 'paid_with', 'status', 'subscription_start_date', 'subscription_end_date', 'action'])
             ->addIndexColumn()->make(true);
     }
     
