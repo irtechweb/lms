@@ -88,7 +88,7 @@ input[type="checkbox"]:checked::before {
     <div class="container-main">
       <div class="chapter-detail-content">
         <div class="chapter-header">
-          <p class="cpf">Chapter {{$sectioncount}}: {{ $sections[$sectioncount-1]->title}}</p>
+          {{-- <p class="cpf">Chapter {{$sectioncount}}: {{ $sections[$sectioncount-1]->title}}</p> --}}
           <h1>{{$course['course_title']}}</h1>
           {{-- <h6>{{$course['name']}}, Instructor</h6> --}}
         </div>

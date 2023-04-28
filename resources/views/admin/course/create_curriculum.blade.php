@@ -195,8 +195,8 @@ $course_id = $course->id;
                                                <div class="formrow @if(!empty($lecturequiz->description)) hideit @endif" id="editblockfooter{!! $lecturequiz->lecture_quiz_id !!}">
                                                  <div class="row-fluid">
                                                    <div class="col col-lg-12"> 
-                                                     <input type="button" name="su_course_add_lecture_desc_submit" value="save" class="btn btn-warning su_course_add_lecture_desc_submit"  data-lid="{!! $lecturequiz->lecture_quiz_id !!}">
-                                                     <input type="button" id="btn_description" name="su_course_add_lecture_desc_cancel" value="Cancle" class="btn btn-warning su_course_add_lecture_desc_cancel" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}"></div>
+                                                     <input type="button" name="su_course_add_lecture_desc_submit" value="Save" class="btn btn-warning su_course_add_lecture_desc_submit"  data-lid="{!! $lecturequiz->lecture_quiz_id !!}">
+                                                     <input type="button" id="btn_description" name="su_course_add_lecture_desc_cancel" value="Cancel" class="btn btn-warning su_course_add_lecture_desc_cancel" data-blockid="{!! $lecturequiz->lecture_quiz_id !!}"></div>
                                                  </div>
                                                </div>
                          
